@@ -209,18 +209,31 @@
     .hamburger { display: flex; }
     .two-col { grid-template-columns: 1fr; }
     .content-wrap { padding: 40px 5%; }
-    .table-card { overflow-x: auto; }
-    .table-card table { min-width: 340px; }
+    .table-card { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .table-card table { min-width: 360px; }
     .table-card th, .table-card td { padding: 10px 12px; font-size: 0.8rem; }
     .btn-primary, .btn-outline { width: 100%; justify-content: center; padding: 14px 20px; }
+    .cta-bar { padding: 28px 20px; }
+    .cta-bar h3 { font-size: 1.25rem; }
+    .section-heading { font-size: 1.35rem; }
+    .table-card-header { padding: 16px 18px; }
+    .table-icon { width: 38px; height: 38px; font-size: 1.2rem; }
+    .alert-banner { padding: 12px 14px; font-size: 0.83rem; }
   }
   @media (max-width: 480px) {
     .nav-logo-text span { display: none; }
     .nav-logo img { height: 40px; }
-    .page-hero { padding: 96px 5% 44px; }
-    .section-heading { font-size: clamp(1.4rem, 5vw, 1.8rem); }
-    .content-wrap { padding: 32px 4%; }
+    .page-hero { padding: 90px 5% 40px; }
+    .page-hero h1 { font-size: clamp(1.6rem, 7vw, 2.4rem); }
+    .section-heading { font-size: clamp(1.2rem, 5vw, 1.5rem); }
+    .content-wrap { padding: 28px 4%; }
     .table-card th, .table-card td { padding: 8px 10px; font-size: 0.75rem; }
+    .table-card table { min-width: 300px; }
+    .back-link { font-size: 0.8rem; }
+    .fees-note { font-size: 0.75rem; padding: 8px 14px; }
+    .transport-routes { font-size: 0.75rem; padding: 8px 14px 12px; }
+    .btn-cta { display: block; text-align: center; margin: 6px 0; }
+    .divider { margin: 28px 0; }
   }
 </style>
 </head>
@@ -258,19 +271,14 @@
 
 <!-- PAGE HERO -->
 <div class="page-hero">
-  <div class="page-hero-tag">2025 / 2026 Academic Year</div>
+  <div class="page-hero-tag">Bright Sparks Junior School</div>
   <h1>School <span>Fees Structure</span></h1>
-  <p>Transparent, all-inclusive fees per term (UGX). Admissions ongoing from Kindergarten to Primary Seven.</p>
+  <p>Transparent, all-inclusive fees (UGX). Admissions ongoing from Kindergarten to Primary Seven.</p>
 </div>
 
 <!-- CONTENT -->
 <div class="content-wrap">
   <a href="index.html" class="back-link">← Back to Home</a>
-
-  <div class="alert-banner">
-    <span>⚠️</span>
-    <div><strong>Important:</strong> Term II fees must be cleared before the reporting day — <strong>May 25, 2026</strong>. Contact the school office for payment arrangements.</div>
-  </div>
 
   <!-- A) TUITION -->
   <div class="section-label">Section A</div>
@@ -357,83 +365,39 @@
 
   <div class="divider"></div>
 
-  <!-- C) UNIFORM & D) TOURS -->
-  <div class="two-col">
-
-    <!-- C) UNIFORM -->
-    <div>
-      <div class="section-label">Section C</div>
-      <div class="section-heading">Uniform <span>Costs</span></div>
-      <div class="table-card">
-        <div class="table-card-header">
-          <div class="table-icon green">👕</div>
-          <div>
-            <h2>Uniform Costs (UGX)</h2>
-            <span>Full sets per section</span>
-          </div>
-        </div>
-        <table>
-          <thead>
-            <tr><th>Section</th><th>Boys Total</th><th>Girls Total</th></tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Kindergarten</td>
-              <td class="amount">300,000/=</td>
-              <td class="amount">290,000/=</td>
-            </tr>
-            <tr>
-              <td>Primary</td>
-              <td class="amount">340,000/=</td>
-              <td class="amount">330,000/=</td>
-            </tr>
-            <tr>
-              <td>Labeling (all)</td>
-              <td colspan="2" class="amount">20,000/=</td>
-            </tr>
-          </tbody>
-        </table>
+  <!-- C) UNIFORM -->
+  <div class="section-label">Section C</div>
+  <div class="section-heading">Uniform <span>Costs</span></div>
+  <div class="table-card">
+    <div class="table-card-header">
+      <div class="table-icon green">👕</div>
+      <div>
+        <h2>Uniform Costs (UGX)</h2>
+        <span>Full sets per section</span>
       </div>
     </div>
-
-    <!-- D) TOURS -->
-    <div>
-      <div class="section-label">Section D</div>
-      <div class="section-heading">Term II Tours <span>(July 2026)</span></div>
-      <div class="table-card">
-        <div class="table-card-header">
-          <div class="table-icon gold">🌍</div>
-          <div>
-            <h2>Educational Tours (UGX)</h2>
-            <span>July 14–21, 2026</span>
-          </div>
-        </div>
-        <table>
-          <thead>
-            <tr><th>Group &amp; Date</th><th>Destination</th><th>Fee</th></tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><strong>P.1–P.2</strong><br><span style="font-size:0.75rem;color:var(--text-muted);">July 14</span></td>
-              <td style="font-size:0.8rem;">Airport, Zoo, Imperial Resort</td>
-              <td class="amount">100,000/=</td>
-            </tr>
-            <tr>
-              <td><strong>P.3–P.4</strong><br><span style="font-size:0.75rem;color:var(--text-muted);">July 16</span></td>
-              <td style="font-size:0.8rem;">Nytil, Nile Bridge, Source of the Nile, Tip Top Factory</td>
-              <td class="amount">120,000/=</td>
-            </tr>
-            <tr>
-              <td><strong>P.5–P.7</strong><br><span style="font-size:0.75rem;color:var(--text-muted);">July 17–21</span></td>
-              <td style="font-size:0.8rem;">Murchison Falls, Bunyoro Kingdom, Budongo Forest &amp; more</td>
-              <td class="amount">400,000/=</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-  </div><!-- /two-col -->
+    <table>
+      <thead>
+        <tr><th>Section</th><th>Boys Total</th><th>Girls Total</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Kindergarten</td>
+          <td class="amount">300,000/=</td>
+          <td class="amount">290,000/=</td>
+        </tr>
+        <tr>
+          <td>Primary</td>
+          <td class="amount">340,000/=</td>
+          <td class="amount">330,000/=</td>
+        </tr>
+        <tr>
+          <td>Labeling (all)</td>
+          <td colspan="2" class="amount">20,000/=</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
   <div class="divider"></div>
 

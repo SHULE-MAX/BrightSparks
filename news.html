@@ -6,7 +6,7 @@
 <title>News &amp; Announcements | Bright Sparks Junior School</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&family=Caveat:wght@700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700;1,800&display=swap" rel="stylesheet">
 <style>
   :root {
     --red: #D32F2F;
@@ -28,7 +28,7 @@
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; }
-  body { font-family: 'DM Sans', sans-serif; color: var(--text); background: var(--cream); overflow-x: hidden; }
+  body { font-family: 'Montserrat', sans-serif; color: var(--text); background: var(--cream); overflow-x: hidden; }
 
   /* NAV */
   nav {
@@ -89,7 +89,7 @@
     font-weight: 600; margin-bottom: 16px; position: relative; z-index: 1;
   }
   .page-hero h1 {
-    font-family: 'Playfair Display', serif; color: var(--white);
+    font-family: 'Montserrat', sans-serif; color: var(--white);
     font-size: clamp(2rem, 5vw, 3.2rem); line-height: 1.15; margin-bottom: 14px;
     position: relative; z-index: 1;
   }
@@ -106,7 +106,7 @@
   .filter-bar { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 36px; }
   .filter-btn {
     padding: 7px 18px; border-radius: 30px; border: 2px solid var(--navy);
-    background: transparent; color: var(--navy); font-family: 'DM Sans', sans-serif;
+    background: transparent; color: var(--navy); font-family: 'Montserrat', sans-serif;
     font-size: 0.82rem; font-weight: 600; cursor: pointer; transition: all 0.2s;
   }
   .filter-btn.active, .filter-btn:hover {
@@ -144,7 +144,7 @@
   .news-card-cat.sky   { color: var(--sky); }
 
   .news-card-title {
-    font-family: 'Playfair Display', serif; font-size: 1.05rem;
+    font-family: 'Montserrat', sans-serif; font-size: 1.05rem;
     color: var(--text); margin-bottom: 10px; line-height: 1.4;
   }
   .news-card-body p { font-size: 0.875rem; color: var(--text-muted); line-height: 1.6; flex: 1; }
@@ -166,7 +166,7 @@
     box-shadow: 0 2px 12px rgba(26,46,110,0.07);
   }
   .announcement h3 {
-    font-family: 'Playfair Display', serif; font-size: 1.1rem;
+    font-family: 'Montserrat', sans-serif; font-size: 1.1rem;
     color: var(--navy); margin-bottom: 6px;
   }
   .announcement p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; }
@@ -178,7 +178,7 @@
     color: var(--red); margin-bottom: 10px;
   }
   .section-heading {
-    font-family: 'Playfair Display', serif; font-size: 1.6rem; color: var(--navy);
+    font-family: 'Montserrat', sans-serif; font-size: 1.6rem; color: var(--navy);
     margin-bottom: 24px;
   }
   .section-heading span { color: var(--red); }
@@ -205,6 +205,15 @@
     .hamburger { display: flex; }
     .news-grid { grid-template-columns: 1fr; }
     .page-hero { padding: 100px 5% 48px; }
+    .filter-bar { gap: 6px; flex-wrap: wrap; justify-content: center; }
+    .filter-btn { padding: 7px 14px; font-size: 0.8rem; }
+    .content-wrap { padding: 36px 5%; }
+  }
+  @media (max-width: 480px) {
+    .nav-logo-text span { display: none; }
+    .nav-logo img { height: 40px; }
+    .page-title { font-size: clamp(1.5rem, 6vw, 2rem); }
+    .content-wrap { padding: 28px 4%; }
   }
 </style>
 </head>

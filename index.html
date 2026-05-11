@@ -6,7 +6,7 @@
 <title>Bright Sparks Junior School | We Shall Reach the Shore!</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&family=Caveat:wght@700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700;1,800&display=swap" rel="stylesheet">
 <style>
   :root {
     --red: #D32F2F;
@@ -28,7 +28,7 @@
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; }
-  body { font-family: 'DM Sans', sans-serif; color: var(--text); background: var(--white); overflow-x: hidden; }
+  body { font-family: 'Montserrat', sans-serif; color: var(--text); background: var(--white); overflow-x: hidden; }
 
   /* NAV */
   nav {
@@ -97,14 +97,15 @@
     margin-bottom: 20px; font-weight: 600;
   }
   .hero-title {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Montserrat', sans-serif;
     font-size: clamp(2.2rem, 4.5vw, 3.6rem);
     color: var(--white); line-height: 1.15; margin-bottom: 16px;
   }
   .hero-title em { color: var(--gold-light); font-style: italic; }
   .hero-motto {
-    font-family: 'Caveat', cursive;
-    font-size: clamp(1.2rem, 2.5vw, 1.65rem);
+    font-family: 'Montserrat', sans-serif;
+    font-style: italic; font-weight: 700;
+    font-size: clamp(1rem, 2vw, 1.35rem);
     color: #90CAF9; margin-bottom: 22px;
     display: flex; align-items: center; gap: 10px;
   }
@@ -135,7 +136,7 @@
   }
   .stat { text-align: center; }
   .stat-num {
-    font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 900;
+    font-family: 'Montserrat', sans-serif; font-size: 1.8rem; font-weight: 900;
     color: var(--gold-light); display: block;
   }
   .stat-label { font-size: 0.7rem; color: rgba(255,255,255,0.55); text-transform: uppercase; letter-spacing: 0.08em; }
@@ -190,7 +191,7 @@
     margin-bottom: 12px; border: 1px solid rgba(27,107,58,0.2);
   }
   .section-title {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Montserrat', sans-serif;
     font-size: clamp(1.7rem, 3vw, 2.4rem);
     color: var(--navy); line-height: 1.25; margin-bottom: 14px;
   }
@@ -210,7 +211,7 @@
   .about-card.red-top { border-top-color: var(--red); }
   .about-card.green-top { border-top-color: var(--green); }
   .about-card h3 {
-    font-family: 'Playfair Display', serif; font-size: 1.15rem;
+    font-family: 'Montserrat', sans-serif; font-size: 1.15rem;
     color: var(--navy); margin-bottom: 10px; display: flex; align-items: center; gap: 8px;
   }
   .about-card p { color: var(--text-muted); line-height: 1.75; font-size: 0.92rem; }
@@ -218,7 +219,7 @@
     background: linear-gradient(135deg, var(--navy), var(--navy-mid));
     border-radius: var(--radius); padding: 32px 28px; text-align: center; margin-bottom: 20px;
   }
-  .motto-banner .caveat { font-family: 'Caveat', cursive; font-size: 1.9rem; color: var(--gold-light); display: block; margin-bottom: 6px; }
+  .motto-banner .caveat { font-family: 'Montserrat', sans-serif; font-style: italic; font-weight: 800; font-size: 1.6rem; color: var(--gold-light); display: block; margin-bottom: 6px; }
   .motto-banner p { color: rgba(255,255,255,0.7); font-size: 0.86rem; }
   .values-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
   .value-chip {
@@ -230,13 +231,13 @@
     background: linear-gradient(135deg, var(--green), var(--green-light));
     border-radius: var(--radius); padding: 28px; color: white; grid-column: 1 / -1;
   }
-  .graduate-section h3 { font-family: 'Playfair Display', serif; font-size: 1.3rem; margin-bottom: 12px; }
+  .graduate-section h3 { font-family: 'Montserrat', sans-serif; font-size: 1.3rem; margin-bottom: 12px; }
   .graduate-traits { display: flex; flex-wrap: wrap; gap: 10px; }
   .trait { background: rgba(255,255,255,0.18); padding: 6px 16px; border-radius: 20px; font-size: 0.82rem; font-weight: 600; }
 
   /* MANAGEMENT STRIP */
   .mgmt-strip {
-    background: var(--navy); padding: 32px 4%;
+    background: var(--navy); padding: 36px 4%;
     display: flex; justify-content: center; gap: 0; flex-wrap: wrap;
     border-top: 3px solid var(--red);
   }
@@ -246,8 +247,15 @@
     flex: 1; min-width: 180px;
   }
   .mgmt-card:last-child { border-right: none; }
+  .mgmt-photo {
+    width: 76px; height: 76px; border-radius: 50%;
+    object-fit: cover; object-position: top;
+    border: 3px solid var(--gold);
+    margin: 0 auto 12px; display: block;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.35);
+  }
   .mgmt-card .mgmt-name { font-weight: 700; color: var(--white); font-size: 0.92rem; margin-bottom: 4px; }
-  .mgmt-card .mgmt-role { font-size: 0.75rem; color: var(--gold-light); text-transform: uppercase; letter-spacing: 0.07em; }
+  .mgmt-card .mgmt-role { font-size: 0.72rem; color: var(--gold-light); text-transform: uppercase; letter-spacing: 0.07em; }
 
   /* WHY */
   #why { background: var(--white); }
@@ -331,7 +339,7 @@
   .form-group label { font-size: 0.78rem; font-weight: 600; color: var(--navy); }
   .form-group input, .form-group select, .form-group textarea {
     padding: 10px 12px; border: 1.5px solid #DDE3EE; border-radius: var(--radius-sm);
-    font-size: 0.86rem; font-family: 'DM Sans', sans-serif; color: var(--text);
+    font-size: 0.86rem; font-family: 'Montserrat', sans-serif; color: var(--text);
     background: var(--white); transition: border-color 0.2s; outline: none;
   }
   .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
@@ -342,7 +350,7 @@
     color: white; border: none; cursor: pointer; font-weight: 700; font-size: 0.9rem;
     padding: 12px 22px; border-radius: var(--radius-sm); transition: all 0.25s;
     display: flex; align-items: center; justify-content: center; gap: 8px;
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Montserrat', sans-serif;
   }
   .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(26,46,110,0.3); }
   .adm-full { grid-column: 1 / -1; }
@@ -368,7 +376,7 @@
     background: linear-gradient(135deg, var(--navy), var(--navy-mid));
     border-radius: var(--radius); padding: 28px; color: white; margin-top: 24px;
   }
-  .transport-card h4 { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--gold-light); margin-bottom: 12px; }
+  .transport-card h4 { font-family: 'Montserrat', sans-serif; font-size: 1.1rem; color: var(--gold-light); margin-bottom: 12px; }
   .transport-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
   .transport-item {
     background: rgba(255,255,255,0.1); border-radius: var(--radius-sm); padding: 14px;
@@ -425,7 +433,7 @@
     background: linear-gradient(135deg, var(--navy), var(--navy-mid));
     border-radius: var(--radius); padding: 32px; color: white; position: sticky; top: 90px;
   }
-  .career-cta h3 { font-family: 'Playfair Display', serif; font-size: 1.5rem; margin-bottom: 12px; color: var(--gold-light); }
+  .career-cta h3 { font-family: 'Montserrat', sans-serif; font-size: 1.5rem; margin-bottom: 12px; color: var(--gold-light); }
   .career-cta p { color: rgba(255,255,255,0.75); line-height: 1.7; margin-bottom: 20px; font-size: 0.9rem; }
   .career-requirements { list-style: none; margin-bottom: 22px; }
   .career-requirements li { padding: 8px 0; color: rgba(255,255,255,0.8); font-size: 0.86rem; border-bottom: 1px solid rgba(255,255,255,0.1); display: flex; align-items: flex-start; gap: 8px; }
@@ -465,7 +473,7 @@
     background: linear-gradient(90deg, #0D1A45, var(--navy));
     padding: 36px 4%; text-align: center; border-top: 3px solid var(--red);
   }
-  .social-bar h3 { font-family: 'Playfair Display', serif; color: var(--white); font-size: 1.3rem; margin-bottom: 5px; }
+  .social-bar h3 { font-family: 'Montserrat', sans-serif; color: var(--white); font-size: 1.3rem; margin-bottom: 5px; }
   .social-bar p { color: rgba(255,255,255,0.6); font-size: 0.85rem; margin-bottom: 22px; }
   .social-links { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; }
   .social-btn {
@@ -518,7 +526,10 @@
   @media (max-width: 768px) {
     .nav-links { display: none; }
     .hamburger { display: flex; }
-    .hero-stats { gap: 18px; }
+    .nav-logo-text strong { font-size: 0.8rem; }
+    #home { padding: 90px 5% 50px; }
+    .hero-stats { gap: 18px; flex-wrap: wrap; }
+    .stat-num { font-size: 1.5rem; }
     .about-grid, .admissions-grid, .careers-layout { grid-template-columns: 1fr; }
     .adm-full { grid-column: 1; }
     .facilities-grid, .contacts-grid { grid-template-columns: 1fr; }
@@ -527,18 +538,30 @@
     .form-row { grid-template-columns: 1fr; }
     .values-grid { grid-template-columns: 1fr 1fr; }
     .graduate-section { grid-column: 1; }
-    .hero-actions { flex-direction: column; }
-    .btn-primary, .btn-outline { width: 100%; justify-content: center; }
+    .hero-actions { flex-direction: column; gap: 10px; }
+    .btn-primary, .btn-outline { width: 100%; justify-content: center; padding: 14px 20px; }
     .social-links { flex-direction: column; align-items: center; }
     .social-btn { width: 100%; max-width: 260px; justify-content: center; }
-    .mgmt-card { min-width: 140px; padding: 16px; }
+    .mgmt-strip { flex-direction: row; flex-wrap: wrap; justify-content: center; padding: 24px 3%; gap: 4px; }
+    .mgmt-card { min-width: 140px; padding: 16px 12px; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); flex: 0 0 calc(50% - 8px); }
+    .mgmt-card:nth-child(odd):last-child { flex: 0 0 100%; }
+    .mgmt-photo { width: 62px; height: 62px; }
     .transport-grid { grid-template-columns: 1fr; }
-    .careers-layout { grid-template-columns: 1fr; }
+    .section-inner { padding: 52px 5%; }
+    .section-header { margin-bottom: 32px; }
   }
   @media (max-width: 480px) {
     .key-dates { grid-template-columns: 1fr; }
     .hero-stats { flex-wrap: wrap; gap: 14px; }
     .quick-bar { display: none; }
+    .nav-logo img { height: 40px; }
+    .nav-logo-text span { display: none; }
+    .mgmt-card { flex: 0 0 100%; border-right: none; }
+    .hero-title { font-size: clamp(1.8rem, 7vw, 2.4rem); }
+    .section-title { font-size: clamp(1.4rem, 5vw, 1.8rem); }
+    .section-inner { padding: 44px 4%; }
+    .values-grid { grid-template-columns: 1fr; }
+    .quick-link { padding: 12px 14px; font-size: 0.78rem; }
   }
 </style>
 </head>
@@ -664,7 +687,7 @@
         </div>
       </div>
       <div class="graduate-section">
-        <h3>✦ The Bright Sparks Graduate</h3>
+        <h3>The Bright Sparks Graduate</h3>
         <p style="font-size:0.9rem; margin-bottom:18px; opacity:0.9;">When a child completes their journey at Bright Sparks, they leave as a well-rounded individual equipped for the challenges ahead:</p>
         <div class="graduate-traits">
           <div class="trait">📚 Academic Excellence</div>
@@ -683,10 +706,24 @@
 
 <!-- MANAGEMENT STRIP -->
 <div class="mgmt-strip">
-  <div class="mgmt-card"><div class="mgmt-name">Hamza Galiwango</div><div class="mgmt-role">Managing Director</div></div>
-  <div class="mgmt-card"><div class="mgmt-name">Muneeb Ali Wanyeni</div><div class="mgmt-role">Head Teacher</div></div>
-  <div class="mgmt-card"><div class="mgmt-name">Kyarimpa Sophia</div><div class="mgmt-role">Deputy Head Teacher</div></div>
-  <div class="mgmt-card"><div class="mgmt-name">Nabisubi Joan</div><div class="mgmt-role">Head of Kindergarten</div></div>
+  <div class="mgmt-card">
+    <img src="Director.jpeg" alt="Hamza Galiwango" class="mgmt-photo">
+    <div class="mgmt-name">Hamza Galiwango</div>
+    <div class="mgmt-role">Managing Director</div>
+  </div>
+  <div class="mgmt-card">
+    <img src="head teacher.jpg" alt="Muneeb Ali Wanyeni" class="mgmt-photo">
+    <div class="mgmt-name">Muneeb Ali Wanyeni</div>
+    <div class="mgmt-role">Head Teacher</div>
+  </div>
+  <div class="mgmt-card">
+    <div class="mgmt-name">Kyarimpa Sophia</div>
+    <div class="mgmt-role">Deputy Head Teacher</div>
+  </div>
+  <div class="mgmt-card">
+    <div class="mgmt-name">Nabisubi Joan</div>
+    <div class="mgmt-role">Head of Kindergarten</div>
+  </div>
 </div>
 
 <!-- WHY BRIGHT SPARKS -->

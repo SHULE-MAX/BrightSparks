@@ -27,8 +27,8 @@
     --radius-sm: 8px;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body { font-family: 'Montserrat', sans-serif; color: var(--text); background: var(--cream); overflow-x: hidden; }
+  html { scroll-behavior: smooth; overflow-x: hidden; }
+  body { font-family: 'Montserrat', sans-serif; color: var(--text); background: var(--cream); }
 
   /* NAV */
   nav {
@@ -36,9 +36,10 @@
     background: rgba(26,46,110,0.97); backdrop-filter: blur(12px);
     padding: 0 4%; display: flex; align-items: center; justify-content: space-between;
     height: 68px; border-bottom: 3px solid var(--red);
+    -webkit-transform: translateZ(0); transform: translateZ(0);
   }
   .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
-  .nav-logo img { height: 50px; width: auto; filter: brightness(1.1); }
+  .nav-logo img { height: 50px; width: auto; background: rgba(255,255,255,0.93); border-radius: 8px; padding: 4px 6px; }
   .nav-logo-text { color: var(--white); }
   .nav-logo-text strong { display: block; font-size: 0.88rem; font-weight: 700; }
   .nav-logo-text span { font-size: 0.65rem; color: var(--gold-light); letter-spacing: 0.08em; text-transform: uppercase; }
@@ -282,13 +283,13 @@
 
     <!-- Article 1 -->
     <div class="news-card">
-      <div class="news-card-img navy-bg">📅</div>
+      <div class="news-card-img navy-bg"></div>
       <div class="news-card-body">
         <div class="news-card-cat navy">Academics</div>
         <div class="news-card-title">Term II 2026 Roadmap Released by Head Teacher</div>
         <p>Head Teacher Muneeb Ali Wanyeni has released the comprehensive Term II 2026 roadmap including the full calendar, educational tours for all classes, and key dates for parents.</p>
         <div class="news-card-footer">
-          <span class="news-date">📅 April 24, 2026</span>
+          <span class="news-date">April 24, 2026</span>
           <a href="#" class="read-more">Read more →</a>
         </div>
       </div>
@@ -296,13 +297,13 @@
 
     <!-- Article 2 -->
     <div class="news-card">
-      <div class="news-card-img red-bg">⚽</div>
+      <div class="news-card-img red-bg"></div>
       <div class="news-card-body">
         <div class="news-card-cat red">Sports</div>
         <div class="news-card-title">Football Team Wins Against St. James Junior School</div>
         <p>Our football team emerged victorious in a thrilling match against St. James Junior School, greatly boosting school spirit and pride across the campus.</p>
         <div class="news-card-footer">
-          <span class="news-date">📅 Term I, 2026</span>
+          <span class="news-date">Term I, 2026</span>
           <a href="#" class="read-more">Read more →</a>
         </div>
       </div>
@@ -310,13 +311,13 @@
 
     <!-- Article 3 -->
     <div class="news-card">
-      <div class="news-card-img gold-bg">🍰</div>
+      <div class="news-card-img gold-bg"></div>
       <div class="news-card-body">
         <div class="news-card-cat gold">Clubs</div>
         <div class="news-card-title">Cookery &amp; Baking Club Prepares for Academic Day Exhibition</div>
         <p>Our young chefs in the Cookery &amp; Baking Club have been busy preparing for the Academic Day &amp; Club Exhibitions scheduled for July 11, 2026. Come see their creations!</p>
         <div class="news-card-footer">
-          <span class="news-date">📅 May 2026</span>
+          <span class="news-date">May 2026</span>
           <a href="#" class="read-more">Read more →</a>
         </div>
       </div>
@@ -324,13 +325,13 @@
 
     <!-- Article 4 -->
     <div class="news-card">
-      <div class="news-card-img green-bg">🌍</div>
+      <div class="news-card-img green-bg"></div>
       <div class="news-card-body">
         <div class="news-card-cat green">Events</div>
         <div class="news-card-title">Educational Tours for P.1–P.7 — July 2026</div>
         <p>Educational tours are planned for all classes from July 14–21, 2026. Destinations include the Airport &amp; Zoo (P.1–P.2), Source of the Nile (P.3–P.4), and Murchison Falls (P.5–P.7).</p>
         <div class="news-card-footer">
-          <span class="news-date">📅 July 14–21, 2026</span>
+          <span class="news-date">July 14–21, 2026</span>
           <a href="fees.html" class="read-more">Tour fees →</a>
         </div>
       </div>
@@ -338,13 +339,13 @@
 
     <!-- Article 5 -->
     <div class="news-card">
-      <div class="news-card-img sky-bg">🎨</div>
+      <div class="news-card-img sky-bg"> </div>
       <div class="news-card-body">
         <div class="news-card-cat sky">Events</div>
         <div class="news-card-title">Colour Day — Kindergarten Section (June 12)</div>
         <p>Kindergarten pupils and their families are invited to celebrate Colour Day on June 12, 2026. Children are encouraged to come dressed in their favourite colours for a fun-filled day of activities.</p>
         <div class="news-card-footer">
-          <span class="news-date">📅 June 12, 2026</span>
+          <span class="news-date">June 12, 2026</span>
           <a href="#" class="read-more">Read more →</a>
         </div>
       </div>
@@ -352,13 +353,13 @@
 
     <!-- Article 6 -->
     <div class="news-card">
-      <div class="news-card-img red-bg">🏆</div>
+      <div class="news-card-img red-bg"></div>
       <div class="news-card-body">
         <div class="news-card-cat red">Academics</div>
-        <div class="news-card-title">Academic Day &amp; Club Exhibitions — July 11, 2026</div>
+        <div class="news-card-title">Academic Day &amp; Club Exhibitions July 11, 2026</div>
         <p>Join us for our annual Academic Day and Club Exhibitions on July 11, 2026. Pupils will showcase their academic progress and club achievements. All parents and guardians are warmly invited.</p>
         <div class="news-card-footer">
-          <span class="news-date">📅 July 11, 2026</span>
+          <span class="news-date">July 11, 2026</span>
           <a href="#" class="read-more">Read more →</a>
         </div>
       </div>
@@ -374,7 +375,7 @@
   <div class="news-grid">
     <div class="announcement" style="margin-bottom:0; border-left-color:var(--navy);">
       <div class="ann-date" style="color:var(--navy);">June 3, 2026</div>
-      <h3>Martyrs' Day — Public Holiday</h3>
+      <h3>Martyrs' Day Public Holiday</h3>
       <p>No classes on June 3, 2026 in observance of Uganda Martyrs' Day.</p>
     </div>
     <div class="announcement" style="margin-bottom:0; border-left-color:var(--red);">

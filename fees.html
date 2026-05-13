@@ -27,8 +27,8 @@
     --radius-sm: 8px;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body { font-family: 'Montserrat', sans-serif; color: var(--text); background: var(--cream); overflow-x: hidden; }
+  html { scroll-behavior: smooth; overflow-x: hidden; }
+  body { font-family: 'Montserrat', sans-serif; color: var(--text); background: var(--cream); }
 
   /* NAV */
   nav {
@@ -36,9 +36,10 @@
     background: rgba(26,46,110,0.97); backdrop-filter: blur(12px);
     padding: 0 4%; display: flex; align-items: center; justify-content: space-between;
     height: 68px; border-bottom: 3px solid var(--red);
+    -webkit-transform: translateZ(0); transform: translateZ(0);
   }
   .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
-  .nav-logo img { height: 50px; width: auto; filter: brightness(1.1); }
+  .nav-logo img { height: 50px; width: auto; background: rgba(255,255,255,0.93); border-radius: 8px; padding: 4px 6px; }
   .nav-logo-text { color: var(--white); }
   .nav-logo-text strong { display: block; font-size: 0.88rem; font-weight: 700; }
   .nav-logo-text span { font-size: 0.65rem; color: var(--gold-light); letter-spacing: 0.08em; text-transform: uppercase; }
@@ -286,7 +287,7 @@
 
   <div class="table-card">
     <div class="table-card-header">
-      <div class="table-icon navy">💰</div>
+      <div class="table-icon navy"></div>
       <div>
         <h2>Tuition Fees — Per Term (UGX)</h2>
         <span>All fees include meals, club fees, and stationery as indicated</span>
@@ -324,9 +325,9 @@
         </tr>
       </tbody>
     </table>
-    <div class="fees-note">★ Computer studies, liquid soap making &amp; Religious Studies are compulsory and inclusive in fees.</div>
-    <div class="fees-note">★ School clubs are active bi-weekly; each pupil chooses one club per term: Music Piano &amp; Guitar, Swimming, Cookery &amp; Bakery, Chess &amp; Checkers, Ballet &amp; Modelling.</div>
-    <div class="fees-note">★ Siblings receive a <strong>20% transport discount</strong> on transport fees.</div>
+    <div class="fees-note">Computer studies, liquid soap making &amp; Religious Studies are compulsory and inclusive in fees.</div>
+    <div class="fees-note">School clubs are active bi-weekly; each pupil chooses one club per term: Music Piano &amp; Guitar, Swimming, Cookery &amp; Bakery, Chess &amp; Checkers, Ballet &amp; Modelling.</div>
+    <div class="fees-note">Siblings receive a <strong>20% transport discount</strong> on transport fees.</div>
   </div>
 
   <div class="divider"></div>
@@ -337,7 +338,7 @@
 
   <div class="table-card">
     <div class="table-card-header">
-      <div class="table-icon sky">🚌</div>
+      <div class="table-icon sky"></div>
       <div>
         <h2>School Bus Routes — Per Term (UGX)</h2>
         <span>Available for listed routes only — 20% sibling discount applies</span>
@@ -370,7 +371,7 @@
   <div class="section-heading">Uniform <span>Costs</span></div>
   <div class="table-card">
     <div class="table-card-header">
-      <div class="table-icon green">👕</div>
+      <div class="table-icon green"></div>
       <div>
         <h2>Uniform Costs (UGX)</h2>
         <span>Full sets per section</span>

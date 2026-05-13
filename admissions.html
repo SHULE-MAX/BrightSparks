@@ -27,8 +27,8 @@
     --radius-sm: 8px;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body { font-family: 'Montserrat', sans-serif; color: var(--text); background: var(--cream); overflow-x: hidden; }
+  html { scroll-behavior: smooth; overflow-x: hidden; }
+  body { font-family: 'Montserrat', sans-serif; color: var(--text); background: var(--cream); }
 
   /* NAV */
   nav {
@@ -36,9 +36,10 @@
     background: rgba(26,46,110,0.97); backdrop-filter: blur(12px);
     padding: 0 4%; display: flex; align-items: center; justify-content: space-between;
     height: 68px; border-bottom: 3px solid var(--red);
+    -webkit-transform: translateZ(0); transform: translateZ(0);
   }
   .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
-  .nav-logo img { height: 50px; width: auto; filter: brightness(1.1); }
+  .nav-logo img { height: 50px; width: auto; background: rgba(255,255,255,0.93); border-radius: 8px; padding: 4px 6px; }
   .nav-logo-text { color: var(--white); }
   .nav-logo-text strong { display: block; font-size: 0.88rem; font-weight: 700; }
   .nav-logo-text span { font-size: 0.65rem; color: var(--gold-light); letter-spacing: 0.08em; text-transform: uppercase; }
@@ -219,6 +220,7 @@
     .page-hero { padding: 96px 5% 44px; }
     .section-title { font-size: clamp(1.4rem, 5vw, 1.8rem); }
     .adm-card { padding: 16px; }
+    .steps-list li > div:last-child { word-break: break-word; overflow-wrap: break-word; }
   }
 </style>
 </head>
@@ -268,21 +270,21 @@
   <!-- QUICK INFO -->
   <div class="info-row">
     <div class="info-box">
-      <h3>🏫 Classes Offered</h3>
+      <h3> Classes Offered</h3>
       <ul>
-        <li><span>🌱</span> Kindergarten (Baby Class to Top Class)</li>
-        <li><span>📚</span> Primary 1 — Primary 7</li>
-        <li><span>🏠</span> Day Section (all levels)</li>
-        <li><span>🛏️</span> Boarding Section (all levels)</li>
+        <li><span></span> Kindergarten (Baby Class to Top Class)</li>
+        <li><span></span> Primary 1 — Primary 7</li>
+        <li><span></span> Day Section (all levels)</li>
+        <li><span></span> Boarding Section (all levels)</li>
       </ul>
     </div>
     <div class="info-box">
-      <h3>📋 Quick Facts</h3>
+      <h3>Quick Facts</h3>
       <ul>
-        <li><span>📌</span> Admissions open all year round</li>
-        <li><span>💳</span> Registration Fee: UGX 50,000/= (once-off)</li>
-        <li><span>📝</span> Entry assessment required (play-based for KG)</li>
-        <li><span>📞</span> Call: +256 700 116 093</li>
+        <li><span></span> Admissions open all year round</li>
+        <li><span></span> Registration Fee: UGX 50,000/= (once-off)</li>
+        <li><span></span> Entry assessment required (play-based for KG)</li>
+        <li><span></span> Call: +256 700 116 093</li>
       </ul>
     </div>
   </div>
@@ -290,7 +292,7 @@
   <!-- APPLICATION PROCESS -->
   <div class="adm-card">
     <div class="adm-card-header">
-      <div class="adm-icon red">📋</div>
+      <div class="adm-icon red"></div>
       <div>
         <h2>Application Process</h2>
         <span class="adm-sub">Six simple steps to join our school</span>
@@ -338,19 +340,19 @@
 
   <div class="adm-card">
     <div class="adm-card-header">
-      <div class="adm-icon navy">📄</div>
+      <div class="adm-icon navy"></div>
       <div>
         <h2>Required Documents</h2>
         <span class="adm-sub">Please have these ready before submitting your application</span>
       </div>
     </div>
     <div class="req-grid">
-      <div class="req-item"><span class="icon">🖼️</span><div>2 recent passport-size photographs of the child</div></div>
-      <div class="req-item"><span class="icon">🪪</span><div>National ID copy of each parent/guardian</div></div>
-      <div class="req-item"><span class="icon">📸</span><div>1 passport photo of each parent/guardian</div></div>
-      <div class="req-item"><span class="icon">💉</span><div>Child's immunization card or birth certificate</div></div>
-      <div class="req-item"><span class="icon">🗺️</span><div>Sketch map of your home/residential area</div></div>
-      <div class="req-item"><span class="icon">📞</span><div>Active contact numbers for both parents/guardians</div></div>
+      <div class="req-item"><span class="icon"></span><div>2 recent passport-size photographs of the child</div></div>
+      <div class="req-item"><span class="icon"></span><div>National ID copy of each parent/guardian</div></div>
+      <div class="req-item"><span class="icon"></span><div>1 passport photo of each parent/guardian</div></div>
+      <div class="req-item"><span class="icon"></span><div>Child's immunization card or birth certificate</div></div>
+      <div class="req-item"><span class="icon"></span><div>Sketch map of your home/residential area</div></div>
+      <div class="req-item"><span class="icon"></span><div>Active contact numbers for both parents/guardians</div></div>
     </div>
   </div>
 
@@ -363,7 +365,7 @@
   <div class="info-row">
     <div class="adm-card" style="margin-bottom:0;">
       <div class="adm-card-header">
-        <div class="adm-icon sky">🌞</div>
+        <div class="adm-icon sky"></div>
         <div>
           <h2>Day Section</h2>
           <span class="adm-sub">Home every afternoon</span>
@@ -378,7 +380,7 @@
     </div>
     <div class="adm-card" style="margin-bottom:0;">
       <div class="adm-card-header">
-        <div class="adm-icon green">🌙</div>
+        <div class="adm-icon green"></div>
         <div>
           <h2>Boarding Section</h2>
           <span class="adm-sub">Full residential experience</span>
@@ -403,12 +405,12 @@
         </div>
       </div>
       <div class="req-grid">
-        <div class="req-item"><span class="icon">🎹</span><div>Music — Piano &amp; Guitar</div></div>
-        <div class="req-item"><span class="icon">🏊</span><div>Swimming</div></div>
-        <div class="req-item"><span class="icon">🍰</span><div>Cookery &amp; Bakery</div></div>
-        <div class="req-item"><span class="icon">♟️</span><div>Chess &amp; Checkers</div></div>
-        <div class="req-item"><span class="icon">🩰</span><div>Ballet &amp; Modelling</div></div>
-        <div class="req-item"><span class="icon">💻</span><div>Computer Studies (compulsory)</div></div>
+        <div class="req-item"><span class="icon"></span><div>Music — Piano &amp; Guitar</div></div>
+        <div class="req-item"><span class="icon"></span><div>Swimming</div></div>
+        <div class="req-item"><span class="icon"></span><div>Cookery &amp; Bakery</div></div>
+        <div class="req-item"><span class="icon"></span><div>Chess &amp; Checkers</div></div>
+        <div class="req-item"><span class="icon"></span><div>Ballet &amp; Modelling</div></div>
+        <div class="req-item"><span class="icon"></span><div>Computer Studies (compulsory)</div></div>
       </div>
     </div>
   </div>

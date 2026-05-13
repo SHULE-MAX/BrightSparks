@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Client Demo | Bright Sparks Junior School Website</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700;1,800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #D32F2F;
+    --red-dark: #B71C1C;
+    --navy: #1A2E6E;
+    --navy-mid: #203580;
+    --navy-light: #2B42A0;
+    --green: #1B6B3A;
+    --green-light: #2E8B57;
+    --gold: #E8A020;
+    --gold-light: #F5C252;
+    --sky: #3B9FD4;
+    --white: #FFFFFF;
+    --cream: #F8FBF8;
+    --text: #1A1A2E;
+    --text-muted: #5A6480;
+    --radius: 16px;
+    --radius-sm: 8px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; overflow-x: hidden; }
+  body { font-family: 'Montserrat', sans-serif; color: var(--text); background: var(--white); }
+
+  /* DEMO BANNER */
+  .demo-banner {
+    background: linear-gradient(90deg, #0D1A45, var(--navy-mid));
+    color: var(--white); text-align: center; padding: 10px 4%;
+    font-size: 0.78rem; font-weight: 600; letter-spacing: 0.06em;
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    border-bottom: 2px solid var(--gold);
+  }
+  .demo-banner .demo-pill {
+    background: var(--gold); color: var(--navy); font-size: 0.65rem;
+    font-weight: 800; padding: 2px 10px; border-radius: 20px;
+    text-transform: uppercase; letter-spacing: 0.1em;
+  }
+
+  /* NAV */
+  nav {
+    position: sticky; top: 0; left: 0; right: 0; z-index: 1000;
+    background: rgba(26,46,110,0.98); backdrop-filter: blur(12px);
+    padding: 0 4%; display: flex; align-items: center; justify-content: space-between;
+    height: 64px; border-bottom: 3px solid var(--red);
+  }
+  .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .nav-logo img { height: 46px; width: auto; background: rgba(255,255,255,0.93); border-radius: 8px; padding: 4px 6px; }
+  .nav-logo-text { color: var(--white); }
+  .nav-logo-text strong { display: block; font-size: 0.86rem; font-weight: 700; }
+  .nav-logo-text span { font-size: 0.62rem; color: var(--gold-light); letter-spacing: 0.08em; text-transform: uppercase; }
+  .nav-links { display: flex; gap: 4px; list-style: none; align-items: center; }
+  .nav-links a {
+    color: rgba(255,255,255,0.82); text-decoration: none; font-size: 0.78rem;
+    font-weight: 500; padding: 6px 10px; border-radius: 6px; transition: all 0.2s;
+  }
+  .nav-links a:hover, .nav-links a.active { color: var(--gold-light); background: rgba(255,255,255,0.09); }
+  .nav-links .btn-apply {
+    background: var(--red); color: white !important; font-weight: 700;
+    padding: 7px 16px; border-radius: 8px;
+  }
+  .nav-links .btn-apply:hover { background: var(--red-dark); }
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; }
+  .hamburger span { display: block; width: 24px; height: 2px; background: var(--white); border-radius: 2px; transition: all 0.3s; }
+  .mobile-menu {
+    display: none; position: fixed; top: 99px; left: 0; right: 0;
+    background: var(--navy); padding: 16px 5%; z-index: 999;
+    border-bottom: 2px solid var(--red);
+  }
+  .mobile-menu.open { display: block; }
+  .mobile-menu a {
+    display: block; color: var(--white); text-decoration: none;
+    padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.1); font-size: 0.92rem;
+  }
+  .mobile-menu a:last-child { border-bottom: none; }
+
+  /* PROGRESS BAR */
+  .scroll-progress {
+    position: fixed; top: 99px; left: 0; right: 0; height: 3px;
+    background: rgba(255,255,255,0.1); z-index: 999;
+  }
+  .scroll-progress-bar {
+    height: 100%; background: linear-gradient(90deg, var(--gold), var(--red));
+    width: 0%; transition: width 0.1s linear;
+  }
+
+  section { scroll-margin-top: 102px; }
+
+  /* SECTION COMMON */
+  .section-inner { max-width: 1200px; margin: 0 auto; padding: 72px 4%; }
+  .section-tag {
+    display: inline-block;
+    background: rgba(27,107,58,0.1); color: var(--green);
+    font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase;
+    font-weight: 700; padding: 5px 14px; border-radius: 20px;
+    margin-bottom: 12px; border: 1px solid rgba(27,107,58,0.2);
+  }
+  .section-tag.red { background: rgba(211,47,47,0.1); color: var(--red); border-color: rgba(211,47,47,0.2); }
+  .section-tag.navy { background: rgba(26,46,110,0.1); color: var(--navy); border-color: rgba(26,46,110,0.2); }
+  .section-tag.gold { background: rgba(232,160,32,0.15); color: #9A6800; border-color: rgba(232,160,32,0.3); }
+  .section-title {
+    font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+    color: var(--navy); line-height: 1.2; margin-bottom: 14px; font-weight: 800;
+  }
+  .section-title span { color: var(--red); }
+  .section-sub { color: var(--text-muted); font-size: 0.97rem; line-height: 1.75; max-width: 600px; }
+  .section-header { margin-bottom: 52px; }
+  .view-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    color: var(--navy); font-size: 0.82rem; font-weight: 700;
+    text-decoration: none; margin-top: 14px; transition: gap 0.2s;
+  }
+  .view-link:hover { gap: 10px; color: var(--red); }
+
+  /* ===================== HERO ===================== */
+  #hero {
+    min-height: 92vh;
+    background: linear-gradient(150deg, #0D1A45 0%, #1A2E6E 50%, #152560 100%);
+    position: relative; display: flex; align-items: center;
+    padding: 60px 4% 60px; overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0; pointer-events: none;
+    background-image:
+      radial-gradient(circle at 15% 50%, rgba(211,47,47,0.13) 0%, transparent 45%),
+      radial-gradient(circle at 85% 20%, rgba(27,107,58,0.12) 0%, transparent 40%),
+      radial-gradient(circle at 70% 80%, rgba(59,159,212,0.09) 0%, transparent 40%);
+  }
+  .hero-dots {
+    position: absolute; inset: 0; pointer-events: none;
+    background-image: radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+  .hero-content { position: relative; z-index: 1; max-width: 680px; }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(211,47,47,0.18); border: 1px solid rgba(211,47,47,0.4);
+    color: #FF8A80; padding: 6px 18px; border-radius: 30px;
+    font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase;
+    margin-bottom: 22px; font-weight: 600;
+  }
+  .hero-badge::before { content: '★'; font-size: 0.7rem; }
+  .hero-title {
+    font-size: clamp(2.4rem, 5vw, 4rem);
+    color: var(--white); line-height: 1.1; margin-bottom: 18px; font-weight: 900;
+  }
+  .hero-title em { color: var(--gold-light); font-style: italic; }
+  .hero-motto {
+    font-style: italic; font-weight: 700;
+    font-size: clamp(1rem, 2vw, 1.3rem);
+    color: #90CAF9; margin-bottom: 26px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .hero-motto::before, .hero-motto::after { content: '~'; color: var(--gold); }
+  .hero-desc {
+    color: rgba(255,255,255,0.75); font-size: 1rem;
+    line-height: 1.8; margin-bottom: 38px; max-width: 560px;
+  }
+  .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--red), var(--red-dark));
+    color: white; font-weight: 700; font-size: 0.9rem;
+    padding: 13px 26px; border-radius: var(--radius-sm);
+    text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+    transition: all 0.25s; box-shadow: 0 4px 18px rgba(211,47,47,0.4);
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 26px rgba(211,47,47,0.5); }
+  .btn-outline {
+    background: transparent; color: var(--white); font-weight: 600; font-size: 0.9rem;
+    padding: 13px 26px; border-radius: var(--radius-sm);
+    text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+    border: 1.5px solid rgba(255,255,255,0.35); transition: all 0.25s;
+  }
+  .btn-outline:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.6); }
+  .hero-stats {
+    display: flex; gap: 32px; margin-top: 48px; padding-top: 28px;
+    border-top: 1px solid rgba(255,255,255,0.12); flex-wrap: wrap;
+  }
+  .stat { text-align: center; }
+  .stat-num {
+    font-size: clamp(1.6rem, 3vw, 2rem); font-weight: 900;
+    color: var(--gold-light); display: block; line-height: 1;
+  }
+  .stat-label { font-size: 0.68rem; color: rgba(255,255,255,0.52); text-transform: uppercase; letter-spacing: 0.09em; margin-top: 4px; }
+  .hero-right {
+    position: absolute; right: 4%; top: 50%; transform: translateY(-50%);
+    width: 300px; display: flex; flex-direction: column; gap: 14px; z-index: 1;
+  }
+  .hero-card {
+    background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.14);
+    border-radius: var(--radius); padding: 20px; backdrop-filter: blur(8px);
+  }
+  .hero-card .hc-label { font-size: 0.65rem; color: var(--gold-light); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 6px; font-weight: 700; }
+  .hero-card .hc-val { font-size: 1.05rem; color: var(--white); font-weight: 700; }
+  .hero-card .hc-sub { font-size: 0.77rem; color: rgba(255,255,255,0.6); margin-top: 3px; }
+  .hc-row { display: flex; gap: 10px; }
+  .hc-chip {
+    background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.85);
+    font-size: 0.72rem; padding: 4px 10px; border-radius: 20px; font-weight: 500;
+  }
+
+  /* ===================== WHY SECTION ===================== */
+  #why { background: var(--cream); }
+  .why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+  .why-card {
+    background: var(--white); border-radius: var(--radius); padding: 26px;
+    border: 1.5px solid #E8EDF5; transition: all 0.3s; position: relative; overflow: hidden;
+  }
+  .why-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--red), var(--navy-light));
+    transform: scaleX(0); transform-origin: left; transition: transform 0.3s;
+  }
+  .why-card:hover { box-shadow: 0 8px 28px rgba(0,0,0,0.09); transform: translateY(-4px); }
+  .why-card:hover::before { transform: scaleX(1); }
+  .why-icon {
+    width: 52px; height: 52px;
+    background: linear-gradient(135deg, rgba(211,47,47,0.1), rgba(26,46,110,0.1));
+    border-radius: 12px; display: flex; align-items: center; justify-content: center;
+    font-size: 24px; margin-bottom: 18px;
+  }
+  .why-card h3 { font-size: 1rem; color: var(--navy); margin-bottom: 8px; font-weight: 700; }
+  .why-card p { color: var(--text-muted); font-size: 0.84rem; line-height: 1.65; }
+
+  /* ===================== ADMISSIONS ===================== */
+  #admissions { background: var(--white); }
+  .adm-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; align-items: start; }
+  .adm-steps-card {
+    background: var(--cream); border-radius: var(--radius); padding: 28px;
+    border: 1.5px solid #E8EDF5;
+  }
+  .adm-steps-card h3 {
+    font-size: 1.1rem; color: var(--navy); font-weight: 700; margin-bottom: 20px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .steps-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+  .steps-list li {
+    display: flex; gap: 12px; align-items: flex-start;
+    padding: 12px 14px; background: var(--white);
+    border-radius: var(--radius-sm); border: 1px solid #EEF2F8;
+    font-size: 0.87rem; color: var(--text); line-height: 1.55;
+  }
+  .step-num {
+    width: 26px; height: 26px; border-radius: 50%;
+    background: var(--navy); color: white;
+    font-size: 0.72rem; font-weight: 700;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .adm-info-stack { display: flex; flex-direction: column; gap: 18px; }
+  .adm-info-box {
+    background: var(--white); border-radius: var(--radius); padding: 22px;
+    border: 1.5px solid #E8EDF5; box-shadow: 0 2px 12px rgba(26,46,110,0.06);
+  }
+  .adm-info-box h3 {
+    font-size: 0.95rem; color: var(--navy); font-weight: 700; margin-bottom: 12px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .adm-info-box ul { list-style: none; }
+  .adm-info-box ul li {
+    padding: 7px 0; font-size: 0.85rem; color: var(--text-muted);
+    border-bottom: 1px solid #F0F4FB; display: flex; align-items: center; gap: 8px;
+  }
+  .adm-info-box ul li:last-child { border-bottom: none; }
+  .adm-info-box ul li::before { content: '→'; color: var(--red); font-size: 0.8rem; flex-shrink: 0; }
+  .adm-cta {
+    background: linear-gradient(135deg, var(--navy), var(--navy-light));
+    border-radius: var(--radius); padding: 24px 22px; color: var(--white);
+  }
+  .adm-cta p { font-size: 0.88rem; color: rgba(255,255,255,0.75); margin-bottom: 14px; line-height: 1.6; }
+  .adm-cta .btn-red {
+    background: var(--red); color: white; text-decoration: none; font-weight: 700;
+    font-size: 0.85rem; padding: 10px 20px; border-radius: var(--radius-sm);
+    display: inline-flex; align-items: center; gap: 6px; transition: background 0.2s;
+  }
+  .adm-cta .btn-red:hover { background: var(--red-dark); }
+  .req-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .req-chip {
+    background: var(--cream); border-radius: var(--radius-sm); padding: 10px 12px;
+    font-size: 0.82rem; color: var(--text); display: flex; align-items: center; gap: 8px;
+    border: 1px solid #EEF2F8;
+  }
+
+  /* ===================== FEES ===================== */
+  #fees { background: var(--cream); }
+  .fees-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-bottom: 28px; }
+  .fee-card {
+    background: var(--white); border-radius: var(--radius); overflow: hidden;
+    box-shadow: 0 2px 16px rgba(26,46,110,0.07); transition: transform 0.25s;
+  }
+  .fee-card:hover { transform: translateY(-4px); }
+  .fee-card-top {
+    padding: 22px 22px 16px;
+    display: flex; align-items: center; gap: 14px;
+    border-bottom: 1px solid #EEF2F8;
+  }
+  .fee-icon {
+    width: 46px; height: 46px; border-radius: 10px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center; font-size: 1.4rem;
+  }
+  .fee-icon.navy  { background: rgba(26,46,110,0.1); }
+  .fee-icon.sky   { background: rgba(59,159,212,0.1); }
+  .fee-icon.green { background: rgba(27,107,58,0.1); }
+  .fee-card-top h3 { font-size: 0.97rem; color: var(--navy); font-weight: 700; }
+  .fee-card-top span { font-size: 0.74rem; color: var(--text-muted); }
+  .fee-table { width: 100%; border-collapse: collapse; }
+  .fee-table th {
+    background: var(--navy); color: var(--white);
+    padding: 10px 18px; font-size: 0.74rem; font-weight: 600; text-align: left;
+  }
+  .fee-table td { padding: 11px 18px; font-size: 0.84rem; border-bottom: 1px solid #F0F4FB; color: var(--text-muted); }
+  .fee-table tr:last-child td { border-bottom: none; }
+  .fee-table tr:nth-child(even) td { background: rgba(248,251,248,0.5); }
+  .fee-table td.amt { font-weight: 700; color: var(--navy); white-space: nowrap; }
+  .fee-note {
+    padding: 10px 18px 14px; font-size: 0.77rem; color: var(--text-muted);
+    border-top: 1px solid #F0F4FB; line-height: 1.55; font-style: italic;
+  }
+  .fees-summary-bar {
+    background: linear-gradient(135deg, var(--navy), var(--navy-light));
+    border-radius: var(--radius); padding: 28px 32px;
+    display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px;
+  }
+  .fees-summary-bar .fs-text h3 { color: var(--gold-light); font-size: 1.15rem; margin-bottom: 5px; }
+  .fees-summary-bar .fs-text p { color: rgba(255,255,255,0.7); font-size: 0.86rem; line-height: 1.6; }
+  .fees-summary-bar .btn-gold {
+    background: var(--gold); color: var(--navy); text-decoration: none; font-weight: 800;
+    font-size: 0.88rem; padding: 12px 26px; border-radius: var(--radius-sm);
+    display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; transition: opacity 0.2s;
+  }
+  .fees-summary-bar .btn-gold:hover { opacity: 0.9; }
+
+  /* ===================== NEWS ===================== */
+  #news { background: var(--white); }
+  .news-pinned {
+    background: rgba(232,160,32,0.08); border: 1.5px solid var(--gold);
+    border-radius: var(--radius); padding: 20px 24px; margin-bottom: 36px;
+    display: flex; gap: 16px; align-items: flex-start;
+  }
+  .news-pinned .pin-icon { font-size: 1.4rem; flex-shrink: 0; margin-top: 2px; }
+  .news-pinned .pin-label { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #9A6800; margin-bottom: 5px; }
+  .news-pinned h3 { font-size: 1rem; color: var(--navy); margin-bottom: 7px; font-weight: 700; }
+  .news-pinned p { font-size: 0.86rem; color: var(--text-muted); line-height: 1.65; }
+  .news-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+  .news-card { border-radius: var(--radius); border: 1.5px solid #EEF2F8; overflow: hidden; transition: all 0.3s; }
+  .news-card:hover { box-shadow: 0 8px 28px rgba(0,0,0,0.09); transform: translateY(-4px); }
+  .news-img {
+    height: 160px; display: flex; align-items: center; justify-content: center; font-size: 2.8rem;
+  }
+  .news-img.navy-bg { background: linear-gradient(135deg, var(--navy), var(--navy-light)); }
+  .news-img.red-bg  { background: linear-gradient(135deg, var(--red-dark), var(--red)); }
+  .news-img.green-bg { background: linear-gradient(135deg, var(--green), var(--green-light)); }
+  .news-body { padding: 20px; }
+  .news-cat { font-size: 0.66rem; text-transform: uppercase; letter-spacing: 0.12em; font-weight: 700; margin-bottom: 7px; }
+  .news-cat.nav { color: var(--navy); }
+  .news-cat.red { color: var(--red); }
+  .news-cat.green { color: var(--green); }
+  .news-body h3 { font-size: 0.95rem; color: var(--navy); margin-bottom: 8px; line-height: 1.45; font-weight: 700; }
+  .news-body p { font-size: 0.82rem; color: var(--text-muted); line-height: 1.65; margin-bottom: 14px; }
+  .news-footer { display: flex; align-items: center; justify-content: space-between; }
+  .news-date { font-size: 0.72rem; color: var(--text-muted); }
+  .read-more { color: var(--navy); text-decoration: none; font-weight: 700; font-size: 0.8rem; display: inline-flex; align-items: center; gap: 4px; }
+  .read-more:hover { color: var(--red); }
+
+  /* ===================== CTA FOOTER ===================== */
+  #cta {
+    background: linear-gradient(150deg, #0D1A45 0%, #1A2E6E 55%, #152560 100%);
+    padding: 80px 4%; text-align: center; position: relative; overflow: hidden;
+  }
+  #cta::before {
+    content: ''; position: absolute; inset: 0; pointer-events: none;
+    background-image:
+      radial-gradient(circle at 30% 50%, rgba(211,47,47,0.12) 0%, transparent 50%),
+      radial-gradient(circle at 75% 30%, rgba(27,107,58,0.1) 0%, transparent 40%);
+  }
+  .cta-inner { position: relative; z-index: 1; max-width: 680px; margin: 0 auto; }
+  .cta-inner h2 { font-size: clamp(1.8rem, 3.5vw, 2.8rem); color: var(--white); font-weight: 900; margin-bottom: 14px; line-height: 1.2; }
+  .cta-inner h2 span { color: var(--gold-light); }
+  .cta-inner p { color: rgba(255,255,255,0.72); font-size: 1rem; line-height: 1.75; margin-bottom: 32px; }
+  .cta-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+  /* FOOTER BAR */
+  footer {
+    background: #0A1230; color: rgba(255,255,255,0.6);
+    text-align: center; padding: 24px 4%; font-size: 0.8rem;
+  }
+  footer a { color: var(--gold-light); text-decoration: none; }
+
+  /* FADE-IN ANIMATIONS */
+  .fade-in { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .fade-in.visible { opacity: 1; transform: none; }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .hero-right { display: none; }
+    .why-grid { grid-template-columns: 1fr 1fr; }
+    .fees-grid { grid-template-columns: 1fr 1fr; }
+    .adm-layout { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 680px) {
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    .why-grid { grid-template-columns: 1fr; }
+    .fees-grid { grid-template-columns: 1fr; }
+    .news-grid { grid-template-columns: 1fr; }
+    .section-inner { padding: 52px 5%; }
+    .hero-stats { gap: 20px; }
+    .fees-summary-bar { flex-direction: column; text-align: center; }
+    .req-grid { grid-template-columns: 1fr; }
+    .news-pinned { flex-direction: column; gap: 8px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- DEMO BANNER -->
+<div class="demo-banner">
+  <span class="demo-pill">Client Preview</span>
+  Bright Sparks Junior School — Website Demo &nbsp;·&nbsp; All sections are live and functional
+</div>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    <img src="logo.png" alt="Bright Sparks Junior School Logo" onerror="this.style.display='none'">
+    <div class="nav-logo-text">
+      <strong>Bright Sparks Junior School</strong>
+      <span>We Shall Reach the Shore!</span>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#hero">Home</a></li>
+    <li><a href="#why">About</a></li>
+    <li><a href="#admissions">Admissions</a></li>
+    <li><a href="#fees">Fees</a></li>
+    <li><a href="#news">News</a></li>
+    <li><a href="#cta" class="btn-apply">Enrol Now</a></li>
+  </ul>
+  <div class="hamburger" onclick="document.getElementById('mobileMenu').classList.toggle('open')">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#hero" onclick="document.getElementById('mobileMenu').classList.remove('open')">Home</a>
+  <a href="#why" onclick="document.getElementById('mobileMenu').classList.remove('open')">About</a>
+  <a href="#admissions" onclick="document.getElementById('mobileMenu').classList.remove('open')">Admissions</a>
+  <a href="#fees" onclick="document.getElementById('mobileMenu').classList.remove('open')">Fees</a>
+  <a href="#news" onclick="document.getElementById('mobileMenu').classList.remove('open')">News</a>
+  <a href="#cta" onclick="document.getElementById('mobileMenu').classList.remove('open')">Enrol Now</a>
+</div>
+
+<!-- SCROLL PROGRESS -->
+<div class="scroll-progress"><div class="scroll-progress-bar" id="progressBar"></div></div>
+
+<!-- ========== HERO ========== -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-dots"></div>
+  <div class="hero-content">
+    <div class="hero-badge">Admissions Open · 2026 Term II Begins May 25</div>
+    <h1 class="hero-title">
+      Bright Sparks<br><em>Junior School</em>
+    </h1>
+    <div class="hero-motto">We Shall Reach the Shore!</div>
+    <p class="hero-desc">
+      A premier Kindergarten and Primary school offering world-class education in Day &amp; Boarding sections.
+      From Baby Class to Primary Seven, we nurture every child to excel academically, socially, and spiritually.
+    </p>
+    <div class="hero-actions">
+      <a href="admissions.html" class="btn-primary">Apply Now →</a>
+      <a href="fees.html" class="btn-outline">View Fee Structure</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><span class="stat-num">KG–P7</span><div class="stat-label">All Levels</div></div>
+      <div class="stat"><span class="stat-num">Day &amp; Board</span><div class="stat-label">Sections</div></div>
+      <div class="stat"><span class="stat-num">3 Terms</span><div class="stat-label">Per Year</div></div>
+      <div class="stat"><span class="stat-num">Open</span><div class="stat-label">Admissions</div></div>
+    </div>
+  </div>
+
+  <!-- Floating info cards -->
+  <div class="hero-right">
+    <div class="hero-card">
+      <div class="hc-label">Term II 2026</div>
+      <div class="hc-val">Starts May 25, 2026</div>
+      <div class="hc-sub">Enrolment open now — Day &amp; Boarding</div>
+    </div>
+    <div class="hero-card">
+      <div class="hc-label">School Clubs</div>
+      <div class="hc-val">5 Active Clubs</div>
+      <div class="hc-row" style="margin-top:8px;">
+        <span class="hc-chip">🎵 Music</span>
+        <span class="hc-chip">🏊 Swimming</span>
+        <span class="hc-chip">♟ Chess</span>
+      </div>
+    </div>
+    <div class="hero-card">
+      <div class="hc-label">Registration Fee</div>
+      <div class="hc-val">UGX 50,000/=</div>
+      <div class="hc-sub">Once-off · Paid at school</div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== WHY BRIGHT SPARKS ========== -->
+<section id="why">
+  <div class="section-inner">
+    <div class="section-header fade-in">
+      <div class="section-tag">Why Choose Us</div>
+      <h2 class="section-title">A School Built for <span>Every Child</span></h2>
+      <p class="section-sub">We combine academic excellence with holistic development — giving every pupil the tools to thrive in and out of the classroom.</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-card fade-in">
+        <div class="why-icon">📚</div>
+        <h3>Strong Academics</h3>
+        <p>Structured curriculum from Kindergarten through Primary Seven, with computer studies, religious education, and life skills built into every term.</p>
+      </div>
+      <div class="why-card fade-in">
+        <div class="why-icon">🏫</div>
+        <h3>Day &amp; Boarding</h3>
+        <p>Full boarding facilities with all meals, bedding, and supervision included — or a convenient day section for local families.</p>
+      </div>
+      <div class="why-card fade-in">
+        <div class="why-icon">🎨</div>
+        <h3>Vibrant Clubs</h3>
+        <p>Piano &amp; Guitar, Swimming, Cookery &amp; Bakery, Chess &amp; Checkers, and Ballet &amp; Modelling — one club per pupil, active every two weeks.</p>
+      </div>
+      <div class="why-card fade-in">
+        <div class="why-icon">🚌</div>
+        <h3>School Transport</h3>
+        <p>Reliable bus service covering Zana, Nyanama, Namasuba, Kajjansi, Kitende, Bwebajja, Seguku, Lweza, Kigo and surrounding areas.</p>
+      </div>
+      <div class="why-card fade-in">
+        <div class="why-icon">🍽️</div>
+        <h3>Meals Included</h3>
+        <p>Lunch and breakfast are included in all tuition fees. Boarders receive three full meals daily plus a mattress — all at no extra cost.</p>
+      </div>
+      <div class="why-card fade-in">
+        <div class="why-icon">🌟</div>
+        <h3>Dedicated Leadership</h3>
+        <p>Experienced school directors and a passionate teaching staff committed to each child's personal growth, safety, and success.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== ADMISSIONS ========== -->
+<section id="admissions">
+  <div class="section-inner">
+    <div class="section-header fade-in">
+      <div class="section-tag red">Enrolment</div>
+      <h2 class="section-title">Simple <span>Admissions</span> Process</h2>
+      <p class="section-sub">We accept applications year-round for both Day and Boarding sections. The process is straightforward — six steps from enquiry to first day of school.</p>
+      <a href="admissions.html" class="view-link">View full admissions page →</a>
+    </div>
+
+    <div class="adm-layout fade-in">
+      <!-- LEFT: Steps -->
+      <div class="adm-steps-card">
+        <h3>📋 How to Apply</h3>
+        <ul class="steps-list">
+          <li><div class="step-num">1</div><div>Contact the school or visit in person to collect / download an application form.</div></li>
+          <li><div class="step-num">2</div><div>Submit the completed form with 2 passport photos (child), parent ID copy, and immunization card / birth certificate.</div></li>
+          <li><div class="step-num">3</div><div>Provide a sketch map of your home area and parent/guardian contact details.</div></li>
+          <li><div class="step-num">4</div><div>Child attends an entry assessment — play-based for Kindergarten; written for Primary classes.</div></li>
+          <li><div class="step-num">5</div><div>Receive admission letter, pay the <strong>UGX 50,000/= registration fee</strong>, and confirm enrolment.</div></li>
+          <li><div class="step-num">6</div><div>Attend orientation and receive the uniform list, booklist, and welcome pack.</div></li>
+        </ul>
+      </div>
+
+      <!-- RIGHT: Info stack -->
+      <div class="adm-info-stack">
+        <div class="adm-info-box">
+          <h3>🏫 Classes Available</h3>
+          <ul>
+            <li>Baby Class, Middle Class, Top Class (Kindergarten)</li>
+            <li>Primary 1 through Primary 7</li>
+            <li>Day Section — all levels</li>
+            <li>Boarding Section — all levels</li>
+          </ul>
+        </div>
+
+        <div class="adm-info-box">
+          <h3>📄 Required Documents</h3>
+          <div class="req-grid">
+            <div class="req-chip">📸 2 Passport Photos (child)</div>
+            <div class="req-chip">🪪 Parent National ID</div>
+            <div class="req-chip">💉 Immunization Card</div>
+            <div class="req-chip">👶 Birth Certificate</div>
+            <div class="req-chip">📸 1 Parent Photo</div>
+            <div class="req-chip">🗺️ Home Sketch Map</div>
+          </div>
+        </div>
+
+        <div class="adm-cta">
+          <p>Admissions are open all year round. Call or visit us to begin your child's journey at Bright Sparks Junior School.</p>
+          <a href="admissions.html" class="btn-red">Start Application →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== FEES ========== -->
+<section id="fees">
+  <div class="section-inner">
+    <div class="section-header fade-in">
+      <div class="section-tag navy">Transparent Pricing</div>
+      <h2 class="section-title">School <span>Fees Structure</span></h2>
+      <p class="section-sub">All-inclusive fees per term (UGX). No hidden costs — meals, stationery, and club fees are bundled in.</p>
+      <a href="fees.html" class="view-link">See full fees breakdown →</a>
+    </div>
+
+    <!-- THREE FEE CARDS -->
+    <div class="fees-grid fade-in">
+
+      <!-- Tuition -->
+      <div class="fee-card">
+        <div class="fee-card-top">
+          <div class="fee-icon navy">🎓</div>
+          <div>
+            <h3>Tuition Fees</h3>
+            <span>Per term (UGX) — all-inclusive</span>
+          </div>
+        </div>
+        <table class="fee-table">
+          <thead><tr><th>Section</th><th>Fee / Term</th></tr></thead>
+          <tbody>
+            <tr><td>Admission Fee <em style="font-size:0.74rem">(once-off)</em></td><td class="amt">50,000/=</td></tr>
+            <tr><td>Kindergarten — Day</td><td class="amt">900,000/=</td></tr>
+            <tr><td>Primary — Day</td><td class="amt">1,000,000/=</td></tr>
+            <tr><td>Boarding (all levels)</td><td class="amt">1,250,000/=</td></tr>
+          </tbody>
+        </table>
+        <div class="fee-note">Includes: lunch &amp; breakfast, club fees, stationery, and computer studies.</div>
+      </div>
+
+      <!-- Transport -->
+      <div class="fee-card">
+        <div class="fee-card-top">
+          <div class="fee-icon sky">🚌</div>
+          <div>
+            <h3>Transport Fees</h3>
+            <span>Optional school bus — per term</span>
+          </div>
+        </div>
+        <table class="fee-table">
+          <thead><tr><th>Service</th><th>Fee / Term</th></tr></thead>
+          <tbody>
+            <tr><td>One Way (drop-off OR pick-up)</td><td class="amt">250,000/=</td></tr>
+            <tr><td>Two Way (drop-off AND pick-up)</td><td class="amt">500,000/=</td></tr>
+          </tbody>
+        </table>
+        <div class="fee-note">Siblings receive a <strong>20% discount</strong>. Routes: Zana, Nyanama, Kajjansi, Kitende, Bwebajja, Seguku, Lweza, Kigo &amp; more.</div>
+      </div>
+
+      <!-- Uniform -->
+      <div class="fee-card">
+        <div class="fee-card-top">
+          <div class="fee-icon green">👕</div>
+          <div>
+            <h3>Uniform Costs</h3>
+            <span>Full set — one-time purchase</span>
+          </div>
+        </div>
+        <table class="fee-table">
+          <thead><tr><th>Section</th><th>Boys</th><th>Girls</th></tr></thead>
+          <tbody>
+            <tr><td>Kindergarten</td><td class="amt">300,000/=</td><td class="amt">290,000/=</td></tr>
+            <tr><td>Primary</td><td class="amt">340,000/=</td><td class="amt">330,000/=</td></tr>
+            <tr><td>Labeling (all)</td><td colspan="2" class="amt">20,000/=</td></tr>
+          </tbody>
+        </table>
+        <div class="fee-note">Uniforms are available at the school office. Labeling is compulsory for all pupils.</div>
+      </div>
+
+    </div>
+
+    <!-- Summary bar -->
+    <div class="fees-summary-bar fade-in">
+      <div class="fs-text">
+        <h3>Need the complete fees breakdown?</h3>
+        <p>View the full structured document including all sections, payment notes, and banking details.</p>
+      </div>
+      <a href="fees.html" class="btn-gold">📄 Full Fees Page →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ========== NEWS ========== -->
+<section id="news">
+  <div class="section-inner">
+    <div class="section-header fade-in">
+      <div class="section-tag gold">Latest Updates</div>
+      <h2 class="section-title">News &amp; <span>Announcements</span></h2>
+      <p class="section-sub">Stay informed with the latest news, events, and updates from Bright Sparks Junior School.</p>
+      <a href="news.html" class="view-link">View all news →</a>
+    </div>
+
+    <!-- Pinned announcement -->
+    <div class="news-pinned fade-in">
+      <div class="pin-icon">📌</div>
+      <div>
+        <div class="pin-label">Pinned · May 2026</div>
+        <h3>Term II 2026 Begins Monday, May 25, 2026</h3>
+        <p>All pupils are expected to report on <strong>Monday, 25 May 2026</strong>. Please ensure all fees are cleared before reporting day. Parents will receive the Term II schedule, uniform list, and booklist at orientation. Contact the school office for any queries.</p>
+      </div>
+    </div>
+
+    <!-- News cards -->
+    <div class="news-grid fade-in">
+      <div class="news-card">
+        <div class="news-img navy-bg">📘</div>
+        <div class="news-body">
+          <div class="news-cat nav">Academics</div>
+          <h3>Term II 2026 Roadmap Released by Head Teacher</h3>
+          <p>The comprehensive Term II roadmap includes the full calendar, educational tours for all classes, and key dates for parents and staff.</p>
+          <div class="news-footer">
+            <span class="news-date">April 24, 2026</span>
+            <a href="news.html" class="read-more">Read more →</a>
+          </div>
+        </div>
+      </div>
+      <div class="news-card">
+        <div class="news-img red-bg">🏅</div>
+        <div class="news-body">
+          <div class="news-cat red">Sports</div>
+          <h3>Swimming Gala Champions — Term I 2026</h3>
+          <p>Our swimming club brought home gold at the inter-school gala. Congratulations to all pupils who competed and represented Bright Sparks with pride.</p>
+          <div class="news-footer">
+            <span class="news-date">March 28, 2026</span>
+            <a href="news.html" class="read-more">Read more →</a>
+          </div>
+        </div>
+      </div>
+      <div class="news-card">
+        <div class="news-img green-bg">🎉</div>
+        <div class="news-body">
+          <div class="news-cat green">Events</div>
+          <h3>Annual Prize Giving &amp; Cultural Day — Highlights</h3>
+          <p>Our Term I end-of-term celebration was a showcase of talent, achievement, and school spirit. Thank you to all parents who attended.</p>
+          <div class="news-footer">
+            <span class="news-date">April 10, 2026</span>
+            <a href="news.html" class="read-more">Read more →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== CTA ========== -->
+<section id="cta">
+  <div class="cta-inner fade-in">
+    <h2>Ready to Join the <span>Bright Sparks Family?</span></h2>
+    <p>Admissions are open all year round for Kindergarten through Primary Seven — Day and Boarding. Take the first step today and give your child the foundation to reach the shore.</p>
+    <div class="cta-actions">
+      <a href="admissions.html" class="btn-primary">Apply for Admission →</a>
+      <a href="fees.html" class="btn-outline">View Fees</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>
+    &copy; 2026 <strong style="color:var(--gold-light)">Bright Sparks Junior School</strong> &nbsp;·&nbsp;
+    <a href="tel:+256700116093">+256 700 116 093</a> &nbsp;·&nbsp;
+    Zana–Entebbe Road, Kampala, Uganda
+  </p>
+  <p style="margin-top:6px; font-size:0.72rem; opacity:0.5;">Client Demo Page</p>
+</footer>
+
+<script>
+  // Scroll progress bar
+  window.addEventListener('scroll', () => {
+    const scrolled = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+    document.getElementById('progressBar').style.width = scrolled + '%';
+  });
+
+  // Intersection observer for fade-in
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // Active nav link on scroll
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 120) current = s.id;
+    });
+    navLinks.forEach(a => {
+      a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+    });
+  });
+</script>
+</body>
+</html>

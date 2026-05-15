@@ -104,15 +104,82 @@
   .content-wrap { max-width: 960px; margin: 0 auto; padding: 60px 4%; }
 
   /* FILTER BAR */
-  .filter-bar { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 36px; }
+  .filter-search-row {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 14px; margin-bottom: 12px; flex-wrap: wrap;
+  }
+  .filter-bar { display: flex; gap: 8px; flex-wrap: wrap; }
   .filter-btn {
-    padding: 7px 18px; border-radius: 30px; border: 2px solid var(--navy);
-    background: transparent; color: var(--navy); font-family: 'Montserrat', sans-serif;
-    font-size: 0.82rem; font-weight: 600; cursor: pointer; transition: all 0.2s;
+    padding: 7px 16px; border-radius: 30px; border: 2px solid rgba(26,46,110,0.25);
+    background: var(--white); color: var(--navy); font-family: 'Montserrat', sans-serif;
+    font-size: 0.8rem; font-weight: 600; cursor: pointer; transition: all 0.2s;
+    display: inline-flex; align-items: center; gap: 6px;
   }
-  .filter-btn.active, .filter-btn:hover {
-    background: var(--navy); color: var(--white);
+  .filter-btn:hover { border-color: var(--navy); background: rgba(26,46,110,0.05); }
+  .filter-btn.active { background: var(--navy); color: var(--white); border-color: var(--navy); }
+  .filter-btn[data-filter="sports"].active   { background: var(--red);   border-color: var(--red); }
+  .filter-btn[data-filter="events"].active   { background: var(--green); border-color: var(--green); }
+  .filter-btn[data-filter="clubs"].active    { background: var(--gold);  border-color: var(--gold); color: var(--text); }
+  .filter-btn[data-filter="academics"].active { background: var(--navy); border-color: var(--navy); }
+  .f-dot {
+    width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0;
   }
+  .f-count {
+    display: inline-flex; align-items: center; justify-content: center;
+    background: rgba(26,46,110,0.1); color: var(--navy);
+    min-width: 18px; height: 18px; border-radius: 30px; padding: 0 5px;
+    font-size: 0.6rem; font-weight: 700;
+  }
+  .filter-btn.active .f-count { background: rgba(255,255,255,0.25); color: #fff; }
+  .filter-btn[data-filter="clubs"].active .f-count { color: var(--text); }
+
+  /* SEARCH BOX */
+  .search-box {
+    display: flex; align-items: center; gap: 8px;
+    background: var(--white); border: 2px solid rgba(26,46,110,0.18);
+    border-radius: 30px; padding: 6px 14px; transition: border-color 0.2s;
+    flex-shrink: 0;
+  }
+  .search-box:focus-within { border-color: var(--navy); }
+  .search-box svg { opacity: 0.4; flex-shrink: 0; }
+  .search-box input {
+    border: none; outline: none; font-family: 'Montserrat', sans-serif;
+    font-size: 0.82rem; color: var(--text); width: 170px; background: transparent;
+  }
+  .search-box input::placeholder { color: var(--text-muted); }
+  .search-clear {
+    background: none; border: none; cursor: pointer; padding: 0 2px;
+    color: var(--text-muted); font-size: 1rem; line-height: 1; display: none;
+  }
+  .search-clear.visible { display: block; }
+
+  /* RESULTS META */
+  .results-meta { font-size: 0.78rem; color: var(--text-muted); margin-bottom: 20px; min-height: 18px; }
+  .results-meta strong { color: var(--navy); }
+
+  /* CARD ANIMATION & HIDDEN */
+  .news-card.hidden { display: none; }
+  @keyframes cardIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: none; }
+  }
+  .news-card.card-anim { animation: cardIn 0.22s ease both; }
+
+  /* NO RESULTS */
+  .no-results {
+    display: none; grid-column: 1 / -1; padding: 60px 20px; text-align: center;
+  }
+  .no-results.show { display: block; }
+  .no-results-icon { font-size: 2.6rem; margin-bottom: 12px; }
+  .no-results h3 { font-family: 'Montserrat', sans-serif; font-size: 1.1rem; color: var(--navy); margin-bottom: 6px; }
+  .no-results p { font-size: 0.88rem; color: var(--text-muted); }
+  .no-results button {
+    margin-top: 16px; padding: 8px 20px; border-radius: 30px;
+    border: 2px solid var(--navy); background: transparent; color: var(--navy);
+    font-family: 'Montserrat', sans-serif; font-size: 0.82rem; font-weight: 600;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .no-results button:hover { background: var(--navy); color: #fff; }
 
   /* NEWS GRID */
   .news-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; }
@@ -206,8 +273,11 @@
     .hamburger { display: flex; }
     .news-grid { grid-template-columns: 1fr; }
     .page-hero { padding: 100px 5% 48px; }
-    .filter-bar { gap: 6px; flex-wrap: wrap; justify-content: center; }
-    .filter-btn { padding: 7px 14px; font-size: 0.8rem; }
+    .filter-search-row { flex-direction: column; align-items: stretch; }
+    .filter-bar { gap: 6px; justify-content: center; }
+    .filter-btn { padding: 6px 12px; font-size: 0.78rem; }
+    .search-box { width: 100%; }
+    .search-box input { width: 100%; flex: 1; }
     .content-wrap { padding: 36px 5%; }
   }
   @media (max-width: 480px) {
@@ -271,18 +341,39 @@
   <div class="section-label">School News</div>
   <div class="section-heading">Recent <span>Stories</span></div>
 
-  <div class="filter-bar">
-    <button class="filter-btn active">All</button>
-    <button class="filter-btn">Academics</button>
-    <button class="filter-btn">Sports</button>
-    <button class="filter-btn">Events</button>
-    <button class="filter-btn">Clubs</button>
+  <div class="filter-search-row">
+    <div class="filter-bar">
+      <button class="filter-btn active" data-filter="all">
+        All <span class="f-count" id="fc-all"></span>
+      </button>
+      <button class="filter-btn" data-filter="academics">
+        <span class="f-dot" style="background:var(--navy);"></span>Academics <span class="f-count" id="fc-academics"></span>
+      </button>
+      <button class="filter-btn" data-filter="sports">
+        <span class="f-dot" style="background:var(--red);"></span>Sports <span class="f-count" id="fc-sports"></span>
+      </button>
+      <button class="filter-btn" data-filter="events">
+        <span class="f-dot" style="background:var(--green);"></span>Events <span class="f-count" id="fc-events"></span>
+      </button>
+      <button class="filter-btn" data-filter="clubs">
+        <span class="f-dot" style="background:var(--gold);"></span>Clubs <span class="f-count" id="fc-clubs"></span>
+      </button>
+    </div>
+    <div class="search-box">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+      </svg>
+      <input id="newsSearch" type="text" placeholder="Search articles…" autocomplete="off" maxlength="80">
+      <button class="search-clear" id="searchClear" title="Clear">✕</button>
+    </div>
   </div>
+
+  <div class="results-meta" id="resultsMeta"></div>
 
   <div class="news-grid">
 
     <!-- Article 1 -->
-    <div class="news-card">
+    <div class="news-card" data-category="academics">
       <div class="news-card-img navy-bg"></div>
       <div class="news-card-body">
         <div class="news-card-cat navy">Academics</div>
@@ -296,7 +387,7 @@
     </div>
 
     <!-- Article 2 -->
-    <div class="news-card">
+    <div class="news-card" data-category="sports">
       <div class="news-card-img red-bg"></div>
       <div class="news-card-body">
         <div class="news-card-cat red">Sports</div>
@@ -310,7 +401,7 @@
     </div>
 
     <!-- Article 3 -->
-    <div class="news-card">
+    <div class="news-card" data-category="clubs">
       <div class="news-card-img gold-bg"></div>
       <div class="news-card-body">
         <div class="news-card-cat gold">Clubs</div>
@@ -324,7 +415,7 @@
     </div>
 
     <!-- Article 4 -->
-    <div class="news-card">
+    <div class="news-card" data-category="events">
       <div class="news-card-img green-bg"></div>
       <div class="news-card-body">
         <div class="news-card-cat green">Events</div>
@@ -338,7 +429,7 @@
     </div>
 
     <!-- Article 5 -->
-    <div class="news-card">
+    <div class="news-card" data-category="events">
       <div class="news-card-img sky-bg"> </div>
       <div class="news-card-body">
         <div class="news-card-cat sky">Events</div>
@@ -352,7 +443,7 @@
     </div>
 
     <!-- Article 6 -->
-    <div class="news-card">
+    <div class="news-card" data-category="academics">
       <div class="news-card-img red-bg"></div>
       <div class="news-card-body">
         <div class="news-card-cat red">Academics</div>
@@ -363,6 +454,14 @@
           <a href="#" class="read-more">Read more →</a>
         </div>
       </div>
+    </div>
+
+    <!-- Empty state -->
+    <div class="no-results" id="noResults">
+      <div class="no-results-icon">🔍</div>
+      <h3>No articles found</h3>
+      <p>Try a different category or search term.</p>
+      <button id="clearFilters">Clear filters</button>
     </div>
 
   </div><!-- /news-grid -->
@@ -397,13 +496,104 @@
 </footer>
 
 <script>
-  const filterBtns = document.querySelectorAll('.filter-btn');
-  filterBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      filterBtns.forEach(b => b.classList.remove('active'));
+(function () {
+  var cards       = Array.from(document.querySelectorAll('.news-card[data-category]'));
+  var btns        = document.querySelectorAll('.filter-btn[data-filter]');
+  var searchInput = document.getElementById('newsSearch');
+  var clearBtn    = document.getElementById('searchClear');
+  var noResults   = document.getElementById('noResults');
+  var meta        = document.getElementById('resultsMeta');
+  var clearAll    = document.getElementById('clearFilters');
+  var activeFilter = 'all';
+
+  // Populate count badges
+  var counts = {};
+  cards.forEach(function (c) {
+    var cat = c.dataset.category;
+    counts[cat] = (counts[cat] || 0) + 1;
+  });
+  btns.forEach(function (btn) {
+    var f = btn.dataset.filter;
+    var span = document.getElementById('fc-' + f);
+    if (span) span.textContent = f === 'all' ? cards.length : (counts[f] || 0);
+  });
+
+  function applyFilter() {
+    var q = searchInput ? searchInput.value.toLowerCase().trim() : '';
+    var visible = [];
+
+    cards.forEach(function (card) {
+      var catOk  = activeFilter === 'all' || card.dataset.category === activeFilter;
+      var textOk = !q || card.textContent.toLowerCase().indexOf(q) !== -1;
+      if (catOk && textOk) {
+        card.classList.remove('hidden', 'card-anim');
+        void card.offsetWidth;
+        card.classList.add('card-anim');
+        visible.push(card);
+      } else {
+        card.classList.add('hidden');
+        card.classList.remove('card-anim');
+      }
+    });
+
+    // Stagger animation delay on visible cards
+    visible.forEach(function (card, i) {
+      card.style.animationDelay = (i * 0.04) + 's';
+    });
+
+    // No-results state
+    if (noResults) noResults.classList.toggle('show', visible.length === 0);
+
+    // Results meta text
+    if (meta) {
+      var isFiltered = q || activeFilter !== 'all';
+      meta.innerHTML = isFiltered && visible.length < cards.length
+        ? 'Showing <strong>' + visible.length + '</strong> of <strong>' + cards.length + '</strong> articles'
+        : '';
+    }
+
+    // Clear button visibility
+    if (clearBtn) clearBtn.classList.toggle('visible', q.length > 0);
+  }
+
+  // Category filter clicks
+  btns.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      btns.forEach(function (b) { b.classList.remove('active'); });
       btn.classList.add('active');
+      activeFilter = btn.dataset.filter;
+      applyFilter();
     });
   });
+
+  // Search input
+  if (searchInput) {
+    searchInput.addEventListener('input', applyFilter);
+  }
+
+  // Clear search × button
+  if (clearBtn) {
+    clearBtn.addEventListener('click', function () {
+      searchInput.value = '';
+      applyFilter();
+      searchInput.focus();
+    });
+  }
+
+  // "Clear filters" button inside empty state
+  if (clearAll) {
+    clearAll.addEventListener('click', function () {
+      btns.forEach(function (b) { b.classList.remove('active'); });
+      document.querySelector('.filter-btn[data-filter="all"]').classList.add('active');
+      activeFilter = 'all';
+      if (searchInput) searchInput.value = '';
+      applyFilter();
+    });
+  }
+
+  // Initial run
+  applyFilter();
+})();
 </script>
 <script src="chatbot.js"></script>
 </body>

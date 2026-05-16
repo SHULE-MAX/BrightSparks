@@ -916,7 +916,7 @@
       <div class="adm-card">
         <div class="adm-card-header">
           <div class="adm-icon sky"></div>
-          <div><h3>Term II 2026 Calendar</h3><span class="adm-sub">Live calendar — highlighted events</span></div>
+          <div><h3>School Calendar</h3><span class="adm-sub">Browse all months from 2024 onwards — key dates highlighted</span></div>
         </div>
         <div class="cal-legend">
           <div class="cal-legend-item"><div class="cal-legend-dot" style="background:var(--gold);"></div>Key Date</div>
@@ -1266,9 +1266,10 @@
     });
   })();
 
-  // Live Term II Calendar
+  // School Calendar
   (function () {
     var termEvents = [
+      // — Term II 2026 —
       { date:'2026-05-27', label:'Eid Al Adhuha', desc:'Day for Sacrificing animals in rememberance of Faith demonstrated by Prophet Ibrahim', type:'key' },
       { date:'2026-05-28', label:'Reporting Day', desc:'Term II begins', type:'key' },
       { date:'2026-06-03', label:"Martyrs' Day", desc:'Public Holiday', type:'holiday' },
@@ -1283,12 +1284,10 @@
     ];
     var MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
     var DAYS   = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-    var MIN_M  = new Date(2026, 4);
-    var MAX_M  = new Date(2026, 7);
     var today  = new Date();
+    var MIN_M  = new Date(2024, 0);
+    var MAX_M  = new Date(today.getFullYear() + 2, 11);
     var cur    = new Date(today.getFullYear(), today.getMonth());
-    if (cur < MIN_M) cur = new Date(2026, 4);
-    if (cur > MAX_M) cur = new Date(2026, 7);
 
     function isSameDay(a, b) {
       return a.getFullYear()===b.getFullYear() && a.getMonth()===b.getMonth() && a.getDate()===b.getDate();

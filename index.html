@@ -463,6 +463,14 @@
   /* CAREERS */
   #careers { background: var(--cream); }
   .careers-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
+  .career-highlights { list-style: none; display: flex; flex-direction: column; gap: 12px; margin: 20px 0 28px; }
+  .career-highlights li {
+    display: flex; align-items: flex-start; gap: 14px;
+    padding: 14px 16px; background: rgba(255,255,255,0.05);
+    border-radius: var(--radius-sm); border-left: 3px solid var(--gold);
+    font-size: 0.875rem; color: rgba(255,255,255,0.82); line-height: 1.55;
+  }
+  .career-highlights li .hi { font-size: 1.3rem; flex-shrink: 0; }
   .job-card {
     background: var(--white); border-radius: var(--radius); padding: 22px;
     border: 1.5px solid #EEF2F8; margin-bottom: 14px; transition: all 0.25s;
@@ -663,7 +671,7 @@
     <li><a href="#why">Facilities</a></li>
     <li><a href="#admissions">Admissions</a></li>
     <li><a href="#news">News</a></li>
-    <li><a href="#careers">Careers</a></li>
+    <li><a href="careers.html">Careers</a></li>
     <li><a href="#contacts">Contact</a></li>
     <li><a href="#admissions" class="btn-apply">Apply Now</a></li>
   </ul>
@@ -677,7 +685,7 @@
   <a href="#why" onclick="closeMenu()">Facilities</a>
   <a href="#admissions" onclick="closeMenu()">Admissions</a>
   <a href="#news" onclick="closeMenu()">News</a>
-  <a href="#careers" onclick="closeMenu()">Careers</a>
+  <a href="careers.html" onclick="closeMenu()">Careers</a>
   <a href="#contacts" onclick="closeMenu()">Contact</a>
   <a href="https://app.brightsparksjunior.ac.ug" target="_blank">Parent/Teacher Portal</a>
 </div>
@@ -1076,43 +1084,27 @@
     </div>
     <div class="careers-layout">
       <div>
-        <div class="job-card">
-          <div class="job-card-top"><h3>Class Teacher (Primary 1–7)</h3><span class="job-badge full">Full-time</span></div>
-          <p>Experienced, enthusiastic teachers for all primary levels who are passionate about child development and committed to excellence under the Ugandan National Curriculum.</p>
-          <div class="job-meta"><span class="job-tag">Seguku-Katale</span><span class="job-tag">Primary Level</span><span class="job-tag">🎓 Degree/Diploma in Education</span></div>
-          <a href="mailto:brightsparksjuniorsch@gmail.com?subject=Application: Class Teacher (Primary)&body=Dear Hiring Team,%0A%0AI am applying for the Class Teacher (Primary) position at Bright Sparks Junior School. Please find attached my CV and cover letter.%0A%0AThank you." class="btn-job">Apply Now →</a>
-        </div>
-        <div class="job-card">
-          <div class="job-card-top"><h3>Kindergarten / ECD Teacher</h3><span class="job-badge full">Full-time</span></div>
-          <p>A warm, nurturing Early Childhood Development specialist to guide our youngest learners in Baby, Middle, and Top Class with creativity and care.</p>
-          <div class="job-meta"><span class="job-tag">Seguku-Katale</span><span class="job-tag">Kindergarten</span><span class="job-tag">🎓 ECD Certificate</span></div>
-          <a href="mailto:brightsparksjuniorsch@gmail.com?subject=Application: Kindergarten Teacher&body=Dear Hiring Team,%0A%0AI am applying for the Kindergarten Teacher position at Bright Sparks Junior School.%0A%0AThank you." class="btn-job">Apply Now →</a>
-        </div>
-        <div class="job-card">
-          <div class="job-card-top"><h3>ICT Teacher / Lab Technician</h3><span class="job-badge part">Part-time</span></div>
-          <p>A qualified ICT professional to teach computer lessons and maintain our computer lab. Computer studies is compulsory for all pupils.</p>
-          <div class="job-meta"><span class="job-tag">Seguku-Katale</span><span class="job-tag">ICT / Computing</span><span class="job-tag">🎓 Relevant Qualification</span></div>
-          <a href="mailto:brightsparksjuniorsch@gmail.com?subject=Application: ICT Teacher&body=Dear Hiring Team,%0A%0AI am applying for the ICT Teacher position at Bright Sparks Junior School.%0A%0AThank you." class="btn-job">Apply Now →</a>
-        </div>
-        <div class="job-card">
-          <div class="job-card-top"><h3>School Nurse / Health Officer</h3><span class="job-badge full">Full-time</span></div>
-          <p>Responsible for the health and wellness of all pupils particularly boarders. Must be registered with the Uganda Nurses and Midwives Council.</p>
-          <div class="job-meta"><span class="job-tag">Seguku-Katale</span><span class="job-tag">Health</span><span class="job-tag">🎓 Nursing Registration</span></div>
-          <a href="mailto:brightsparksjuniorsch@gmail.com?subject=Application: School Nurse&body=Dear Hiring Team,%0A%0AI am applying for the School Nurse position at Bright Sparks Junior School.%0A%0AThank you." class="btn-job">Apply Now →</a>
-        </div>
+        <p style="color:rgba(255,255,255,0.75); font-size:0.92rem; line-height:1.75; margin-bottom:4px;">
+          At Bright Sparks, our staff are our greatest asset. We welcome applications from qualified and passionate individuals across all departments &mdash; teaching, health, administration, ICT, and support.
+        </p>
+        <ul class="career-highlights">
+          <li><span class="hi">&#127979;</span><div><strong>Excellence-Driven Culture</strong> &mdash; We hold high standards and support every team member in reaching theirs through regular CPD and mentoring.</div></li>
+          <li><span class="hi">&#129309;</span><div><strong>Supportive Team Environment</strong> &mdash; A warm, collegial staff community where every contribution is valued and recognised each term.</div></li>
+          <li><span class="hi">&#127775;</span><div><strong>Structured Terms &amp; Benefits</strong> &mdash; Three-term calendar with meals on duty, holiday breaks, and performance recognition for outstanding staff.</div></li>
+        </ul>
+        <a href="careers.html" class="btn-primary" style="display:inline-flex; align-items:center; gap:8px;">View Careers &amp; Apply &#8594;</a>
       </div>
       <div>
         <div class="career-cta">
-          <h3>Build Your Career with Bright Sparks</h3>
-          <p>At Bright Sparks Junior School, our staff are our greatest asset. We invest in our team through continuous professional development, a supportive work environment, and competitive remuneration.</p>
+          <h3>Ready to Apply?</h3>
+          <p>Submit a speculative application and we will reach out when a suitable position becomes available. Our careers portal guides you through every step.</p>
           <ul class="career-requirements">
             <li>Updated CV with a detailed cover letter</li>
             <li>Certified copies of academic certificates</li>
             <li>Two professional references with contacts</li>
-            <!-- <li>Recent police clearance certificate</li> -->
-            <!--<li>Teaching philosophy statement (for teaching roles)</li>-->
+            <li>Copy of National ID or Passport</li>
           </ul>
-          <a href="mailto:brightsparksjuniorsch@gmail.com?subject=General Job Application Bright Sparks Junior School&body=Dear Hiring Team,%0A%0AI would like to apply for a position at Bright Sparks Junior School. Please find my CV attached.%0A%0AThank you." class="btn-primary" style="width:100%; justify-content:center; background:linear-gradient(135deg,var(--red),var(--red-dark));">📧 Send Your Application</a>
+          <a href="careers.html" class="btn-primary" style="width:100%; justify-content:center; background:linear-gradient(135deg,var(--red),var(--red-dark));">&#128140; Go to Careers Portal</a>
           <p style="font-size:0.75rem; text-align:center; margin-top:10px; color:rgba(255,255,255,0.5);">brightsparksjuniorsch@gmail.com</p>
         </div>
       </div>

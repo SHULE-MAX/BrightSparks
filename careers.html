@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Careers | Bright Sparks Junior School</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700;1,800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #D32F2F;
+    --red-dark: #B71C1C;
+    --navy: #1A2E6E;
+    --navy-mid: #203580;
+    --navy-light: #2B42A0;
+    --green: #1B6B3A;
+    --green-light: #2E8B57;
+    --gold: #E8A020;
+    --gold-light: #F5C252;
+    --sky: #3B9FD4;
+    --white: #FFFFFF;
+    --cream: #F8FBF8;
+    --text: #1A1A2E;
+    --text-muted: #5A6480;
+    --radius: 16px;
+    --radius-sm: 8px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; overflow-x: hidden; }
+  body { font-family: 'Montserrat', sans-serif; color: var(--text); background: var(--cream); }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    background: rgba(26,46,110,0.97); backdrop-filter: blur(12px);
+    padding: 0 4%; display: flex; align-items: center; justify-content: space-between;
+    height: 68px; border-bottom: 3px solid var(--red);
+    -webkit-transform: translateZ(0); transform: translateZ(0);
+  }
+  .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .nav-logo img { height: 50px; width: auto; background: rgba(255,255,255,0.93); border-radius: 8px; padding: 4px 6px; }
+  .nav-logo-text { color: var(--white); }
+  .nav-logo-text strong { display: block; font-size: 0.88rem; font-weight: 700; }
+  .nav-logo-text span { font-size: 0.65rem; color: var(--gold-light); letter-spacing: 0.08em; text-transform: uppercase; }
+  .nav-links { display: flex; gap: 4px; list-style: none; align-items: center; }
+  .nav-links a {
+    color: rgba(255,255,255,0.85); text-decoration: none; font-size: 0.8rem;
+    font-weight: 500; padding: 6px 10px; border-radius: 6px; transition: all 0.2s;
+  }
+  .nav-links a:hover { color: var(--gold-light); background: rgba(255,255,255,0.08); }
+  .nav-links .active { color: var(--gold-light) !important; }
+  .nav-links .btn-apply {
+    background: var(--red); color: white !important; font-weight: 700;
+    padding: 7px 16px; border-radius: 8px;
+  }
+  .nav-links .btn-apply:hover { background: var(--red-dark); }
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; }
+  .hamburger span { display: block; width: 24px; height: 2px; background: var(--white); border-radius: 2px; transition: all 0.3s; }
+  .mobile-menu {
+    display: none; position: fixed; top: 68px; left: 0; right: 0;
+    background: var(--navy); padding: 16px 5%; z-index: 999;
+    border-bottom: 2px solid var(--red);
+  }
+  .mobile-menu.open { display: block; }
+  .mobile-menu a {
+    display: block; color: var(--white); text-decoration: none;
+    padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.1); font-size: 0.95rem;
+  }
+  .mobile-menu a:last-child { border-bottom: none; }
+
+  /* PAGE HERO */
+  .page-hero {
+    background: linear-gradient(150deg, #0D1A45 0%, #1A2E6E 55%, #152560 100%);
+    padding: 110px 4% 60px; text-align: center; position: relative; overflow: hidden;
+  }
+  .page-hero::before {
+    content: ''; position: absolute; inset: 0; pointer-events: none;
+    background-image:
+      radial-gradient(circle at 20% 50%, rgba(211,47,47,0.12) 0%, transparent 50%),
+      radial-gradient(circle at 80% 30%, rgba(27,107,58,0.1) 0%, transparent 40%);
+  }
+  .page-hero-tag {
+    display: inline-block; background: rgba(211,47,47,0.2); border: 1px solid rgba(211,47,47,0.4);
+    color: #FF8A80; padding: 5px 16px; border-radius: 30px;
+    font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase;
+    font-weight: 600; margin-bottom: 16px; position: relative; z-index: 1;
+  }
+  .page-hero h1 {
+    font-family: 'Montserrat', sans-serif; color: var(--white);
+    font-size: clamp(2rem, 5vw, 3.2rem); line-height: 1.15; margin-bottom: 14px;
+    position: relative; z-index: 1;
+  }
+  .page-hero h1 span { color: var(--gold-light); }
+  .page-hero p {
+    color: rgba(255,255,255,0.75); font-size: 1rem; max-width: 560px;
+    margin: 0 auto; position: relative; z-index: 1;
+  }
+
+  /* CONTENT */
+  .content-wrap { max-width: 980px; margin: 0 auto; padding: 60px 4%; }
+  .back-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    color: var(--navy); text-decoration: none; font-size: 0.85rem; font-weight: 600;
+    margin-bottom: 32px; transition: gap 0.2s;
+  }
+  .back-link:hover { gap: 10px; color: var(--red); }
+
+  /* CARDS */
+  .adm-card {
+    background: var(--white); border-radius: var(--radius);
+    padding: 28px 32px; margin-bottom: 28px;
+    box-shadow: 0 2px 16px rgba(26,46,110,0.08);
+  }
+  .adm-card-header {
+    display: flex; align-items: center; gap: 16px; margin-bottom: 20px;
+  }
+  .adm-icon {
+    width: 48px; height: 48px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.5rem; flex-shrink: 0;
+  }
+  .adm-icon.red   { background: rgba(211,47,47,0.1); }
+  .adm-icon.navy  { background: rgba(26,46,110,0.1); }
+  .adm-icon.green { background: rgba(27,107,58,0.1); }
+  .adm-icon.gold  { background: rgba(232,160,32,0.12); }
+  .adm-icon.sky   { background: rgba(59,159,212,0.1); }
+  .adm-card-header h2 {
+    font-family: 'Montserrat', sans-serif; font-size: 1.25rem; color: var(--navy);
+  }
+  .adm-sub { font-size: 0.8rem; color: var(--text-muted); display: block; margin-top: 2px; }
+
+  /* VALUES GRID */
+  .values-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .value-item {
+    background: var(--cream); border-radius: var(--radius-sm); padding: 20px 18px;
+    border-left: 3px solid var(--navy);
+  }
+  .value-item .v-icon { font-size: 1.6rem; margin-bottom: 10px; display: block; }
+  .value-item h4 { font-size: 0.92rem; color: var(--navy); font-weight: 700; margin-bottom: 6px; }
+  .value-item p { font-size: 0.82rem; color: var(--text-muted); line-height: 1.55; }
+
+  /* PERKS ROW */
+  .perks-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-top: 4px; }
+  .perk-item {
+    display: flex; align-items: flex-start; gap: 12px;
+    padding: 14px 16px; background: var(--cream); border-radius: var(--radius-sm);
+  }
+  .perk-item .perk-icon {
+    width: 36px; height: 36px; border-radius: 8px; background: var(--navy);
+    color: var(--gold-light); font-size: 1rem;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .perk-item h5 { font-size: 0.875rem; color: var(--navy); font-weight: 700; margin-bottom: 2px; }
+  .perk-item p { font-size: 0.8rem; color: var(--text-muted); line-height: 1.45; }
+
+  /* CHECKLIST */
+  .checklist { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .checklist li {
+    display: flex; align-items: flex-start; gap: 12px;
+    padding: 12px 14px; background: var(--cream); border-radius: var(--radius-sm);
+    font-size: 0.875rem; color: var(--text); line-height: 1.5;
+  }
+  .check-mark {
+    width: 22px; height: 22px; border-radius: 50%; background: var(--green);
+    color: white; font-size: 0.7rem; font-weight: 700;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px;
+  }
+  .check-optional { background: var(--sky); }
+
+  /* APPLICATION FORM */
+  .app-form { display: flex; flex-direction: column; gap: 18px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .form-group { display: flex; flex-direction: column; gap: 6px; }
+  .form-group label {
+    font-size: 0.8rem; font-weight: 700; color: var(--navy); letter-spacing: 0.03em; text-transform: uppercase;
+  }
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    width: 100%; padding: 11px 14px;
+    border: 1.5px solid rgba(26,46,110,0.18); border-radius: var(--radius-sm);
+    font-family: 'Montserrat', sans-serif; font-size: 0.88rem; color: var(--text);
+    background: var(--cream); transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+  }
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    border-color: var(--navy); box-shadow: 0 0 0 3px rgba(26,46,110,0.08);
+  }
+  .form-group textarea { resize: vertical; min-height: 100px; }
+  .form-group select { cursor: pointer; }
+
+  .form-note {
+    background: rgba(232,160,32,0.1); border: 1px solid rgba(232,160,32,0.3);
+    border-radius: var(--radius-sm); padding: 14px 16px;
+    font-size: 0.82rem; color: var(--text); line-height: 1.6;
+  }
+  .form-note strong { color: var(--navy); }
+
+  /* PRE-SEND CHECKLIST */
+  .pre-send-list { list-style: none; display: flex; flex-direction: column; gap: 8px; margin: 12px 0; }
+  .pre-send-list li {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 0.83rem; color: var(--text); padding: 8px 12px;
+    background: rgba(27,107,58,0.06); border-radius: 6px;
+  }
+  .pre-send-list li input[type="checkbox"] {
+    width: 16px; height: 16px; cursor: pointer; accent-color: var(--green); flex-shrink: 0;
+    padding: 0; border: none; box-shadow: none;
+  }
+
+  /* SUBMIT BUTTON */
+  .btn-submit {
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+    width: 100%; padding: 14px 28px; border-radius: 10px;
+    background: linear-gradient(135deg, var(--red), var(--red-dark));
+    color: var(--white); font-family: 'Montserrat', sans-serif;
+    font-size: 0.95rem; font-weight: 700; border: none; cursor: pointer;
+    transition: opacity 0.2s, transform 0.15s; text-decoration: none;
+  }
+  .btn-submit:hover { opacity: 0.9; transform: translateY(-1px); }
+  .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+  .submit-note { font-size: 0.74rem; text-align: center; color: var(--text-muted); margin-top: 8px; }
+
+  /* INFO ROW */
+  .info-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 28px; }
+  .info-box {
+    background: var(--white); border-radius: var(--radius); padding: 24px;
+    box-shadow: 0 2px 12px rgba(26,46,110,0.07);
+  }
+  .info-box h3 { font-size: 1rem; color: var(--navy); margin-bottom: 10px; font-weight: 700; }
+  .info-box ul { list-style: none; }
+  .info-box ul li {
+    padding: 7px 0; font-size: 0.875rem; color: var(--text);
+    border-bottom: 1px solid rgba(26,46,110,0.07); display: flex; gap: 8px; align-items: flex-start;
+  }
+  .info-box ul li:last-child { border-bottom: none; }
+
+  /* CTA */
+  .cta-bar {
+    background: linear-gradient(135deg, var(--navy), var(--navy-light));
+    border-radius: var(--radius); padding: 36px; text-align: center; color: var(--white);
+    margin-top: 16px;
+  }
+  .cta-bar h3 { font-size: 1.5rem; margin-bottom: 10px; }
+  .cta-bar p { font-size: 0.9rem; color: rgba(255,255,255,0.75); margin-bottom: 20px; }
+  .btn-cta {
+    display: inline-block; background: var(--red); color: var(--white);
+    text-decoration: none; font-weight: 700; font-size: 0.9rem;
+    padding: 12px 28px; border-radius: 8px; margin: 4px; transition: background 0.2s;
+  }
+  .btn-cta:hover { background: var(--red-dark); }
+  .btn-cta.outline {
+    background: transparent; border: 2px solid rgba(255,255,255,0.4); color: var(--white);
+  }
+  .btn-cta.outline:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.7); }
+
+  /* SECTION LABEL */
+  .section-label {
+    font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--red); margin-bottom: 8px;
+  }
+  .section-heading {
+    font-family: 'Montserrat', sans-serif; font-size: 1.6rem; color: var(--navy); margin-bottom: 24px;
+  }
+  .section-heading span { color: var(--red); }
+  .divider { height: 1px; background: rgba(26,46,110,0.1); margin: 40px 0; }
+
+  /* SUCCESS BANNER */
+  .success-banner {
+    display: none; background: rgba(27,107,58,0.1); border: 1.5px solid rgba(27,107,58,0.3);
+    border-radius: var(--radius-sm); padding: 16px 20px; margin-bottom: 20px;
+    color: var(--green); font-size: 0.88rem; font-weight: 600; text-align: center;
+  }
+  .success-banner.show { display: block; }
+
+  /* FOOTER */
+  footer {
+    background: var(--navy); color: rgba(255,255,255,0.7);
+    text-align: center; padding: 28px 4%; font-size: 0.82rem; margin-top: 80px;
+  }
+  footer a { color: var(--gold-light); text-decoration: none; }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    .values-grid { grid-template-columns: 1fr 1fr; }
+    .perks-row { grid-template-columns: 1fr; }
+    .info-row { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 520px) {
+    .nav-logo-text span { display: none; }
+    .nav-logo img { height: 40px; }
+    .page-hero { padding: 96px 5% 44px; }
+    .adm-card { padding: 20px; }
+    .content-wrap { padding: 40px 5%; }
+    .values-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    <img src="logo.png" alt="Bright Sparks Junior School Logo" onerror="this.style.display='none'">
+    <div class="nav-logo-text">
+      <strong>Bright Sparks Junior School</strong>
+      <span>We Shall Reach the Shore!</span>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="admissions.html">Admissions</a></li>
+    <li><a href="fees.html">Fees</a></li>
+    <li><a href="news.html">News</a></li>
+    <li><a href="careers.html" class="active">Careers</a></li>
+    <li><a href="index.html#contacts" class="btn-apply">Contact Us</a></li>
+  </ul>
+  <div class="hamburger" onclick="document.getElementById('mobileMenu').classList.toggle('open')">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">Home</a>
+  <a href="index.html#about">About</a>
+  <a href="admissions.html">Admissions</a>
+  <a href="fees.html">Fees</a>
+  <a href="news.html">News</a>
+  <a href="careers.html">Careers</a>
+  <a href="index.html#contacts">Contact Us</a>
+</div>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="page-hero-tag">Join Our Team</div>
+  <h1>Build Your Career at <span>Bright Sparks</span></h1>
+  <p>We are always looking for passionate, dedicated professionals to help us shape the next generation of leaders. Submit your application and we will be in touch when a suitable position arises.</p>
+</div>
+
+<!-- CONTENT -->
+<div class="content-wrap">
+  <a href="index.html" class="back-link">&#8592; Back to Home</a>
+
+  <!-- WHY WORK WITH US -->
+  <div class="section-label">Why Bright Sparks</div>
+  <div class="section-heading">A School That <span>Invests in Its People</span></div>
+
+  <div class="values-grid" style="margin-bottom: 28px;">
+    <div class="value-item">
+      <span class="v-icon">&#127979;</span>
+      <h4>Excellence-Driven Culture</h4>
+      <p>We hold ourselves and our pupils to high standards — and we support every staff member in reaching theirs.</p>
+    </div>
+    <div class="value-item" style="border-left-color: var(--red);">
+      <span class="v-icon">&#127775;</span>
+      <h4>Professional Development</h4>
+      <p>Regular training, workshops, and peer mentoring programmes to keep you at your best.</p>
+    </div>
+    <div class="value-item" style="border-left-color: var(--green);">
+      <span class="v-icon">&#129309;</span>
+      <h4>Supportive Community</h4>
+      <p>A warm, collegial staff environment where every team member's contribution is valued and recognised.</p>
+    </div>
+  </div>
+
+  <div class="adm-card">
+    <div class="adm-card-header">
+      <div class="adm-icon gold">&#127775;</div>
+      <div>
+        <h2>Staff Benefits</h2>
+        <span class="adm-sub">What you can expect as part of the Bright Sparks team</span>
+      </div>
+    </div>
+    <div class="perks-row">
+      <div class="perk-item">
+        <div class="perk-icon">&#128197;</div>
+        <div>
+          <h5>Structured Terms &amp; Holidays</h5>
+          <p>Three terms per year with generous holiday breaks aligned to the Uganda national school calendar.</p>
+        </div>
+      </div>
+      <div class="perk-item">
+        <div class="perk-icon">&#127979;</div>
+        <div>
+          <h5>CPD &amp; Training</h5>
+          <p>Continuous Professional Development opportunities, in-school workshops, and sponsored external training.</p>
+        </div>
+      </div>
+      <div class="perk-item">
+        <div class="perk-icon">&#127869;</div>
+        <div>
+          <h5>Meals on Duty</h5>
+          <p>Staff on duty receive meals during the school day, keeping you fuelled and focused.</p>
+        </div>
+      </div>
+      <div class="perk-item">
+        <div class="perk-icon">&#127942;</div>
+        <div>
+          <h5>Performance Recognition</h5>
+          <p>Outstanding staff are recognised and rewarded at the end of each term at our staff review meetings.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- WHAT WE LOOK FOR -->
+  <div class="section-label">Ideal Candidate</div>
+  <div class="section-heading">What We <span>Look For</span></div>
+
+  <div class="info-row">
+    <div class="info-box">
+      <h3>&#127891; Qualifications</h3>
+      <ul>
+        <li><span>&#10003;</span> Diploma or Degree in Education (teaching roles)</li>
+        <li><span>&#10003;</span> Relevant professional certification (specialist roles)</li>
+        <li><span>&#10003;</span> Registered with the appropriate professional body where required</li>
+        <li><span>&#10003;</span> At least 1&#8211;2 years experience preferred</li>
+      </ul>
+    </div>
+    <div class="info-box">
+      <h3>&#10024; Character &amp; Values</h3>
+      <ul>
+        <li><span>&#10003;</span> Genuine passion for working with children</li>
+        <li><span>&#10003;</span> Punctual, reliable, and professional at all times</li>
+        <li><span>&#10003;</span> Collaborative team player with good communication skills</li>
+        <li><span>&#10003;</span> Committed to safeguarding and child welfare</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- APPLICATION FORM -->
+  <div class="section-label">Apply Now</div>
+  <div class="section-heading">Submit Your <span>Application</span></div>
+
+  <div class="adm-card">
+    <div class="adm-card-header">
+      <div class="adm-icon red">&#128140;</div>
+      <div>
+        <h2>Application Form</h2>
+        <span class="adm-sub">Fill in your details below — we will compose your application email automatically</span>
+      </div>
+    </div>
+
+    <div class="success-banner" id="successBanner">
+      &#10003; Your email client has opened with a pre-filled application. Please attach your CV and certificates before sending. Thank you!
+    </div>
+
+    <form class="app-form" id="applicationForm" onsubmit="submitApplication(event)">
+
+      <!-- Personal Details -->
+      <div class="form-row">
+        <div class="form-group">
+          <label for="fullName">Full Name *</label>
+          <input type="text" id="fullName" placeholder="e.g. Sarah Nakato" required>
+        </div>
+        <div class="form-group">
+          <label for="phone">Phone Number *</label>
+          <input type="tel" id="phone" placeholder="e.g. +256 7XX XXX XXX" required>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="email">Your Email Address *</label>
+          <input type="email" id="email" placeholder="e.g. yourname@email.com" required>
+        </div>
+        <div class="form-group">
+          <label for="nationality">Nationality</label>
+          <input type="text" id="nationality" placeholder="e.g. Ugandan">
+        </div>
+      </div>
+
+      <!-- Role & Experience -->
+      <div class="form-row">
+        <div class="form-group">
+          <label for="roleCategory">Area of Interest *</label>
+          <select id="roleCategory" required onchange="updateRoleOptions()">
+            <option value="">&#8212; Select a category &#8212;</option>
+            <option value="Teaching">Teaching Staff</option>
+            <option value="Administrative">Administrative / Clerical</option>
+            <option value="Health &amp; Welfare">Health &amp; Welfare</option>
+            <option value="Support &amp; Operations">Support &amp; Operations</option>
+            <option value="ICT">ICT / Technology</option>
+            <option value="Sports &amp; Co-curricular">Sports &amp; Co-curricular</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="specificRole">Specific Role / Title *</label>
+          <input type="text" id="specificRole" placeholder="e.g. Primary Class Teacher" required>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="experience">Years of Experience *</label>
+          <select id="experience" required>
+            <option value="">&#8212; Select &#8212;</option>
+            <option value="Less than 1 year">Less than 1 year</option>
+            <option value="1&#8211;2 years">1&#8211;2 years</option>
+            <option value="3&#8211;5 years">3&#8211;5 years</option>
+            <option value="6&#8211;10 years">6&#8211;10 years</option>
+            <option value="Over 10 years">Over 10 years</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="availability">Earliest Availability *</label>
+          <select id="availability" required>
+            <option value="">&#8212; Select &#8212;</option>
+            <option value="Immediately">Immediately</option>
+            <option value="Within 2 weeks">Within 2 weeks</option>
+            <option value="Within 1 month">Within 1 month</option>
+            <option value="Next term">Start of next term</option>
+            <option value="To be discussed">To be discussed</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="qualifications">Highest Qualification &amp; Institution *</label>
+        <input type="text" id="qualifications" placeholder="e.g. B.Ed. (Primary Education) &#8212; Makerere University, 2019" required>
+      </div>
+
+      <div class="form-group">
+        <label for="currentEmployer">Current / Most Recent Employer</label>
+        <input type="text" id="currentEmployer" placeholder="e.g. Kampala Parents School (leave blank if not applicable)">
+      </div>
+
+      <div class="form-group">
+        <label for="coverNote">Brief Cover Statement *</label>
+        <textarea id="coverNote" rows="4" placeholder="Tell us why you want to work at Bright Sparks Junior School, your key strengths, and anything else you would like us to know (3&#8211;5 sentences)." required></textarea>
+      </div>
+
+      <div class="form-note">
+        <strong>&#128206; Before you click "Open My Application Email" below:</strong><br>
+        Make sure you have the following documents ready to attach to your email:
+        <ul class="pre-send-list">
+          <li>
+            <input type="checkbox" id="chk1">
+            <label for="chk1">Updated CV (curriculum vitae)</label>
+          </li>
+          <li>
+            <input type="checkbox" id="chk2">
+            <label for="chk2">Certified copies of academic certificates / transcripts</label>
+          </li>
+          <li>
+            <input type="checkbox" id="chk3">
+            <label for="chk3">Names and contacts of at least two professional referees</label>
+          </li>
+          <li>
+            <input type="checkbox" id="chk4">
+            <label for="chk4">Copy of National ID or passport</label>
+          </li>
+        </ul>
+        Your filled-in details will be composed into a professional email automatically. You just need to attach these documents and hit Send.
+      </div>
+
+      <button type="submit" class="btn-submit" id="submitBtn">
+        &#128140; Open My Application Email
+      </button>
+      <p class="submit-note">This will open your email client (Gmail, Outlook, etc.) with your application pre-filled. Attach your documents and send.</p>
+    </form>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- CONTACT CTA -->
+  <div class="cta-bar">
+    <h3>Have Questions First?</h3>
+    <p>Call or email us directly &#8212; we are happy to discuss available opportunities and answer any questions before you apply.</p>
+    <a href="tel:+256700116093" class="btn-cta">&#128222; Call Us Now</a>
+    <a href="index.html#contacts" class="btn-cta outline">Contact Page &#8594;</a>
+  </div>
+
+</div><!-- /content-wrap -->
+
+<footer>
+  <p>
+    <strong style="color:rgba(255,255,255,0.75);">Bright Sparks Junior School</strong><br>
+    P.O. Box 134810, Kampala, Uganda &nbsp;|&nbsp; Seguku-Katale, Entebbe Road, Wakiso District<br>
+    <a href="tel:+256700116093">+256 700 116 093</a> &nbsp;/&nbsp;
+    <a href="tel:+256393242093">0393 242 093</a> &nbsp;|&nbsp;
+    <a href="mailto:brightsparksjuniorsch@gmail.com">brightsparksjuniorsch@gmail.com</a><br>
+    <span style="display:block; margin-top:8px; font-size:0.7rem;">
+      &copy; 2026 Bright Sparks Junior School &middot; All rights reserved &middot;
+      <em>"We Shall Reach the Shore!"</em> &middot; <em>Created and Managed by Tr. Ali</em>
+    </span>
+  </p>
+</footer>
+
+<script>
+  function submitApplication(e) {
+    e.preventDefault();
+
+    const name        = document.getElementById('fullName').value.trim();
+    const phone       = document.getElementById('phone').value.trim();
+    const email       = document.getElementById('email').value.trim();
+    const nationality = document.getElementById('nationality').value.trim() || 'Not specified';
+    const category    = document.getElementById('roleCategory').value;
+    const role        = document.getElementById('specificRole').value.trim();
+    const experience  = document.getElementById('experience').value;
+    const availability= document.getElementById('availability').value;
+    const quals       = document.getElementById('qualifications').value.trim();
+    const employer    = document.getElementById('currentEmployer').value.trim() || 'N/A';
+    const cover       = document.getElementById('coverNote').value.trim();
+
+    const subject = encodeURIComponent(
+      'Job Application — ' + role + ' (' + category + ') — ' + name
+    );
+
+    const body = encodeURIComponent(
+      'Dear Hiring Team,\n\n' +
+      'I am writing to apply for a position at Bright Sparks Junior School. ' +
+      'Please find my details below:\n\n' +
+      '-------------------------------------------\n' +
+      'APPLICANT DETAILS\n' +
+      '-------------------------------------------\n' +
+      'Full Name       : ' + name + '\n' +
+      'Phone           : ' + phone + '\n' +
+      'Email           : ' + email + '\n' +
+      'Nationality     : ' + nationality + '\n\n' +
+      '-------------------------------------------\n' +
+      'POSITION APPLIED FOR\n' +
+      '-------------------------------------------\n' +
+      'Category        : ' + category + '\n' +
+      'Specific Role   : ' + role + '\n' +
+      'Experience      : ' + experience + '\n' +
+      'Availability    : ' + availability + '\n\n' +
+      '-------------------------------------------\n' +
+      'QUALIFICATIONS & BACKGROUND\n' +
+      '-------------------------------------------\n' +
+      'Highest Qualification : ' + quals + '\n' +
+      'Current/Last Employer : ' + employer + '\n\n' +
+      '-------------------------------------------\n' +
+      'COVER STATEMENT\n' +
+      '-------------------------------------------\n' +
+      cover + '\n\n' +
+      '-------------------------------------------\n' +
+      'ATTACHED DOCUMENTS\n' +
+      '-------------------------------------------\n' +
+      '• Updated CV\n' +
+      '• Certified copies of academic certificates\n' +
+      '• Professional referee contacts\n' +
+      '• Copy of National ID / Passport\n\n' +
+      'I look forward to hearing from you.\n\n' +
+      'Yours faithfully,\n' +
+      name + '\n' +
+      phone
+    );
+
+    window.location.href =
+      'mailto:brightsparksjuniorsch@gmail.com?subject=' + subject + '&body=' + body;
+
+    document.getElementById('successBanner').classList.add('show');
+    document.getElementById('successBanner').scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  // Mobile menu close on link click
+  document.querySelectorAll('.mobile-menu a').forEach(function(link) {
+    link.addEventListener('click', function() {
+      document.getElementById('mobileMenu').classList.remove('open');
+    });
+  });
+</script>
+<script src="chatbot.js"></script>
+</body>
+</html>

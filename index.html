@@ -466,9 +466,10 @@
   .career-highlights { list-style: none; display: flex; flex-direction: column; gap: 12px; margin: 20px 0 28px; }
   .career-highlights li {
     display: flex; align-items: flex-start; gap: 14px;
-    padding: 14px 16px; background: rgba(255,255,255,0.05);
+    padding: 14px 16px; background: var(--white);
     border-radius: var(--radius-sm); border-left: 3px solid var(--gold);
-    font-size: 0.875rem; color: rgba(255,255,255,0.82); line-height: 1.55;
+    box-shadow: 0 2px 8px rgba(26,46,110,0.06);
+    font-size: 0.875rem; color: var(--text); line-height: 1.55;
   }
   .career-highlights li .hi { font-size: 1.3rem; flex-shrink: 0; }
   .job-card {
@@ -1084,7 +1085,7 @@
     </div>
     <div class="careers-layout">
       <div>
-        <p style="color:rgba(255,255,255,0.75); font-size:0.92rem; line-height:1.75; margin-bottom:4px;">
+        <p style="color:var(--text-muted); font-size:0.92rem; line-height:1.75; margin-bottom:4px;">
           At Bright Sparks, our staff are our greatest asset. We welcome applications from qualified and passionate individuals across all departments &mdash; teaching, health, administration, ICT, and support.
         </p>
         <ul class="career-highlights">

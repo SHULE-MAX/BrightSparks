@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>School Calendar &amp; Events | Bright Sparks Junior School</title>
+<meta name="description" content="View the Bright Sparks Junior School academic calendar — key dates, school events, exams, and public holidays from 2024 onwards.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700;1,800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #D32F2F; --red-dark: #B71C1C;
+    --navy: #1A2E6E; --navy-mid: #203580; --navy-light: #2B42A0;
+    --green: #1B6B3A; --green-light: #2E8B57;
+    --gold: #E8A020; --gold-light: #F5C252;
+    --sky: #3B9FD4;
+    --white: #FFFFFF; --cream: #F8FBF8;
+    --text: #1A1A2E; --text-muted: #5A6480;
+    --radius: 16px; --radius-sm: 8px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; overflow-x: hidden; }
+  body { font-family: 'Montserrat', sans-serif; color: var(--text); background: var(--cream); }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    background: rgba(26,46,110,0.97); backdrop-filter: blur(12px);
+    padding: 0 4%; display: flex; align-items: center; justify-content: space-between;
+    height: 68px; border-bottom: 3px solid var(--red);
+  }
+  .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .nav-logo img { height: 50px; width: auto; background: rgba(255,255,255,0.93); border-radius: 8px; padding: 4px 6px; }
+  .nav-logo-text { color: var(--white); }
+  .nav-logo-text strong { display: block; font-size: 0.88rem; font-weight: 700; }
+  .nav-logo-text span { font-size: 0.65rem; color: var(--gold-light); letter-spacing: 0.08em; text-transform: uppercase; }
+  .nav-links { display: flex; gap: 4px; list-style: none; align-items: center; }
+  .nav-links a {
+    color: rgba(255,255,255,0.85); text-decoration: none; font-size: 0.8rem;
+    font-weight: 500; padding: 6px 10px; border-radius: 6px; transition: all 0.2s;
+  }
+  .nav-links a:hover { color: var(--gold-light); background: rgba(255,255,255,0.08); }
+  .nav-links .active { color: var(--gold-light) !important; }
+  .nav-links .btn-apply { background: var(--red); color: white !important; font-weight: 700; padding: 7px 16px; border-radius: 8px; }
+  .nav-links .btn-apply:hover { background: var(--red-dark); }
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; }
+  .hamburger span { display: block; width: 24px; height: 2px; background: var(--white); border-radius: 2px; transition: all 0.3s; }
+  .mobile-menu {
+    display: none; position: fixed; top: 68px; left: 0; right: 0;
+    background: var(--navy); padding: 16px 5%; z-index: 999; border-bottom: 2px solid var(--red);
+  }
+  .mobile-menu.open { display: block; }
+  .mobile-menu a { display: block; color: var(--white); text-decoration: none; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.1); font-size: 0.95rem; }
+  .mobile-menu a:last-child { border-bottom: none; }
+
+  /* HERO */
+  .page-hero {
+    background: linear-gradient(150deg, #0D1A45 0%, #1A2E6E 55%, #152560 100%);
+    padding: 110px 4% 52px; text-align: center; position: relative; overflow: hidden;
+  }
+  .page-hero::before {
+    content: ''; position: absolute; inset: 0; pointer-events: none;
+    background-image:
+      radial-gradient(circle at 20% 50%, rgba(211,47,47,0.12) 0%, transparent 50%),
+      radial-gradient(circle at 80% 30%, rgba(232,160,32,0.1) 0%, transparent 40%);
+  }
+  .page-hero-tag {
+    display: inline-block; background: rgba(232,160,32,0.18); border: 1px solid rgba(232,160,32,0.4);
+    color: var(--gold-light); padding: 5px 16px; border-radius: 30px;
+    font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase;
+    font-weight: 600; margin-bottom: 16px; position: relative; z-index: 1;
+  }
+  .page-hero h1 {
+    color: var(--white); font-size: clamp(2rem, 5vw, 3.2rem); line-height: 1.15;
+    margin-bottom: 12px; position: relative; z-index: 1;
+  }
+  .page-hero h1 span { color: var(--gold-light); }
+  .page-hero p { color: rgba(255,255,255,0.72); font-size: 0.96rem; max-width: 540px; margin: 0 auto 24px; position: relative; z-index: 1; }
+
+  /* SHARE BAR */
+  .share-bar {
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    flex-wrap: wrap; position: relative; z-index: 1;
+  }
+  .share-url-box {
+    display: flex; align-items: center; gap: 0;
+    background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 8px; overflow: hidden; max-width: 340px; width: 100%;
+  }
+  .share-url-box span {
+    padding: 9px 14px; font-size: 0.75rem; color: rgba(255,255,255,0.7);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis; flex: 1;
+    font-family: monospace; letter-spacing: 0.01em;
+  }
+  .btn-copy {
+    padding: 9px 16px; background: var(--gold); color: var(--navy);
+    font-size: 0.75rem; font-weight: 700; border: none; cursor: pointer;
+    font-family: 'Montserrat', sans-serif; white-space: nowrap; transition: background 0.2s;
+  }
+  .btn-copy:hover { background: var(--gold-light); }
+  .btn-copy.copied { background: var(--green); color: white; }
+  .btn-share-wa {
+    display: inline-flex; align-items: center; gap: 7px;
+    background: #25D366; color: white; padding: 9px 16px; border-radius: 8px;
+    text-decoration: none; font-size: 0.78rem; font-weight: 700; transition: opacity 0.2s;
+  }
+  .btn-share-wa:hover { opacity: 0.88; }
+
+  /* CONTENT */
+  .content-wrap { max-width: 1100px; margin: 0 auto; padding: 48px 4% 80px; }
+  .back-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    color: var(--navy); text-decoration: none; font-size: 0.85rem; font-weight: 600;
+    margin-bottom: 32px; transition: gap 0.2s;
+  }
+  .back-link:hover { gap: 10px; color: var(--red); }
+
+  /* JUMP BAR */
+  .jump-bar {
+    display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+    background: var(--white); border-radius: var(--radius); padding: 16px 20px;
+    box-shadow: 0 2px 12px rgba(26,46,110,0.08); margin-bottom: 28px;
+  }
+  .jump-bar label { font-size: 0.78rem; font-weight: 700; color: var(--navy); text-transform: uppercase; letter-spacing: 0.07em; white-space: nowrap; }
+  .jump-bar select {
+    padding: 7px 12px; border: 1.5px solid rgba(26,46,110,0.18); border-radius: var(--radius-sm);
+    font-family: 'Montserrat', sans-serif; font-size: 0.85rem; color: var(--text);
+    background: var(--cream); cursor: pointer; outline: none; transition: border-color 0.2s;
+  }
+  .jump-bar select:focus { border-color: var(--navy); }
+  .btn-today {
+    padding: 8px 16px; background: var(--navy); color: white; border: none;
+    border-radius: var(--radius-sm); font-family: 'Montserrat', sans-serif;
+    font-size: 0.8rem; font-weight: 700; cursor: pointer; transition: background 0.2s; white-space: nowrap;
+  }
+  .btn-today:hover { background: var(--navy-light); }
+  .jump-bar-spacer { flex: 1; }
+
+  /* MAIN LAYOUT */
+  .cal-layout { display: grid; grid-template-columns: 1fr 380px; gap: 28px; align-items: start; }
+
+  /* CALENDAR CARD */
+  .cal-card {
+    background: var(--white); border-radius: var(--radius); padding: 28px 28px 24px;
+    box-shadow: 0 2px 16px rgba(26,46,110,0.08);
+  }
+  .cal-card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
+  .cal-card-title { font-size: 1.15rem; font-weight: 800; color: var(--navy); }
+  .cal-nav { display: flex; align-items: center; gap: 12px; }
+  .cal-btn {
+    background: none; border: 1.5px solid #dde2ec; border-radius: 6px;
+    padding: 5px 13px; cursor: pointer; font-size: 1.2rem; color: var(--navy);
+    transition: background 0.15s; line-height: 1.6;
+  }
+  .cal-btn:hover { background: var(--cream); }
+  .cal-btn:disabled { color: #ccc; border-color: #eee; cursor: default; background: none; }
+  .cal-month-label { font-weight: 800; color: var(--navy); font-size: 1.05rem; min-width: 150px; text-align: center; }
+
+  .cal-legend { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 16px; padding-bottom: 14px; border-bottom: 1px solid rgba(26,46,110,0.08); }
+  .cal-legend-item { display: flex; align-items: center; gap: 6px; font-size: 0.72rem; color: var(--text-muted); font-weight: 600; }
+  .cal-legend-dot { width: 11px; height: 11px; border-radius: 50%; flex-shrink: 0; }
+
+  .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; margin-bottom: 8px; }
+  .cal-day-name { text-align: center; font-size: 0.65rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; padding: 6px 0 5px; font-weight: 700; }
+  .cal-cell { display: flex; align-items: center; justify-content: center; height: 40px; }
+  .cal-day {
+    width: 34px; height: 34px; display: flex; align-items: center; justify-content: center;
+    border-radius: 50%; font-size: 0.82rem; color: var(--text); cursor: default;
+    font-family: 'Montserrat', sans-serif; font-weight: 500; transition: transform 0.1s;
+  }
+  .cal-day.today { background: var(--cream); border: 2px solid var(--gold); font-weight: 800; color: var(--navy); }
+  .cal-day.event { color: #fff; font-weight: 700; cursor: pointer; }
+  .cal-day.event:hover { transform: scale(1.12); }
+  .cal-day.event.key { background: var(--gold); color: var(--navy); }
+  .cal-day.event.event-type { background: var(--red); }
+  .cal-day.event.exam { background: #e05a1e; }
+  .cal-day.event.holiday { background: #1a3a5c; }
+  .cal-day.range { background: #fde8e8; border-radius: 0; color: var(--red); font-weight: 600; width: 100%; justify-content: center; }
+  .cal-day.past { color: #ccc; }
+
+  /* EVENTS PANEL */
+  .events-card {
+    background: var(--white); border-radius: var(--radius); padding: 24px;
+    box-shadow: 0 2px 16px rgba(26,46,110,0.08); position: sticky; top: 84px;
+  }
+  .events-card-title { font-size: 1rem; font-weight: 800; color: var(--navy); margin-bottom: 4px; }
+  .events-card-sub { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 18px; padding-bottom: 14px; border-bottom: 1px solid rgba(26,46,110,0.08); }
+
+  .ev-label { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 10px; }
+  .events-list { list-style: none; display: flex; flex-direction: column; gap: 0; }
+  .events-list li {
+    display: flex; gap: 12px; padding: 11px 0;
+    border-bottom: 1px solid rgba(26,46,110,0.07); align-items: flex-start;
+  }
+  .events-list li:last-child { border-bottom: none; }
+  .ev-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; margin-top: 4px; }
+  .ev-content { flex: 1; }
+  .ev-date-str { font-size: 0.72rem; font-weight: 700; color: var(--text-muted); margin-bottom: 2px; }
+  .ev-name { font-size: 0.85rem; font-weight: 700; color: var(--navy); margin-bottom: 1px; }
+  .ev-desc { font-size: 0.78rem; color: var(--text-muted); line-height: 1.45; }
+  .no-events { font-size: 0.85rem; color: var(--text-muted); padding: 20px 0; text-align: center; }
+
+  /* UPCOMING SECTION */
+  .upcoming-label {
+    font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
+    color: var(--text-muted); margin: 18px 0 10px; padding-top: 14px;
+    border-top: 1px solid rgba(26,46,110,0.08);
+  }
+
+  /* ALL EVENTS TABLE (below calendar) */
+  .all-events-card {
+    background: var(--white); border-radius: var(--radius); padding: 28px;
+    box-shadow: 0 2px 16px rgba(26,46,110,0.08); margin-top: 28px;
+  }
+  .all-events-card h2 { font-size: 1.1rem; color: var(--navy); font-weight: 800; margin-bottom: 18px; }
+  .events-table { width: 100%; border-collapse: collapse; }
+  .events-table th {
+    text-align: left; font-size: 0.7rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.07em; color: var(--text-muted); padding: 0 10px 10px;
+    border-bottom: 1.5px solid rgba(26,46,110,0.1);
+  }
+  .events-table td { padding: 10px; font-size: 0.84rem; border-bottom: 1px solid rgba(26,46,110,0.06); vertical-align: top; }
+  .events-table tr:last-child td { border-bottom: none; }
+  .events-table tr:hover td { background: var(--cream); }
+  .ev-badge {
+    display: inline-block; padding: 2px 9px; border-radius: 10px;
+    font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
+  }
+  .ev-badge.key     { background: rgba(232,160,32,0.15); color: var(--gold); }
+  .ev-badge.event-type { background: rgba(211,47,47,0.1); color: var(--red); }
+  .ev-badge.exam    { background: rgba(224,90,30,0.12); color: #e05a1e; }
+  .ev-badge.holiday { background: rgba(26,58,92,0.12); color: #1a3a5c; }
+
+  /* FOOTER */
+  footer {
+    background: var(--navy); color: rgba(255,255,255,0.7);
+    text-align: center; padding: 28px 4%; font-size: 0.82rem;
+  }
+  footer a { color: var(--gold-light); text-decoration: none; }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .cal-layout { grid-template-columns: 1fr; }
+    .events-card { position: static; }
+  }
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    .share-url-box { max-width: 260px; }
+  }
+  @media (max-width: 560px) {
+    .nav-logo-text span { display: none; }
+    .nav-logo img { height: 40px; }
+    .page-hero { padding: 96px 5% 40px; }
+    .cal-card { padding: 18px; }
+    .content-wrap { padding: 32px 5% 60px; }
+    .jump-bar { gap: 8px; }
+    .share-url-box { display: none; }
+    .all-events-card { padding: 18px; }
+    .events-table th, .events-table td { padding: 8px 6px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    <img src="logo.png" alt="Bright Sparks Junior School Logo" onerror="this.style.display='none'">
+    <div class="nav-logo-text">
+      <strong>Bright Sparks Junior School</strong>
+      <span>We Shall Reach the Shore!</span>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="admissions.html">Admissions</a></li>
+    <li><a href="fees.html">Fees</a></li>
+    <li><a href="news.html">News</a></li>
+    <li><a href="calendar.html" class="active">Calendar</a></li>
+    <li><a href="careers.html">Careers</a></li>
+    <li><a href="index.html#contacts" class="btn-apply">Contact Us</a></li>
+  </ul>
+  <div class="hamburger" onclick="document.getElementById('mobileMenu').classList.toggle('open')">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">Home</a>
+  <a href="index.html#about">About</a>
+  <a href="admissions.html">Admissions</a>
+  <a href="fees.html">Fees</a>
+  <a href="news.html">News</a>
+  <a href="calendar.html">Calendar</a>
+  <a href="careers.html">Careers</a>
+  <a href="index.html#contacts">Contact Us</a>
+</div>
+
+<!-- HERO -->
+<div class="page-hero">
+  <div class="page-hero-tag">Academic Calendar</div>
+  <h1>School <span>Calendar &amp; Events</span></h1>
+  <p>Key dates, school events, exams, and public holidays from 2024 onwards. Share this page with parents and staff.</p>
+  <div class="share-bar">
+    <div class="share-url-box">
+      <span id="pageUrl"></span>
+      <button class="btn-copy" id="copyBtn" onclick="copyLink()">Copy Link</button>
+    </div>
+    <a class="btn-share-wa" id="waBtn" href="#" target="_blank" rel="noopener">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Share on WhatsApp
+    </a>
+  </div>
+</div>
+
+<!-- CONTENT -->
+<div class="content-wrap">
+  <a href="index.html" class="back-link">&#8592; Back to Home</a>
+
+  <!-- JUMP BAR -->
+  <div class="jump-bar">
+    <label for="jumpMonth">Jump to:</label>
+    <select id="jumpMonth"></select>
+    <select id="jumpYear"></select>
+    <button class="btn-today" onclick="goToday()">Today</button>
+    <div class="jump-bar-spacer"></div>
+    <span style="font-size:0.75rem; color:var(--text-muted);">Navigating from <strong>January 2024</strong> onwards</span>
+  </div>
+
+  <!-- CALENDAR + EVENTS LAYOUT -->
+  <div class="cal-layout">
+
+    <!-- CALENDAR -->
+    <div class="cal-card">
+      <div class="cal-card-header">
+        <span class="cal-card-title" id="cal-title">Calendar</span>
+        <div class="cal-nav">
+          <button class="cal-btn" id="cal-prev">&#8249;</button>
+          <span class="cal-month-label" id="cal-month-label"></span>
+          <button class="cal-btn" id="cal-next">&#8250;</button>
+        </div>
+      </div>
+      <div class="cal-legend">
+        <div class="cal-legend-item"><div class="cal-legend-dot" style="background:var(--gold);"></div>Key Date</div>
+        <div class="cal-legend-item"><div class="cal-legend-dot" style="background:var(--red);"></div>School Event</div>
+        <div class="cal-legend-item"><div class="cal-legend-dot" style="background:#e05a1e;"></div>Exams</div>
+        <div class="cal-legend-item"><div class="cal-legend-dot" style="background:#1a3a5c;"></div>Public Holiday</div>
+      </div>
+      <div class="cal-grid" id="cal-grid"></div>
+    </div>
+
+    <!-- EVENTS PANEL -->
+    <div class="events-card">
+      <div class="events-card-title" id="ev-panel-title">Events</div>
+      <div class="events-card-sub" id="ev-panel-sub"></div>
+      <div class="ev-label" id="ev-label"></div>
+      <ul class="events-list" id="ev-list"></ul>
+      <div class="upcoming-label" id="upcoming-label" style="display:none;">Upcoming events (next 60 days)</div>
+      <ul class="events-list" id="upcoming-list"></ul>
+    </div>
+
+  </div>
+
+  <!-- ALL EVENTS TABLE -->
+  <div class="all-events-card">
+    <h2>&#128197; All Scheduled Events</h2>
+    <table class="events-table" id="all-events-table">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Event</th>
+          <th>Description</th>
+          <th>Type</th>
+        </tr>
+      </thead>
+      <tbody id="all-events-body"></tbody>
+    </table>
+  </div>
+
+</div>
+
+<footer>
+  <p>
+    <strong style="color:rgba(255,255,255,0.75);">Bright Sparks Junior School</strong><br>
+    P.O. Box 134810, Kampala, Uganda &nbsp;|&nbsp; Seguku-Katale, Entebbe Road, Wakiso District<br>
+    <a href="tel:+256700116093">+256 700 116 093</a> &nbsp;/&nbsp;
+    <a href="tel:+256393242093">0393 242 093</a> &nbsp;|&nbsp;
+    <a href="mailto:brightsparksjuniorsch@gmail.com">brightsparksjuniorsch@gmail.com</a><br>
+    <span style="display:block; margin-top:8px; font-size:0.7rem;">
+      &copy; 2026 Bright Sparks Junior School &middot; All rights reserved &middot;
+      <em>"We Shall Reach the Shore!"</em> &middot; <em>Created and Managed by Tr. Ali</em>
+    </span>
+  </p>
+</footer>
+
+<script>
+(function () {
+  // ─── EVENT DATA ─────────────────────────────────────────────────────────────
+  var events = [
+    // Term II 2026
+    { date:'2026-05-27', label:'Eid Al Adhuha',        desc:'Day for Sacrificing animals in rememberance of Faith demonstrated by Prophet Ibrahim', type:'key' },
+    { date:'2026-05-28', label:'Reporting Day',         desc:'Term II begins — all pupils report to school',                                         type:'key' },
+    { date:'2026-06-03', label:"Martyrs' Day",          desc:'Public Holiday — school closed',                                                       type:'holiday' },
+    { date:'2026-06-10', label:'Assessment Exams Begin',desc:'Term II continuous assessments start',                                                 type:'exam' },
+    { date:'2026-06-12', label:'Colour Day',            desc:'Kindergarten Section',                                                                  type:'event-type' },
+    { date:'2026-06-22', label:'Mid-Term Exams',        desc:'Mid-term assessments for all classes',                                                  type:'key' },
+    { date:'2026-07-11', label:'Academic & Club Day',   desc:'Academic Day & Club Exhibitions',                                                       type:'event-type' },
+    { date:'2026-07-14', label:'Educational Tours',     desc:'P.1 – P.7 educational excursions', endDate:'2026-07-21',                               type:'event-type' },
+    { date:'2026-07-28', label:'End of Term Exams',     desc:'Final examinations begin — all classes',                                                type:'exam' },
+    { date:'2026-08-13', label:'Fun Day',               desc:'Kindergarten Section',                                                                  type:'event-type' },
+    { date:'2026-08-14', label:'Term Closure',          desc:'Official end of Term II — collection day',                                              type:'key' },
+  ];
+
+  var typeColor  = { key:'var(--gold)', 'event-type':'var(--red)', exam:'#e05a1e', holiday:'#1a3a5c' };
+  var typeLabel  = { key:'Key Date', 'event-type':'School Event', exam:'Exams', holiday:'Public Holiday' };
+  var MONTHS     = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  var MONTHS_SH  = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  var DAYS       = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  var today      = new Date();
+  var MIN_M      = new Date(2024, 0);
+  var MAX_M      = new Date(today.getFullYear() + 2, 11);
+  var cur        = new Date(today.getFullYear(), today.getMonth());
+
+  // ─── HELPERS ────────────────────────────────────────────────────────────────
+  function sameDay(a, b) {
+    return a.getFullYear()===b.getFullYear() && a.getMonth()===b.getMonth() && a.getDate()===b.getDate();
+  }
+  function dateStr(d) {
+    return MONTHS_SH[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear();
+  }
+  function getEvent(y, m, d) {
+    var dt = new Date(y, m, d);
+    for (var i = 0; i < events.length; i++) {
+      var s = new Date(events[i].date);
+      var e = events[i].endDate ? new Date(events[i].endDate) : s;
+      if (dt >= s && dt <= e) return events[i];
+    }
+    return null;
+  }
+  function isRangeMid(y, m, d) {
+    var dt = new Date(y, m, d);
+    for (var i = 0; i < events.length; i++) {
+      if (!events[i].endDate) continue;
+      if (dt > new Date(events[i].date) && dt < new Date(events[i].endDate)) return true;
+    }
+    return false;
+  }
+
+  // ─── RENDER CALENDAR ────────────────────────────────────────────────────────
+  function render() {
+    var y = cur.getFullYear(), m = cur.getMonth();
+    document.getElementById('cal-month-label').textContent = MONTHS[m] + ' ' + y;
+    document.getElementById('cal-title').textContent = MONTHS[m] + ' ' + y;
+    document.getElementById('cal-prev').disabled = new Date(y, m - 1) < MIN_M;
+    document.getElementById('cal-next').disabled = new Date(y, m + 1) > MAX_M;
+
+    // sync jump selects
+    document.getElementById('jumpMonth').value = m;
+    document.getElementById('jumpYear').value  = y;
+
+    // grid
+    var grid = document.getElementById('cal-grid');
+    grid.innerHTML = '';
+    DAYS.forEach(function(dn) {
+      var h = document.createElement('div'); h.className = 'cal-day-name'; h.textContent = dn; grid.appendChild(h);
+    });
+    var firstDay    = new Date(y, m, 1).getDay();
+    var daysInMonth = new Date(y, m + 1, 0).getDate();
+    for (var e = 0; e < firstDay; e++) {
+      var b = document.createElement('div'); b.className = 'cal-cell'; grid.appendChild(b);
+    }
+    for (var d = 1; d <= daysInMonth; d++) {
+      var cell = document.createElement('div'); cell.className = 'cal-cell';
+      var ev   = getEvent(y, m, d);
+      var mid  = !ev && isRangeMid(y, m, d);
+      var dayDt   = new Date(y, m, d);
+      var isToday = sameDay(dayDt, today);
+      var isPast  = dayDt < today && !isToday;
+      var span    = document.createElement('div');
+      span.textContent = d;
+      if (ev) {
+        span.className = 'cal-day event ' + ev.type;
+        span.title = ev.label + (ev.desc ? ' — ' + ev.desc : '');
+      } else if (mid) {
+        span.className = 'cal-day range';
+      } else if (isToday) {
+        span.className = 'cal-day today';
+        span.title = 'Today';
+      } else if (isPast) {
+        span.className = 'cal-day past';
+      } else {
+        span.className = 'cal-day';
+      }
+      cell.appendChild(span); grid.appendChild(cell);
+    }
+
+    renderEvents(y, m);
+  }
+
+  // ─── RENDER EVENTS PANEL ────────────────────────────────────────────────────
+  function renderEvents(y, m) {
+    var monthEvs = events.filter(function(ev) {
+      return new Date(ev.date).getMonth() === m && new Date(ev.date).getFullYear() === y;
+    });
+    document.getElementById('ev-panel-title').textContent = MONTHS[m] + ' ' + y + ' Events';
+    document.getElementById('ev-panel-sub').textContent   = monthEvs.length
+      ? monthEvs.length + ' event' + (monthEvs.length > 1 ? 's' : '') + ' scheduled this month'
+      : 'No scheduled events this month';
+
+    var evLabel = document.getElementById('ev-label');
+    var evList  = document.getElementById('ev-list');
+    evList.innerHTML = '';
+    if (monthEvs.length) {
+      evLabel.textContent = 'This month';
+      monthEvs.forEach(function(ev) {
+        var s   = new Date(ev.date);
+        var dStr = MONTHS_SH[s.getMonth()] + ' ' + s.getDate();
+        if (ev.endDate) dStr += ' – ' + new Date(ev.endDate).getDate();
+        var li = document.createElement('li');
+        li.innerHTML =
+          '<div class="ev-dot" style="background:' + (typeColor[ev.type]||'var(--red)') + '"></div>' +
+          '<div class="ev-content">' +
+            '<div class="ev-date-str">' + dStr + '</div>' +
+            '<div class="ev-name">' + ev.label + '</div>' +
+            (ev.desc ? '<div class="ev-desc">' + ev.desc + '</div>' : '') +
+          '</div>';
+        evList.appendChild(li);
+      });
+    } else {
+      evLabel.textContent = '';
+    }
+
+    // Upcoming events (next 60 days, from today only if viewing current month)
+    var upLabel = document.getElementById('upcoming-label');
+    var upList  = document.getElementById('upcoming-list');
+    upList.innerHTML = '';
+    var viewingNow = y === today.getFullYear() && m === today.getMonth();
+    if (viewingNow) {
+      var cutoff = new Date(today.getTime() + 60 * 24 * 60 * 60 * 1000);
+      var upcoming = events.filter(function(ev) {
+        var d = new Date(ev.date);
+        return d >= today && d <= cutoff;
+      });
+      if (upcoming.length) {
+        upLabel.style.display = '';
+        upcoming.forEach(function(ev) {
+          var s = new Date(ev.date);
+          var li = document.createElement('li');
+          li.innerHTML =
+            '<div class="ev-dot" style="background:' + (typeColor[ev.type]||'var(--red)') + '"></div>' +
+            '<div class="ev-content">' +
+              '<div class="ev-date-str">' + dateStr(s) + '</div>' +
+              '<div class="ev-name">' + ev.label + '</div>' +
+              (ev.desc ? '<div class="ev-desc">' + ev.desc + '</div>' : '') +
+            '</div>';
+          upList.appendChild(li);
+        });
+      } else {
+        upLabel.style.display = 'none';
+      }
+    } else {
+      upLabel.style.display = 'none';
+    }
+  }
+
+  // ─── POPULATE ALL EVENTS TABLE ───────────────────────────────────────────────
+  function buildAllEventsTable() {
+    var sorted = events.slice().sort(function(a, b) { return new Date(a.date) - new Date(b.date); });
+    var tbody = document.getElementById('all-events-body');
+    tbody.innerHTML = '';
+    sorted.forEach(function(ev) {
+      var s = new Date(ev.date);
+      var dStr = MONTHS_SH[s.getMonth()] + ' ' + s.getDate() + ', ' + s.getFullYear();
+      if (ev.endDate) dStr += ' – ' + MONTHS_SH[new Date(ev.endDate).getMonth()] + ' ' + new Date(ev.endDate).getDate();
+      var tr = document.createElement('tr');
+      tr.innerHTML =
+        '<td><strong>' + dStr + '</strong></td>' +
+        '<td><strong style="color:var(--navy)">' + ev.label + '</strong></td>' +
+        '<td style="color:var(--text-muted)">' + (ev.desc||'') + '</td>' +
+        '<td><span class="ev-badge ' + ev.type + '">' + (typeLabel[ev.type]||ev.type) + '</span></td>';
+      tbody.appendChild(tr);
+    });
+  }
+
+  // ─── JUMP SELECTS ───────────────────────────────────────────────────────────
+  function buildJumpSelects() {
+    var mSel = document.getElementById('jumpMonth');
+    var ySel = document.getElementById('jumpYear');
+    MONTHS.forEach(function(mn, i) {
+      var o = document.createElement('option'); o.value = i; o.textContent = mn; mSel.appendChild(o);
+    });
+    for (var y = 2024; y <= MAX_M.getFullYear(); y++) {
+      var o = document.createElement('option'); o.value = y; o.textContent = y; ySel.appendChild(o);
+    }
+    mSel.value = cur.getMonth();
+    ySel.value = cur.getFullYear();
+    mSel.addEventListener('change', jump);
+    ySel.addEventListener('change', jump);
+  }
+  function jump() {
+    var m = parseInt(document.getElementById('jumpMonth').value);
+    var y = parseInt(document.getElementById('jumpYear').value);
+    var t = new Date(y, m);
+    if (t < MIN_M) t = new Date(MIN_M);
+    if (t > MAX_M) t = new Date(MAX_M.getFullYear(), MAX_M.getMonth());
+    cur = t; render();
+  }
+
+  // ─── TODAY BUTTON ────────────────────────────────────────────────────────────
+  window.goToday = function() {
+    cur = new Date(today.getFullYear(), today.getMonth()); render();
+  };
+
+  // ─── NAV BUTTONS ─────────────────────────────────────────────────────────────
+  document.getElementById('cal-prev').addEventListener('click', function() {
+    cur = new Date(cur.getFullYear(), cur.getMonth() - 1); render();
+  });
+  document.getElementById('cal-next').addEventListener('click', function() {
+    cur = new Date(cur.getFullYear(), cur.getMonth() + 1); render();
+  });
+
+  // ─── SHARE / COPY LINK ───────────────────────────────────────────────────────
+  var pageUrl = window.location.href;
+  document.getElementById('pageUrl').textContent = pageUrl;
+  document.getElementById('waBtn').href =
+    'https://wa.me/?text=' + encodeURIComponent('Bright Sparks Junior School Calendar & Events: ' + pageUrl);
+
+  window.copyLink = function() {
+    var btn = document.getElementById('copyBtn');
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(pageUrl).then(function() {
+        btn.textContent = 'Copied!';
+        btn.classList.add('copied');
+        setTimeout(function() { btn.textContent = 'Copy Link'; btn.classList.remove('copied'); }, 2500);
+      });
+    } else {
+      prompt('Copy this link:', pageUrl);
+    }
+  };
+
+  // ─── MOBILE MENU ─────────────────────────────────────────────────────────────
+  document.querySelectorAll('.mobile-menu a').forEach(function(a) {
+    a.addEventListener('click', function() {
+      document.getElementById('mobileMenu').classList.remove('open');
+    });
+  });
+
+  // ─── INIT ────────────────────────────────────────────────────────────────────
+  buildJumpSelects();
+  buildAllEventsTable();
+  render();
+})();
+</script>
+<script src="chatbot.js"></script>
+</body>
+</html>

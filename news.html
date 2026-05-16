@@ -9,22 +9,14 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700;1,800&display=swap" rel="stylesheet">
 <style>
   :root {
-    --red: #D32F2F;
-    --red-dark: #B71C1C;
-    --navy: #1A2E6E;
-    --navy-mid: #203580;
-    --navy-light: #2B42A0;
-    --green: #1B6B3A;
-    --green-light: #2E8B57;
-    --gold: #E8A020;
-    --gold-light: #F5C252;
+    --red: #D32F2F; --red-dark: #B71C1C;
+    --navy: #1A2E6E; --navy-mid: #203580; --navy-light: #2B42A0;
+    --green: #1B6B3A; --green-light: #2E8B57;
+    --gold: #E8A020; --gold-light: #F5C252;
     --sky: #3B9FD4;
-    --white: #FFFFFF;
-    --cream: #F8FBF8;
-    --text: #1A1A2E;
-    --text-muted: #5A6480;
-    --radius: 16px;
-    --radius-sm: 8px;
+    --white: #FFFFFF; --cream: #F8FBF8;
+    --text: #1A1A2E; --text-muted: #5A6480;
+    --radius: 16px; --radius-sm: 8px;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; overflow-x: hidden; }
@@ -48,37 +40,26 @@
     color: rgba(255,255,255,0.85); text-decoration: none; font-size: 0.8rem;
     font-weight: 500; padding: 6px 10px; border-radius: 6px; transition: all 0.2s;
   }
-  .nav-links a:hover { color: var(--gold-light); background: rgba(255,255,255,0.08); }
-  .nav-links .btn-apply {
-    background: var(--red); color: white !important; font-weight: 700;
-    padding: 7px 16px; border-radius: 8px;
-  }
+  .nav-links a:hover, .nav-links a.active { color: var(--gold-light); background: rgba(255,255,255,0.08); }
+  .nav-links .btn-apply { background: var(--red); color: white !important; font-weight: 700; padding: 7px 16px; border-radius: 8px; }
   .nav-links .btn-apply:hover { background: var(--red-dark); }
   .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; }
   .hamburger span { display: block; width: 24px; height: 2px; background: var(--white); border-radius: 2px; transition: all 0.3s; }
   .mobile-menu {
     display: none; position: fixed; top: 68px; left: 0; right: 0;
-    background: var(--navy); padding: 16px 5%; z-index: 999;
-    border-bottom: 2px solid var(--red);
+    background: var(--navy); padding: 16px 5%; z-index: 999; border-bottom: 2px solid var(--red);
   }
   .mobile-menu.open { display: block; }
-  .mobile-menu a {
-    display: block; color: var(--white); text-decoration: none;
-    padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.1); font-size: 0.95rem;
-  }
+  .mobile-menu a { display: block; color: var(--white); text-decoration: none; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.1); font-size: 0.95rem; }
   .mobile-menu a:last-child { border-bottom: none; }
 
   /* PAGE HERO */
   .page-hero {
     background: linear-gradient(150deg, #0D1A45 0%, #1A2E6E 55%, #152560 100%);
-    padding: 110px 4% 60px;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
+    padding: 110px 4% 60px; text-align: center; position: relative; overflow: hidden;
   }
   .page-hero::before {
-    content: '';
-    position: absolute; inset: 0; pointer-events: none;
+    content: ''; position: absolute; inset: 0; pointer-events: none;
     background-image:
       radial-gradient(circle at 20% 50%, rgba(211,47,47,0.12) 0%, transparent 50%),
       radial-gradient(circle at 80% 30%, rgba(27,107,58,0.1) 0%, transparent 40%);
@@ -89,25 +70,35 @@
     font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase;
     font-weight: 600; margin-bottom: 16px; position: relative; z-index: 1;
   }
-  .page-hero h1 {
-    font-family: 'Montserrat', sans-serif; color: var(--white);
-    font-size: clamp(2rem, 5vw, 3.2rem); line-height: 1.15; margin-bottom: 14px;
-    position: relative; z-index: 1;
-  }
+  .page-hero h1 { color: var(--white); font-size: clamp(2rem, 5vw, 3.2rem); line-height: 1.15; margin-bottom: 14px; position: relative; z-index: 1; }
   .page-hero h1 span { color: var(--gold-light); }
-  .page-hero p {
-    color: rgba(255,255,255,0.75); font-size: 1rem; max-width: 560px;
-    margin: 0 auto; position: relative; z-index: 1;
-  }
+  .page-hero p { color: rgba(255,255,255,0.75); font-size: 1rem; max-width: 560px; margin: 0 auto; position: relative; z-index: 1; }
 
   /* CONTENT */
   .content-wrap { max-width: 960px; margin: 0 auto; padding: 60px 4%; }
+  .back-link { display: inline-flex; align-items: center; gap: 6px; color: var(--navy); text-decoration: none; font-size: 0.85rem; font-weight: 600; margin-bottom: 32px; transition: gap 0.2s; }
+  .back-link:hover { gap: 10px; color: var(--red); }
 
-  /* FILTER BAR */
-  .filter-search-row {
-    display: flex; align-items: center; justify-content: space-between;
-    gap: 14px; margin-bottom: 12px; flex-wrap: wrap;
+  /* SECTION LABELS */
+  .section-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--red); margin-bottom: 10px; }
+  .section-heading { font-family: 'Montserrat', sans-serif; font-size: 1.6rem; color: var(--navy); margin-bottom: 24px; }
+  .section-heading span { color: var(--red); }
+  .divider { height: 1px; background: rgba(26,46,110,0.1); margin: 48px 0; }
+
+  /* PINNED ANNOUNCEMENTS */
+  #pinned-area { margin-bottom: 40px; display: flex; flex-direction: column; gap: 14px; }
+  .announcement {
+    background: var(--white); border-radius: var(--radius); padding: 22px 26px;
+    border-left: 5px solid var(--gold); box-shadow: 0 2px 12px rgba(26,46,110,0.07);
   }
+  .announcement h3 { font-size: 1.05rem; color: var(--navy); margin-bottom: 6px; }
+  .announcement p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.65; }
+  .ann-date { font-size: 0.74rem; color: var(--gold); font-weight: 700; margin-bottom: 5px; letter-spacing: 0.05em; }
+  .ann-read-more { display: inline-flex; align-items: center; gap: 4px; margin-top: 10px; font-size: 0.8rem; font-weight: 700; color: var(--navy); cursor: pointer; background: none; border: none; font-family: inherit; padding: 0; transition: gap 0.2s, color 0.2s; }
+  .ann-read-more:hover { gap: 8px; color: var(--red); }
+
+  /* FILTER + SEARCH */
+  .filter-search-row { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-bottom: 12px; flex-wrap: wrap; }
   .filter-bar { display: flex; gap: 8px; flex-wrap: wrap; }
   .filter-btn {
     padding: 7px 16px; border-radius: 30px; border: 2px solid rgba(26,46,110,0.25);
@@ -121,153 +112,101 @@
   .filter-btn[data-filter="events"].active   { background: var(--green); border-color: var(--green); }
   .filter-btn[data-filter="clubs"].active    { background: var(--gold);  border-color: var(--gold); color: var(--text); }
   .filter-btn[data-filter="academics"].active { background: var(--navy); border-color: var(--navy); }
-  .f-dot {
-    width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0;
-  }
-  .f-count {
-    display: inline-flex; align-items: center; justify-content: center;
-    background: rgba(26,46,110,0.1); color: var(--navy);
-    min-width: 18px; height: 18px; border-radius: 30px; padding: 0 5px;
-    font-size: 0.6rem; font-weight: 700;
-  }
+  .f-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+  .f-count { display: inline-flex; align-items: center; justify-content: center; background: rgba(26,46,110,0.1); color: var(--navy); min-width: 18px; height: 18px; border-radius: 30px; padding: 0 5px; font-size: 0.6rem; font-weight: 700; }
   .filter-btn.active .f-count { background: rgba(255,255,255,0.25); color: #fff; }
   .filter-btn[data-filter="clubs"].active .f-count { color: var(--text); }
 
-  /* SEARCH BOX */
-  .search-box {
-    display: flex; align-items: center; gap: 8px;
-    background: var(--white); border: 2px solid rgba(26,46,110,0.18);
-    border-radius: 30px; padding: 6px 14px; transition: border-color 0.2s;
-    flex-shrink: 0;
-  }
+  .search-box { display: flex; align-items: center; gap: 8px; background: var(--white); border: 2px solid rgba(26,46,110,0.18); border-radius: 30px; padding: 6px 14px; transition: border-color 0.2s; flex-shrink: 0; }
   .search-box:focus-within { border-color: var(--navy); }
   .search-box svg { opacity: 0.4; flex-shrink: 0; }
-  .search-box input {
-    border: none; outline: none; font-family: 'Montserrat', sans-serif;
-    font-size: 0.82rem; color: var(--text); width: 170px; background: transparent;
-  }
+  .search-box input { border: none; outline: none; font-family: 'Montserrat', sans-serif; font-size: 0.82rem; color: var(--text); width: 170px; background: transparent; }
   .search-box input::placeholder { color: var(--text-muted); }
-  .search-clear {
-    background: none; border: none; cursor: pointer; padding: 0 2px;
-    color: var(--text-muted); font-size: 1rem; line-height: 1; display: none;
-  }
+  .search-clear { background: none; border: none; cursor: pointer; padding: 0 2px; color: var(--text-muted); font-size: 1rem; line-height: 1; display: none; }
   .search-clear.visible { display: block; }
 
-  /* RESULTS META */
   .results-meta { font-size: 0.78rem; color: var(--text-muted); margin-bottom: 20px; min-height: 18px; }
   .results-meta strong { color: var(--navy); }
 
-  /* CARD ANIMATION & HIDDEN */
-  .news-card.hidden { display: none; }
-  @keyframes cardIn {
-    from { opacity: 0; transform: translateY(8px); }
-    to   { opacity: 1; transform: none; }
-  }
-  .news-card.card-anim { animation: cardIn 0.22s ease both; }
-
-  /* NO RESULTS */
-  .no-results {
-    display: none; grid-column: 1 / -1; padding: 60px 20px; text-align: center;
-  }
-  .no-results.show { display: block; }
-  .no-results-icon { font-size: 2.6rem; margin-bottom: 12px; }
-  .no-results h3 { font-family: 'Montserrat', sans-serif; font-size: 1.1rem; color: var(--navy); margin-bottom: 6px; }
-  .no-results p { font-size: 0.88rem; color: var(--text-muted); }
-  .no-results button {
-    margin-top: 16px; padding: 8px 20px; border-radius: 30px;
-    border: 2px solid var(--navy); background: transparent; color: var(--navy);
-    font-family: 'Montserrat', sans-serif; font-size: 0.82rem; font-weight: 600;
-    cursor: pointer; transition: all 0.2s;
-  }
-  .no-results button:hover { background: var(--navy); color: #fff; }
-
   /* NEWS GRID */
   .news-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; }
-
   .news-card {
     background: var(--white); border-radius: var(--radius); overflow: hidden;
     box-shadow: 0 2px 16px rgba(26,46,110,0.08); transition: transform 0.25s, box-shadow 0.25s;
-    display: flex; flex-direction: column;
+    display: flex; flex-direction: column; cursor: pointer;
   }
   .news-card:hover { transform: translateY(-4px); box-shadow: 0 8px 32px rgba(26,46,110,0.14); }
-  .news-card-img {
-    height: 160px; display: flex; align-items: center; justify-content: center;
-    font-size: 3.5rem; position: relative; overflow: hidden;
-  }
-  .news-card-img.red-bg   { background: linear-gradient(135deg, #FFEBEE, #FFCDD2); }
-  .news-card-img.navy-bg  { background: linear-gradient(135deg, #E8EAF6, #C5CAE9); }
-  .news-card-img.green-bg { background: linear-gradient(135deg, #E8F5E9, #C8E6C9); }
-  .news-card-img.gold-bg  { background: linear-gradient(135deg, #FFF8E1, #FFECB3); }
-  .news-card-img.sky-bg   { background: linear-gradient(135deg, #E3F2FD, #BBDEFB); }
+  .news-card.hidden { display: none; }
+  @keyframes cardIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+  .news-card.card-anim { animation: cardIn 0.22s ease both; }
+
+  .news-card-img { height: 150px; display: flex; align-items: center; justify-content: center; font-size: 3.2rem; }
+  .navy-bg  { background: linear-gradient(135deg, #E8EAF6, #C5CAE9); }
+  .red-bg   { background: linear-gradient(135deg, #FFEBEE, #FFCDD2); }
+  .green-bg { background: linear-gradient(135deg, #E8F5E9, #C8E6C9); }
+  .gold-bg  { background: linear-gradient(135deg, #FFF8E1, #FFECB3); }
+  .sky-bg   { background: linear-gradient(135deg, #E3F2FD, #BBDEFB); }
 
   .news-card-body { padding: 20px; flex: 1; display: flex; flex-direction: column; }
-  .news-card-cat {
-    font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
-    margin-bottom: 8px;
-  }
-  .news-card-cat.red   { color: var(--red); }
-  .news-card-cat.navy  { color: var(--navy); }
-  .news-card-cat.green { color: var(--green); }
-  .news-card-cat.gold  { color: var(--gold); }
-  .news-card-cat.sky   { color: var(--sky); }
+  .news-card-cat { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px; }
+  .cat-academics { color: var(--navy); }
+  .cat-sports    { color: var(--red); }
+  .cat-events    { color: var(--green); }
+  .cat-clubs     { color: var(--gold); }
+  .cat-sky       { color: var(--sky); }
 
-  .news-card-title {
-    font-family: 'Montserrat', sans-serif; font-size: 1.05rem;
-    color: var(--text); margin-bottom: 10px; line-height: 1.4;
-  }
+  .news-card-title { font-size: 1rem; color: var(--text); margin-bottom: 10px; line-height: 1.4; font-weight: 700; }
   .news-card-body p { font-size: 0.875rem; color: var(--text-muted); line-height: 1.6; flex: 1; }
-  .news-card-footer {
-    display: flex; justify-content: space-between; align-items: center;
-    margin-top: 16px; padding-top: 14px; border-top: 1px solid rgba(26,46,110,0.08);
-  }
+  .news-card-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 16px; padding-top: 14px; border-top: 1px solid rgba(26,46,110,0.08); }
   .news-date { font-size: 0.76rem; color: var(--text-muted); }
-  .read-more {
-    font-size: 0.8rem; font-weight: 700; color: var(--navy);
-    text-decoration: none; display: flex; align-items: center; gap: 4px; transition: gap 0.2s;
-  }
+  .read-more { font-size: 0.8rem; font-weight: 700; color: var(--navy); display: flex; align-items: center; gap: 4px; transition: gap 0.2s, color 0.2s; background: none; border: none; font-family: inherit; cursor: pointer; padding: 0; }
   .read-more:hover { gap: 8px; color: var(--red); }
 
-  /* ANNOUNCEMENT BANNER */
-  .announcement {
-    background: var(--white); border-radius: var(--radius); padding: 24px 28px;
-    margin-bottom: 40px; border-left: 5px solid var(--gold);
-    box-shadow: 0 2px 12px rgba(26,46,110,0.07);
-  }
-  .announcement h3 {
-    font-family: 'Montserrat', sans-serif; font-size: 1.1rem;
-    color: var(--navy); margin-bottom: 6px;
-  }
-  .announcement p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; }
-  .announcement .ann-date { font-size: 0.75rem; color: var(--gold); font-weight: 700; margin-bottom: 6px; letter-spacing: 0.05em; }
+  /* NO RESULTS */
+  .no-results { display: none; grid-column: 1 / -1; padding: 60px 20px; text-align: center; }
+  .no-results.show { display: block; }
+  .no-results-icon { font-size: 2.6rem; margin-bottom: 12px; }
+  .no-results h3 { font-size: 1.1rem; color: var(--navy); margin-bottom: 6px; }
+  .no-results p { font-size: 0.88rem; color: var(--text-muted); }
+  .no-results button { margin-top: 16px; padding: 8px 20px; border-radius: 30px; border: 2px solid var(--navy); background: transparent; color: var(--navy); font-family: 'Montserrat', sans-serif; font-size: 0.82rem; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+  .no-results button:hover { background: var(--navy); color: #fff; }
 
-  /* SECTION LABEL */
-  .section-label {
-    font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
-    color: var(--red); margin-bottom: 10px;
+  /* ARTICLE MODAL */
+  .modal-overlay {
+    display: none; position: fixed; inset: 0; z-index: 2000;
+    background: rgba(10,18,50,0.6); backdrop-filter: blur(4px);
+    align-items: flex-start; justify-content: center; padding: 80px 16px 40px; overflow-y: auto;
   }
-  .section-heading {
-    font-family: 'Montserrat', sans-serif; font-size: 1.6rem; color: var(--navy);
-    margin-bottom: 24px;
+  .modal-overlay.open { display: flex; }
+  .modal-box {
+    background: var(--white); border-radius: var(--radius); width: 100%; max-width: 680px;
+    box-shadow: 0 20px 60px rgba(10,18,50,0.25); position: relative;
+    animation: modalIn 0.22s ease both;
   }
-  .section-heading span { color: var(--red); }
-  .divider { height: 1px; background: rgba(26,46,110,0.1); margin: 48px 0; }
-
-  /* BACK LINK */
-  .back-link {
-    display: inline-flex; align-items: center; gap: 6px;
-    color: var(--navy); text-decoration: none; font-size: 0.85rem; font-weight: 600;
-    margin-bottom: 32px; transition: gap 0.2s;
+  @keyframes modalIn { from { opacity: 0; transform: translateY(16px) scale(0.98); } to { opacity: 1; transform: none; } }
+  .modal-header { padding: 28px 32px 20px; border-bottom: 1px solid rgba(26,46,110,0.09); position: relative; }
+  .modal-cat { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px; }
+  .modal-title { font-size: 1.3rem; color: var(--navy); line-height: 1.35; font-weight: 800; padding-right: 32px; }
+  .modal-date { font-size: 0.76rem; color: var(--text-muted); margin-top: 8px; }
+  .modal-close {
+    position: absolute; top: 20px; right: 20px; background: rgba(26,46,110,0.07);
+    border: none; border-radius: 50%; width: 34px; height: 34px; cursor: pointer;
+    font-size: 1.1rem; color: var(--navy); display: flex; align-items: center; justify-content: center;
+    transition: background 0.2s;
   }
-  .back-link:hover { gap: 10px; color: var(--red); }
+  .modal-close:hover { background: rgba(211,47,47,0.1); color: var(--red); }
+  .modal-body { padding: 24px 32px 32px; font-size: 0.92rem; color: var(--text); line-height: 1.75; }
+  .modal-body p { margin-bottom: 14px; }
+  .modal-body p:last-child { margin-bottom: 0; }
+  .modal-body strong { color: var(--navy); }
+  .modal-body ul, .modal-body ol { margin: 10px 0 14px 20px; }
+  .modal-body li { margin-bottom: 6px; }
 
   /* FOOTER */
-  footer {
-    background: var(--navy); color: rgba(255,255,255,0.7);
-    text-align: center; padding: 28px 4%; font-size: 0.82rem;
-    margin-top: 80px;
-  }
+  footer { background: var(--navy); color: rgba(255,255,255,0.7); text-align: center; padding: 28px 4%; font-size: 0.82rem; margin-top: 80px; }
   footer a { color: var(--gold-light); text-decoration: none; }
 
+  /* RESPONSIVE */
   @media (max-width: 720px) {
     .nav-links { display: none; }
     .hamburger { display: flex; }
@@ -283,8 +222,10 @@
   @media (max-width: 480px) {
     .nav-logo-text span { display: none; }
     .nav-logo img { height: 40px; }
-    .page-title { font-size: clamp(1.5rem, 6vw, 2rem); }
     .content-wrap { padding: 28px 4%; }
+    .modal-header { padding: 22px 20px 16px; }
+    .modal-body { padding: 18px 20px 24px; }
+    .modal-title { font-size: 1.1rem; }
   }
 </style>
 </head>
@@ -304,7 +245,7 @@
     <li><a href="index.html#about">About</a></li>
     <li><a href="admissions.html">Admissions</a></li>
     <li><a href="fees.html">Fees</a></li>
-    <li><a href="news.html">News</a></li>
+    <li><a href="news.html" class="active">News</a></li>
     <li><a href="calendar.html">Calendar</a></li>
     <li><a href="careers.html">Careers</a></li>
     <li><a href="index.html#contacts" class="btn-apply">Contact Us</a></li>
@@ -333,204 +274,251 @@
 
 <!-- CONTENT -->
 <div class="content-wrap">
-  <a href="index.html" class="back-link">← Back to Home</a>
+  <a href="index.html" class="back-link">&#8592; Back to Home</a>
 
-  <!-- PINNED ANNOUNCEMENT -->
-  <div class="announcement">
-    <div class="ann-date">📌 PINNED — May 2026</div>
-    <h3>Term II 2026 Begins May 25, 2026</h3>
-    <p>All pupils are expected to report on <strong>Monday, May 25, 2026</strong>. Please ensure all fees are cleared before reporting day. Parents will receive the complete Term II schedule, uniform list, and booklist at orientation. Contact the school office for any queries.</p>
-  </div>
+  <!-- Pinned announcements rendered here by JS -->
+  <div id="pinned-area"></div>
 
   <div class="section-label">School News</div>
   <div class="section-heading">Recent <span>Stories</span></div>
 
+  <!-- FILTER + SEARCH -->
   <div class="filter-search-row">
-    <div class="filter-bar">
-      <button class="filter-btn active" data-filter="all">
-        All <span class="f-count" id="fc-all"></span>
-      </button>
-      <button class="filter-btn" data-filter="academics">
-        <span class="f-dot" style="background:var(--navy);"></span>Academics <span class="f-count" id="fc-academics"></span>
-      </button>
-      <button class="filter-btn" data-filter="sports">
-        <span class="f-dot" style="background:var(--red);"></span>Sports <span class="f-count" id="fc-sports"></span>
-      </button>
-      <button class="filter-btn" data-filter="events">
-        <span class="f-dot" style="background:var(--green);"></span>Events <span class="f-count" id="fc-events"></span>
-      </button>
-      <button class="filter-btn" data-filter="clubs">
-        <span class="f-dot" style="background:var(--gold);"></span>Clubs <span class="f-count" id="fc-clubs"></span>
-      </button>
+    <div class="filter-bar" id="filterBar">
+      <button class="filter-btn active" data-filter="all">All <span class="f-count" id="fc-all"></span></button>
+      <button class="filter-btn" data-filter="academics"><span class="f-dot" style="background:var(--navy)"></span>Academics <span class="f-count" id="fc-academics"></span></button>
+      <button class="filter-btn" data-filter="sports"><span class="f-dot" style="background:var(--red)"></span>Sports <span class="f-count" id="fc-sports"></span></button>
+      <button class="filter-btn" data-filter="events"><span class="f-dot" style="background:var(--green)"></span>Events <span class="f-count" id="fc-events"></span></button>
+      <button class="filter-btn" data-filter="clubs"><span class="f-dot" style="background:var(--gold)"></span>Clubs <span class="f-count" id="fc-clubs"></span></button>
     </div>
     <div class="search-box">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
-      </svg>
-      <input id="newsSearch" type="text" placeholder="Search articles…" autocomplete="off" maxlength="80">
-      <button class="search-clear" id="searchClear" title="Clear">✕</button>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input id="newsSearch" type="text" placeholder="Search articles&#8230;" autocomplete="off" maxlength="80">
+      <button class="search-clear" id="searchClear" title="Clear">&#10005;</button>
     </div>
   </div>
 
   <div class="results-meta" id="resultsMeta"></div>
-
-  <div class="news-grid">
-
-    <!-- Article 1 -->
-    <div class="news-card" data-category="academics">
-      <div class="news-card-img navy-bg"></div>
-      <div class="news-card-body">
-        <div class="news-card-cat navy">Academics</div>
-        <div class="news-card-title">Term II 2026 Roadmap Released by Head Teacher</div>
-        <p>Head Teacher Muneeb Ali Wanyeni has released the comprehensive Term II 2026 roadmap including the full calendar, educational tours for all classes, and key dates for parents.</p>
-        <div class="news-card-footer">
-          <span class="news-date">April 24, 2026</span>
-          <a href="#" class="read-more">Read more →</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- Article 2 -->
-    <div class="news-card" data-category="sports">
-      <div class="news-card-img red-bg"></div>
-      <div class="news-card-body">
-        <div class="news-card-cat red">Sports</div>
-        <div class="news-card-title">Football Team Wins Against St. James Junior School</div>
-        <p>Our football team emerged victorious in a thrilling match against St. James Junior School, greatly boosting school spirit and pride across the campus.</p>
-        <div class="news-card-footer">
-          <span class="news-date">Term I, 2026</span>
-          <a href="#" class="read-more">Read more →</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- Article 3 -->
-    <div class="news-card" data-category="clubs">
-      <div class="news-card-img gold-bg"></div>
-      <div class="news-card-body">
-        <div class="news-card-cat gold">Clubs</div>
-        <div class="news-card-title">Cookery &amp; Baking Club Prepares for Academic Day Exhibition</div>
-        <p>Our young chefs in the Cookery &amp; Baking Club have been busy preparing for the Academic Day &amp; Club Exhibitions scheduled for July 11, 2026. Come see their creations!</p>
-        <div class="news-card-footer">
-          <span class="news-date">May 2026</span>
-          <a href="#" class="read-more">Read more →</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- Article 4 -->
-    <div class="news-card" data-category="events">
-      <div class="news-card-img green-bg"></div>
-      <div class="news-card-body">
-        <div class="news-card-cat green">Events</div>
-        <div class="news-card-title">Educational Tours for P.1–P.7 — July 2026</div>
-        <p>Educational tours are planned for all classes from July 14–21, 2026. Destinations include the Airport &amp; Zoo (P.1–P.2), Source of the Nile (P.3–P.4), and Murchison Falls (P.5–P.7).</p>
-        <div class="news-card-footer">
-          <span class="news-date">July 14–21, 2026</span>
-          <a href="fees.html" class="read-more">Tour fees →</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- Article 5 -->
-    <div class="news-card" data-category="events">
-      <div class="news-card-img sky-bg"> </div>
-      <div class="news-card-body">
-        <div class="news-card-cat sky">Events</div>
-        <div class="news-card-title">Colour Day — Kindergarten Section (June 12)</div>
-        <p>Kindergarten pupils and their families are invited to celebrate Colour Day on June 12, 2026. Children are encouraged to come dressed in their favourite colours for a fun-filled day of activities.</p>
-        <div class="news-card-footer">
-          <span class="news-date">June 12, 2026</span>
-          <a href="#" class="read-more">Read more →</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- Article 6 -->
-    <div class="news-card" data-category="academics">
-      <div class="news-card-img red-bg"></div>
-      <div class="news-card-body">
-        <div class="news-card-cat red">Academics</div>
-        <div class="news-card-title">Academic Day &amp; Club Exhibitions July 11, 2026</div>
-        <p>Join us for our annual Academic Day and Club Exhibitions on July 11, 2026. Pupils will showcase their academic progress and club achievements. All parents and guardians are warmly invited.</p>
-        <div class="news-card-footer">
-          <span class="news-date">July 11, 2026</span>
-          <a href="#" class="read-more">Read more →</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- Empty state -->
+  <div class="news-grid" id="newsGrid">
     <div class="no-results" id="noResults">
-      <div class="no-results-icon">🔍</div>
+      <div class="no-results-icon">&#128269;</div>
       <h3>No articles found</h3>
       <p>Try a different category or search term.</p>
       <button id="clearFilters">Clear filters</button>
     </div>
-
-  </div><!-- /news-grid -->
-
-  <div class="divider"></div>
-
-  <div class="section-label">Term II 2026 Key Announcements</div>
-  <div class="section-heading">Important <span>Dates</span></div>
-
-  <div class="news-grid">
-    <div class="announcement" style="margin-bottom:0; border-left-color:var(--navy);">
-      <div class="ann-date" style="color:var(--navy);">June 3, 2026</div>
-      <h3>Martyrs' Day Public Holiday</h3>
-      <p>No classes on June 3, 2026 in observance of Uganda Martyrs' Day.</p>
-    </div>
-    <div class="announcement" style="margin-bottom:0; border-left-color:var(--red);">
-      <div class="ann-date" style="color:var(--red);">June 10–22, 2026</div>
-      <h3>Beginning of Term II Assessments</h3>
-      <p>Assessment exams begin June 10. Mid-term exams scheduled for June 22, 2026.</p>
-    </div>
-    <div class="announcement" style="margin-bottom:0; border-left-color:var(--green);">
-      <div class="ann-date" style="color:var(--green);">July 28, 2026</div>
-      <h3>End of Term Examinations Begin</h3>
-      <p>End-of-term examinations begin July 28. Official term closure is August 14, 2026.</p>
-    </div>
   </div>
+</div>
 
-</div><!-- /content-wrap -->
+<!-- ARTICLE MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+  <div class="modal-box" id="modalBox">
+    <div class="modal-header">
+      <div class="modal-cat" id="modalCat"></div>
+      <div class="modal-title" id="modalTitle"></div>
+      <div class="modal-date" id="modalDate"></div>
+      <button class="modal-close" onclick="closeModalDirect()" title="Close">&#10005;</button>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
 
 <footer>
   <p>&copy; 2026 Bright Sparks Junior School &mdash; Kampala, Uganda &mdash; <a href="index.html">Back to Home</a></p>
 </footer>
 
 <script>
+// ════════════════════════════════════════════════════════════════════════════
+//  NEWS DATA
+//  To add a new article, copy the template below into the ARTICLES array,
+//  fill in the fields, and save. No other changes needed.
+//
+//  Template:
+//  {
+//    date:      'YYYY-MM-DD',        // used for sorting — newest shown first
+//    dateLabel: 'Month DD, YYYY',    // displayed on the card
+//    category:  'academics',         // academics | sports | events | clubs
+//    color:     'navy',              // navy | red | green | gold | sky
+//    icon:      '📚',               // emoji shown on card image
+//    title:     'Your headline here',
+//    excerpt:   'One or two sentence preview shown on the card.',
+//    body:      '<p>Full article text. You can use <strong>bold</strong>, lists, etc.</p>'
+//  }
+//
+//  To pin an announcement at the top, add:
+//  {
+//    pinned:      true,
+//    pinnedLabel: '📌 PINNED — May 2026',
+//    borderColor: 'var(--gold)',     // var(--gold) | var(--red) | var(--navy) | var(--green)
+//    title:       'Announcement headline',
+//    body:        'Announcement text. Can include <strong>HTML</strong>.'
+//  }
+// ════════════════════════════════════════════════════════════════════════════
+var ARTICLES = [
+
+  // ── PINNED ANNOUNCEMENTS (shown at top, not in the grid) ─────────────────
+  {
+    pinned: true,
+    pinnedLabel: '📌 PINNED — May 2026',
+    borderColor: 'var(--gold)',
+    title: 'Term II 2026 Begins May 28, 2026',
+    body: 'All pupils are expected to report on <strong>Wednesday, May 28, 2026</strong>. Please ensure all fees are cleared before reporting day. Parents will receive the complete Term II schedule, uniform list, and booklist at orientation. Contact the school office for any queries: <strong>+256 700 116 093</strong>.'
+  },
+
+  // ── ARTICLES (newest date first) ─────────────────────────────────────────
+  {
+    date: '2026-05-27',
+    dateLabel: 'May 27, 2026',
+    category: 'events',
+    color: 'gold',
+    icon: '🌙',
+    title: 'Eid Al Adhuha — School Closed May 27',
+    excerpt: 'In observance of Eid Al Adhuha, there will be no classes on Wednesday, May 27, 2026. We wish all our Muslim families a blessed celebration.',
+    body: '<p>In observance of Eid Al Adhuha — the Day of Sacrifice commemorating the faith demonstrated by Prophet Ibrahim — there will be no classes on <strong>Wednesday, May 27, 2026</strong>.</p><p>We wish all our Muslim families, staff, and pupils a blessed and joyful celebration. School resumes on Thursday, May 28 (Reporting Day for Term II).</p>'
+  },
+  {
+    date: '2026-04-24',
+    dateLabel: 'April 24, 2026',
+    category: 'academics',
+    color: 'navy',
+    icon: '📋',
+    title: 'Term II 2026 Roadmap Released by Head Teacher',
+    excerpt: 'Head Teacher Muneeb Ali Wanyeni has released the comprehensive Term II 2026 roadmap including the full calendar, educational tours for all classes, and key dates for parents.',
+    body: '<p>Head Teacher Muneeb Ali Wanyeni has released the comprehensive Term II 2026 roadmap, covering all key dates, educational tours, assessment schedules, and school events.</p><p><strong>Key Term II dates:</strong></p><ul><li>May 28 — Reporting Day (Term II begins)</li><li>June 3 — Martyrs\' Day (Public Holiday)</li><li>June 10 — Assessment Exams Begin</li><li>June 12 — Colour Day (Kindergarten)</li><li>June 22 — Mid-Term Exams</li><li>July 11 — Academic Day &amp; Club Exhibitions</li><li>July 14–21 — Educational Tours (P.1–P.7)</li><li>July 28 — End of Term Exams Begin</li><li>August 13 — Fun Day (Kindergarten)</li><li>August 14 — Term Closure</li></ul><p>Parents are encouraged to review the full calendar on our <a href="calendar.html" style="color:var(--navy);font-weight:700;">School Calendar</a> page.</p>'
+  },
+  {
+    date: '2026-04-10',
+    dateLabel: 'Term I, 2026',
+    category: 'sports',
+    color: 'red',
+    icon: '⚽',
+    title: 'Football Team Wins Against St. James Junior School',
+    excerpt: 'Our football team emerged victorious in a thrilling match against St. James Junior School, greatly boosting school spirit and pride across the campus.',
+    body: '<p>In an exciting inter-school football fixture held during Term I 2026, the Bright Sparks Junior School football team emerged victorious against St. James Junior School.</p><p>The match, played at our school grounds, saw our pupils demonstrate excellent teamwork, discipline, and sportsmanship throughout. The final score drew loud celebrations from pupils, staff, and parents who attended.</p><p>Head Teacher Muneeb Ali Wanyeni congratulated the team: <strong>"This win is a reflection of the hard work, dedication, and team spirit our pupils bring every day — both on and off the pitch."</strong></p><p>The school continues to encourage participation in sports as part of its holistic education approach.</p>'
+  },
+  {
+    date: '2026-05-10',
+    dateLabel: 'May 2026',
+    category: 'clubs',
+    color: 'gold',
+    icon: '🍰',
+    title: 'Cookery &amp; Baking Club Prepares for Academic Day Exhibition',
+    excerpt: 'Our young chefs in the Cookery &amp; Baking Club have been busy preparing for the Academic Day &amp; Club Exhibitions scheduled for July 11, 2026.',
+    body: '<p>The Bright Sparks Cookery &amp; Baking Club has been working hard in preparation for the Academic Day &amp; Club Exhibitions on <strong>July 11, 2026</strong>.</p><p>Under the guidance of their club teacher, pupils have been mastering recipes ranging from cakes and biscuits to savoury dishes. The club meets bi-weekly each term and has grown into one of the most popular co-curricular activities at the school.</p><p>Parents, guardians, and the wider school community are warmly invited to attend Academic Day and see the pupils\' creations firsthand. More details on timing and venue will be shared closer to the date.</p>'
+  },
+  {
+    date: '2026-05-15',
+    dateLabel: 'July 14–21, 2026',
+    category: 'events',
+    color: 'green',
+    icon: '✈️',
+    title: 'Educational Tours for P.1–P.7 — July 2026',
+    excerpt: 'Educational tours are planned for all classes from July 14–21, 2026. Destinations include the Airport &amp; Zoo, Source of the Nile, and Murchison Falls.',
+    body: '<p>Exciting educational tours are planned for all classes from <strong>July 14–21, 2026</strong>. This is a highlight of the Term II calendar and a wonderful learning experience for every pupil.</p><p><strong>Tour destinations by class:</strong></p><ul><li><strong>P.1 – P.2:</strong> Entebbe Airport &amp; Uganda Wildlife Conservation Centre (Zoo)</li><li><strong>P.3 – P.4:</strong> Source of the Nile, Jinja</li><li><strong>P.5 – P.7:</strong> Murchison Falls National Park</li><li><strong>Kindergarten:</strong> Local educational site (details to follow)</li></ul><p>Tour fees are separate from term fees. Please see our <a href="fees.html" style="color:var(--navy);font-weight:700;">Fees Structure</a> page or contact the school office for details. Consent forms and payment schedules will be distributed during the first weeks of term.</p>'
+  },
+  {
+    date: '2026-06-12',
+    dateLabel: 'June 12, 2026',
+    category: 'events',
+    color: 'sky',
+    icon: '🎨',
+    title: 'Colour Day — Kindergarten Section (June 12)',
+    excerpt: 'Kindergarten pupils and their families are invited to celebrate Colour Day on June 12, 2026. Children are encouraged to dress in their favourite colours.',
+    body: '<p>Our Kindergarten section will celebrate <strong>Colour Day on Friday, June 12, 2026</strong> — a vibrant, fun-filled day for our youngest learners and their families.</p><p>Children are encouraged to come dressed in their favourite colour or a mix of bright colours. The day will include themed activities, games, singing, and a special surprise for each class.</p><p>Parents and guardians are warmly welcome to join us for part of the celebration. More details on timings will be shared via the class WhatsApp groups and school notice board.</p>'
+  },
+  {
+    date: '2026-07-11',
+    dateLabel: 'July 11, 2026',
+    category: 'academics',
+    color: 'red',
+    icon: '🏆',
+    title: 'Academic Day &amp; Club Exhibitions — July 11, 2026',
+    excerpt: 'Join us for our annual Academic Day and Club Exhibitions. Pupils will showcase their academic progress and club achievements. All parents and guardians are warmly invited.',
+    body: '<p>Bright Sparks Junior School warmly invites all parents, guardians, and friends to our annual <strong>Academic Day &amp; Club Exhibitions on Saturday, July 11, 2026</strong>.</p><p>This is one of the most celebrated events in our school calendar. Pupils from all classes will display their academic work, creative projects, and the achievements of their co-curricular clubs including:</p><ul><li>Music — Piano &amp; Guitar performances</li><li>Cookery &amp; Baking — tasting display</li><li>Chess &amp; Checkers — live demonstrations</li><li>Ballet &amp; Modelling — performance showcase</li><li>Swimming — certificate presentations</li></ul><p>Academic progress reports and class performance highlights will also be shared with parents during the event.</p><p>Entry is free. Refreshments will be available. We look forward to seeing you!</p>'
+  }
+
+]; // ← end of ARTICLES array
+
+
+// ════════════════════════════════════════════════════════════════════════════
+//  ENGINE — no need to edit below this line
+// ════════════════════════════════════════════════════════════════════════════
 (function () {
-  var cards       = Array.from(document.querySelectorAll('.news-card[data-category]'));
+  var catColor = { academics:'cat-academics', sports:'cat-sports', events:'cat-events', clubs:'cat-clubs' };
+  var catLabel = { academics:'Academics', sports:'Sports', events:'Events', clubs:'Clubs' };
+  var colorCls = { navy:'navy-bg', red:'red-bg', green:'green-bg', gold:'gold-bg', sky:'sky-bg' };
+
+  // Split pinned vs articles, sort articles newest first
+  var pinned   = ARTICLES.filter(function(a){ return a.pinned; });
+  var articles = ARTICLES.filter(function(a){ return !a.pinned; })
+                         .sort(function(a,b){ return new Date(b.date) - new Date(a.date); });
+
+  // ── Render pinned ──────────────────────────────────────────────────────
+  var pinnedArea = document.getElementById('pinned-area');
+  pinned.forEach(function(p) {
+    var div = document.createElement('div');
+    div.className = 'announcement';
+    div.style.borderLeftColor = p.borderColor || 'var(--gold)';
+    div.innerHTML =
+      '<div class="ann-date">' + p.pinnedLabel + '</div>' +
+      '<h3>' + p.title + '</h3>' +
+      '<p>' + p.body + '</p>';
+    pinnedArea.appendChild(div);
+  });
+  if (!pinned.length) pinnedArea.style.display = 'none';
+
+  // ── Render article cards ───────────────────────────────────────────────
+  var grid = document.getElementById('newsGrid');
+  var noRes = document.getElementById('noResults');
+  var cards = [];
+
+  articles.forEach(function(art, idx) {
+    var card = document.createElement('div');
+    card.className = 'news-card';
+    card.dataset.category = art.category;
+    card.dataset.idx      = idx;
+    card.innerHTML =
+      '<div class="news-card-img ' + (colorCls[art.color] || 'navy-bg') + '">' + (art.icon || '') + '</div>' +
+      '<div class="news-card-body">' +
+        '<div class="news-card-cat ' + (catColor[art.category] || '') + '">' + (catLabel[art.category] || art.category) + '</div>' +
+        '<div class="news-card-title">' + art.title + '</div>' +
+        '<p>' + art.excerpt + '</p>' +
+        '<div class="news-card-footer">' +
+          '<span class="news-date">' + art.dateLabel + '</span>' +
+          (art.link
+            ? '<a href="' + art.link + '" class="read-more">' + (art.linkLabel || 'Read more') + ' &#8594;</a>'
+            : '<button class="read-more" onclick="openModal(' + idx + ')">Read more &#8594;</button>') +
+        '</div>' +
+      '</div>';
+    grid.insertBefore(card, noRes);
+    cards.push(card);
+  });
+
+  // ── Filter counts ──────────────────────────────────────────────────────
+  var counts = {};
+  articles.forEach(function(a){ counts[a.category] = (counts[a.category]||0)+1; });
+  var fcAll = document.getElementById('fc-all');
+  if (fcAll) fcAll.textContent = articles.length;
+  ['academics','sports','events','clubs'].forEach(function(c){
+    var el = document.getElementById('fc-' + c);
+    if (el) el.textContent = counts[c] || 0;
+  });
+
+  // ── Filter + search ────────────────────────────────────────────────────
   var btns        = document.querySelectorAll('.filter-btn[data-filter]');
   var searchInput = document.getElementById('newsSearch');
   var clearBtn    = document.getElementById('searchClear');
-  var noResults   = document.getElementById('noResults');
   var meta        = document.getElementById('resultsMeta');
   var clearAll    = document.getElementById('clearFilters');
   var activeFilter = 'all';
 
-  // Populate count badges
-  var counts = {};
-  cards.forEach(function (c) {
-    var cat = c.dataset.category;
-    counts[cat] = (counts[cat] || 0) + 1;
-  });
-  btns.forEach(function (btn) {
-    var f = btn.dataset.filter;
-    var span = document.getElementById('fc-' + f);
-    if (span) span.textContent = f === 'all' ? cards.length : (counts[f] || 0);
-  });
-
   function applyFilter() {
-    var q = searchInput ? searchInput.value.toLowerCase().trim() : '';
+    var q = searchInput.value.toLowerCase().trim();
     var visible = [];
-
-    cards.forEach(function (card) {
+    cards.forEach(function(card) {
       var catOk  = activeFilter === 'all' || card.dataset.category === activeFilter;
       var textOk = !q || card.textContent.toLowerCase().indexOf(q) !== -1;
       if (catOk && textOk) {
-        card.classList.remove('hidden', 'card-anim');
+        card.classList.remove('hidden','card-anim');
         void card.offsetWidth;
         card.classList.add('card-anim');
         visible.push(card);
@@ -539,64 +527,56 @@
         card.classList.remove('card-anim');
       }
     });
-
-    // Stagger animation delay on visible cards
-    visible.forEach(function (card, i) {
-      card.style.animationDelay = (i * 0.04) + 's';
-    });
-
-    // No-results state
-    if (noResults) noResults.classList.toggle('show', visible.length === 0);
-
-    // Results meta text
-    if (meta) {
-      var isFiltered = q || activeFilter !== 'all';
-      meta.innerHTML = isFiltered && visible.length < cards.length
-        ? 'Showing <strong>' + visible.length + '</strong> of <strong>' + cards.length + '</strong> articles'
-        : '';
-    }
-
-    // Clear button visibility
-    if (clearBtn) clearBtn.classList.toggle('visible', q.length > 0);
+    visible.forEach(function(c,i){ c.style.animationDelay = (i*0.04)+'s'; });
+    noRes.classList.toggle('show', visible.length === 0);
+    var filtered = q || activeFilter !== 'all';
+    meta.innerHTML = filtered && visible.length < cards.length
+      ? 'Showing <strong>' + visible.length + '</strong> of <strong>' + cards.length + '</strong> articles' : '';
+    clearBtn.classList.toggle('visible', q.length > 0);
   }
 
-  // Category filter clicks
-  btns.forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      btns.forEach(function (b) { b.classList.remove('active'); });
+  btns.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      btns.forEach(function(b){ b.classList.remove('active'); });
       btn.classList.add('active');
       activeFilter = btn.dataset.filter;
       applyFilter();
     });
   });
-
-  // Search input
-  if (searchInput) {
-    searchInput.addEventListener('input', applyFilter);
-  }
-
-  // Clear search × button
-  if (clearBtn) {
-    clearBtn.addEventListener('click', function () {
-      searchInput.value = '';
-      applyFilter();
-      searchInput.focus();
-    });
-  }
-
-  // "Clear filters" button inside empty state
-  if (clearAll) {
-    clearAll.addEventListener('click', function () {
-      btns.forEach(function (b) { b.classList.remove('active'); });
-      document.querySelector('.filter-btn[data-filter="all"]').classList.add('active');
-      activeFilter = 'all';
-      if (searchInput) searchInput.value = '';
-      applyFilter();
-    });
-  }
-
-  // Initial run
+  searchInput.addEventListener('input', applyFilter);
+  clearBtn.addEventListener('click', function(){ searchInput.value=''; applyFilter(); searchInput.focus(); });
+  clearAll && clearAll.addEventListener('click', function(){
+    btns.forEach(function(b){ b.classList.remove('active'); });
+    document.querySelector('.filter-btn[data-filter="all"]').classList.add('active');
+    activeFilter = 'all'; searchInput.value = ''; applyFilter();
+  });
   applyFilter();
+
+  // ── Modal ──────────────────────────────────────────────────────────────
+  window.openModal = function(idx) {
+    var art = articles[idx];
+    if (!art) return;
+    document.getElementById('modalCat').textContent  = catLabel[art.category] || art.category;
+    document.getElementById('modalCat').className    = 'modal-cat ' + (catColor[art.category]||'');
+    document.getElementById('modalTitle').textContent = art.title;
+    document.getElementById('modalDate').textContent  = art.dateLabel;
+    document.getElementById('modalBody').innerHTML    = art.body;
+    document.getElementById('modalOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  };
+  window.closeModalDirect = function() {
+    document.getElementById('modalOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+  };
+  window.closeModal = function(e) {
+    if (e.target === document.getElementById('modalOverlay')) closeModalDirect();
+  };
+  document.addEventListener('keydown', function(e){ if (e.key==='Escape') closeModalDirect(); });
+
+  // ── Mobile menu ────────────────────────────────────────────────────────
+  document.querySelectorAll('.mobile-menu a').forEach(function(a){
+    a.addEventListener('click', function(){ document.getElementById('mobileMenu').classList.remove('open'); });
+  });
 })();
 </script>
 <script src="chatbot.js"></script>

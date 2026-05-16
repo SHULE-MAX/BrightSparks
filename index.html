@@ -403,6 +403,29 @@
   .ev-date { color: var(--red); font-weight: 700; white-space: nowrap; min-width: 90px; }
   .ev-name { color: var(--text-muted); }
 
+  /* LIVE CALENDAR */
+  .cal-nav { display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; }
+  .cal-month-label { font-weight:700; color:var(--navy); font-size:0.92rem; font-family:'Montserrat',sans-serif; }
+  .cal-btn { background:none; border:1.5px solid #dde2ec; border-radius:6px; padding:3px 11px; cursor:pointer; font-size:1.1rem; color:var(--navy); transition:background 0.15s; line-height:1.6; }
+  .cal-btn:hover { background:var(--cream); }
+  .cal-btn:disabled { color:#ccc; border-color:#eee; cursor:default; background:none; }
+  .cal-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:3px; margin-bottom:14px; }
+  .cal-day-name { text-align:center; font-size:0.63rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.05em; padding:5px 0 4px; font-weight:600; }
+  .cal-cell { display:flex; align-items:center; justify-content:center; height:34px; }
+  .cal-day { width:30px; height:30px; display:flex; align-items:center; justify-content:center; border-radius:50%; font-size:0.78rem; color:var(--text); cursor:default; font-family:'Montserrat',sans-serif; }
+  .cal-day.today { background:var(--cream); border:1.5px solid var(--gold); font-weight:700; color:var(--navy); }
+  .cal-day.event { color:#fff; font-weight:700; cursor:default; }
+  .cal-day.event.key { background:var(--gold); color:var(--navy); }
+  .cal-day.event.event-type { background:var(--red); }
+  .cal-day.event.exam { background:#e05a1e; }
+  .cal-day.event.holiday { background:#1a3a5c; }
+  .cal-day.range { background:#fde8e8; border-radius:0; color:var(--red); font-weight:600; width:100%; justify-content:center; }
+  .cal-day.past { color:#ccc; }
+  .cal-legend { display:flex; gap:12px; flex-wrap:wrap; margin-bottom:10px; }
+  .cal-legend-item { display:flex; align-items:center; gap:5px; font-size:0.7rem; color:var(--text-muted); }
+  .cal-legend-dot { width:10px; height:10px; border-radius:50%; flex-shrink:0; }
+  .cal-month-events .ev-label { font-size:0.68rem; font-weight:700; text-transform:uppercase; letter-spacing:0.07em; color:var(--text-muted); margin-bottom:6px; }
+
   /* TRANSPORT */
   .transport-card {
     background: linear-gradient(135deg, var(--navy), var(--navy-mid));
@@ -880,38 +903,28 @@
         </div>
       </div>
 
-      <!-- Term II Calendar -->
+      <!-- Term II Calendar (Live) -->
       <div class="adm-card">
         <div class="adm-card-header">
           <div class="adm-icon sky"></div>
-          <div><h3>Term II 2026 Calendar</h3><span class="adm-sub">Key dates &amp; events</span></div>
+          <div><h3>Term II 2026 Calendar</h3><span class="adm-sub">Live calendar — highlighted events</span></div>
         </div>
-        <div class="key-dates">
-          <div class="date-item">
-            <div class="date-label">Reporting Day</div>
-            <div class="date-val">May 25, 2026</div>
-            <div class="date-desc">Term II begins</div>
-          </div>
-          <div class="date-item">
-            <div class="date-label">Mid-Term Exams</div>
-            <div class="date-val">June 22, 2026</div>
-            <div class="date-desc">Mid-term assessments</div>
-          </div>
-          <div class="date-item">
-            <div class="date-label">Term Closure</div>
-            <div class="date-val">Aug 14, 2026</div>
-            <div class="date-desc">Official end of term</div>
-          </div>
+        <div class="cal-legend">
+          <div class="cal-legend-item"><div class="cal-legend-dot" style="background:var(--gold);"></div>Key Date</div>
+          <div class="cal-legend-item"><div class="cal-legend-dot" style="background:var(--red);"></div>School Event</div>
+          <div class="cal-legend-item"><div class="cal-legend-dot" style="background:#e05a1e;"></div>Exams</div>
+          <div class="cal-legend-item"><div class="cal-legend-dot" style="background:#1a3a5c;"></div>Public Holiday</div>
         </div>
-        <ul class="events-list">
-          <li><span class="ev-date">June 3</span><span class="ev-name">Martyrs' Day (Public Holiday)</span></li>
-          <li><span class="ev-date">June 10</span><span class="ev-name">Beginning of Term II Assessment Exams</span></li>
-          <li><span class="ev-date">June 12</span><span class="ev-name">Colour Day — Kindergarten Section</span></li>
-          <li><span class="ev-date">July 11</span><span class="ev-name">Academic Day &amp; Club Exhibitions Day</span></li>
-          <li><span class="ev-date">July 14–21</span><span class="ev-name">Educational Tours (P.1–P.7)</span></li>
-          <li><span class="ev-date">July 28</span><span class="ev-name">End of Term Examinations Begin</span></li>
-          <li><span class="ev-date">August 13</span><span class="ev-name">Fun Day — Kindergarten Section</span></li>
-        </ul>
+        <div class="cal-nav">
+          <button class="cal-btn" id="cal-prev">&#8249;</button>
+          <span class="cal-month-label" id="cal-month-label"></span>
+          <button class="cal-btn" id="cal-next">&#8250;</button>
+        </div>
+        <div class="cal-grid" id="cal-grid"></div>
+        <div class="cal-month-events">
+          <div class="ev-label" id="cal-ev-label"></div>
+          <ul class="events-list" id="cal-events"></ul>
+        </div>
       </div>
 
       <!-- Fees Structure -->
@@ -1258,6 +1271,116 @@
         track.appendChild(child.cloneNode(true));
       });
     });
+  })();
+
+  // Live Term II Calendar
+  (function () {
+    var termEvents = [
+      { date:'2026-05-25', label:'Reporting Day', desc:'Term II begins', type:'key' },
+      { date:'2026-06-03', label:"Martyrs' Day", desc:'Public Holiday', type:'holiday' },
+      { date:'2026-06-10', label:'Assessment Exams Begin', desc:'Term II assessments start', type:'exam' },
+      { date:'2026-06-12', label:'Colour Day', desc:'Kindergarten Section', type:'event-type' },
+      { date:'2026-06-22', label:'Mid-Term Exams', desc:'Mid-term assessments', type:'key' },
+      { date:'2026-07-11', label:'Academic & Club Day', desc:'Academic Day & Club Exhibitions', type:'event-type' },
+      { date:'2026-07-14', label:'Educational Tours', desc:'P.1–P.7', type:'event-type', endDate:'2026-07-21' },
+      { date:'2026-07-28', label:'End of Term Exams', desc:'Final examinations begin', type:'exam' },
+      { date:'2026-08-13', label:'Fun Day', desc:'Kindergarten Section', type:'event-type' },
+      { date:'2026-08-14', label:'Term Closure', desc:'Official end of term', type:'key' },
+    ];
+    var MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    var DAYS   = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+    var MIN_M  = new Date(2026, 4);
+    var MAX_M  = new Date(2026, 7);
+    var today  = new Date();
+    var cur    = new Date(today.getFullYear(), today.getMonth());
+    if (cur < MIN_M) cur = new Date(2026, 4);
+    if (cur > MAX_M) cur = new Date(2026, 7);
+
+    function isSameDay(a, b) {
+      return a.getFullYear()===b.getFullYear() && a.getMonth()===b.getMonth() && a.getDate()===b.getDate();
+    }
+    function getEventForDay(y, m, d) {
+      var date = new Date(y, m, d);
+      for (var i = 0; i < termEvents.length; i++) {
+        var ev = termEvents[i];
+        var start = new Date(ev.date);
+        var end   = ev.endDate ? new Date(ev.endDate) : start;
+        if (date >= start && date <= end) return ev;
+      }
+      return null;
+    }
+    function isRangeMid(y, m, d) {
+      var date = new Date(y, m, d);
+      for (var i = 0; i < termEvents.length; i++) {
+        var ev = termEvents[i];
+        if (!ev.endDate) continue;
+        if (date > new Date(ev.date) && date < new Date(ev.endDate)) return true;
+      }
+      return false;
+    }
+    function render() {
+      var y = cur.getFullYear(), m = cur.getMonth();
+      document.getElementById('cal-month-label').textContent = MONTHS[m] + ' ' + y;
+      var prev = document.getElementById('cal-prev'), next = document.getElementById('cal-next');
+      prev.disabled = new Date(y, m - 1) < MIN_M;
+      next.disabled = new Date(y, m + 1) > MAX_M;
+
+      var grid = document.getElementById('cal-grid');
+      grid.innerHTML = '';
+      DAYS.forEach(function (dn) {
+        var h = document.createElement('div'); h.className = 'cal-day-name'; h.textContent = dn; grid.appendChild(h);
+      });
+      var firstDay = new Date(y, m, 1).getDay();
+      var daysInMonth = new Date(y, m + 1, 0).getDate();
+      for (var e = 0; e < firstDay; e++) {
+        var blank = document.createElement('div'); blank.className = 'cal-cell'; grid.appendChild(blank);
+      }
+      for (var d = 1; d <= daysInMonth; d++) {
+        var cell = document.createElement('div'); cell.className = 'cal-cell';
+        var ev = getEventForDay(y, m, d);
+        var mid = !ev && isRangeMid(y, m, d);
+        var dayDate = new Date(y, m, d);
+        var isToday = isSameDay(dayDate, today);
+        var isPast  = dayDate < today && !isToday;
+        var span = document.createElement('div');
+        span.textContent = d;
+        if (ev) {
+          span.className = 'cal-day event ' + ev.type;
+          span.title = ev.label + (ev.desc ? ' — ' + ev.desc : '');
+        } else if (mid) {
+          span.className = 'cal-day range';
+        } else if (isToday) {
+          span.className = 'cal-day today';
+        } else if (isPast) {
+          span.className = 'cal-day past';
+        } else {
+          span.className = 'cal-day';
+        }
+        cell.appendChild(span); grid.appendChild(cell);
+      }
+
+      var typeColor = { key:'var(--gold)', 'event-type':'var(--red)', exam:'#e05a1e', holiday:'#1a3a5c' };
+      var monthEvs = termEvents.filter(function (ev) { return new Date(ev.date).getMonth() === m; });
+      var evLabel = document.getElementById('cal-ev-label');
+      var evList  = document.getElementById('cal-events');
+      evList.innerHTML = '';
+      if (!monthEvs.length) {
+        evLabel.textContent = 'No highlighted events this month';
+      } else {
+        evLabel.textContent = 'Events this month';
+        monthEvs.forEach(function (ev) {
+          var start = new Date(ev.date);
+          var dateStr = start.toLocaleDateString('en-UG', { month:'short', day:'numeric' });
+          if (ev.endDate) dateStr += '–' + new Date(ev.endDate).getDate();
+          var li = document.createElement('li');
+          li.innerHTML = '<span class="ev-date" style="color:' + (typeColor[ev.type] || 'var(--red)') + '">' + dateStr + '</span><span class="ev-name">' + ev.label + (ev.desc ? ' — ' + ev.desc : '') + '</span>';
+          evList.appendChild(li);
+        });
+      }
+    }
+    document.getElementById('cal-prev').addEventListener('click', function () { cur = new Date(cur.getFullYear(), cur.getMonth() - 1); render(); });
+    document.getElementById('cal-next').addEventListener('click', function () { cur = new Date(cur.getFullYear(), cur.getMonth() + 1); render(); });
+    render();
   })();
 
   // Active nav on scroll

@@ -140,7 +140,9 @@
   @keyframes cardIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
   .news-card.card-anim { animation: cardIn 0.22s ease both; }
 
-  .news-card-img { height: 150px; display: flex; align-items: center; justify-content: center; font-size: 3.2rem; }
+  .news-card-img { height: 170px; display: flex; align-items: center; justify-content: center; font-size: 3.2rem; overflow: hidden; position: relative; }
+  .news-card-img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.35s; }
+  .news-card:hover .news-card-img img { transform: scale(1.04); }
   .navy-bg  { background: linear-gradient(135deg, #E8EAF6, #C5CAE9); }
   .red-bg   { background: linear-gradient(135deg, #FFEBEE, #FFCDD2); }
   .green-bg { background: linear-gradient(135deg, #E8F5E9, #C8E6C9); }
@@ -195,6 +197,7 @@
     transition: background 0.2s;
   }
   .modal-close:hover { background: rgba(211,47,47,0.1); color: var(--red); }
+  .modal-hero-img { width: 100%; max-height: 320px; object-fit: cover; display: block; border-radius: 0; }
   .modal-body { padding: 24px 32px 32px; font-size: 0.92rem; color: var(--text); line-height: 1.75; }
   .modal-body p { margin-bottom: 14px; }
   .modal-body p:last-child { margin-bottom: 0; }
@@ -337,11 +340,14 @@
 //    date:      'YYYY-MM-DD',        // used for sorting — newest shown first
 //    dateLabel: 'Month DD, YYYY',    // displayed on the card
 //    category:  'academics',         // academics | sports | events | clubs
-//    color:     'navy',              // navy | red | green | gold | sky
-//    icon:      '📚',               // emoji shown on card image
+//    color:     'navy',              // navy | red | green | gold | sky  (fallback when no photo)
+//    icon:      '📚',               // emoji shown when no photo is set
+//    image:     'images/news/your-photo.jpg',  // OPTIONAL — drop photo in images/news/ folder
 //    title:     'Your headline here',
 //    excerpt:   'One or two sentence preview shown on the card.',
 //    body:      '<p>Full article text. You can use <strong>bold</strong>, lists, etc.</p>'
+//              // To show a photo inside the article, add this inside body:
+//              // '<img src="images/news/your-photo.jpg" style="width:100%;border-radius:8px;margin:12px 0">'
 //  }
 //
 //  To pin an announcement at the top, add:
@@ -476,8 +482,11 @@ var ARTICLES = [
     card.className = 'news-card';
     card.dataset.category = art.category;
     card.dataset.idx      = idx;
+    var imgHtml = art.image
+      ? '<div class="news-card-img"><img src="' + art.image + '" alt="' + art.title + '" loading="lazy" onerror="this.parentElement.className=\'news-card-img ' + (colorCls[art.color]||'navy-bg') + '\';this.remove();this.parentElement.textContent=\'' + (art.icon||'') + '\'"></div>'
+      : '<div class="news-card-img ' + (colorCls[art.color] || 'navy-bg') + '">' + (art.icon || '') + '</div>';
     card.innerHTML =
-      '<div class="news-card-img ' + (colorCls[art.color] || 'navy-bg') + '">' + (art.icon || '') + '</div>' +
+      imgHtml +
       '<div class="news-card-body">' +
         '<div class="news-card-cat ' + (catColor[art.category] || '') + '">' + (catLabel[art.category] || art.category) + '</div>' +
         '<div class="news-card-title">' + art.title + '</div>' +
@@ -556,12 +565,16 @@ var ARTICLES = [
   window.openModal = function(idx) {
     var art = articles[idx];
     if (!art) return;
-    document.getElementById('modalCat').textContent  = catLabel[art.category] || art.category;
-    document.getElementById('modalCat').className    = 'modal-cat ' + (catColor[art.category]||'');
+    document.getElementById('modalCat').textContent   = catLabel[art.category] || art.category;
+    document.getElementById('modalCat').className     = 'modal-cat ' + (catColor[art.category]||'');
     document.getElementById('modalTitle').textContent = art.title;
     document.getElementById('modalDate').textContent  = art.dateLabel;
-    document.getElementById('modalBody').innerHTML    = art.body;
+    var heroImg = art.image
+      ? '<img src="' + art.image + '" alt="' + art.title + '" class="modal-hero-img" style="margin-bottom:0">'
+      : '';
+    document.getElementById('modalBody').innerHTML = heroImg + art.body;
     document.getElementById('modalOverlay').classList.add('open');
+    document.getElementById('modalOverlay').scrollTop = 0;
     document.body.style.overflow = 'hidden';
   };
   window.closeModalDirect = function() {

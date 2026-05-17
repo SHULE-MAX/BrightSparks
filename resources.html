@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Downloads &amp; Resources | Bright Sparks Junior School</title>
+<meta name="description" content="Download official school documents — circulars, rules and regulations, workplans, and more from Bright Sparks Junior School.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700;1,800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #D32F2F; --red-dark: #B71C1C;
+    --navy: #1A2E6E; --navy-mid: #203580; --navy-light: #2B42A0;
+    --green: #1B6B3A; --green-light: #2E8B57;
+    --gold: #E8A020; --gold-light: #F5C252;
+    --sky: #3B9FD4;
+    --white: #FFFFFF; --cream: #F8FBF8;
+    --text: #1A1A2E; --text-muted: #5A6480;
+    --radius: 16px; --radius-sm: 8px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; overflow-x: hidden; }
+  body { font-family: 'Montserrat', sans-serif; color: var(--text); background: var(--cream); }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    background: rgba(26,46,110,0.97); backdrop-filter: blur(12px);
+    padding: 0 4%; display: flex; align-items: center; justify-content: space-between;
+    height: 68px; border-bottom: 3px solid var(--red);
+  }
+  .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .nav-logo img { height: 50px; width: auto; background: rgba(255,255,255,0.93); border-radius: 8px; padding: 4px 6px; }
+  .nav-logo-text { color: var(--white); }
+  .nav-logo-text strong { display: block; font-size: 0.88rem; font-weight: 700; }
+  .nav-logo-text span { font-size: 0.65rem; color: var(--gold-light); letter-spacing: 0.08em; text-transform: uppercase; }
+  .nav-links { display: flex; gap: 4px; list-style: none; align-items: center; }
+  .nav-links a {
+    color: rgba(255,255,255,0.85); text-decoration: none; font-size: 0.8rem;
+    font-weight: 500; padding: 6px 10px; border-radius: 6px; transition: all 0.2s;
+  }
+  .nav-links a:hover { color: var(--gold-light); background: rgba(255,255,255,0.08); }
+  .nav-links .active { color: var(--gold-light) !important; }
+  .nav-links .btn-apply { background: var(--red); color: white !important; font-weight: 700; padding: 7px 16px; border-radius: 8px; }
+  .nav-links .btn-apply:hover { background: var(--red-dark); }
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; }
+  .hamburger span { display: block; width: 24px; height: 2px; background: var(--white); border-radius: 2px; transition: all 0.3s; }
+  .mobile-menu {
+    display: none; position: fixed; top: 68px; left: 0; right: 0;
+    background: var(--navy); padding: 16px 5%; z-index: 999; border-bottom: 2px solid var(--red);
+  }
+  .mobile-menu.open { display: block; }
+  .mobile-menu a { display: block; color: var(--white); text-decoration: none; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.1); font-size: 0.95rem; }
+  .mobile-menu a:last-child { border-bottom: none; }
+
+  /* HERO */
+  .page-hero {
+    background: linear-gradient(150deg, #0D1A45 0%, #1A2E6E 55%, #152560 100%);
+    padding: 110px 4% 52px; text-align: center; position: relative; overflow: hidden;
+  }
+  .page-hero::before {
+    content: ''; position: absolute; inset: 0; pointer-events: none;
+    background-image:
+      radial-gradient(circle at 20% 50%, rgba(211,47,47,0.12) 0%, transparent 50%),
+      radial-gradient(circle at 80% 30%, rgba(232,160,32,0.1) 0%, transparent 40%);
+  }
+  .page-hero-tag {
+    display: inline-block; background: rgba(232,160,32,0.18); border: 1px solid rgba(232,160,32,0.4);
+    color: var(--gold-light); padding: 5px 16px; border-radius: 30px;
+    font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase;
+    font-weight: 600; margin-bottom: 16px; position: relative; z-index: 1;
+  }
+  .page-hero h1 {
+    color: var(--white); font-size: clamp(2rem, 5vw, 3.2rem); line-height: 1.15;
+    margin-bottom: 12px; position: relative; z-index: 1;
+  }
+  .page-hero h1 span { color: var(--gold-light); }
+  .page-hero p { color: rgba(255,255,255,0.72); font-size: 0.96rem; max-width: 540px; margin: 0 auto; position: relative; z-index: 1; }
+
+  /* CONTENT */
+  .content-wrap { max-width: 960px; margin: 0 auto; padding: 48px 4% 80px; }
+  .back-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    color: var(--navy); text-decoration: none; font-size: 0.85rem; font-weight: 600;
+    margin-bottom: 36px; transition: gap 0.2s;
+  }
+  .back-link:hover { gap: 10px; color: var(--red); }
+
+  /* SECTION LABELS */
+  .section-label {
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--red); margin-bottom: 6px;
+  }
+  .section-heading {
+    font-size: clamp(1.3rem, 3vw, 1.75rem); font-weight: 800; color: var(--navy);
+    margin-bottom: 6px; line-height: 1.2;
+  }
+  .section-heading span { color: var(--red); }
+  .section-sub { font-size: 0.88rem; color: var(--text-muted); margin-bottom: 28px; line-height: 1.6; }
+  .divider { border: none; border-top: 1.5px solid rgba(26,46,110,0.1); margin: 40px 0; }
+
+  /* SEARCH / FILTER BAR */
+  .filter-bar {
+    display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+    background: var(--white); border-radius: var(--radius); padding: 16px 20px;
+    box-shadow: 0 2px 12px rgba(26,46,110,0.07); margin-bottom: 32px;
+  }
+  .filter-bar label { font-size: 0.78rem; font-weight: 700; color: var(--navy); text-transform: uppercase; letter-spacing: 0.07em; white-space: nowrap; }
+  .filter-bar select {
+    padding: 7px 12px; border: 1.5px solid rgba(26,46,110,0.18); border-radius: var(--radius-sm);
+    font-family: 'Montserrat', sans-serif; font-size: 0.84rem; color: var(--text);
+    background: var(--cream); cursor: pointer; outline: none; transition: border-color 0.2s;
+  }
+  .filter-bar select:focus { border-color: var(--navy); }
+  .filter-spacer { flex: 1; }
+  .filter-count { font-size: 0.78rem; color: var(--text-muted); white-space: nowrap; }
+
+  /* DOCUMENT CARDS GRID */
+  .doc-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+
+  .doc-card {
+    background: var(--white); border-radius: var(--radius); padding: 24px;
+    box-shadow: 0 2px 12px rgba(26,46,110,0.07);
+    display: flex; flex-direction: column; gap: 14px;
+    border-top: 4px solid transparent;
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+  .doc-card:hover { box-shadow: 0 6px 24px rgba(26,46,110,0.13); transform: translateY(-2px); }
+  .doc-card.cat-circular { border-top-color: var(--sky); }
+  .doc-card.cat-rules    { border-top-color: var(--red); }
+  .doc-card.cat-workplan { border-top-color: var(--green); }
+  .doc-card.cat-other    { border-top-color: var(--gold); }
+
+  .doc-icon {
+    width: 48px; height: 48px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem; flex-shrink: 0;
+  }
+  .doc-icon.cat-circular { background: rgba(59,159,212,0.12); }
+  .doc-icon.cat-rules    { background: rgba(211,47,47,0.1); }
+  .doc-icon.cat-workplan { background: rgba(27,107,58,0.1); }
+  .doc-icon.cat-other    { background: rgba(232,160,32,0.12); }
+
+  .doc-badge {
+    display: inline-block; padding: 3px 10px; border-radius: 10px;
+    font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em;
+    align-self: flex-start;
+  }
+  .doc-badge.cat-circular { background: rgba(59,159,212,0.12); color: var(--sky); }
+  .doc-badge.cat-rules    { background: rgba(211,47,47,0.1); color: var(--red); }
+  .doc-badge.cat-workplan { background: rgba(27,107,58,0.1); color: var(--green); }
+  .doc-badge.cat-other    { background: rgba(232,160,32,0.12); color: var(--gold); }
+
+  .doc-body { flex: 1; display: flex; flex-direction: column; gap: 6px; }
+  .doc-title { font-size: 0.97rem; font-weight: 800; color: var(--navy); line-height: 1.3; }
+  .doc-desc { font-size: 0.8rem; color: var(--text-muted); line-height: 1.55; }
+
+  .doc-meta {
+    display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+    padding-top: 10px; border-top: 1px solid rgba(26,46,110,0.07);
+    font-size: 0.72rem; color: var(--text-muted);
+  }
+  .doc-meta-item { display: flex; align-items: center; gap: 4px; }
+
+  .btn-download {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    background: var(--navy); color: var(--white); text-decoration: none;
+    padding: 10px 18px; border-radius: var(--radius-sm);
+    font-size: 0.8rem; font-weight: 700; font-family: 'Montserrat', sans-serif;
+    transition: background 0.2s; width: 100%; margin-top: 4px;
+  }
+  .btn-download:hover { background: var(--navy-light); }
+  .btn-download svg { flex-shrink: 0; }
+
+  /* NOTICE BOX */
+  .notice-box {
+    background: rgba(232,160,32,0.08); border: 1.5px solid rgba(232,160,32,0.3);
+    border-radius: var(--radius); padding: 18px 22px;
+    display: flex; gap: 14px; align-items: flex-start; margin-bottom: 32px;
+  }
+  .notice-icon { font-size: 1.3rem; flex-shrink: 0; margin-top: 2px; }
+  .notice-text { font-size: 0.83rem; color: var(--navy); line-height: 1.6; }
+  .notice-text strong { display: block; margin-bottom: 3px; font-size: 0.87rem; }
+
+  /* CTA BAR */
+  .cta-bar {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+    border-radius: var(--radius); padding: 40px 36px; text-align: center;
+    margin-top: 56px;
+  }
+  .cta-bar h2 { color: var(--white); font-size: 1.4rem; font-weight: 800; margin-bottom: 8px; }
+  .cta-bar p { color: rgba(255,255,255,0.72); font-size: 0.88rem; margin-bottom: 24px; }
+  .cta-buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .btn-cta-primary {
+    background: var(--red); color: white; text-decoration: none;
+    padding: 12px 24px; border-radius: var(--radius-sm);
+    font-size: 0.88rem; font-weight: 700; transition: background 0.2s;
+  }
+  .btn-cta-primary:hover { background: var(--red-dark); }
+  .btn-cta-outline {
+    border: 2px solid rgba(255,255,255,0.5); color: white; text-decoration: none;
+    padding: 11px 22px; border-radius: var(--radius-sm);
+    font-size: 0.88rem; font-weight: 700; transition: border-color 0.2s, background 0.2s;
+  }
+  .btn-cta-outline:hover { border-color: white; background: rgba(255,255,255,0.08); }
+
+  /* EMPTY STATE */
+  .empty-state {
+    text-align: center; padding: 56px 20px; color: var(--text-muted);
+    background: var(--white); border-radius: var(--radius);
+    box-shadow: 0 2px 12px rgba(26,46,110,0.06);
+  }
+  .empty-state-icon { font-size: 2.5rem; margin-bottom: 12px; }
+  .empty-state p { font-size: 0.88rem; }
+
+  /* FOOTER */
+  footer {
+    background: var(--navy); color: rgba(255,255,255,0.7);
+    text-align: center; padding: 28px 4%; font-size: 0.82rem;
+  }
+  footer a { color: var(--gold-light); text-decoration: none; }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    .doc-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 560px) {
+    .nav-logo-text span { display: none; }
+    .nav-logo img { height: 40px; }
+    .page-hero { padding: 96px 5% 40px; }
+    .content-wrap { padding: 32px 5% 60px; }
+    .cta-bar { padding: 28px 20px; }
+    .filter-bar { gap: 8px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    <img src="logo.png" alt="Bright Sparks Junior School Logo" onerror="this.style.display='none'">
+    <div class="nav-logo-text">
+      <strong>Bright Sparks Junior School</strong>
+      <span>We Shall Reach the Shore!</span>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="admissions.html">Admissions</a></li>
+    <li><a href="fees.html">Fees</a></li>
+    <li><a href="news.html">News</a></li>
+    <li><a href="calendar.html">Calendar</a></li>
+    <li><a href="resources.html" class="active">Resources</a></li>
+    <li><a href="careers.html">Careers</a></li>
+    <li><a href="index.html#contacts" class="btn-apply">Contact Us</a></li>
+  </ul>
+  <div class="hamburger" onclick="document.getElementById('mobileMenu').classList.toggle('open')">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">Home</a>
+  <a href="index.html#about">About</a>
+  <a href="admissions.html">Admissions</a>
+  <a href="fees.html">Fees</a>
+  <a href="news.html">News</a>
+  <a href="calendar.html">Calendar</a>
+  <a href="resources.html">Resources</a>
+  <a href="careers.html">Careers</a>
+  <a href="index.html#contacts">Contact Us</a>
+</div>
+
+<!-- HERO -->
+<div class="page-hero">
+  <div class="page-hero-tag">School Documents</div>
+  <h1>Downloads &amp; <span>Resources</span></h1>
+  <p>Official school documents available for parents, guardians, and staff — circulars, rules &amp; regulations, workplans, and more.</p>
+</div>
+
+<!-- CONTENT -->
+<div class="content-wrap">
+  <a href="index.html" class="back-link">&#8592; Back to Home</a>
+
+  <div class="notice-box">
+    <div class="notice-icon">&#128276;</div>
+    <div class="notice-text">
+      <strong>How to download</strong>
+      Click the "Download" button on any document card to open or save the file. Documents are in PDF format and can be viewed on any device. For printed copies, contact the school office.
+    </div>
+  </div>
+
+  <!-- FILTER BAR -->
+  <div class="filter-bar">
+    <label for="catFilter">Filter by category:</label>
+    <select id="catFilter" onchange="filterDocs()">
+      <option value="all">All Documents</option>
+      <option value="cat-circular">Circulars</option>
+      <option value="cat-rules">Rules &amp; Regulations</option>
+      <option value="cat-workplan">Workplans &amp; Routines</option>
+      <option value="cat-other">Other</option>
+    </select>
+    <div class="filter-spacer"></div>
+    <span class="filter-count" id="filterCount"></span>
+  </div>
+
+  <!-- CIRCULARS -->
+  <div class="section-label" data-section="cat-circular">Circulars</div>
+  <div class="section-heading" data-section="cat-circular">School <span>Circulars</span></div>
+  <p class="section-sub" data-section="cat-circular">Official notices and communications issued to parents and guardians each term.</p>
+
+  <div class="doc-grid" id="docGrid">
+
+    <!-- Circular: Term II Roadmap -->
+    <div class="doc-card cat-circular" data-cat="cat-circular">
+      <div class="doc-icon cat-circular">&#128196;</div>
+      <span class="doc-badge cat-circular">Circular</span>
+      <div class="doc-body">
+        <div class="doc-title">Term II Roadmap Circular</div>
+        <div class="doc-desc">Official Term II communication to parents covering the term schedule, key dates, fees deadlines, and school expectations for the term.</div>
+      </div>
+      <div class="doc-meta">
+        <span class="doc-meta-item">&#128197; Term II 2026</span>
+        <span class="doc-meta-item">&#128196; PDF &middot; 213 KB</span>
+      </div>
+      <a href="Resources/School Circular_ Term II Roadmap.pdf" class="btn-download" download>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download PDF
+      </a>
+    </div>
+
+    <!-- Rules & Regulations -->
+    <div class="doc-card cat-rules" data-cat="cat-rules">
+      <div class="doc-icon cat-rules">&#128218;</div>
+      <span class="doc-badge cat-rules">Rules &amp; Regulations</span>
+      <div class="doc-body">
+        <div class="doc-title">Draft Rules &amp; Regulations</div>
+        <div class="doc-desc">The school's official rules and regulations governing pupil conduct, discipline, uniform, attendance, and general school expectations for all enrolled pupils.</div>
+      </div>
+      <div class="doc-meta">
+        <span class="doc-meta-item">&#128197; 2026</span>
+        <span class="doc-meta-item">&#128196; PDF &middot; 176 KB</span>
+      </div>
+      <a href="Resources/Draft Rules and Regulations.pdf" class="btn-download" download>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download PDF
+      </a>
+    </div>
+
+    <!-- School Routine / Workplan -->
+    <div class="doc-card cat-workplan" data-cat="cat-workplan">
+      <div class="doc-icon cat-workplan">&#128203;</div>
+      <span class="doc-badge cat-workplan">Workplan &amp; Routine</span>
+      <div class="doc-body">
+        <div class="doc-title">School Routine</div>
+        <div class="doc-desc">The official school daily and weekly routine showing the timetable structure, lesson periods, break times, and activity schedules across all classes.</div>
+      </div>
+      <div class="doc-meta">
+        <span class="doc-meta-item">&#128197; 2026</span>
+        <span class="doc-meta-item">&#128196; PDF &middot; 57 KB</span>
+      </div>
+      <a href="Resources/SCHOOL ROUTINE.pdf" class="btn-download" download>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download PDF
+      </a>
+    </div>
+
+  </div>
+
+  <!-- EMPTY STATE (shown when filter has no results) -->
+  <div class="empty-state" id="emptyState" style="display:none;">
+    <div class="empty-state-icon">&#128269;</div>
+    <p>No documents found in this category.<br>Select "All Documents" to see everything.</p>
+  </div>
+
+  <hr class="divider">
+
+  <!-- CTA BAR -->
+  <div class="cta-bar">
+    <h2>Need a Document Not Listed Here?</h2>
+    <p>Contact the school office and we will assist you with any additional documents you require.</p>
+    <div class="cta-buttons">
+      <a href="index.html#contacts" class="btn-cta-primary">Contact the School Office</a>
+      <a href="admissions.html" class="btn-cta-outline">Admissions Information</a>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <p>
+    <strong style="color:rgba(255,255,255,0.75);">Bright Sparks Junior School</strong><br>
+    P.O. Box 134810, Kampala, Uganda &nbsp;|&nbsp; Seguku-Katale, Entebbe Road, Wakiso District<br>
+    <a href="tel:+256700116093">+256 700 116 093</a> &nbsp;/&nbsp;
+    <a href="tel:+256393242093">0393 242 093</a> &nbsp;|&nbsp;
+    <a href="mailto:brightsparksjuniorsch@gmail.com">brightsparksjuniorsch@gmail.com</a><br>
+    <span style="display:block; margin-top:8px; font-size:0.7rem;">
+      &copy; 2026 Bright Sparks Junior School &middot; All rights reserved &middot;
+      <em>"We Shall Reach the Shore!"</em> &middot; <em>Created and Managed by Tr. Ali</em>
+    </span>
+  </p>
+</footer>
+
+<script>
+(function () {
+  var cards  = document.querySelectorAll('.doc-card');
+  var empty  = document.getElementById('emptyState');
+  var count  = document.getElementById('filterCount');
+  var sections = document.querySelectorAll('[data-section]');
+
+  function updateCount(visible) {
+    count.textContent = visible + ' document' + (visible !== 1 ? 's' : '');
+  }
+
+  window.filterDocs = function () {
+    var cat     = document.getElementById('catFilter').value;
+    var visible = 0;
+
+    cards.forEach(function (card) {
+      var match = cat === 'all' || card.dataset.cat === cat;
+      card.style.display = match ? '' : 'none';
+      if (match) visible++;
+    });
+
+    sections.forEach(function (el) {
+      el.style.display = (cat === 'all' || el.dataset.section === cat) ? '' : 'none';
+    });
+
+    empty.style.display = visible === 0 ? '' : 'none';
+    updateCount(visible);
+  };
+
+  // Mobile menu close on link click
+  document.querySelectorAll('.mobile-menu a').forEach(function (a) {
+    a.addEventListener('click', function () {
+      document.getElementById('mobileMenu').classList.remove('open');
+    });
+  });
+
+  // Init count
+  updateCount(cards.length);
+})();
+</script>
+<script src="chatbot.js"></script>
+</body>
+</html>

@@ -130,7 +130,8 @@
   .doc-card.cat-circular { border-top-color: var(--sky); }
   .doc-card.cat-rules    { border-top-color: var(--red); }
   .doc-card.cat-workplan { border-top-color: var(--green); }
-  .doc-card.cat-other    { border-top-color: var(--gold); }
+  .doc-card.cat-other       { border-top-color: var(--gold); }
+  .doc-card.cat-newsletter  { border-top-color: #7B3FA0; }
 
   .doc-icon {
     width: 48px; height: 48px; border-radius: 10px;
@@ -140,7 +141,8 @@
   .doc-icon.cat-circular { background: rgba(59,159,212,0.12); }
   .doc-icon.cat-rules    { background: rgba(211,47,47,0.1); }
   .doc-icon.cat-workplan { background: rgba(27,107,58,0.1); }
-  .doc-icon.cat-other    { background: rgba(232,160,32,0.12); }
+  .doc-icon.cat-other       { background: rgba(232,160,32,0.12); }
+  .doc-icon.cat-newsletter  { background: rgba(123,63,160,0.1); }
 
   .doc-badge {
     display: inline-block; padding: 3px 10px; border-radius: 10px;
@@ -150,7 +152,8 @@
   .doc-badge.cat-circular { background: rgba(59,159,212,0.12); color: var(--sky); }
   .doc-badge.cat-rules    { background: rgba(211,47,47,0.1); color: var(--red); }
   .doc-badge.cat-workplan { background: rgba(27,107,58,0.1); color: var(--green); }
-  .doc-badge.cat-other    { background: rgba(232,160,32,0.12); color: var(--gold); }
+  .doc-badge.cat-other       { background: rgba(232,160,32,0.12); color: var(--gold); }
+  .doc-badge.cat-newsletter  { background: rgba(123,63,160,0.1); color: #7B3FA0; }
 
   .doc-body { flex: 1; display: flex; flex-direction: column; gap: 6px; }
   .doc-title { font-size: 0.97rem; font-weight: 800; color: var(--navy); line-height: 1.3; }
@@ -302,6 +305,7 @@
       <option value="cat-circular">Circulars</option>
       <option value="cat-rules">Rules &amp; Regulations</option>
       <option value="cat-workplan">Workplans &amp; Routines</option>
+      <option value="cat-newsletter">Newsletters</option>
       <option value="cat-other">Other</option>
     </select>
     <div class="filter-spacer"></div>
@@ -312,6 +316,11 @@
   <div class="section-label" data-section="cat-circular">Circulars</div>
   <div class="section-heading" data-section="cat-circular">School <span>Circulars</span></div>
   <p class="section-sub" data-section="cat-circular">Official notices and communications issued to parents and guardians each term.</p>
+
+  <!-- NEWSLETTERS -->
+  <div class="section-label" data-section="cat-newsletter" style="margin-top:0;">Newsletters</div>
+  <div class="section-heading" data-section="cat-newsletter">School <span>Newsletters</span></div>
+  <p class="section-sub" data-section="cat-newsletter">Term-by-term newsletters keeping parents informed of school life, achievements, and upcoming activities.</p>
 
   <div class="doc-grid" id="docGrid">
 
@@ -346,6 +355,24 @@
         <span class="doc-meta-item">&#128196; PDF &middot; 176 KB</span>
       </div>
       <a href="Resources/Draft Rules and Regulations.pdf" class="btn-download" download>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download PDF
+      </a>
+    </div>
+
+    <!-- Newsletter -->
+    <div class="doc-card cat-newsletter" data-cat="cat-newsletter">
+      <div class="doc-icon cat-newsletter">&#128240;</div>
+      <span class="doc-badge cat-newsletter">Newsletter</span>
+      <div class="doc-body">
+        <div class="doc-title">Term I Newsletter 2026</div>
+        <div class="doc-desc">Highlights from Term I — pupil achievements, staff news, upcoming events, and a message from the head teacher to parents and guardians.</div>
+      </div>
+      <div class="doc-meta">
+        <span class="doc-meta-item">&#128197; Term I 2026</span>
+        <span class="doc-meta-item">&#128196; PDF</span>
+      </div>
+      <a href="Resources/Newsletter Term I 2026.pdf" class="btn-download" download>
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
         Download PDF
       </a>

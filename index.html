@@ -874,10 +874,12 @@
           <p>A quiet, well-stocked library with a curated selection of books and reference materials that ignite a lifelong love for reading.</p>
         </div>
       </div>
-      <div class="facility-card">
-        <div class="fac-icon"></div>
-        <h3>Sports &amp; Athletics</h3>
-        <p>Football pitches, athletics tracks, and open play areas supporting physical fitness, teamwork, and school sports competitions.</p>
+      <div class="facility-card has-photo" style="position:relative;">
+        <img src="images/general/sports.jpeg" alt="Sports & Athletics" class="fac-photo" onerror="this.style.display='none'">
+        <div class="fac-overlay">
+          <h3>Sports &amp; Athletics</h3>
+          <p>Football pitches, athletics tracks, and open play areas supporting physical fitness, teamwork, and school sports competitions.</p>
+        </div>
       </div>
       <div class="facility-card has-photo" style="position:relative;">
         <img src="images/general/MDD.jpeg" alt="Music, Dance & Drama" class="fac-photo" onerror="this.style.display='none'">
@@ -910,7 +912,9 @@
       <!-- Application Process -->
       <div class="adm-card">
         <div class="adm-card-header">
-          <div class="adm-icon red"></div>
+          <div class="adm-icon red" style="overflow:hidden; padding:0;">
+            <img src="images/assets/steps.jpg" alt="Application Process" style="width:100%; height:100%; object-fit:cover; display:block;" onerror="this.style.display='none'">
+          </div>
           <div><h3>Application Process</h3><span class="adm-sub">Simple steps to join our school</span></div>
         </div>
         <ul class="steps-list">
@@ -928,8 +932,10 @@
 
       <!-- Term II Calendar (Live) -->
       <div class="adm-card">
-        <div class="adm-card-header">
-          <div class="adm-icon sky"></div>
+        <div class="adm-card-header" >
+          <div class="adm-icon sky" style="overflow:hidden; padding:0;">
+            <img src="images/assets/calendar.jfif" alt="School Calendar" style="width:100%; height:100%; object-fit:cover; display:block;" onerror="this.style.display='none'">
+          </div>
           <div><h3>School Calendar</h3><span class="adm-sub">Browse key dates and highlighted events</span></div>
         </div>
         <div class="cal-legend">
@@ -953,7 +959,9 @@
       <!-- Fees Structure -->
       <div class="adm-card adm-full">
         <div class="adm-card-header">
-          <div class="adm-icon navy"> </div>
+          <div class="adm-icon navy" style="overflow:hidden; padding:0;">
+            <img src="images/assets/fees.jfif" alt="School Fees Structure" style="width:100%; height:100%; object-fit:cover; display:block;" onerror="this.style.display='none'">
+          </div>
           <div><h3>School Fees Structure</h3><span class="adm-sub">Per term (UGX)  Admissions ongoing Kindergarten to P.7</span></div>
         </div>
         <div class="fees-inner-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:24px; align-items:start;">
@@ -995,7 +1003,9 @@
       <!-- Apply Online -->
       <div class="adm-card">
         <div class="adm-card-header">
-          <div class="adm-icon green"></div>
+          <div class="adm-icon green" style="overflow:hidden; padding:0;">
+            <img src="images/assets/apply.png" alt="Apply Online" style="width:100%; height:100%; object-fit:cover; display:block;" onerror="this.style.display='none'">
+          </div>
           <div><h3>Apply Online</h3><span class="adm-sub">Quick enquiry we'll contact you</span></div>
         </div>
         <form class="apply-form" onsubmit="submitForm(event)">

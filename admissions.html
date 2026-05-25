@@ -222,6 +222,102 @@
     .adm-card { padding: 16px; }
     .steps-list li > div:last-child { word-break: break-word; overflow-wrap: break-word; }
   }
+
+  /* ONLINE APPLICATION MODAL */
+  .modal-overlay {
+    display: none; position: fixed; inset: 0; z-index: 2000;
+    background: rgba(10,15,40,0.78); backdrop-filter: blur(5px);
+    overflow-y: auto; padding: 16px;
+  }
+  .modal-overlay.open { display: flex; align-items: flex-start; justify-content: center; }
+  .modal-card {
+    background: var(--white); border-radius: var(--radius);
+    max-width: 650px; width: 100%; margin: auto;
+    box-shadow: 0 28px 90px rgba(0,0,0,0.38); position: relative;
+    animation: modalIn 0.25s ease;
+  }
+  @keyframes modalIn { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+  .modal-header {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+    padding: 26px 30px 20px; border-radius: var(--radius) var(--radius) 0 0; color: var(--white);
+  }
+  .modal-header h2 { font-size: 1.3rem; margin-bottom: 4px; }
+  .modal-header p { font-size: 0.78rem; color: rgba(255,255,255,0.68); }
+  .modal-close {
+    position: absolute; top: 14px; right: 16px;
+    background: rgba(255,255,255,0.18); border: none; color: white;
+    width: 34px; height: 34px; border-radius: 50%; cursor: pointer;
+    font-size: 1.25rem; display: flex; align-items: center; justify-content: center;
+    transition: background 0.2s; font-weight: 700; line-height: 1;
+  }
+  .modal-close:hover { background: rgba(255,255,255,0.34); }
+  .modal-body { padding: 26px 30px 30px; }
+  .fsec-title {
+    font-size: 0.68rem; font-weight: 700; letter-spacing: 0.13em;
+    text-transform: uppercase; color: var(--red); margin: 20px 0 12px;
+    padding-bottom: 6px; border-bottom: 1px solid rgba(211,47,47,0.18);
+  }
+  .fsec-title:first-child { margin-top: 0; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .fgroup { margin-bottom: 14px; }
+  .fgroup label {
+    display: block; font-size: 0.76rem; font-weight: 600;
+    color: var(--navy); margin-bottom: 5px;
+  }
+  .fgroup label .req { color: var(--red); }
+  .fgroup input,
+  .fgroup select,
+  .fgroup textarea {
+    width: 100%; padding: 10px 13px;
+    border: 1.5px solid rgba(26,46,110,0.22); border-radius: 8px;
+    font-family: inherit; font-size: 0.87rem; color: var(--text);
+    background: var(--cream); transition: border-color 0.2s, background 0.2s;
+    outline: none;
+  }
+  .fgroup input:focus, .fgroup select:focus, .fgroup textarea:focus {
+    border-color: var(--navy); background: var(--white);
+  }
+  .fgroup textarea { resize: vertical; min-height: 82px; }
+  .fgroup select {
+    -webkit-appearance: none; appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%231A2E6E' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat; background-position: right 12px center; background-size: 11px; padding-right: 34px;
+  }
+  .btn-submit-app {
+    width: 100%; background: var(--red); color: var(--white);
+    border: none; padding: 13px 20px; border-radius: 8px;
+    font-family: inherit; font-size: 0.9rem; font-weight: 700;
+    cursor: pointer; transition: background 0.2s; margin-top: 8px;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+  }
+  .btn-submit-app:hover:not(:disabled) { background: var(--red-dark); }
+  .btn-submit-app:disabled { background: #b0b0b0; cursor: not-allowed; }
+  .form-note {
+    font-size: 0.73rem; color: var(--text-muted); text-align: center;
+    margin-top: 10px; line-height: 1.5;
+  }
+  .form-error-msg {
+    background: rgba(211,47,47,0.08); border: 1px solid rgba(211,47,47,0.3);
+    color: #b71c1c; padding: 10px 14px; border-radius: 8px;
+    font-size: 0.82rem; margin-top: 10px; display: none;
+  }
+  .form-success-state { text-align: center; padding: 44px 20px; display: none; }
+  .form-success-state .s-icon { font-size: 3.5rem; margin-bottom: 14px; }
+  .form-success-state h3 { color: var(--green); font-size: 1.3rem; margin-bottom: 10px; }
+  .form-success-state p { color: var(--text-muted); font-size: 0.88rem; line-height: 1.65; max-width: 400px; margin: 0 auto 20px; }
+  .btn-apply-online {
+    display: inline-block; background: var(--green); color: white !important;
+    font-weight: 700; padding: 7px 16px; border-radius: 8px;
+    text-decoration: none; font-size: 0.8rem; cursor: pointer;
+    transition: background 0.2s; border: none; font-family: inherit;
+  }
+  .btn-apply-online:hover { background: var(--green-light); }
+  @media (max-width: 620px) {
+    .modal-overlay { padding: 8px; }
+    .form-row { grid-template-columns: 1fr; gap: 0; }
+    .modal-body { padding: 18px 18px 24px; }
+    .modal-header { padding: 20px 18px 16px; }
+  }
 </style>
 </head>
 <body>
@@ -245,6 +341,7 @@
     <li><a href="resources.html">Resources</a></li>
     <li><a href="careers.html">Careers</a></li>
     <li><a href="index.html#contacts" class="btn-apply">Contact Us</a></li>
+    <li><button onclick="openApplyModal()" class="btn-apply-online" style="margin-left:4px;">Apply Online</button></li>
   </ul>
   <div class="hamburger" onclick="document.getElementById('mobileMenu').classList.toggle('open')">
     <span></span><span></span><span></span>
@@ -260,6 +357,7 @@
   <a href="resources.html">Resources</a>
   <a href="careers.html">Careers</a>
   <a href="index.html#contacts">Contact Us</a>
+  <a href="#" onclick="document.getElementById('mobileMenu').classList.remove('open'); openApplyModal(); return false;" style="color:var(--gold-light); font-weight:700;">Apply Online</a>
 </div>
 
 <!-- PAGE HERO -->
@@ -426,9 +524,10 @@
   <!-- CTA -->
   <div class="cta-bar">
     <h3>Ready to Apply?</h3>
-    <p>Contact us today or visit the school to collect an application form. We look forward to welcoming your child to the Bright Sparks family.</p>
-    <a href="index.html#contacts" class="btn-cta">Contact Us Now</a>
-    <a href="fees.html" class="btn-cta outline">View Fees Structure</a>
+    <p>Fill in our online application form below or visit the school. We look forward to welcoming your child to the Bright Sparks family.</p>
+    <button onclick="openApplyModal()" class="btn-cta" style="background:var(--green-light);border:none;cursor:pointer;font-family:inherit;">Apply Online Now</button>
+    <a href="index.html#contacts" class="btn-cta outline">Contact Us</a>
+    <a href="fees.html" class="btn-cta outline">View Fees</a>
   </div>
 
 </div><!-- /content-wrap -->
@@ -437,8 +536,222 @@
   <p>&copy; 2026 Bright Sparks Junior School &mdash; Kampala, Uganda &mdash; <a href="index.html">Back to Home</a></p>
 </footer>
 
+<!-- ONLINE APPLICATION MODAL -->
+<div class="modal-overlay" id="applyModal" onclick="if(event.target===this)closeApplyModal()">
+  <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-header">
+      <button class="modal-close" onclick="closeApplyModal()" aria-label="Close form">&times;</button>
+      <h2 id="modalTitle">Online Application Form</h2>
+      <p>Bright Sparks Junior School &mdash; Kampala, Uganda</p>
+    </div>
+    <div class="modal-body">
+
+      <!-- Form content -->
+      <div id="appFormContent">
+        <form id="applicationForm" novalidate>
+
+          <!-- Parent / Guardian Details -->
+          <div class="fsec-title">Parent / Guardian Details</div>
+          <div class="form-row">
+            <div class="fgroup">
+              <label>Full Name <span class="req">*</span></label>
+              <input type="text" name="parent_name" placeholder="e.g. John Okello" required>
+            </div>
+            <div class="fgroup">
+              <label>Occupation <span class="req">*</span></label>
+              <input type="text" name="parent_occupation" placeholder="e.g. Teacher, Engineer" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="fgroup">
+              <label>Phone Number <span class="req">*</span></label>
+              <input type="tel" name="parent_phone" placeholder="e.g. +256 700 116 093" required>
+            </div>
+            <div class="fgroup">
+              <label>Email Address</label>
+              <input type="email" name="parent_email" placeholder="e.g. parent@email.com">
+            </div>
+          </div>
+
+          <!-- Child's Details -->
+          <div class="fsec-title">Child's Details</div>
+          <div class="form-row">
+            <div class="fgroup">
+              <label>Child's Full Name <span class="req">*</span></label>
+              <input type="text" name="child_name" placeholder="e.g. Mary Okello" required>
+            </div>
+            <div class="fgroup">
+              <label>Class Joining <span class="req">*</span></label>
+              <select name="class_joining" required>
+                <option value="" disabled selected>Select class</option>
+                <optgroup label="Kindergarten">
+                  <option>Baby Class</option>
+                  <option>Middle Class</option>
+                  <option>Top Class</option>
+                </optgroup>
+                <optgroup label="Primary">
+                  <option>Primary 1 (P.1)</option>
+                  <option>Primary 2 (P.2)</option>
+                  <option>Primary 3 (P.3)</option>
+                  <option>Primary 4 (P.4)</option>
+                  <option>Primary 5 (P.5)</option>
+                  <option>Primary 6 (P.6)</option>
+                  <option>Primary 7 (P.7)</option>
+                </optgroup>
+              </select>
+            </div>
+          </div>
+          <div class="fgroup">
+            <label>Section Preferred</label>
+            <select name="section_preferred">
+              <option value="Day Section">Day Section (7:30 am – 5:30 pm)</option>
+              <option value="Boarding Section">Boarding Section (Full residential)</option>
+              <option value="Undecided">Not yet decided</option>
+            </select>
+          </div>
+
+          <!-- Additional Information -->
+          <div class="fsec-title">Additional Information</div>
+          <div class="fgroup">
+            <label>Reason for Changing School <span class="req">*</span></label>
+            <textarea name="reason_for_changing" placeholder="Please briefly explain why you are considering a change of school for your child..." required></textarea>
+          </div>
+          <div class="fgroup">
+            <label>How Did You Hear About Bright Sparks? <span class="req">*</span></label>
+            <select name="how_heard" required>
+              <option value="" disabled selected>Select an option</option>
+              <option>Word of Mouth / Friend or Relative</option>
+              <option>Social Media (Facebook, WhatsApp, etc.)</option>
+              <option>School Advertisement / Banner / Poster</option>
+              <option>Our Website</option>
+              <option>Newspaper or Radio</option>
+              <option>Former / Current Parent</option>
+              <option>Other</option>
+            </select>
+          </div>
+
+          <!-- Spam honeypot (hidden) -->
+          <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+
+          <div class="form-error-msg" id="formErrorMsg">
+            Something went wrong. Please try again or contact us directly at
+            <a href="mailto:brightsparksjuniorsch@gmail.com">brightsparksjuniorsch@gmail.com</a>.
+          </div>
+
+          <button type="submit" class="btn-submit-app" id="submitAppBtn">
+            <span id="submitBtnText">Submit Application</span>
+          </button>
+          <p class="form-note">
+            Your application will be sent to our admissions team at
+            <a href="mailto:brightsparksjuniorsch@gmail.com">brightsparksjuniorsch@gmail.com</a>.
+            We will contact you within 2 working days.
+          </p>
+        </form>
+      </div>
+
+      <!-- Success state -->
+      <div class="form-success-state" id="appSuccessState">
+        <div class="s-icon">&#10003;</div>
+        <h3>Application Received!</h3>
+        <p>
+          Thank you for applying to Bright Sparks Junior School. Our admissions team will review
+          your application and be in touch within 2 working days to guide you through the next steps.
+        </p>
+        <button onclick="closeApplyModal()" class="btn-submit-app" style="max-width:200px;margin:0 auto;">
+          Close
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
 <script>
-  document.getElementById('mobileMenu') && null; // mobile menu handled inline
+  document.getElementById('mobileMenu') && null;
+
+  function openApplyModal() {
+    document.getElementById('applyModal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+    // Reset form to default state each time it opens
+    document.getElementById('appFormContent').style.display = 'block';
+    document.getElementById('appSuccessState').style.display = 'none';
+    document.getElementById('formErrorMsg').style.display = 'none';
+    var btn = document.getElementById('submitAppBtn');
+    btn.disabled = false;
+    document.getElementById('submitBtnText').textContent = 'Submit Application';
+  }
+
+  function closeApplyModal() {
+    document.getElementById('applyModal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  // Close on Escape key
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeApplyModal();
+  });
+
+  // Open modal automatically if URL hash is #apply
+  if (window.location.hash === '#apply') {
+    window.addEventListener('DOMContentLoaded', openApplyModal);
+  }
+
+  document.getElementById('applicationForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    var form = e.target;
+
+    // Basic validation
+    var required = form.querySelectorAll('[required]');
+    var valid = true;
+    required.forEach(function(field) {
+      if (!field.value.trim()) { field.style.borderColor = 'var(--red)'; valid = false; }
+      else { field.style.borderColor = ''; }
+    });
+    if (!valid) return;
+
+    // Honeypot check
+    if (form._honey && form._honey.value) return;
+
+    var btn = document.getElementById('submitAppBtn');
+    var btnText = document.getElementById('submitBtnText');
+    btn.disabled = true;
+    btnText.textContent = 'Sending…';
+    document.getElementById('formErrorMsg').style.display = 'none';
+
+    // Build payload
+    var payload = {
+      _subject: 'New Online Application — Bright Sparks Junior School',
+      _captcha: 'false',
+      'Parent Name':       form.parent_name.value.trim(),
+      'Parent Phone':      form.parent_phone.value.trim(),
+      'Parent Email':      form.parent_email.value.trim() || 'Not provided',
+      'Parent Occupation': form.parent_occupation.value.trim(),
+      'Child Name':        form.child_name.value.trim(),
+      'Class Joining':     form.class_joining.value,
+      'Section':           form.section_preferred.value,
+      'Reason for Changing School': form.reason_for_changing.value.trim(),
+      'How Heard About School':     form.how_heard.value
+    };
+
+    try {
+      var res = await fetch('https://formsubmit.co/ajax/brightsparksjuniorsch@gmail.com', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      var result = await res.json();
+      if (result.success === 'true' || result.success === true) {
+        document.getElementById('appFormContent').style.display = 'none';
+        document.getElementById('appSuccessState').style.display = 'block';
+      } else {
+        throw new Error('Submission failed');
+      }
+    } catch (err) {
+      btn.disabled = false;
+      btnText.textContent = 'Submit Application';
+      document.getElementById('formErrorMsg').style.display = 'block';
+    }
+  });
 </script>
 <script src="chatbot.js"></script>
 </body>

@@ -415,7 +415,6 @@
     <button class="filter-btn" data-filter="sports">Sports <span class="filter-count" id="count-sports"></span></button>
     <button class="filter-btn" data-filter="events">Events <span class="filter-count" id="count-events"></span></button>
     <button class="filter-btn" data-filter="staff">Staff <span class="filter-count" id="count-staff"></span></button>
-    <button class="filter-btn" data-filter="videos" style="border-color:rgba(211,47,47,0.35);">&#9654; Videos <span class="filter-count" id="count-videos"></span></button>
   </div>
 
   <!-- GRID -->
@@ -597,35 +596,16 @@
 </footer>
 
 <script>
-  // ═══════════════════════════════════════════════════════════════
-  // YOUTUBE CONFIG
-  // How to get a free API key (takes ~5 minutes):
-  //   1. Go to console.cloud.google.com and sign in with a Google account
-  //   2. Create a new project (any name, e.g. "Bright Sparks Gallery")
-  //   3. Go to APIs & Services → Library → search "YouTube Data API v3" → Enable
-  //   4. Go to APIs & Services → Credentials → Create Credentials → API Key
-  //   5. Copy the key and paste it below
-  // Free quota: 10,000 units/day (~3,000 page loads). More than enough for a school site.
-  // ═══════════════════════════════════════════════════════════════
+  
   var YT_API_KEY = 'AIzaSyDupyWL3MVOPt8FMvoS-SStVeaeKgoypmg'; // ← paste your key here, e.g. 'AIzaSyXXXXXXXXXXXXXXXXX'
   var YT_HANDLE  = 'brightsparksjuniorschool'; // channel handle without @
   var YT_MAX     = 12; // number of videos to show
   var ytCache    = null; // avoid re-fetching on tab switch
 
-  // ═══════════════════════════════════════════════════════════════
-  // TIKTOK CONFIG
-  // TikTok does not allow automatic video fetching from static websites
-  // (their API requires a server and OAuth approval). Instead, add your
-  // best TikTok clips manually — they will play inside the gallery modal.
-  //
-  // How to find a TikTok video ID:
-  //   Open the video → copy the long number from the URL
-  //   e.g. tiktok.com/@bright.sparks.junior/video/7123456789012345678
-  //                                                 ^^^^^^^^^^^^^^^^^^^ this is the ID
-  // ═══════════════════════════════════════════════════════════════
+  
   var TIKTOK_VIDEOS = [
-    // { id: '7123456789012345678', title: 'Sports Day Fun!' },
-    // { id: '7234567890123456789', title: 'School Life at Bright Sparks' },
+    { id: '7560582960806694200', title: 'Prom Party Entry!' },
+    { id: '7632982581956332818', title: 'Parent Testimonies' },
     // Add more here — each one will appear as a card in the TikTok section
   ];
 
@@ -637,7 +617,7 @@
   }
 
   function updateCounts() {
-    var cats = ['all','facilities','sports','events','staff','videos'];
+    var cats = ['all','facilities','sports','events','staff'];
     cats.forEach(function(cat) {
       var n = cat === 'all'
         ? cards.length
@@ -770,7 +750,10 @@
   });
 
   // ── YOUTUBE AUTO-LOAD ──────────────────────────────────────
-   function loadYouTube() {
+  // Two API calls on page load, total 3 quota units (free limit: 10,000/day).
+  // Step 1 — resolve @handle → channel uploads playlist ID (1 unit)
+  // Step 2 — fetch latest videos from that playlist (2 units)
+  function loadYouTube() {
     var el = document.getElementById('ytContainer');
 
     if (!YT_API_KEY) {
@@ -841,12 +824,21 @@
   loadYouTube();
 
   // ── TIKTOK MANUAL LOADER ───────────────────────────────────
-  
+  // Each entry in TIKTOK_VIDEOS becomes a card; clicking opens the TikTok
+  // embed player (https://www.tiktok.com/embed/v2/VIDEO_ID) in the modal.
+  function loadTikTok() {
     var el = document.getElementById('ttContainer');
     if (!TIKTOK_VIDEOS.length) {
       el.innerHTML =
         '<div class="social-state">' +
-          '<h4>No TikTok Videos Added Yet</h4>' +
+          '<h4>Add TikTok Videos</h4>' +
+          '<p>TikTok doesn\'t support automatic fetching on static websites, but you can feature specific clips here:</p>' +
+          '<ol>' +
+            '<li>Open a video from your TikTok profile on a phone or browser</li>' +
+            '<li>Copy the long number from the URL &mdash; that is the video ID</li>' +
+            '<li>In <code>gallery.html</code>, add <code>{ id: \'THE_NUMBER\', title: \'Your Title\' }</code> to the <code>TIKTOK_VIDEOS</code> array near the top of the script</li>' +
+            '<li>Save &mdash; each video will appear as a card and play inside the gallery</li>' +
+          '</ol>' +
         '</div>';
       return;
     }

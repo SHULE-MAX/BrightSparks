@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gallery | Bright Sparks Junior School</title>
+<meta name="description" content="Browse photos from Bright Sparks Junior School — our facilities, sports, events, and staff.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700;1,800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #D32F2F; --red-dark: #B71C1C;
+    --navy: #1A2E6E; --navy-mid: #203580; --navy-light: #2B42A0;
+    --green: #1B6B3A; --green-light: #2E8B57;
+    --gold: #E8A020; --gold-light: #F5C252;
+    --sky: #3B9FD4;
+    --white: #FFFFFF; --cream: #F8FBF8;
+    --text: #1A1A2E; --text-muted: #5A6480;
+    --radius: 16px; --radius-sm: 8px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; overflow-x: hidden; }
+  body { font-family: 'Montserrat', sans-serif; color: var(--text); background: var(--cream); }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    background: rgba(26,46,110,0.97); backdrop-filter: blur(12px);
+    padding: 0 4%; display: flex; align-items: center; justify-content: space-between;
+    height: 68px; border-bottom: 3px solid var(--red);
+    -webkit-transform: translateZ(0); transform: translateZ(0);
+  }
+  .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .nav-logo img { height: 50px; width: auto; background: rgba(255,255,255,0.93); border-radius: 8px; padding: 4px 6px; }
+  .nav-logo-text { color: var(--white); }
+  .nav-logo-text strong { display: block; font-size: 0.88rem; font-weight: 700; }
+  .nav-logo-text span { font-size: 0.65rem; color: var(--gold-light); letter-spacing: 0.08em; text-transform: uppercase; }
+  .nav-links { display: flex; gap: 4px; list-style: none; align-items: center; }
+  .nav-links a {
+    color: rgba(255,255,255,0.85); text-decoration: none; font-size: 0.8rem;
+    font-weight: 500; padding: 6px 10px; border-radius: 6px; transition: all 0.2s;
+  }
+  .nav-links a:hover { color: var(--gold-light); background: rgba(255,255,255,0.08); }
+  .nav-links .active { color: var(--gold-light) !important; }
+  .nav-links .btn-apply { background: var(--red); color: white !important; font-weight: 700; padding: 7px 16px; border-radius: 8px; }
+  .nav-links .btn-apply:hover { background: var(--red-dark); }
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; }
+  .hamburger span { display: block; width: 24px; height: 2px; background: var(--white); border-radius: 2px; transition: all 0.3s; }
+  .mobile-menu {
+    display: none; position: fixed; top: 68px; left: 0; right: 0;
+    background: var(--navy); padding: 16px 5%; z-index: 999; border-bottom: 2px solid var(--red);
+  }
+  .mobile-menu.open { display: block; }
+  .mobile-menu a { display: block; color: var(--white); text-decoration: none; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.1); font-size: 0.95rem; }
+  .mobile-menu a:last-child { border-bottom: none; }
+
+  /* PAGE HERO */
+  .page-hero {
+    background: linear-gradient(150deg, #0D1A45 0%, #1A2E6E 55%, #152560 100%);
+    padding: 110px 4% 60px; text-align: center; position: relative; overflow: hidden;
+  }
+  .page-hero::before {
+    content: ''; position: absolute; inset: 0; pointer-events: none;
+    background-image:
+      radial-gradient(circle at 20% 50%, rgba(211,47,47,0.12) 0%, transparent 50%),
+      radial-gradient(circle at 80% 30%, rgba(27,107,58,0.1) 0%, transparent 40%);
+  }
+  .page-hero-tag {
+    display: inline-block; background: rgba(211,47,47,0.2); border: 1px solid rgba(211,47,47,0.4);
+    color: #FF8A80; padding: 5px 16px; border-radius: 30px;
+    font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase;
+    font-weight: 600; margin-bottom: 16px; position: relative; z-index: 1;
+  }
+  .page-hero h1 {
+    color: var(--white); font-size: clamp(2rem, 5vw, 3.2rem); line-height: 1.15;
+    margin-bottom: 14px; position: relative; z-index: 1;
+  }
+  .page-hero h1 span { color: var(--gold-light); }
+  .page-hero p { color: rgba(255,255,255,0.75); font-size: 1rem; max-width: 560px; margin: 0 auto; position: relative; z-index: 1; }
+
+  /* CONTENT */
+  .content-wrap { max-width: 1100px; margin: 0 auto; padding: 52px 4% 72px; }
+  .back-link { display: inline-flex; align-items: center; gap: 6px; color: var(--navy); text-decoration: none; font-size: 0.85rem; font-weight: 600; margin-bottom: 32px; transition: gap 0.2s; }
+  .back-link:hover { gap: 10px; color: var(--red); }
+
+  /* FILTER BAR */
+  .filter-bar {
+    display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 36px;
+    align-items: center;
+  }
+  .filter-label { font-size: 0.75rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; margin-right: 4px; }
+  .filter-btn {
+    padding: 7px 18px; border-radius: 30px; border: 1.5px solid rgba(26,46,110,0.2);
+    background: var(--white); color: var(--text-muted); font-family: inherit;
+    font-size: 0.8rem; font-weight: 600; cursor: pointer; transition: all 0.2s;
+  }
+  .filter-btn:hover { border-color: var(--navy); color: var(--navy); }
+  .filter-btn.active { background: var(--navy); color: var(--white); border-color: var(--navy); }
+  .filter-count { font-size: 0.7rem; background: rgba(255,255,255,0.25); padding: 1px 6px; border-radius: 10px; margin-left: 4px; }
+  .filter-btn:not(.active) .filter-count { background: rgba(26,46,110,0.08); color: var(--text-muted); }
+
+  /* GALLERY GRID */
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 18px;
+  }
+  .gallery-card {
+    position: relative; border-radius: var(--radius); overflow: hidden;
+    cursor: pointer; background: var(--navy);
+    box-shadow: 0 2px 14px rgba(26,46,110,0.1);
+    transition: transform 0.25s, box-shadow 0.25s;
+    aspect-ratio: 4 / 3;
+  }
+  .gallery-card:hover { transform: translateY(-4px); box-shadow: 0 10px 32px rgba(26,46,110,0.18); }
+  .gallery-card img {
+    width: 100%; height: 100%; object-fit: cover;
+    display: block; transition: transform 0.4s;
+  }
+  .gallery-card:hover img { transform: scale(1.06); }
+  .gallery-caption {
+    position: absolute; inset: 0; background: linear-gradient(0deg, rgba(10,15,40,0.82) 0%, rgba(10,15,40,0.1) 60%, transparent 100%);
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 16px; opacity: 0; transition: opacity 0.3s;
+  }
+  .gallery-card:hover .gallery-caption { opacity: 1; }
+  .gallery-caption h3 { color: var(--white); font-size: 0.9rem; font-weight: 700; margin-bottom: 2px; }
+  .gallery-caption span { color: var(--gold-light); font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; }
+  .gallery-zoom {
+    position: absolute; top: 12px; right: 12px;
+    background: rgba(255,255,255,0.15); backdrop-filter: blur(4px);
+    width: 34px; height: 34px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: white; font-size: 0.9rem; opacity: 0; transition: opacity 0.3s;
+  }
+  .gallery-card:hover .gallery-zoom { opacity: 1; }
+  .gallery-card.hidden { display: none; }
+
+  /* EMPTY STATE */
+  .gallery-empty { text-align: center; padding: 60px 20px; color: var(--text-muted); display: none; }
+  .gallery-empty p { font-size: 0.95rem; }
+
+  /* LIGHTBOX */
+  .lightbox {
+    display: none; position: fixed; inset: 0; z-index: 3000;
+    background: rgba(5,8,25,0.94); backdrop-filter: blur(6px);
+    align-items: center; justify-content: center;
+  }
+  .lightbox.open { display: flex; }
+  .lb-inner { position: relative; max-width: 92vw; max-height: 92vh; display: flex; flex-direction: column; align-items: center; }
+  .lb-img-wrap {
+    position: relative; display: flex; align-items: center; justify-content: center;
+    max-width: 88vw; max-height: 78vh;
+  }
+  .lb-img-wrap img {
+    max-width: 88vw; max-height: 78vh;
+    object-fit: contain; border-radius: var(--radius-sm);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+    display: block;
+  }
+  .lb-close {
+    position: fixed; top: 16px; right: 20px;
+    background: rgba(255,255,255,0.12); border: none; color: white;
+    width: 40px; height: 40px; border-radius: 50%; cursor: pointer;
+    font-size: 1.3rem; display: flex; align-items: center; justify-content: center;
+    transition: background 0.2s; z-index: 1;
+  }
+  .lb-close:hover { background: rgba(255,255,255,0.28); }
+  .lb-arrow {
+    position: fixed; top: 50%; transform: translateY(-50%);
+    background: rgba(255,255,255,0.12); border: none; color: white;
+    width: 46px; height: 46px; border-radius: 50%; cursor: pointer;
+    font-size: 1.2rem; display: flex; align-items: center; justify-content: center;
+    transition: background 0.2s; z-index: 1;
+  }
+  .lb-arrow:hover { background: rgba(255,255,255,0.28); }
+  .lb-prev { left: 16px; }
+  .lb-next { right: 16px; }
+  .lb-arrow:disabled { opacity: 0.25; cursor: default; }
+  .lb-caption { margin-top: 16px; text-align: center; }
+  .lb-caption h3 { color: var(--white); font-size: 1rem; font-weight: 700; }
+  .lb-caption span { color: var(--gold-light); font-size: 0.78rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; }
+  .lb-counter { color: rgba(255,255,255,0.45); font-size: 0.75rem; margin-top: 6px; }
+
+  /* UPLOAD CTA */
+  .upload-cta {
+    background: var(--white); border-radius: var(--radius);
+    padding: 32px; text-align: center; margin-top: 52px;
+    box-shadow: 0 2px 14px rgba(26,46,110,0.08);
+    border: 1.5px dashed rgba(26,46,110,0.2);
+  }
+  .upload-cta h3 { color: var(--navy); font-size: 1.1rem; margin-bottom: 8px; }
+  .upload-cta p { color: var(--text-muted); font-size: 0.875rem; margin-bottom: 16px; line-height: 1.6; }
+  .upload-cta a {
+    display: inline-block; background: var(--navy); color: var(--white);
+    text-decoration: none; padding: 10px 24px; border-radius: 8px;
+    font-weight: 700; font-size: 0.85rem; transition: background 0.2s;
+  }
+  .upload-cta a:hover { background: var(--navy-light); }
+
+  /* FOOTER */
+  footer { background: var(--navy); color: rgba(255,255,255,0.7); text-align: center; padding: 28px 4%; font-size: 0.82rem; margin-top: 0; }
+  footer a { color: var(--gold-light); text-decoration: none; }
+
+  @media (max-width: 720px) {
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    .gallery-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; }
+    .lb-arrow { width: 36px; height: 36px; font-size: 1rem; }
+    .lb-prev { left: 8px; }
+    .lb-next { right: 8px; }
+    .content-wrap { padding: 36px 4% 52px; }
+    .gallery-caption { opacity: 1; }
+    .gallery-zoom { opacity: 0 !important; }
+  }
+  @media (max-width: 480px) {
+    .nav-logo-text span { display: none; }
+    .nav-logo img { height: 40px; }
+    .page-hero { padding: 96px 5% 44px; }
+    .gallery-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    <img src="logo.png" alt="Bright Sparks Junior School Logo" onerror="this.style.display='none'">
+    <div class="nav-logo-text">
+      <strong>Bright Sparks Junior School</strong>
+      <span>We Shall Reach the Shore!</span>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="admissions.html">Admissions</a></li>
+    <li><a href="fees.html">Fees</a></li>
+    <li><a href="news.html">News</a></li>
+    <li><a href="calendar.html">Calendar</a></li>
+    <li><a href="gallery.html" class="active">Gallery</a></li>
+    <li><a href="resources.html">Resources</a></li>
+    <li><a href="careers.html">Careers</a></li>
+    <li><a href="index.html#contacts" class="btn-apply">Contact Us</a></li>
+    <li><a href="admissions.html#apply" style="display:inline-block;background:#2E8B57;color:white;font-weight:700;padding:7px 16px;border-radius:8px;text-decoration:none;font-size:0.8rem;margin-left:4px;">Apply Online</a></li>
+  </ul>
+  <div class="hamburger" onclick="document.getElementById('mobileMenu').classList.toggle('open')">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">Home</a>
+  <a href="index.html#about">About</a>
+  <a href="admissions.html">Admissions</a>
+  <a href="fees.html">Fees</a>
+  <a href="news.html">News</a>
+  <a href="calendar.html">Calendar</a>
+  <a href="gallery.html">Gallery</a>
+  <a href="resources.html">Resources</a>
+  <a href="careers.html">Careers</a>
+  <a href="index.html#contacts">Contact Us</a>
+  <a href="admissions.html#apply" style="color:var(--gold-light);font-weight:700;">Apply Online</a>
+</div>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="page-hero-tag">Life at Bright Sparks</div>
+  <h1>Our School <span>Gallery</span></h1>
+  <p>A glimpse into daily life, facilities, events, and the people who make Bright Sparks Junior School a wonderful place to learn and grow.</p>
+</div>
+
+<!-- GALLERY -->
+<div class="content-wrap">
+  <a href="index.html" class="back-link">&#8592; Back to Home</a>
+
+  <!-- FILTER BAR -->
+  <div class="filter-bar">
+    <span class="filter-label">Filter:</span>
+    <button class="filter-btn active" data-filter="all">All <span class="filter-count" id="count-all"></span></button>
+    <button class="filter-btn" data-filter="facilities">Facilities <span class="filter-count" id="count-facilities"></span></button>
+    <button class="filter-btn" data-filter="sports">Sports <span class="filter-count" id="count-sports"></span></button>
+    <button class="filter-btn" data-filter="events">Events <span class="filter-count" id="count-events"></span></button>
+    <button class="filter-btn" data-filter="staff">Staff <span class="filter-count" id="count-staff"></span></button>
+  </div>
+
+  <!-- GRID -->
+  <div class="gallery-grid" id="galleryGrid">
+
+    <div class="gallery-card" data-category="facilities" data-title="ICT Computer Lab" data-caption="Facilities">
+      <img src="images/assets/ictlab.jpg" alt="ICT Computer Lab" loading="lazy">
+      <div class="gallery-caption">
+        <h3>ICT Computer Lab</h3>
+        <span>Facilities</span>
+      </div>
+      <div class="gallery-zoom">&#128269;</div>
+    </div>
+
+    <div class="gallery-card" data-category="facilities" data-title="School Library" data-caption="Facilities">
+      <img src="images/assets/library.jpg" alt="School Library" loading="lazy">
+      <div class="gallery-caption">
+        <h3>School Library</h3>
+        <span>Facilities</span>
+      </div>
+      <div class="gallery-zoom">&#128269;</div>
+    </div>
+
+    <div class="gallery-card" data-category="facilities" data-title="School Grounds" data-caption="Facilities">
+      <img src="images/assets/steps.jpg" alt="School Grounds & Entrance" loading="lazy">
+      <div class="gallery-caption">
+        <h3>School Grounds</h3>
+        <span>Facilities</span>
+      </div>
+      <div class="gallery-zoom">&#128269;</div>
+    </div>
+
+    <div class="gallery-card" data-category="sports" data-title="Sports Day" data-caption="Sports">
+      <img src="images/general/sports.jpeg" alt="Sports Day" loading="lazy">
+      <div class="gallery-caption">
+        <h3>Sports Day</h3>
+        <span>Sports</span>
+      </div>
+      <div class="gallery-zoom">&#128269;</div>
+    </div>
+
+    <div class="gallery-card" data-category="events" data-title="Music, Dance &amp; Drama" data-caption="Events">
+      <img src="images/general/MDD.jpeg" alt="Music, Dance and Drama" loading="lazy">
+      <div class="gallery-caption">
+        <h3>Music, Dance &amp; Drama</h3>
+        <span>Events</span>
+      </div>
+      <div class="gallery-zoom">&#128269;</div>
+    </div>
+
+    <div class="gallery-card" data-category="events" data-title="School Excursions &amp; Tours" data-caption="Events">
+      <img src="images/general/TOURS.jpeg" alt="School Excursions and Tours" loading="lazy">
+      <div class="gallery-caption">
+        <h3>School Excursions &amp; Tours</h3>
+        <span>Events</span>
+      </div>
+      <div class="gallery-zoom">&#128269;</div>
+    </div>
+
+    <div class="gallery-card" data-category="events" data-title="Welcome Back Ceremony" data-caption="Events">
+      <img src="images/news/Welcome.jpeg" alt="Welcome Back Ceremony" loading="lazy">
+      <div class="gallery-caption">
+        <h3>Welcome Back Ceremony</h3>
+        <span>Events</span>
+      </div>
+      <div class="gallery-zoom">&#128269;</div>
+    </div>
+
+    <div class="gallery-card" data-category="staff" data-title="School Director" data-caption="Staff">
+      <img src="Director.jpeg" alt="School Director" loading="lazy">
+      <div class="gallery-caption">
+        <h3>School Director</h3>
+        <span>Staff</span>
+      </div>
+      <div class="gallery-zoom">&#128269;</div>
+    </div>
+
+    <div class="gallery-card" data-category="staff" data-title="Head Teacher" data-caption="Staff">
+      <img src="head teacher.jpg" alt="Head Teacher" loading="lazy">
+      <div class="gallery-caption">
+        <h3>Head Teacher</h3>
+        <span>Staff</span>
+      </div>
+      <div class="gallery-zoom">&#128269;</div>
+    </div>
+
+    <div class="gallery-card" data-category="staff" data-title="Deputy Head Teacher" data-caption="Staff">
+      <img src="images/general/Deputy Head Teacher.jpeg" alt="Deputy Head Teacher" loading="lazy">
+      <div class="gallery-caption">
+        <h3>Deputy Head Teacher</h3>
+        <span>Staff</span>
+      </div>
+      <div class="gallery-zoom">&#128269;</div>
+    </div>
+
+    <div class="gallery-card" data-category="staff" data-title="Head of Kindergarten" data-caption="Staff">
+      <img src="images/general/HeadKindergarten.jpeg" alt="Head of Kindergarten" loading="lazy">
+      <div class="gallery-caption">
+        <h3>Head of Kindergarten</h3>
+        <span>Staff</span>
+      </div>
+      <div class="gallery-zoom">&#128269;</div>
+    </div>
+
+  </div><!-- /gallery-grid -->
+
+  <div class="gallery-empty" id="galleryEmpty">
+    <p>No photos in this category yet.</p>
+  </div>
+
+  <!-- UPLOAD CTA -->
+  <div class="upload-cta">
+    <h3>Have Photos to Share?</h3>
+    <p>
+      Parents, staff, and alumni are welcome to submit photos for the gallery.<br>
+      Send your images to us and we'll feature them here.
+    </p>
+    <a href="mailto:brightsparksjuniorsch@gmail.com?subject=Gallery%20Photo%20Submission">Submit Photos via Email</a>
+  </div>
+
+</div><!-- /content-wrap -->
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="if(event.target===this)closeLightbox()">
+  <button class="lb-close" onclick="closeLightbox()" aria-label="Close">&#10005;</button>
+  <button class="lb-arrow lb-prev" id="lbPrev" onclick="shiftLightbox(-1)" aria-label="Previous">&#8592;</button>
+  <button class="lb-arrow lb-next" id="lbNext" onclick="shiftLightbox(1)" aria-label="Next">&#8594;</button>
+  <div class="lb-inner">
+    <div class="lb-img-wrap">
+      <img id="lbImage" src="" alt="">
+    </div>
+    <div class="lb-caption">
+      <h3 id="lbTitle"></h3>
+      <span id="lbCat"></span>
+    </div>
+    <p class="lb-counter" id="lbCounter"></p>
+  </div>
+</div>
+
+<footer>
+  <p>&copy; 2026 Bright Sparks Junior School &mdash; Kampala, Uganda &mdash; <a href="index.html">Back to Home</a></p>
+</footer>
+
+<script>
+  // ── FILTER ──────────────────────────────────────────────
+  var cards = Array.from(document.querySelectorAll('.gallery-card'));
+  var currentFilter = 'all';
+
+  function getVisible() {
+    return cards.filter(function(c) { return !c.classList.contains('hidden'); });
+  }
+
+  function updateCounts() {
+    var cats = ['all','facilities','sports','events','staff'];
+    cats.forEach(function(cat) {
+      var n = cat === 'all'
+        ? cards.length
+        : cards.filter(function(c){ return c.dataset.category === cat; }).length;
+      var el = document.getElementById('count-' + cat);
+      if (el) el.textContent = n;
+    });
+  }
+
+  function applyFilter(filter) {
+    currentFilter = filter;
+    cards.forEach(function(c) {
+      c.classList.toggle('hidden', filter !== 'all' && c.dataset.category !== filter);
+    });
+    document.getElementById('galleryEmpty').style.display =
+      getVisible().length === 0 ? 'block' : 'none';
+    document.querySelectorAll('.filter-btn').forEach(function(btn) {
+      btn.classList.toggle('active', btn.dataset.filter === filter);
+    });
+  }
+
+  document.querySelectorAll('.filter-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() { applyFilter(btn.dataset.filter); });
+  });
+
+  updateCounts();
+
+  // ── LIGHTBOX ─────────────────────────────────────────────
+  var lbIndex = 0;
+
+  function openLightbox(card) {
+    var visible = getVisible();
+    lbIndex = visible.indexOf(card);
+    renderLightbox(visible);
+    document.getElementById('lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function renderLightbox(visible) {
+    var card = visible[lbIndex];
+    document.getElementById('lbImage').src = card.querySelector('img').src;
+    document.getElementById('lbImage').alt = card.dataset.title;
+    document.getElementById('lbTitle').textContent = card.dataset.title;
+    document.getElementById('lbCat').textContent = card.dataset.caption;
+    document.getElementById('lbCounter').textContent = (lbIndex + 1) + ' / ' + visible.length;
+    document.getElementById('lbPrev').disabled = lbIndex === 0;
+    document.getElementById('lbNext').disabled = lbIndex === visible.length - 1;
+  }
+
+  function shiftLightbox(dir) {
+    var visible = getVisible();
+    lbIndex = Math.max(0, Math.min(visible.length - 1, lbIndex + dir));
+    renderLightbox(visible);
+  }
+
+  cards.forEach(function(card) {
+    card.addEventListener('click', function() { openLightbox(card); });
+  });
+
+  // Keyboard navigation
+  document.addEventListener('keydown', function(e) {
+    if (!document.getElementById('lightbox').classList.contains('open')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft')  shiftLightbox(-1);
+    if (e.key === 'ArrowRight') shiftLightbox(1);
+  });
+</script>
+<script src="chatbot.js"></script>
+</body>
+</html>

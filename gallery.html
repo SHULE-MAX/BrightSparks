@@ -415,6 +415,7 @@
     <button class="filter-btn" data-filter="sports">Sports <span class="filter-count" id="count-sports"></span></button>
     <button class="filter-btn" data-filter="events">Events <span class="filter-count" id="count-events"></span></button>
     <button class="filter-btn" data-filter="staff">Staff <span class="filter-count" id="count-staff"></span></button>
+    <button class="filter-btn" data-filter="blog">Blog <span class="filter-count" id="count-blog"></span></button>
   </div>
 
   <!-- GRID -->
@@ -617,7 +618,7 @@
   }
 
   function updateCounts() {
-    var cats = ['all','facilities','sports','events','staff'];
+    var cats = ['all','facilities','sports','events','staff','blog'];
     cats.forEach(function(cat) {
       var n = cat === 'all'
         ? cards.length
@@ -858,6 +859,44 @@
   }
 
   loadTikTok();
+
+  // ── WORDPRESS BLOG PHOTOS ─────────────────────────────────
+  // Fetches featured images from WP posts and adds them to the gallery grid
+  // under the "Blog" filter tab. Falls back silently on error.
+  function loadWPGallery() {
+    fetch('https://brightsparksjunior.ac.ug/wp/wp-json/wp/v2/posts?_embed&per_page=20')
+      .then(function(r) { return r.json(); })
+      .then(function(wpPosts) {
+        var grid    = document.getElementById('galleryGrid');
+        var emptyEl = document.getElementById('galleryEmpty');
+        var added   = false;
+        wpPosts.forEach(function(post) {
+          if (!post._embedded || !post._embedded['wp:featuredmedia']) return;
+          var imgUrl = post._embedded['wp:featuredmedia'][0].source_url;
+          var title  = post.title.rendered.replace(/<[^>]*>/g, '');
+          var card   = document.createElement('div');
+          card.className         = 'gallery-card';
+          card.dataset.category  = 'blog';
+          card.dataset.title     = title;
+          card.dataset.caption   = 'Blog';
+          card.innerHTML =
+            '<img src="' + imgUrl + '" alt="' + title.replace(/"/g, '&quot;') + '" loading="lazy">' +
+            '<div class="gallery-caption">' +
+              '<h3>' + title + '</h3>' +
+              '<span>Blog</span>' +
+            '</div>' +
+            '<div class="gallery-zoom">&#128269;</div>';
+          grid.insertBefore(card, emptyEl);
+          cards.push(card);
+          card.addEventListener('click', function() { openLightbox(card); });
+          added = true;
+        });
+        if (added) updateCounts();
+      })
+      .catch(function(err) { console.warn('WP gallery fetch failed:', err); });
+  }
+
+  loadWPGallery();
 </script>
 <script src="chatbot.js"></script>
 </body>

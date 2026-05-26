@@ -252,6 +252,85 @@
   }
   .upload-cta a:hover { background: var(--navy-light); }
 
+  /* SOCIAL SECTIONS */
+  .divider { height: 1px; background: rgba(26,46,110,0.1); margin: 52px 0; }
+  .section-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--red); margin-bottom: 8px; }
+  .section-heading { font-size: 1.5rem; color: var(--navy); margin-bottom: 6px; }
+  .section-heading span { color: var(--red); }
+  .section-sub { color: var(--text-muted); font-size: 0.875rem; margin-bottom: 28px; }
+  .section-sub a { color: var(--navy); font-weight: 600; }
+
+  /* YouTube grid */
+  .yt-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
+  .yt-card {
+    position: relative; border-radius: var(--radius); overflow: hidden;
+    cursor: pointer; background: #0f0f0f; aspect-ratio: 16 / 9;
+    box-shadow: 0 2px 14px rgba(0,0,0,0.18);
+    transition: transform 0.25s, box-shadow 0.25s;
+  }
+  .yt-card:hover { transform: translateY(-4px); box-shadow: 0 10px 32px rgba(0,0,0,0.3); }
+  .yt-card img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s; }
+  .yt-card:hover img { transform: scale(1.04); }
+  .yt-play {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    width: 52px; height: 52px; border-radius: 12px;
+    background: rgba(255,0,0,0.92); display: flex; align-items: center; justify-content: center;
+    transition: transform 0.2s; pointer-events: none;
+  }
+  .yt-card:hover .yt-play { transform: translate(-50%, -50%) scale(1.12); }
+  .yt-play::after { content: ''; border-left: 18px solid white; border-top: 11px solid transparent; border-bottom: 11px solid transparent; margin-left: 4px; }
+  .yt-caption {
+    position: absolute; bottom: 0; left: 0; right: 0; padding: 12px 14px;
+    background: linear-gradient(0deg, rgba(0,0,0,0.88), transparent);
+  }
+  .yt-caption h4 { color: white; font-size: 0.8rem; font-weight: 600; line-height: 1.35; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; margin-bottom: 3px; }
+  .yt-caption span { color: rgba(255,255,255,0.5); font-size: 0.68rem; }
+
+  /* TikTok */
+  .tt-profile-cta { margin-bottom: 22px; }
+  .tt-profile-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: #010101; color: white; text-decoration: none;
+    padding: 11px 22px; border-radius: 8px; font-weight: 700; font-size: 0.85rem;
+    transition: background 0.2s;
+  }
+  .tt-profile-btn:hover { background: #2a2a2a; }
+  .tt-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 14px; }
+  .tt-card {
+    position: relative; border-radius: var(--radius); overflow: hidden;
+    cursor: pointer; background: linear-gradient(160deg, #111 0%, #1a0030 100%);
+    aspect-ratio: 9 / 14; box-shadow: 0 2px 14px rgba(0,0,0,0.22);
+    transition: transform 0.25s, box-shadow 0.25s;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 20px; text-align: center;
+  }
+  .tt-card:hover { transform: translateY(-4px); box-shadow: 0 10px 32px rgba(0,0,0,0.35); }
+  .tt-card .tt-icon { font-size: 2.4rem; margin-bottom: 12px; display: block; }
+  .tt-card h4 { color: white; font-size: 0.8rem; line-height: 1.4; font-weight: 600; }
+  .tt-card .tt-play-dot {
+    position: absolute; top: 12px; right: 12px;
+    width: 30px; height: 30px; border-radius: 50%;
+    background: rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center;
+    font-size: 0.7rem; color: white;
+  }
+  /* TikTok video modal — portrait aspect ratio */
+  .vm-frame.tt-mode { padding-bottom: 177.78%; max-width: 340px; margin: 0 auto; }
+
+  /* Loading / setup / error state card */
+  .social-state {
+    background: var(--white); border-radius: var(--radius);
+    padding: 44px 32px; text-align: center;
+    box-shadow: 0 2px 12px rgba(26,46,110,0.07);
+    border: 1.5px dashed rgba(26,46,110,0.18);
+  }
+  .social-state h4 { color: var(--navy); font-size: 1rem; margin-bottom: 10px; }
+  .social-state p { color: var(--text-muted); font-size: 0.85rem; line-height: 1.65; margin-bottom: 0; }
+  .social-state ol { text-align: left; max-width: 440px; margin: 14px auto 0; padding-left: 18px; }
+  .social-state ol li { color: var(--text-muted); font-size: 0.82rem; margin-bottom: 7px; line-height: 1.5; }
+  .social-state code { background: rgba(26,46,110,0.08); padding: 2px 7px; border-radius: 4px; font-family: monospace; font-size: 0.8rem; color: var(--navy); }
+  .spinner { width: 34px; height: 34px; border: 3px solid rgba(26,46,110,0.12); border-top-color: var(--navy); border-radius: 50%; animation: spin 0.75s linear infinite; margin: 0 auto 14px; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
   /* FOOTER */
   footer { background: var(--navy); color: rgba(255,255,255,0.7); text-align: center; padding: 28px 4%; font-size: 0.82rem; margin-top: 0; }
   footer a { color: var(--gold-light); text-decoration: none; }
@@ -499,6 +578,28 @@
     <a href="mailto:brightsparksjuniorsch@gmail.com?subject=Gallery%20Media%20Submission">Submit via Email</a>
   </div>
 
+  <!-- YOUTUBE SECTION -->
+  <div class="divider"></div>
+  <div class="section-label">YouTube</div>
+  <h2 class="section-heading">Latest <span>Videos</span></h2>
+  <p class="section-sub">
+    Auto-loaded from
+    <a href="https://www.youtube.com/@brightsparksjuniorschool" target="_blank" rel="noopener">@brightsparksjuniorschool</a>
+    — newest uploads appear here automatically once the API key is set.
+  </p>
+  <div id="ytContainer"></div>
+
+  <!-- TIKTOK SECTION -->
+  <div class="divider"></div>
+  <div class="section-label">TikTok</div>
+  <h2 class="section-heading">TikTok <span>Content</span></h2>
+  <div class="tt-profile-cta">
+    <a href="https://www.tiktok.com/@bright.sparks.junior" target="_blank" rel="noopener" class="tt-profile-btn">
+      &#9654;&nbsp; Follow @bright.sparks.junior on TikTok
+    </a>
+  </div>
+  <div id="ttContainer"></div>
+
 </div><!-- /content-wrap -->
 
 <!-- LIGHTBOX -->
@@ -539,6 +640,38 @@
 </footer>
 
 <script>
+  // ═══════════════════════════════════════════════════════════════
+  // YOUTUBE CONFIG
+  // How to get a free API key (takes ~5 minutes):
+  //   1. Go to console.cloud.google.com and sign in with a Google account
+  //   2. Create a new project (any name, e.g. "Bright Sparks Gallery")
+  //   3. Go to APIs & Services → Library → search "YouTube Data API v3" → Enable
+  //   4. Go to APIs & Services → Credentials → Create Credentials → API Key
+  //   5. Copy the key and paste it below
+  // Free quota: 10,000 units/day (~3,000 page loads). More than enough for a school site.
+  // ═══════════════════════════════════════════════════════════════
+  var YT_API_KEY = 'AIzaSyDupyWL3MVOPt8FMvoS-SStVeaeKgoypmg'; // ← paste your key here, e.g. 'AIzaSyXXXXXXXXXXXXXXXXX'
+  var YT_HANDLE  = 'brightsparksjuniorschool'; // channel handle without @
+  var YT_MAX     = 12; // number of videos to show
+  var ytCache    = null; // avoid re-fetching on tab switch
+
+  // ═══════════════════════════════════════════════════════════════
+  // TIKTOK CONFIG
+  // TikTok does not allow automatic video fetching from static websites
+  // (their API requires a server and OAuth approval). Instead, add your
+  // best TikTok clips manually — they will play inside the gallery modal.
+  //
+  // How to find a TikTok video ID:
+  //   Open the video → copy the long number from the URL
+  //   e.g. tiktok.com/@bright.sparks.junior/video/7123456789012345678
+  //                                                 ^^^^^^^^^^^^^^^^^^^ this is the ID
+  // ═══════════════════════════════════════════════════════════════
+  var TIKTOK_VIDEOS = [
+    // { id: '7123456789012345678', title: 'Sports Day Fun!' },
+    // { id: '7234567890123456789', title: 'School Life at Bright Sparks' },
+    // Add more here — each one will appear as a card in the TikTok section
+  ];
+
   // ── FILTER ───────────────────────────────────────────────
   var cards = Array.from(document.querySelectorAll('.gallery-card'));
 
@@ -609,34 +742,52 @@
   }
 
   // ── VIDEO MODAL ───────────────────────────────────────────
+  // ── VIDEO MODAL (handles gallery cards, YouTube API cards, and TikTok cards) ──
+
+  // For static gallery video cards (data-youtube attribute on card element)
   function openVideoModal(card) {
     var ytId  = card.dataset.youtube;
     var title = card.dataset.title;
-    // Only embed if a real ID has been provided (not the placeholder text)
     if (ytId && ytId !== 'PASTE_YOUTUBE_ID_HERE') {
-      document.getElementById('vmFrame').src =
-        'https://www.youtube.com/embed/' + ytId + '?autoplay=1&rel=0';
+      _showVideoModal('https://www.youtube.com/embed/' + ytId + '?autoplay=1&rel=0', title, 'YouTube', false);
     } else {
-      document.getElementById('vmFrame').src = '';
-      document.getElementById('vmFrame').insertAdjacentHTML('afterend',
-        '<p style="color:rgba(255,255,255,0.6);text-align:center;padding:40px 20px;">No YouTube ID set yet for this video.<br>Replace <strong>PASTE_YOUTUBE_ID_HERE</strong> in the HTML.</p>'
-      );
+      _showVideoModal('', title, 'Video', false); // no ID set yet — blank player
     }
+  }
+
+  // For dynamically loaded YouTube API video cards
+  function openYouTubeModal(ytId, title) {
+    _showVideoModal('https://www.youtube.com/embed/' + ytId + '?autoplay=1&rel=0', title, 'YouTube', false);
+  }
+
+  // For manually listed TikTok cards
+  // The modal switches to portrait (9:16) aspect ratio via the tt-mode CSS class
+  function openTikTokModal(ttId, title) {
+    _showVideoModal('https://www.tiktok.com/embed/v2/' + ttId, title, 'TikTok', true);
+  }
+
+  // Internal helper — sets src, label, aspect ratio, opens modal
+  function _showVideoModal(src, title, label, isTikTok) {
+    var frame = document.getElementById('vmFrame');
+    frame.src = src;
+    frame.parentElement.classList.toggle('tt-mode', isTikTok);
     document.getElementById('vmTitle').textContent = title;
+    document.getElementById('vmLabel').textContent = label;
     document.getElementById('videoModal').classList.add('open');
     document.body.style.overflow = 'hidden';
   }
 
   function closeVideoModal() {
-    document.getElementById('vmFrame').src = ''; // stops playback
+    var frame = document.getElementById('vmFrame');
+    frame.src = ''; // clearing src stops video/audio playback immediately
+    frame.parentElement.classList.remove('tt-mode');
     document.getElementById('videoModal').classList.remove('open');
     document.body.style.overflow = '';
-    // Remove any placeholder message
-    var msg = document.querySelector('.vm-frame p');
-    if (msg) msg.remove();
   }
 
   // ── CLICK ROUTING ─────────────────────────────────────────
+  // Photo cards → photo lightbox (← → navigation)
+  // Gallery video cards (data-youtube) → video modal
   cards.forEach(function(card) {
     card.addEventListener('click', function() {
       if (card.dataset.youtube !== undefined) {
@@ -660,6 +811,116 @@
       if (e.key === 'ArrowRight') shiftLightbox(1);
     }
   });
+
+  // ── YOUTUBE AUTO-LOAD ──────────────────────────────────────
+  // Two API calls on page load, total 3 quota units (free limit: 10,000/day).
+  // Step 1 — resolve @handle → channel uploads playlist ID (1 unit)
+  // Step 2 — fetch latest videos from that playlist (2 units)
+  function loadYouTube() {
+    var el = document.getElementById('ytContainer');
+
+    if (!YT_API_KEY) {
+      el.innerHTML =
+        '<div class="social-state">' +
+          '<h4>Setup Required &mdash; YouTube API Key</h4>' +
+          '<p>Your latest videos will load here automatically once you add a free API key (takes ~5 min):</p>' +
+          '<ol>' +
+            '<li>Go to <code>console.cloud.google.com</code> and sign in with any Google account</li>' +
+            '<li>Create a project &rarr; <strong>APIs &amp; Services</strong> &rarr; Library &rarr; enable <code>YouTube Data API v3</code></li>' +
+            '<li>Go to <strong>Credentials</strong> &rarr; Create Credentials &rarr; API Key &rarr; copy it</li>' +
+            '<li>Open <code>gallery.html</code>, find <code>var YT_API_KEY = \'\'</code> near the top of the script, and paste your key inside the quotes</li>' +
+          '</ol>' +
+        '</div>';
+      return;
+    }
+
+    el.innerHTML = '<div class="social-state"><div class="spinner"></div><p>Loading from YouTube&hellip;</p></div>';
+
+    fetch('https://www.googleapis.com/youtube/v3/channels?part=contentDetails&forHandle=' + YT_HANDLE + '&key=' + YT_API_KEY)
+      .then(function(r) { return r.json(); })
+      .then(function(d) {
+        if (!d.items || !d.items.length) throw new Error('Channel not found. Check that YT_HANDLE matches your channel\'s @handle.');
+        var uploadsId = d.items[0].contentDetails.relatedPlaylists.uploads;
+        return fetch('https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=' + uploadsId + '&maxResults=' + YT_MAX + '&key=' + YT_API_KEY);
+      })
+      .then(function(r) { return r.json(); })
+      .then(function(d) {
+        if (d.error) throw new Error(d.error.message);
+        ytCache = d.items || [];
+        renderYTVideos(ytCache);
+      })
+      .catch(function(err) {
+        el.innerHTML =
+          '<div class="social-state">' +
+            '<h4>Could not load YouTube videos</h4>' +
+            '<p>' + err.message + '</p>' +
+            '<p>Make sure the API key is valid and <code>YouTube Data API v3</code> is enabled in your Google Cloud project.</p>' +
+          '</div>';
+      });
+  }
+
+  function renderYTVideos(items) {
+    var el = document.getElementById('ytContainer');
+    if (!items.length) {
+      el.innerHTML = '<div class="social-state"><p>No videos found on this channel yet.</p></div>';
+      return;
+    }
+    var html = '<div class="yt-grid">';
+    items.forEach(function(item) {
+      var s     = item.snippet;
+      var vid   = s.resourceId.videoId;
+      var thumb = (s.thumbnails.high || s.thumbnails.medium || s.thumbnails.default).url;
+      var date  = new Date(s.publishedAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+      var title = s.title.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      var titleJs = s.title.replace(/\\/g, '\\\\').replace(/'/g, '\\\'');
+      html +=
+        '<div class="yt-card" onclick="openYouTubeModal(\'' + vid + '\', \'' + titleJs + '\')">' +
+          '<img src="' + thumb + '" alt="' + title + '" loading="lazy">' +
+          '<div class="yt-play"></div>' +
+          '<div class="yt-caption"><h4>' + title + '</h4><span>' + date + '</span></div>' +
+        '</div>';
+    });
+    html += '</div>';
+    el.innerHTML = html;
+  }
+
+  loadYouTube();
+
+  // ── TIKTOK MANUAL LOADER ───────────────────────────────────
+  // Each entry in TIKTOK_VIDEOS becomes a card; clicking opens the TikTok
+  // embed player (https://www.tiktok.com/embed/v2/VIDEO_ID) in the modal.
+  function loadTikTok() {
+    var el = document.getElementById('ttContainer');
+    if (!TIKTOK_VIDEOS.length) {
+      el.innerHTML =
+        '<div class="social-state">' +
+          '<h4>Add TikTok Videos</h4>' +
+          '<p>TikTok doesn\'t support automatic fetching on static websites, but you can feature specific clips here:</p>' +
+          '<ol>' +
+            '<li>Open a video from your TikTok profile on a phone or browser</li>' +
+            '<li>Copy the long number from the URL &mdash; that is the video ID</li>' +
+            '<li>In <code>gallery.html</code>, add <code>{ id: \'THE_NUMBER\', title: \'Your Title\' }</code> to the <code>TIKTOK_VIDEOS</code> array near the top of the script</li>' +
+            '<li>Save &mdash; each video will appear as a card and play inside the gallery</li>' +
+          '</ol>' +
+        '</div>';
+      return;
+    }
+    var html = '<div class="tt-grid">';
+    TIKTOK_VIDEOS.forEach(function(v) {
+      var t   = v.title.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      var tJs = v.title.replace(/\\/g, '\\\\').replace(/'/g, '\\\'');
+      html +=
+        '<div class="tt-card" onclick="openTikTokModal(\'' + v.id + '\', \'' + tJs + '\')">' +
+          '<span class="tt-icon">&#9654;</span>' +
+          '<h4>' + t + '</h4>' +
+          '<span class="tt-play-dot">&#9654;</span>' +
+        '</div>';
+    });
+    html += '</div>';
+    el.innerHTML = html;
+  }
+
+  loadTikTok();
 </script>
 <script src="chatbot.js"></script>
 </body>

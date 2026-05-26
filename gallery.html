@@ -183,6 +183,59 @@
   .lb-caption span { color: var(--gold-light); font-size: 0.78rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; }
   .lb-counter { color: rgba(255,255,255,0.45); font-size: 0.75rem; margin-top: 6px; }
 
+  /* VIDEO CARD */
+  .gallery-card.video-card { background: linear-gradient(135deg, #0D1A45 0%, #1A3060 100%); }
+  .gallery-card.video-card img { opacity: 0.65; }
+  .play-btn {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    width: 58px; height: 58px; border-radius: 50%;
+    background: rgba(211,47,47,0.92); backdrop-filter: blur(2px);
+    display: flex; align-items: center; justify-content: center;
+    transition: transform 0.22s, background 0.22s; pointer-events: none;
+  }
+  .play-btn::after {
+    content: ''; border-left: 20px solid white;
+    border-top: 12px solid transparent; border-bottom: 12px solid transparent;
+    margin-left: 5px;
+  }
+  .gallery-card:hover .play-btn { transform: translate(-50%, -50%) scale(1.13); background: var(--red); }
+  .video-badge {
+    position: absolute; top: 12px; left: 12px;
+    background: rgba(211,47,47,0.88); color: white;
+    font-size: 0.63rem; font-weight: 700; padding: 3px 9px; border-radius: 4px;
+    text-transform: uppercase; letter-spacing: 0.1em; pointer-events: none;
+  }
+
+  /* VIDEO MODAL */
+  .video-modal {
+    display: none; position: fixed; inset: 0; z-index: 3000;
+    background: rgba(5,8,25,0.96); backdrop-filter: blur(8px);
+    align-items: center; justify-content: center; padding: 20px;
+  }
+  .video-modal.open { display: flex; }
+  .vm-wrap { width: 100%; max-width: 920px; }
+  .vm-frame {
+    position: relative; width: 100%; padding-bottom: 56.25%;
+    border-radius: var(--radius); overflow: hidden;
+    box-shadow: 0 24px 70px rgba(0,0,0,0.65);
+  }
+  .vm-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
+  .vm-info { margin-top: 18px; text-align: center; }
+  .vm-info h3 { color: var(--white); font-size: 1.05rem; margin-bottom: 4px; }
+  .vm-info span { color: var(--gold-light); font-size: 0.76rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; }
+  .vm-close {
+    position: fixed; top: 16px; right: 20px;
+    background: rgba(255,255,255,0.12); border: none; color: white;
+    width: 40px; height: 40px; border-radius: 50%; cursor: pointer;
+    font-size: 1.3rem; display: flex; align-items: center; justify-content: center;
+    transition: background 0.2s;
+  }
+  .vm-close:hover { background: rgba(255,255,255,0.28); }
+  @media (max-width: 600px) {
+    .video-modal { padding: 12px; }
+    .vm-frame { border-radius: var(--radius-sm); }
+  }
+
   /* UPLOAD CTA */
   .upload-cta {
     background: var(--white); border-radius: var(--radius);
@@ -283,6 +336,7 @@
     <button class="filter-btn" data-filter="sports">Sports <span class="filter-count" id="count-sports"></span></button>
     <button class="filter-btn" data-filter="events">Events <span class="filter-count" id="count-events"></span></button>
     <button class="filter-btn" data-filter="staff">Staff <span class="filter-count" id="count-staff"></span></button>
+    <button class="filter-btn" data-filter="videos" style="border-color:rgba(211,47,47,0.35);">&#9654; Videos <span class="filter-count" id="count-videos"></span></button>
   </div>
 
   <!-- GRID -->
@@ -387,6 +441,48 @@
       <div class="gallery-zoom">&#128269;</div>
     </div>
 
+    <!--
+      ═══════════════════════════════════════════════════════════
+      VIDEO CARDS — How to add a YouTube video:
+      1. Open the video on YouTube
+      2. Copy the ID from the URL, e.g. youtube.com/watch?v=dQw4w9WgXcQ → ID = dQw4w9WgXcQ
+      3. Replace PASTE_YOUTUBE_ID_HERE with that ID in both the
+         data-youtube attribute AND the img src URL below
+      4. Update data-title with the video title
+      The thumbnail loads automatically from YouTube.
+      ═══════════════════════════════════════════════════════════
+    -->
+
+    <div class="gallery-card video-card" data-category="videos" data-youtube="PASTE_YOUTUBE_ID_HERE" data-title="Sports Day Highlights" data-caption="Videos">
+      <img src="https://img.youtube.com/vi/PASTE_YOUTUBE_ID_HERE/hqdefault.jpg" alt="Sports Day Highlights" loading="lazy" onerror="this.style.display='none'">
+      <div class="play-btn"></div>
+      <div class="video-badge">Video</div>
+      <div class="gallery-caption">
+        <h3>Sports Day Highlights</h3>
+        <span>Videos</span>
+      </div>
+    </div>
+
+    <div class="gallery-card video-card" data-category="videos" data-youtube="PASTE_YOUTUBE_ID_HERE" data-title="Music, Dance &amp; Drama Show" data-caption="Videos">
+      <img src="https://img.youtube.com/vi/PASTE_YOUTUBE_ID_HERE/hqdefault.jpg" alt="Music, Dance and Drama Show" loading="lazy" onerror="this.style.display='none'">
+      <div class="play-btn"></div>
+      <div class="video-badge">Video</div>
+      <div class="gallery-caption">
+        <h3>Music, Dance &amp; Drama Show</h3>
+        <span>Videos</span>
+      </div>
+    </div>
+
+    <div class="gallery-card video-card" data-category="videos" data-youtube="PASTE_YOUTUBE_ID_HERE" data-title="School Tour" data-caption="Videos">
+      <img src="https://img.youtube.com/vi/PASTE_YOUTUBE_ID_HERE/hqdefault.jpg" alt="School Tour" loading="lazy" onerror="this.style.display='none'">
+      <div class="play-btn"></div>
+      <div class="video-badge">Video</div>
+      <div class="gallery-caption">
+        <h3>School Tour</h3>
+        <span>Videos</span>
+      </div>
+    </div>
+
   </div><!-- /gallery-grid -->
 
   <div class="gallery-empty" id="galleryEmpty">
@@ -395,12 +491,12 @@
 
   <!-- UPLOAD CTA -->
   <div class="upload-cta">
-    <h3>Have Photos to Share?</h3>
+    <h3>Have Photos or Videos to Share?</h3>
     <p>
-      Parents, staff, and alumni are welcome to submit photos for the gallery.<br>
-      Send your images to us and we'll feature them here.
+      Parents, staff, and alumni are welcome to submit photos and video links for the gallery.<br>
+      Send your media to us and we'll feature it here.
     </p>
-    <a href="mailto:brightsparksjuniorsch@gmail.com?subject=Gallery%20Photo%20Submission">Submit Photos via Email</a>
+    <a href="mailto:brightsparksjuniorsch@gmail.com?subject=Gallery%20Media%20Submission">Submit via Email</a>
   </div>
 
 </div><!-- /content-wrap -->
@@ -422,21 +518,36 @@
   </div>
 </div>
 
+<!-- VIDEO MODAL -->
+<div class="video-modal" id="videoModal" onclick="if(event.target===this)closeVideoModal()">
+  <button class="vm-close" onclick="closeVideoModal()" aria-label="Close video">&#10005;</button>
+  <div class="vm-wrap">
+    <div class="vm-frame">
+      <iframe id="vmFrame" src="" frameborder="0"
+        allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
+        allowfullscreen></iframe>
+    </div>
+    <div class="vm-info">
+      <h3 id="vmTitle"></h3>
+      <span id="vmLabel">Video</span>
+    </div>
+  </div>
+</div>
+
 <footer>
   <p>&copy; 2026 Bright Sparks Junior School &mdash; Kampala, Uganda &mdash; <a href="index.html">Back to Home</a></p>
 </footer>
 
 <script>
-  // ── FILTER ──────────────────────────────────────────────
+  // ── FILTER ───────────────────────────────────────────────
   var cards = Array.from(document.querySelectorAll('.gallery-card'));
-  var currentFilter = 'all';
 
   function getVisible() {
     return cards.filter(function(c) { return !c.classList.contains('hidden'); });
   }
 
   function updateCounts() {
-    var cats = ['all','facilities','sports','events','staff'];
+    var cats = ['all','facilities','sports','events','staff','videos'];
     cats.forEach(function(cat) {
       var n = cat === 'all'
         ? cards.length
@@ -447,7 +558,6 @@
   }
 
   function applyFilter(filter) {
-    currentFilter = filter;
     cards.forEach(function(c) {
       c.classList.toggle('hidden', filter !== 'all' && c.dataset.category !== filter);
     });
@@ -464,13 +574,15 @@
 
   updateCounts();
 
-  // ── LIGHTBOX ─────────────────────────────────────────────
-  var lbIndex = 0;
+  // ── PHOTO LIGHTBOX ────────────────────────────────────────
+  var lbPhotos = [];
+  var lbIndex  = 0;
 
   function openLightbox(card) {
-    var visible = getVisible();
-    lbIndex = visible.indexOf(card);
-    renderLightbox(visible);
+    // Only photo cards (no data-youtube) navigate in the lightbox
+    lbPhotos = getVisible().filter(function(c) { return !c.dataset.youtube; });
+    lbIndex  = lbPhotos.indexOf(card);
+    renderLightbox();
     document.getElementById('lightbox').classList.add('open');
     document.body.style.overflow = 'hidden';
   }
@@ -480,33 +592,73 @@
     document.body.style.overflow = '';
   }
 
-  function renderLightbox(visible) {
-    var card = visible[lbIndex];
-    document.getElementById('lbImage').src = card.querySelector('img').src;
-    document.getElementById('lbImage').alt = card.dataset.title;
+  function renderLightbox() {
+    var card = lbPhotos[lbIndex];
+    document.getElementById('lbImage').src     = card.querySelector('img').src;
+    document.getElementById('lbImage').alt     = card.dataset.title;
     document.getElementById('lbTitle').textContent = card.dataset.title;
-    document.getElementById('lbCat').textContent = card.dataset.caption;
-    document.getElementById('lbCounter').textContent = (lbIndex + 1) + ' / ' + visible.length;
+    document.getElementById('lbCat').textContent   = card.dataset.caption;
+    document.getElementById('lbCounter').textContent = (lbIndex + 1) + ' / ' + lbPhotos.length;
     document.getElementById('lbPrev').disabled = lbIndex === 0;
-    document.getElementById('lbNext').disabled = lbIndex === visible.length - 1;
+    document.getElementById('lbNext').disabled = lbIndex === lbPhotos.length - 1;
   }
 
   function shiftLightbox(dir) {
-    var visible = getVisible();
-    lbIndex = Math.max(0, Math.min(visible.length - 1, lbIndex + dir));
-    renderLightbox(visible);
+    lbIndex = Math.max(0, Math.min(lbPhotos.length - 1, lbIndex + dir));
+    renderLightbox();
   }
 
+  // ── VIDEO MODAL ───────────────────────────────────────────
+  function openVideoModal(card) {
+    var ytId  = card.dataset.youtube;
+    var title = card.dataset.title;
+    // Only embed if a real ID has been provided (not the placeholder text)
+    if (ytId && ytId !== 'PASTE_YOUTUBE_ID_HERE') {
+      document.getElementById('vmFrame').src =
+        'https://www.youtube.com/embed/' + ytId + '?autoplay=1&rel=0';
+    } else {
+      document.getElementById('vmFrame').src = '';
+      document.getElementById('vmFrame').insertAdjacentHTML('afterend',
+        '<p style="color:rgba(255,255,255,0.6);text-align:center;padding:40px 20px;">No YouTube ID set yet for this video.<br>Replace <strong>PASTE_YOUTUBE_ID_HERE</strong> in the HTML.</p>'
+      );
+    }
+    document.getElementById('vmTitle').textContent = title;
+    document.getElementById('videoModal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeVideoModal() {
+    document.getElementById('vmFrame').src = ''; // stops playback
+    document.getElementById('videoModal').classList.remove('open');
+    document.body.style.overflow = '';
+    // Remove any placeholder message
+    var msg = document.querySelector('.vm-frame p');
+    if (msg) msg.remove();
+  }
+
+  // ── CLICK ROUTING ─────────────────────────────────────────
   cards.forEach(function(card) {
-    card.addEventListener('click', function() { openLightbox(card); });
+    card.addEventListener('click', function() {
+      if (card.dataset.youtube !== undefined) {
+        openVideoModal(card);
+      } else {
+        openLightbox(card);
+      }
+    });
   });
 
-  // Keyboard navigation
+  // ── KEYBOARD ──────────────────────────────────────────────
   document.addEventListener('keydown', function(e) {
-    if (!document.getElementById('lightbox').classList.contains('open')) return;
-    if (e.key === 'Escape') closeLightbox();
-    if (e.key === 'ArrowLeft')  shiftLightbox(-1);
-    if (e.key === 'ArrowRight') shiftLightbox(1);
+    var lbOpen = document.getElementById('lightbox').classList.contains('open');
+    var vmOpen = document.getElementById('videoModal').classList.contains('open');
+    if (e.key === 'Escape') {
+      if (lbOpen) closeLightbox();
+      if (vmOpen) closeVideoModal();
+    }
+    if (lbOpen) {
+      if (e.key === 'ArrowLeft')  shiftLightbox(-1);
+      if (e.key === 'ArrowRight') shiftLightbox(1);
+    }
   });
 </script>
 <script src="chatbot.js"></script>

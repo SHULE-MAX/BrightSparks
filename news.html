@@ -464,9 +464,58 @@ var ARTICLES = [
 ]; // ← end of ARTICLES array
 
 
+// ── WordPress category ID → layout category name ──────────────────────────
+//  In WP Admin go to Posts → Categories, hover a category link — the ID
+//  appears in the URL bar as "tag_ID=X". Update the mapping below.
+function mapWpCategory(catIds) {
+  var mapping = { 2: 'academics', 3: 'sports', 4: 'events', 5: 'clubs' };
+  for (var i = 0; i < catIds.length; i++) {
+    if (mapping[catIds[i]]) return mapping[catIds[i]];
+  }
+  return 'academics';
+}
+
+// ── Fetch live posts from WordPress REST API, then run the display engine ──
+fetch('https://www.brightsparksjunior.ac.ug/wp-json/wp/v2/posts?_embed&per_page=20')
+  .then(function(response) { return response.json(); })
+  .then(function(wpPosts) {
+    var catColorMap = { academics:'navy', sports:'red', events:'green', clubs:'gold' };
+    var catIconMap  = { academics:'📚', sports:'⚽', events:'🎉', clubs:'🎨' };
+    var wpArticles = wpPosts.map(function(post) {
+      var featuredImg = '';
+      if (post._embedded && post._embedded['wp:featuredmedia']) {
+        featuredImg = post._embedded['wp:featuredmedia'][0].source_url;
+      }
+      var rawDate = new Date(post.date);
+      var formattedDate = rawDate.toLocaleDateString('en-US', {
+        month: 'long', day: 'numeric', year: 'numeric'
+      });
+      var cat = mapWpCategory(post.categories);
+      return {
+        date:      post.date.split('T')[0],
+        dateLabel: formattedDate,
+        category:  cat,
+        color:     catColorMap[cat] || 'navy',
+        icon:      catIconMap[cat]  || '📚',
+        image:     featuredImg,
+        title:     post.title.rendered,
+        excerpt:   post.excerpt.rendered.replace(/<[^>]*>/g, '').substring(0, 120) + '...',
+        body:      post.content.rendered
+      };
+    });
+    // Keep pinned static announcements; replace article cards with live WP posts
+    ARTICLES = ARTICLES.filter(function(a) { return a.pinned; }).concat(wpArticles);
+    runEngine();
+  })
+  .catch(function(error) {
+    console.error('News fetch failed — falling back to static articles:', error);
+    runEngine();
+  });
+
 // ════════════════════════════════════════════════════════════════════════════
-//  ENGINE — no need to edit below this line
+//  ENGINE — processes ARTICLES and renders the page (called after fetch)
 // ════════════════════════════════════════════════════════════════════════════
+function runEngine() {
 (function () {
   var catColor = { academics:'cat-academics', sports:'cat-sports', events:'cat-events', clubs:'cat-clubs' };
   var catLabel = { academics:'Academics', sports:'Sports', events:'Events', clubs:'Clubs' };
@@ -610,6 +659,7 @@ var ARTICLES = [
     a.addEventListener('click', function(){ document.getElementById('mobileMenu').classList.remove('open'); });
   });
 })();
+} // end runEngine
 </script>
 <script src="chatbot.js"></script>
 </body>

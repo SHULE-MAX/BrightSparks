@@ -197,6 +197,14 @@
     transition: background 0.2s;
   }
   .modal-close:hover { background: rgba(211,47,47,0.1); color: var(--red); }
+  .modal-share {
+    position: absolute; top: 20px; right: 62px; background: rgba(26,46,110,0.07);
+    border: none; border-radius: 20px; height: 34px; padding: 0 12px; cursor: pointer;
+    font-size: 0.72rem; font-weight: 700; color: var(--navy); font-family: 'Montserrat', sans-serif;
+    display: flex; align-items: center; gap: 5px; transition: background 0.2s, color 0.2s; white-space: nowrap;
+  }
+  .modal-share:hover { background: rgba(26,46,110,0.14); }
+  .modal-share.copied { background: var(--green); color: #fff; }
   .modal-hero-img { width: 100%; max-height: 320px; object-fit: cover; display: block; border-radius: 0; }
   .modal-body { padding: 24px 32px 32px; font-size: 0.92rem; color: var(--text); line-height: 1.75; }
   .modal-body p { margin-bottom: 14px; }
@@ -324,7 +332,8 @@
       <div class="modal-cat" id="modalCat"></div>
       <div class="modal-title" id="modalTitle"></div>
       <div class="modal-date" id="modalDate"></div>
-      <button class="modal-close" onclick="closeModalDirect()" title="Close">&#10005;</button>
+      <button class="modal-share" id="modalShare" title="Copy link to this article">&#128279; Copy link</button>
+    <button class="modal-close" onclick="closeModalDirect()" title="Close">&#10005;</button>
     </div>
     <div class="modal-body" id="modalBody"></div>
   </div>
@@ -335,6 +344,12 @@
 </footer>
 
 <script>
+function slugify(s) {
+  return String(s).toLowerCase()
+    .replace(/&amp;/g, 'and').replace(/&/g, 'and')
+    .replace(/[^a-z0-9\s-]/g, '').replace(/\s+/g, '-').replace(/-+/g, '-').trim();
+}
+
 // ════════════════════════════════════════════════════════════════════════════
 //  NEWS DATA
 //  To add a new article, copy the template below into the ARTICLES array,
@@ -645,15 +660,52 @@ function runEngine() {
     document.getElementById('modalOverlay').classList.add('open');
     document.getElementById('modalOverlay').scrollTop = 0;
     document.body.style.overflow = 'hidden';
+    history.pushState(null, '', '#article-' + slugify(art.title));
+    var shareBtn = document.getElementById('modalShare');
+    shareBtn.innerHTML = '&#128279; Copy link';
+    shareBtn.classList.remove('copied');
   };
   window.closeModalDirect = function() {
     document.getElementById('modalOverlay').classList.remove('open');
     document.body.style.overflow = '';
+    history.pushState(null, '', window.location.pathname + window.location.search);
   };
   window.closeModal = function(e) {
     if (e.target === document.getElementById('modalOverlay')) closeModalDirect();
   };
   document.addEventListener('keydown', function(e){ if (e.key==='Escape') closeModalDirect(); });
+
+  // ── Share / copy-link button ───────────────────────────────────────────
+  document.getElementById('modalShare').addEventListener('click', function() {
+    var btn = this;
+    var url = window.location.href;
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(url).then(function() {
+        btn.innerHTML = '&#10003; Copied!';
+        btn.classList.add('copied');
+        setTimeout(function() { btn.innerHTML = '&#128279; Copy link'; btn.classList.remove('copied'); }, 2200);
+      });
+    } else {
+      var ta = document.createElement('textarea');
+      ta.value = url; ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select(); document.execCommand('copy');
+      document.body.removeChild(ta);
+      btn.innerHTML = '&#10003; Copied!';
+      btn.classList.add('copied');
+      setTimeout(function() { btn.innerHTML = '&#128279; Copy link'; btn.classList.remove('copied'); }, 2200);
+    }
+  });
+
+  // ── Deep link: open article from URL hash on page load ────────────────
+  var initHash = location.hash.replace('#', '');
+  if (initHash.indexOf('article-') === 0) {
+    var targetSlug = initHash.slice(8);
+    var targetIdx = -1;
+    for (var i = 0; i < articles.length; i++) {
+      if (slugify(articles[i].title) === targetSlug) { targetIdx = i; break; }
+    }
+    if (targetIdx !== -1) openModal(targetIdx);
+  }
 
   // ── Mobile menu ────────────────────────────────────────────────────────
   document.querySelectorAll('.mobile-menu a').forEach(function(a){

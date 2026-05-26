@@ -167,6 +167,15 @@
     transition: background 0.2s; z-index: 1;
   }
   .lb-close:hover { background: rgba(255,255,255,0.28); }
+  .lb-share {
+    position: fixed; top: 16px; right: 68px;
+    background: rgba(255,255,255,0.12); border: none; color: white;
+    height: 40px; padding: 0 14px; border-radius: 20px; cursor: pointer;
+    font-size: 0.72rem; font-weight: 700; font-family: 'Montserrat', sans-serif;
+    display: flex; align-items: center; gap: 5px; transition: background 0.2s; white-space: nowrap; z-index: 1;
+  }
+  .lb-share:hover { background: rgba(255,255,255,0.24); }
+  .lb-share.copied { background: rgba(27,107,58,0.85); }
   .lb-arrow {
     position: fixed; top: 50%; transform: translateY(-50%);
     background: rgba(255,255,255,0.12); border: none; color: white;
@@ -231,6 +240,15 @@
     transition: background 0.2s;
   }
   .vm-close:hover { background: rgba(255,255,255,0.28); }
+  .vm-share {
+    position: fixed; top: 16px; right: 68px;
+    background: rgba(255,255,255,0.12); border: none; color: white;
+    height: 40px; padding: 0 14px; border-radius: 20px; cursor: pointer;
+    font-size: 0.72rem; font-weight: 700; font-family: 'Montserrat', sans-serif;
+    display: flex; align-items: center; gap: 5px; transition: background 0.2s; white-space: nowrap;
+  }
+  .vm-share:hover { background: rgba(255,255,255,0.24); }
+  .vm-share.copied { background: rgba(27,107,58,0.85); }
   @media (max-width: 600px) {
     .video-modal { padding: 12px; }
     .vm-frame { border-radius: var(--radius-sm); }
@@ -561,6 +579,7 @@
 
 <!-- LIGHTBOX -->
 <div class="lightbox" id="lightbox" onclick="if(event.target===this)closeLightbox()">
+  <button class="lb-share" id="lbShare" title="Copy link to this photo">&#128279; Copy link</button>
   <button class="lb-close" onclick="closeLightbox()" aria-label="Close">&#10005;</button>
   <button class="lb-arrow lb-prev" id="lbPrev" onclick="shiftLightbox(-1)" aria-label="Previous">&#8592;</button>
   <button class="lb-arrow lb-next" id="lbNext" onclick="shiftLightbox(1)" aria-label="Next">&#8594;</button>
@@ -578,6 +597,7 @@
 
 <!-- VIDEO MODAL -->
 <div class="video-modal" id="videoModal" onclick="if(event.target===this)closeVideoModal()">
+  <button class="vm-share" id="vmShare" title="Copy link to this video">&#128279; Copy link</button>
   <button class="vm-close" onclick="closeVideoModal()" aria-label="Close video">&#10005;</button>
   <div class="vm-wrap">
     <div class="vm-frame">
@@ -597,7 +617,28 @@
 </footer>
 
 <script>
-  
+  function slugify(s) {
+    return String(s).toLowerCase()
+      .replace(/&amp;/g, 'and').replace(/&/g, 'and')
+      .replace(/[^a-z0-9\s-]/g, '').replace(/\s+/g, '-').replace(/-+/g, '-').trim();
+  }
+
+  function copyLink(url, btn, label) {
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(url).then(function() { _showCopied(btn, label); });
+    } else {
+      var ta = document.createElement('textarea');
+      ta.value = url; ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select(); document.execCommand('copy');
+      document.body.removeChild(ta);
+      _showCopied(btn, label);
+    }
+  }
+  function _showCopied(btn, label) {
+    btn.innerHTML = '&#10003; Copied!'; btn.classList.add('copied');
+    setTimeout(function() { btn.innerHTML = '&#128279; Copy link'; btn.classList.remove('copied'); }, 2200);
+  }
+
   var YT_API_KEY = 'AIzaSyDupyWL3MVOPt8FMvoS-SStVeaeKgoypmg'; // ← paste your key here, e.g. 'AIzaSyXXXXXXXXXXXXXXXXX'
   var YT_HANDLE  = 'brightsparksjuniorschool'; // channel handle without @
   var YT_MAX     = 12; // number of videos to show
@@ -650,17 +691,20 @@
   var lbIndex  = 0;
 
   function openLightbox(card) {
-    // Only photo cards (no data-youtube) navigate in the lightbox
     lbPhotos = getVisible().filter(function(c) { return !c.dataset.youtube; });
     lbIndex  = lbPhotos.indexOf(card);
     renderLightbox();
     document.getElementById('lightbox').classList.add('open');
     document.body.style.overflow = 'hidden';
+    history.pushState(null, '', '#photo-' + slugify(card.dataset.title));
+    var btn = document.getElementById('lbShare');
+    btn.innerHTML = '&#128279; Copy link'; btn.classList.remove('copied');
   }
 
   function closeLightbox() {
     document.getElementById('lightbox').classList.remove('open');
     document.body.style.overflow = '';
+    history.pushState(null, '', window.location.pathname + window.location.search);
   }
 
   function renderLightbox() {
@@ -688,20 +732,28 @@
     var title = card.dataset.title;
     if (ytId && ytId !== 'PASTE_YOUTUBE_ID_HERE') {
       _showVideoModal('https://www.youtube.com/embed/' + ytId + '?autoplay=1&rel=0', title, 'YouTube', false);
+      history.pushState(null, '', '#yt-' + ytId);
     } else {
-      _showVideoModal('', title, 'Video', false); // no ID set yet — blank player
+      _showVideoModal('', title, 'Video', false);
     }
+    var btn = document.getElementById('vmShare');
+    btn.innerHTML = '&#128279; Copy link'; btn.classList.remove('copied');
   }
 
   // For dynamically loaded YouTube API video cards
   function openYouTubeModal(ytId, title) {
     _showVideoModal('https://www.youtube.com/embed/' + ytId + '?autoplay=1&rel=0', title, 'YouTube', false);
+    history.pushState(null, '', '#yt-' + ytId);
+    var btn = document.getElementById('vmShare');
+    btn.innerHTML = '&#128279; Copy link'; btn.classList.remove('copied');
   }
 
   // For manually listed TikTok cards
-  // The modal switches to portrait (9:16) aspect ratio via the tt-mode CSS class
   function openTikTokModal(ttId, title) {
     _showVideoModal('https://www.tiktok.com/embed/v2/' + ttId, title, 'TikTok', true);
+    history.pushState(null, '', '#tiktok-' + ttId);
+    var btn = document.getElementById('vmShare');
+    btn.innerHTML = '&#128279; Copy link'; btn.classList.remove('copied');
   }
 
   // Internal helper — sets src, label, aspect ratio, opens modal
@@ -717,10 +769,11 @@
 
   function closeVideoModal() {
     var frame = document.getElementById('vmFrame');
-    frame.src = ''; // clearing src stops video/audio playback immediately
+    frame.src = '';
     frame.parentElement.classList.remove('tt-mode');
     document.getElementById('videoModal').classList.remove('open');
     document.body.style.overflow = '';
+    history.pushState(null, '', window.location.pathname + window.location.search);
   }
 
   // ── CLICK ROUTING ─────────────────────────────────────────
@@ -749,6 +802,42 @@
       if (e.key === 'ArrowRight') shiftLightbox(1);
     }
   });
+
+  // ── SHARE BUTTONS ─────────────────────────────────────────
+  document.getElementById('lbShare').addEventListener('click', function() {
+    copyLink(window.location.href, this);
+  });
+  document.getElementById('vmShare').addEventListener('click', function() {
+    copyLink(window.location.href, this);
+  });
+
+  // ── DEEP LINK: open item from URL hash on page load ───────
+  (function() {
+    var h = location.hash.replace('#', '');
+    if (!h) return;
+    if (h.indexOf('photo-') === 0) {
+      var targetSlug = h.slice(6);
+      var allPhotos = cards.filter(function(c) { return !c.dataset.youtube; });
+      for (var i = 0; i < allPhotos.length; i++) {
+        if (slugify(allPhotos[i].dataset.title) === targetSlug) {
+          openLightbox(allPhotos[i]);
+          break;
+        }
+      }
+    } else if (h.indexOf('yt-') === 0) {
+      var ytId = h.slice(3);
+      // YouTube deep link — wait for YT to load, then open
+      window._pendingYtId = ytId;
+    } else if (h.indexOf('tiktok-') === 0) {
+      var ttId = h.slice(7);
+      for (var j = 0; j < TIKTOK_VIDEOS.length; j++) {
+        if (TIKTOK_VIDEOS[j].id === ttId) {
+          openTikTokModal(ttId, TIKTOK_VIDEOS[j].title);
+          break;
+        }
+      }
+    }
+  })();
 
   // ── YOUTUBE AUTO-LOAD ──────────────────────────────────────
   // Two API calls on page load, total 3 quota units (free limit: 10,000/day).
@@ -820,6 +909,12 @@
     });
     html += '</div>';
     el.innerHTML = html;
+    if (window._pendingYtId) {
+      var pendingId = window._pendingYtId;
+      window._pendingYtId = null;
+      var match = (ytCache || []).filter(function(item) { return item.snippet.resourceId.videoId === pendingId; })[0];
+      if (match) openYouTubeModal(pendingId, match.snippet.title);
+    }
   }
 
   loadYouTube();

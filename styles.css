@@ -44,6 +44,22 @@
     padding: 7px 16px; border-radius: 8px;
   }
   .nav-links .btn-apply:hover { background: var(--red-dark); }
+  .nav-drop { position: relative; }
+  .nav-drop > a::after { content: ' \25BE'; font-size: 0.7rem; opacity: 0.7; }
+  .nav-drop-menu {
+    display: none; position: absolute; top: calc(100% + 6px); left: 50%;
+    transform: translateX(-50%); background: #0d1b35;
+    border: 1px solid rgba(255,255,255,0.1); border-radius: 8px;
+    min-width: 160px; padding: 6px; list-style: none; z-index: 999;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+  }
+  .nav-drop:hover .nav-drop-menu { display: block; }
+  .nav-drop-menu li a {
+    display: block; padding: 8px 14px; border-radius: 6px;
+    color: rgba(255,255,255,0.85); font-size: 0.8rem; font-weight: 500;
+    text-decoration: none; white-space: nowrap; transition: all 0.2s;
+  }
+  .nav-drop-menu li a:hover { color: var(--gold-light); background: rgba(255,255,255,0.08); }
   .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; border-radius: 6px; }
   .hamburger span { display: block; width: 24px; height: 2px; background: var(--white); border-radius: 2px; transition: all 0.3s; }
   .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }

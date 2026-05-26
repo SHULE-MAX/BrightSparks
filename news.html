@@ -476,11 +476,12 @@ function mapWpCategory(catIds) {
 }
 
 // ── Fetch live posts from WordPress REST API, then run the display engine ──
-fetch('https://www.brightsparksjunior.ac.ug/wp-json/wp/v2/posts?_embed&per_page=20')
+fetch('https://brightsparksjunior.ac.ug/wp/wp-json/wp/v2/posts?_embed&per_page=20')
   .then(function(response) { return response.json(); })
   .then(function(wpPosts) {
     var catColorMap = { academics:'navy', sports:'red', events:'green', clubs:'gold' };
     var catIconMap  = { academics:'📚', sports:'⚽', events:'🎉', clubs:'🎨' };
+    var catImgMap   = { academics:'Academics.jfif', sports:'Sports.jfif', events:'events.jpg', clubs:'Clubs.png' };
     var wpArticles = wpPosts.map(function(post) {
       var featuredImg = '';
       if (post._embedded && post._embedded['wp:featuredmedia']) {
@@ -497,7 +498,7 @@ fetch('https://www.brightsparksjunior.ac.ug/wp-json/wp/v2/posts?_embed&per_page=
         category:  cat,
         color:     catColorMap[cat] || 'navy',
         icon:      catIconMap[cat]  || '📚',
-        image:     featuredImg,
+        image:     featuredImg || catImgMap[cat] || '',
         title:     post.title.rendered,
         excerpt:   post.excerpt.rendered.replace(/<[^>]*>/g, '').substring(0, 120) + '...',
         body:      post.content.rendered

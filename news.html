@@ -247,7 +247,7 @@
 <!-- NAV -->
 <nav>
   <a href="index.html" class="nav-logo">
-    <img src="logo.png" alt="Bright Sparks Junior School Logo" onerror="this.style.display='none'">
+    <img src="logo.webp" alt="Bright Sparks Junior School Logo" onerror="this.style.display='none'">
     <div class="nav-logo-text">
       <strong>Bright Sparks Junior School</strong>
       <span>We Shall Reach the Shore!</span>
@@ -364,12 +364,12 @@ function slugify(s) {
 //    category:  'academics',         // academics | sports | events | clubs
 //    color:     'navy',              // navy | red | green | gold | sky  (fallback when no photo)
 //    icon:      '📚',               // emoji shown when no photo is set
-//    image:     'images/news/your-photo.jpg',  // OPTIONAL — drop photo in images/news/ folder
+//    image:     'images/news/your-photo.webp',  // OPTIONAL — drop photo in images/news/ folder
 //    title:     'Your headline here',
 //    excerpt:   'One or two sentence preview shown on the card.',
 //    body:      '<p>Full article text. You can use <strong>bold</strong>, lists, etc.</p>'
 //              // To show a photo inside the article, add this inside body:
-//              // '<img src="images/news/your-photo.jpg" style="width:100%;border-radius:8px;margin:12px 0">'
+//              // '<img src="images/news/your-photo.webp" style="width:100%;border-radius:8px;margin:12px 0">'
 //  }
 //
 //  To pin an announcement at the top, add:
@@ -399,12 +399,12 @@ var ARTICLES = [
     category:  'academics',         // academics | sports | events | clubs
     color:     'navy',              // navy | red | green | gold | sky  (fallback when no photo)
     icon:      '📚',               // emoji shown when no photo is set
-    image:     'images/news/Welcome.jpeg',
+    image:     'images/news/Welcome.webp',
     title:     'Welcome Back to School for Term II 2026!',
     excerpt:   'The start of a new term brings exciting opportunities for learning and growth.',
     body:      '<p>Dear Parents and Guardians,<br><br>Warm greetings from Bright Sparks Junior School, Seguku-Katale! We are delighted to welcome you and your children back to school for the new term. A special welcome to our freshers and continuing students – we\’re excited to have you join us again.</p><p>At Bright Sparks, we believe that learning is an adventure. We are committed to walking with every child, encouraging them to embrace challenges, learn from mistakes, and grow into confident, capable young people.<br><br>Thank you for trusting us with your children\’s education and growth. We look forward to partnering with you this term to ensure a smooth, productive, and rewarding experience for every learner.<br><br>For any inquiries, feel free to reach us on:<br>📧 Email: brightsparksjuniorsch@gmail.com<br>📍 Location: Seguku, Katale off Entebbe Road<br>📱 WhatsApp: 0700116093<br>☎️ Tel: 0393242093<br><br>Once again, welcome back. Let\’s make this term a great one together!<br><br>Management<br>Bright Sparks Junior School<br>Day &amp; Boarding Kindergarten &amp; Primary School</p>'
              // To show a photo inside the article, add this inside body:
-             // '<img src="images/news/your-photo.jpg" style="width:100%;border-radius:8px;margin:12px 0">'
+             // '<img src="images/news/your-photo.webp" style="width:100%;border-radius:8px;margin:12px 0">'
  },
 
   {
@@ -498,7 +498,7 @@ fetch('https://brightsparksjunior.ac.ug/wp/wp-json/wp/v2/posts?_embed&per_page=2
   .then(function(wpPosts) {
     var catColorMap = { academics:'navy', sports:'red', events:'green', clubs:'gold' };
     var catIconMap  = { academics:'📚', sports:'⚽', events:'🎉', clubs:'🎨' };
-    var catImgMap   = { academics:'Academics.jfif', sports:'Sports.jfif', events:'events.jpg', clubs:'Clubs.png' };
+    var catImgMap   = { academics:'Academics.webp', sports:'Sports.webp', events:'events.webp', clubs:'Clubs.webp' };
     var wpArticles = wpPosts.map(function(post) {
       var featuredImg = '';
       if (post._embedded && post._embedded['wp:featuredmedia']) {

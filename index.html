@@ -414,7 +414,7 @@
         <div style="font-size:3.5rem;"></div>
         <h3 style="color:var(--gold-light); font-family:'Playfair Display',serif; margin-bottom:8px;">Download Application Form</h3>
         <p style="color:rgba(255,255,255,0.75); font-size:0.88rem; margin-bottom:20px;">Request our printable PDF form, complete it at your convenience, and bring it to school or email it to us.</p>
-        <a href="mailto:brightsparksjuniorsch@gmail.com?subject=PDF Application Form Request&body=Hello, I would like to request an application form for Bright Sparks Junior School. Please send it to me. Thank you." class="btn-primary" style="background:var(--gold); color:var(--navy);">📥 Request PDF Form</a>
+        <a href="mailto:brightsparksjuniorsch@gmail.com?subject=PDF Application Form Request&body=Hello, I would like to request an application form for Bright Sparks Junior School. Please send it to me. Thank you." class="btn-primary" style="background:var(--gold); color:var(--navy);"> Request PDF Form</a>
         <p style="font-size:0.74rem; color:rgba(255,255,255,0.5); margin-top:10px;">P.O. Box 134810, Kampala — Tel: 0393242093</p>
       </div>
 
@@ -580,7 +580,6 @@
 
 <!--<div class="toast" id="toast"></div>-->
 
-<script defer src="chatbot.js"></script>
 <script>
   function toggleMenu() {
     document.getElementById('mobileMenu').classList.toggle('open');
@@ -619,7 +618,7 @@
       'Additional Info:\n' + (message || 'None') + '\n\nThank you.'
     );
     window.location.href = 'mailto:brightsparksjuniorsch@gmail.com?subject=' + subject + '&body=' + body;
-    showToast('✦ Opening your email app to submit the application!');
+    showToast('Opening your email app to submit the application!');
   }
 
   // Animated photo strip

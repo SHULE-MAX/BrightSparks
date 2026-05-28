@@ -217,6 +217,38 @@
   .modal-body ul, .modal-body ol { margin: 10px 0 14px 20px; }
   .modal-body li { margin-bottom: 6px; }
 
+  /* COMMENTS */
+  .modal-comments { display: none; padding: 0 32px 32px; }
+  .modal-comments.active { display: block; }
+  .comments-divider { height: 1px; background: rgba(26,46,110,0.1); margin-bottom: 24px; }
+  .comments-heading { font-size: 1rem; font-weight: 700; color: var(--navy); margin-bottom: 16px; }
+  .comment-list { margin-bottom: 8px; }
+  .comment-item { padding: 12px 0; border-bottom: 1px solid rgba(26,46,110,0.08); }
+  .comment-item:last-child { border-bottom: none; }
+  .comment-meta { display: flex; align-items: center; gap: 8px; margin-bottom: 5px; }
+  .comment-author { font-weight: 700; font-size: 0.82rem; color: var(--navy); }
+  .comment-date { font-size: 0.72rem; color: var(--text-muted); }
+  .comment-text { font-size: 0.86rem; color: var(--text); line-height: 1.65; }
+  .no-comments { font-size: 0.86rem; color: var(--text-muted); margin-bottom: 20px; }
+  .comments-loading, .comments-error { font-size: 0.86rem; color: var(--text-muted); padding: 8px 0; }
+  .comments-error { color: var(--red); }
+  .comment-form-title { font-size: 0.9rem; font-weight: 700; color: var(--navy); margin: 20px 0 12px; }
+  .comment-form-row { display: flex; gap: 10px; margin-bottom: 10px; }
+  .comment-form input, .comment-form textarea {
+    width: 100%; padding: 10px 14px; border: 1.5px solid rgba(26,46,110,0.15);
+    border-radius: var(--radius-sm); font-family: 'Montserrat', sans-serif;
+    font-size: 0.82rem; color: var(--text); outline: none; transition: border 0.2s; background: #fff;
+  }
+  .comment-form input:focus, .comment-form textarea:focus { border-color: var(--navy); }
+  .comment-form textarea { resize: vertical; min-height: 88px; margin-bottom: 10px; display: block; }
+  .comment-form-row input { flex: 1; margin-bottom: 0; }
+  .comment-submit { background: var(--navy); color: #fff; border: none; padding: 10px 22px; border-radius: 30px; font-family: 'Montserrat', sans-serif; font-size: 0.82rem; font-weight: 700; cursor: pointer; transition: background 0.2s; }
+  .comment-submit:hover:not(:disabled) { background: var(--navy-mid); }
+  .comment-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+  .comment-note { font-size: 0.72rem; color: var(--text-muted); margin-top: 8px; display: block; }
+  .comment-success { color: var(--green-light); font-size: 0.86rem; font-weight: 600; padding: 12px 0; }
+  .comment-error-msg { color: var(--red); font-size: 0.82rem; margin-top: 8px; }
+
   /* FOOTER */
   footer { background: var(--navy); color: rgba(255,255,255,0.7); text-align: center; padding: 28px 4%; font-size: 0.82rem; margin-top: 80px; }
   footer a { color: var(--gold-light); text-decoration: none; }
@@ -241,6 +273,8 @@
     .modal-header { padding: 22px 20px 16px; }
     .modal-body { padding: 18px 20px 24px; }
     .modal-title { font-size: 1.1rem; }
+    .modal-comments { padding: 0 20px 24px; }
+    .comment-form-row { flex-direction: column; }
   }
 </style>
 </head>
@@ -340,6 +374,7 @@
     <button class="modal-close" onclick="closeModalDirect()" title="Close">&#10005;</button>
     </div>
     <div class="modal-body" id="modalBody"></div>
+    <div class="modal-comments" id="modalComments"></div>
   </div>
 </div>
 
@@ -520,7 +555,8 @@ fetch('https://brightsparksjunior.ac.ug/wp/wp-json/wp/v2/posts?_embed&per_page=2
         image:     featuredImg || catImgMap[cat] || '',
         title:     post.title.rendered,
         excerpt:   post.excerpt.rendered.replace(/<[^>]*>/g, '').substring(0, 120) + '...',
-        body:      post.content.rendered
+        body:      post.content.rendered,
+        wpId:      post.id
       };
     });
     // Keep pinned static announcements; replace article cards with live WP posts
@@ -661,6 +697,13 @@ function runEngine() {
       ? '<img src="' + art.image + '" alt="' + art.title + '" class="modal-hero-img" style="margin-bottom:0">'
       : '';
     document.getElementById('modalBody').innerHTML = heroImg + art.body;
+    var commentsEl = document.getElementById('modalComments');
+    commentsEl.innerHTML = '';
+    commentsEl.classList.remove('active');
+    if (art.wpId) {
+      commentsEl.classList.add('active');
+      loadComments(art.wpId);
+    }
     document.getElementById('modalOverlay').classList.add('open');
     document.getElementById('modalOverlay').scrollTop = 0;
     document.body.style.overflow = 'hidden';
@@ -668,6 +711,96 @@ function runEngine() {
     var shareBtn = document.getElementById('modalShare');
     shareBtn.innerHTML = '&#128279; Copy link';
     shareBtn.classList.remove('copied');
+  };
+
+  window.loadComments = function(wpId) {
+    var el = document.getElementById('modalComments');
+    el.innerHTML =
+      '<div class="comments-divider"></div>' +
+      '<p class="comments-loading">Loading comments…</p>';
+    fetch('https://brightsparksjunior.ac.ug/wp/wp-json/wp/v2/comments?post=' + wpId +
+          '&per_page=50&orderby=date&order=asc')
+      .then(function(r) { return r.json(); })
+      .then(function(comments) {
+        if (!Array.isArray(comments)) {
+          throw new Error(comments.message || 'Unexpected response');
+        }
+        var html = '<div class="comments-divider"></div>';
+        html += '<h3 class="comments-heading">&#128172; ' + comments.length +
+                ' Comment' + (comments.length !== 1 ? 's' : '') + '</h3>';
+        if (comments.length > 0) {
+          html += '<div class="comment-list">';
+          comments.forEach(function(c) {
+            var d = new Date(c.date);
+            var dateStr = d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+            var text = c.content.rendered.replace(/<[^>]*>/g, '').trim();
+            html += '<div class="comment-item">' +
+              '<div class="comment-meta">' +
+                '<span class="comment-author">' + c.author_name + '</span>' +
+                '<span class="comment-date">' + dateStr + '</span>' +
+              '</div>' +
+              '<div class="comment-text">' + text + '</div>' +
+            '</div>';
+          });
+          html += '</div>';
+        } else {
+          html += '<p class="no-comments">No comments yet. Be the first!</p>';
+        }
+        html += '<form class="comment-form" id="commentForm">' +
+          '<p class="comment-form-title">Leave a Comment</p>' +
+          '<div class="comment-form-row">' +
+            '<input type="text" id="cName" placeholder="Your name *" required>' +
+            '<input type="email" id="cEmail" placeholder="Email address *" required>' +
+          '</div>' +
+          '<textarea id="cText" placeholder="Write your comment here…" required></textarea>' +
+          '<button type="submit" class="comment-submit" id="cSubmit">Post Comment</button>' +
+          '<span class="comment-note">Comments are reviewed before appearing.</span>' +
+        '</form>';
+        el.innerHTML = html;
+        document.getElementById('commentForm').addEventListener('submit', function(e) {
+          e.preventDefault();
+          submitComment(wpId);
+        });
+      })
+      .catch(function() {
+        el.innerHTML =
+          '<div class="comments-divider"></div>' +
+          '<p class="comments-error">Comments could not be loaded.</p>';
+      });
+  };
+
+  window.submitComment = function(wpId) {
+    var name    = document.getElementById('cName').value.trim();
+    var email   = document.getElementById('cEmail').value.trim();
+    var content = document.getElementById('cText').value.trim();
+    var btn     = document.getElementById('cSubmit');
+    btn.disabled = true;
+    btn.textContent = 'Posting…';
+    var errEl = document.getElementById('cError');
+    if (errEl) errEl.remove();
+    fetch('https://brightsparksjunior.ac.ug/wp/wp-json/wp/v2/comments', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ post: wpId, author_name: name, author_email: email, content: content })
+    })
+    .then(function(r) {
+      if (r.status === 201 || r.status === 200) {
+        document.getElementById('commentForm').innerHTML =
+          '<p class="comment-success">&#10003; Thank you! Your comment has been submitted and will appear after review.</p>';
+        return;
+      }
+      return r.json().then(function(data) {
+        throw new Error(data && data.message ? data.message : 'HTTP ' + r.status);
+      });
+    })
+    .catch(function(err) {
+      btn.disabled = false;
+      btn.textContent = 'Post Comment';
+      var e = document.createElement('p');
+      e.id = 'cError'; e.className = 'comment-error-msg';
+      e.textContent = err && err.message ? err.message : 'Could not post comment. Please try again.';
+      document.getElementById('commentForm').appendChild(e);
+    });
   };
   window.closeModalDirect = function() {
     document.getElementById('modalOverlay').classList.remove('open');

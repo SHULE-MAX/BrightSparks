@@ -3,6 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="logo.png">
+<link rel="apple-touch-icon" href="logo.png">
 <title>Gallery | Bright Sparks Junior School</title>
 <meta name="description" content="Browse photos from Bright Sparks Junior School — our facilities, sports, events, and staff.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -617,6 +619,7 @@
   <p>&copy; 2026 Bright Sparks Junior School &mdash; Kampala, Uganda &mdash; <a href="index.html">Back to Home</a></p>
 </footer>
 
+<script src="news-data.js"></script>
 <script>
   function slugify(s) {
     return String(s).toLowerCase()
@@ -956,10 +959,11 @@
 
   loadTikTok();
 
-  // ── WORDPRESS BLOG PHOTOS ─────────────────────────────────
-  // Fetches featured images from WP posts and adds them to the gallery grid
-  // under the "Blog" filter tab. Falls back silently on error.
+  // ── WORDPRESS BLOG PHOTOS & VIDEOS ───────────────────────
+  // Fetches featured images and YouTube video embeds from WP posts,
+  // adding them to the gallery under the "Blog" filter tab.
   function loadWPGallery() {
+    var ytRegex = /(?:youtube\.com\/embed\/|youtube\.com\/watch\?v=|youtu\.be\/)([A-Za-z0-9_-]{11})/g;
     fetch('https://brightsparksjunior.ac.ug/wp/wp-json/wp/v2/posts?_embed&per_page=20')
       .then(function(r) { return r.json(); })
       .then(function(wpPosts) {
@@ -967,31 +971,95 @@
         var emptyEl = document.getElementById('galleryEmpty');
         var added   = false;
         wpPosts.forEach(function(post) {
-          if (!post._embedded || !post._embedded['wp:featuredmedia']) return;
-          var imgUrl = post._embedded['wp:featuredmedia'][0].source_url;
-          var title  = post.title.rendered.replace(/<[^>]*>/g, '');
-          var card   = document.createElement('div');
-          card.className         = 'gallery-card';
-          card.dataset.category  = 'blog';
-          card.dataset.title     = title;
-          card.dataset.caption   = 'Blog';
-          card.innerHTML =
-            '<img src="' + imgUrl + '" alt="' + title.replace(/"/g, '&quot;') + '" loading="lazy">' +
-            '<div class="gallery-caption">' +
-              '<h3>' + title + '</h3>' +
-              '<span>Blog</span>' +
-            '</div>' +
-            '<div class="gallery-zoom">&#128269;</div>';
-          grid.insertBefore(card, emptyEl);
-          cards.push(card);
-          card.addEventListener('click', function() { openLightbox(card); });
-          added = true;
+          var title = post.title.rendered.replace(/<[^>]*>/g, '');
+          // Featured image card
+          if (post._embedded && post._embedded['wp:featuredmedia']) {
+            var imgUrl = post._embedded['wp:featuredmedia'][0].source_url;
+            var card   = document.createElement('div');
+            card.className         = 'gallery-card';
+            card.dataset.category  = 'blog';
+            card.dataset.title     = title;
+            card.dataset.caption   = 'Blog';
+            card.innerHTML =
+              '<img src="' + imgUrl + '" alt="' + title.replace(/"/g, '&quot;') + '" loading="lazy">' +
+              '<div class="gallery-caption">' +
+                '<h3>' + title + '</h3>' +
+                '<span>Blog</span>' +
+              '</div>' +
+              '<div class="gallery-zoom">&#128269;</div>';
+            grid.insertBefore(card, emptyEl);
+            cards.push(card);
+            card.addEventListener('click', function() { openLightbox(card); });
+            added = true;
+          }
+          // YouTube video cards from post content
+          var content = (post.content && post.content.rendered) || '';
+          var seenYt = {};
+          var ytMatch;
+          ytRegex.lastIndex = 0;
+          while ((ytMatch = ytRegex.exec(content)) !== null) {
+            var ytId = ytMatch[1];
+            if (seenYt[ytId]) continue;
+            seenYt[ytId] = true;
+            var vcard = document.createElement('div');
+            vcard.className        = 'gallery-card video-card';
+            vcard.dataset.category = 'blog';
+            vcard.dataset.youtube  = ytId;
+            vcard.dataset.title    = title;
+            vcard.dataset.caption  = 'Video';
+            vcard.innerHTML =
+              '<img src="https://img.youtube.com/vi/' + ytId + '/mqdefault.jpg" alt="' + title.replace(/"/g, '&quot;') + '" loading="lazy">' +
+              '<div class="play-btn">&#9654;</div>' +
+              '<div class="gallery-caption">' +
+                '<h3>' + title + '</h3>' +
+                '<span>Video</span>' +
+              '</div>' +
+              '<div class="gallery-zoom">&#128269;</div>';
+            grid.insertBefore(vcard, emptyEl);
+            cards.push(vcard);
+            (function(vc) { vc.addEventListener('click', function() { openVideoModal(vc); }); })(vcard);
+            added = true;
+          }
         });
         if (added) updateCounts();
       })
       .catch(function(err) { console.warn('WP gallery fetch failed:', err); });
   }
 
+  // ── NEWS ARTICLE IMAGES ───────────────────────────────────
+  // Populates the gallery with images from the static ARTICLES array
+  // (loaded from news-data.js). Sports & events go under matching filters;
+  // academics & clubs go under "blog".
+  function loadNewsGallery() {
+    if (typeof ARTICLES === 'undefined') return;
+    var grid    = document.getElementById('galleryGrid');
+    var emptyEl = document.getElementById('galleryEmpty');
+    var catMap  = { sports: 'sports', events: 'events', academics: 'blog', clubs: 'blog' };
+    var captionMap = { sports: 'Sports', events: 'Events', blog: 'News' };
+    ARTICLES.filter(function(a) { return !a.pinned && a.image; })
+      .forEach(function(art) {
+        var cat   = catMap[art.category] || 'blog';
+        var title = art.title.replace(/&amp;/g, '&').replace(/<[^>]*>/g, '');
+        var card  = document.createElement('div');
+        card.className        = 'gallery-card';
+        card.dataset.category = cat;
+        card.dataset.title    = title;
+        card.dataset.caption  = captionMap[cat] || 'News';
+        card.innerHTML =
+          '<img src="' + art.image + '" alt="' + title.replace(/"/g, '&quot;') + '" loading="lazy">' +
+          '<div class="gallery-caption">' +
+            '<h3>' + title + '</h3>' +
+            '<span>' + (art.dateLabel || '') + '</span>' +
+          '</div>' +
+          '<div class="gallery-zoom">&#128269;</div>';
+        grid.insertBefore(card, emptyEl);
+        cards.push(card);
+        (function(c) { c.addEventListener('click', function() { openLightbox(c); }); })(card);
+      });
+    updateCounts();
+  }
+
+  loadNewsGallery();
   loadWPGallery();
 </script>
 <script src="chatbot.js"></script>

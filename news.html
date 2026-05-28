@@ -3,6 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="logo.png">
+<link rel="apple-touch-icon" href="logo.png">
 <meta name="description" content="Stay up to date with the latest news, announcements, and stories from Bright Sparks Junior School in Seguku, Kampala.">
 <title>News &amp; Announcements | Bright Sparks Junior School</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -498,7 +500,7 @@ fetch('https://brightsparksjunior.ac.ug/wp/wp-json/wp/v2/posts?_embed&per_page=2
   .then(function(wpPosts) {
     var catColorMap = { academics:'navy', sports:'red', events:'green', clubs:'gold' };
     var catIconMap  = { academics:'📚', sports:'⚽', events:'🎉', clubs:'🎨' };
-    var catImgMap   = { academics:'Academics.webp', sports:'Sports.webp', events:'events.webp', clubs:'Clubs.webp' };
+    var catImgMap   = { academics:'images/news/Academics.webp', sports:'images/news/Sports.webp', events:'images/news/events.webp', clubs:'images/news/Clubs.webp' };
     var wpArticles = wpPosts.map(function(post) {
       var featuredImg = '';
       if (post._embedded && post._embedded['wp:featuredmedia']) {

@@ -16,15 +16,19 @@
 <link rel="stylesheet" href="styles.css">
 <link rel="sitemap" type="application/xml" href="/sitemap.xml">
 <meta name="description" content="Bright Sparks Junior School – A leading nursery and primary school in Seguku, Kampala. We Shall Reach the Shore!">
-<link rel="preload" as="image" href="logo.webp">
-<link rel="preload" as="image" href="images/general/hero-main.webp" fetchpriority="high">
+<link rel="preload" as="image" href="optimized/logo-200w.webp">
+<link rel="preload" as="image" href="optimized/images/general/hero-main-663w.webp" fetchpriority="high">
 </head>
 <body>
 
 <!-- NAV -->
 <nav>
   <a href="#home" class="nav-logo">
-    <img src="logo.webp" alt="Bright Sparks Junior School Logo">
+    <img src="optimized/logo-200w.webp"
+         srcset="optimized/logo-100w.webp 100w, optimized/logo-200w.webp 200w"
+         sizes="(max-width: 640px) 80px, 100px"
+         width="100" height="54"
+         alt="Bright Sparks Junior School Logo">
     <div class="nav-logo-text">
       <strong>Bright Sparks Junior School</strong>
       <span>Seguku-Katale, Kampala, Uganda</span>
@@ -99,11 +103,27 @@
   </div>
   <div class="hero-photos">
     <div class="hero-photo-main">
-      <img fetchpriority="high" src="images/general/hero-main.webp" alt="Bright Sparks Junior School Building">
+      <img fetchpriority="high"
+           src="optimized/images/general/hero-main-663w.webp"
+           srcset="optimized/images/general/hero-main-375w.webp 375w,
+                   optimized/images/general/hero-main-663w.webp 663w,
+                   optimized/images/general/hero-main-1326w.webp 1326w"
+           sizes="(max-width: 640px) 375px, 663px"
+           alt="Bright Sparks Junior School Building">
     </div>
     <div class="hero-photo-row">
-      <div class="hero-photo-sm"><img src="images/general/school-building.webp" alt="Classroom"></div>
-      <div class="hero-photo-sm"><img src="images/general/classroom.webp" alt="Swimming Pool"></div>
+      <div class="hero-photo-sm"><img src="optimized/images/general/school-building-663w.webp"
+           srcset="optimized/images/general/school-building-375w.webp 375w,
+                   optimized/images/general/school-building-663w.webp 663w,
+                   optimized/images/general/school-building-1326w.webp 1326w"
+           sizes="(max-width: 640px) 375px, 663px"
+           alt="Classroom" loading="lazy"></div>
+      <div class="hero-photo-sm"><img src="optimized/images/general/classroom-663w.webp"
+           srcset="optimized/images/general/classroom-375w.webp 375w,
+                   optimized/images/general/classroom-663w.webp 663w,
+                   optimized/images/general/classroom-1326w.webp 1326w"
+           sizes="(max-width: 640px) 375px, 663px"
+           alt="Swimming Pool" loading="lazy"></div>
     </div>
   </div>
 </section>
@@ -180,25 +200,45 @@
 <div class="mgmt-strip">
   <div class="mgmt-heading">Our <span>Management Team</span></div>
   <div id="Director" class="mgmt-card mgmt-clickable" data-member="0" data-anchor="Director" role="button" tabindex="0" aria-label="View profile of Hajji Hamza Galiwango">
-    <img loading="lazy" src="Director.webp" alt="Hamza Galiwango" class="mgmt-photo">
+    <img loading="lazy"
+         src="optimized/Director-152w.webp"
+         srcset="optimized/Director-76w.webp 76w, optimized/Director-152w.webp 152w"
+         sizes="(max-width: 640px) 62px, 76px"
+         width="76" height="76"
+         alt="Hamza Galiwango" class="mgmt-photo">
     <div class="mgmt-name">Hajji Hamza Galiwango</div>
     <div class="mgmt-role">Managing Director</div>
     <div class="mgmt-view-hint">View Profile</div>
   </div>
   <div id="HeadTeacher" class="mgmt-card mgmt-clickable" data-member="1" data-anchor="HeadTeacher" role="button" tabindex="0" aria-label="View profile of Muneeb Ali Wanyeni">
-    <img loading="lazy" src="head teacher.webp" alt="Muneeb Ali Wanyeni" class="mgmt-photo">
+    <img loading="lazy"
+         src="optimized/head teacher-152w.webp"
+         srcset="optimized/head teacher-76w.webp 76w, optimized/head teacher-152w.webp 152w"
+         sizes="(max-width: 640px) 62px, 76px"
+         width="76" height="76"
+         alt="Muneeb Ali Wanyeni" class="mgmt-photo">
     <div class="mgmt-name">Muneeb Ali Wanyeni</div>
     <div class="mgmt-role">Head Teacher</div>
     <div class="mgmt-view-hint">View Profile</div>
   </div>
   <div id="DeputyHead" class="mgmt-card mgmt-clickable" data-member="2" data-anchor="DeputyHead" role="button" tabindex="0" aria-label="View profile of Kyarimpa Sophia">
-    <img loading="lazy" src="images/general/Deputy Head Teacher.webp" alt="Kyarimpa Sophia" class="mgmt-photo">
+    <img loading="lazy"
+         src="optimized/images/general/Deputy Head Teacher-152w.webp"
+         srcset="optimized/images/general/Deputy Head Teacher-76w.webp 76w, optimized/images/general/Deputy Head Teacher-152w.webp 152w"
+         sizes="(max-width: 640px) 62px, 76px"
+         width="76" height="76"
+         alt="Kyarimpa Sophia" class="mgmt-photo">
     <div class="mgmt-name">Kyarimpa Sophia</div>
     <div class="mgmt-role">Deputy Head Teacher</div>
     <div class="mgmt-view-hint">View Profile</div>
   </div>
   <div id="HeadKindergarten" class="mgmt-card mgmt-clickable" data-member="3" data-anchor="HeadKindergarten" role="button" tabindex="0" aria-label="View profile of Nabisubi Joan">
-    <img loading="lazy" src="images/general/HeadKindergarten.webp" alt="Nabisubi Joan" class="mgmt-photo">
+    <img loading="lazy"
+         src="optimized/images/general/HeadKindergarten-152w.webp"
+         srcset="optimized/images/general/HeadKindergarten-76w.webp 76w, optimized/images/general/HeadKindergarten-152w.webp 152w"
+         sizes="(max-width: 640px) 62px, 76px"
+         width="76" height="76"
+         alt="Nabisubi Joan" class="mgmt-photo">
     <div class="mgmt-name">Nabisubi Joan</div>
     <div class="mgmt-role">Head of Kindergarten</div>
     <div class="mgmt-view-hint">View Profile</div>
@@ -343,21 +383,39 @@
     </div>
     <div class="facilities-grid">
       <div class="facility-card has-photo" style="position:relative;">
-        <img loading="lazy" class="fac-photo" src="images/general/hero-main.webp" alt="Bright Sparks School Building">
+        <img loading="lazy" class="fac-photo"
+             src="optimized/images/general/hero-main-663w.webp"
+             srcset="optimized/images/general/hero-main-375w.webp 375w,
+                     optimized/images/general/hero-main-663w.webp 663w,
+                     optimized/images/general/hero-main-1326w.webp 1326w"
+             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 375px"
+             alt="Bright Sparks School Building">
         <div class="fac-overlay">
           <h3>Modern Campus</h3>
           <p>A multi-storey building with spacious, well-ventilated classrooms and balconies overlooking a manicured compound.</p>
         </div>
       </div>
       <div class="facility-card has-photo" style="position:relative;">
-        <img loading="lazy" class="fac-photo" src="images/general/school-building.webp" alt="Modern Classrooms">
+        <img loading="lazy" class="fac-photo"
+             src="optimized/images/general/school-building-663w.webp"
+             srcset="optimized/images/general/school-building-375w.webp 375w,
+                     optimized/images/general/school-building-663w.webp 663w,
+                     optimized/images/general/school-building-1326w.webp 1326w"
+             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 375px"
+             alt="Modern Classrooms">
         <div class="fac-overlay">
           <h3>Modern Classrooms</h3>
           <p>Bright, colorful, stimulating learning spaces with modern desks and rich display materials to inspire young minds.</p>
         </div>
       </div>
       <div class="facility-card has-photo" style="position:relative;">
-        <img loading="lazy" class="fac-photo" src="images/general/classroom.webp" alt="Swimming Pool">
+        <img loading="lazy" class="fac-photo"
+             src="optimized/images/general/classroom-663w.webp"
+             srcset="optimized/images/general/classroom-375w.webp 375w,
+                     optimized/images/general/classroom-663w.webp 663w,
+                     optimized/images/general/classroom-1326w.webp 1326w"
+             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 375px"
+             alt="Swimming Pool">
         <div class="fac-overlay">
           <h3>Swimming Pool</h3>
           <p>A safe, supervised pool where children learn competitive swimming and enjoy recreational water activities.</p>
@@ -567,7 +625,12 @@
     </div>
     <div class="news-grid">
       <div class="news-card">
-        <div class="news-img"><img loading="lazy" src="images/general/hero-main.webp" alt="School Campus"></div>
+        <div class="news-img"><img loading="lazy"
+             src="optimized/images/general/hero-main-375w.webp"
+             srcset="optimized/images/general/hero-main-375w.webp 375w,
+                     optimized/images/general/hero-main-663w.webp 663w"
+             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 375px"
+             alt="School Campus"></div>
         <div class="news-body">
           <div class="news-cat">Term Circular</div>
           <h3>End of Term I &amp; Term II 2026 Roadmap Released</h3>
@@ -579,7 +642,12 @@
         </div>
       </div>
       <div class="news-card">
-        <div class="news-img"><img loading="lazy" src="images/general/classroom.webp" alt="Swimming Pool"></div>
+        <div class="news-img"><img loading="lazy"
+             src="optimized/images/general/classroom-375w.webp"
+             srcset="optimized/images/general/classroom-375w.webp 375w,
+                     optimized/images/general/classroom-663w.webp 663w"
+             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 375px"
+             alt="Swimming Pool"></div>
         <div class="news-body">
           <div class="news-cat"> Sports</div>
           <h3>Football Team Victorious Against St. James Junior School</h3>
@@ -928,28 +996,28 @@
       {
         name: 'Hajji Hamza Galiwango',
         role: 'Managing Director',
-        photo: 'Director.webp',
+        photo: 'optimized/Director-152w.webp',
         anchor: 'Director',
         bio: 'Hajji Hamza Galiwango is the visionary founder and Managing Director of Bright Sparks Junior School. His deep passion for quality and affordable education led to the establishment of the school in Seguku-Katale. He provides strategic direction and governance, ensuring the school upholds its founding mission of academic excellence, spiritual growth, and meaningful community impact.'
       },
       {
         name: 'Muneeb Ali Wanyeni',
         role: 'Head Teacher',
-        photo: 'head teacher.webp',
+        photo: 'optimized/head teacher-152w.webp',
         anchor: 'HeadTeacher',
         bio: 'Mr. Muneeb Ali Wanyeni serves as Head Teacher of Bright Sparks Junior School, overseeing daily academic operations, staff leadership, and curriculum delivery across all levels. He is passionate about holistic child development and works tirelessly to maintain high academic standards while nurturing each pupil\'s unique potential and character.'
       },
       {
         name: 'Kyarimpa Sophia',
         role: 'Deputy Head Teacher',
-        photo: 'images/general/Deputy Head Teacher.webp',
+        photo: 'optimized/images/general/Deputy Head Teacher-152w.webp',
         anchor: 'DeputyHead',
         bio: 'Ms. Kyarimpa Sophia serves as Deputy Head Teacher at Bright Sparks Junior School. She partners closely with the Head Teacher in academic and administrative leadership, with a particular focus on staff professional development, pupil welfare, and maintaining the school\'s high standards of discipline, care, and excellence.'
       },
       {
         name: 'Nabisubi Joan',
         role: 'Head of Kindergarten',
-        photo: 'images/general/HeadKindergarten.webp',
+        photo: 'optimized/images/general/HeadKindergarten-152w.webp',
         anchor: 'HeadKindergarten',
         bio: 'Ms. Nabisubi Joan leads the Kindergarten Department at Bright Sparks Junior School, overseeing Baby Class, Middle Class, and Top Class. She brings warmth, creativity, and deep expertise in early childhood education, creating a nurturing and stimulating environment where the youngest learners discover their love of learning.'
       }

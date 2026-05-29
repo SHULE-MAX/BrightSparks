@@ -380,7 +380,11 @@
 <!-- NAV -->
 <nav>
   <a href="index.html" class="nav-logo">
-    <img src="logo.webp" alt="Bright Sparks Junior School Logo" onerror="this.style.display='none'">
+    <img src="optimized/logo-200w.webp"
+         srcset="optimized/logo-100w.webp 100w, optimized/logo-200w.webp 200w"
+         sizes="(max-width: 640px) 80px, 100px"
+         width="100" height="54"
+         alt="Bright Sparks Junior School Logo" onerror="this.style.display='none'">
     <div class="nav-logo-text">
       <strong>Bright Sparks Junior School</strong>
       <span>We Shall Reach the Shore!</span>
@@ -461,7 +465,12 @@
     </div>
 
     <div class="gallery-card" data-category="facilities" data-title="School Grounds" data-caption="Facilities">
-      <img src="images/general/school-building.webp" alt="School Grounds & Entrance" loading="lazy">
+      <img src="images/general/school-building.webp"
+           srcset="optimized/images/general/school-building-375w.webp 375w,
+                   optimized/images/general/school-building-663w.webp 663w,
+                   optimized/images/general/school-building-1326w.webp 1326w"
+           sizes="(max-width: 640px) calc(50vw - 10px), (max-width: 1024px) calc(33vw - 12px), 375px"
+           alt="School Grounds & Entrance" loading="lazy">
       <div class="gallery-caption">
         <h3>School Grounds</h3>
         <span>Facilities</span>

@@ -539,8 +539,12 @@ function mapWpCategory(catIds) {
 
 // ── Fetch live posts from WordPress REST API, then run the display engine ──
 fetch('https://brightsparksjunior.ac.ug/wp/wp-json/wp/v2/posts?_embed&per_page=20')
-  .then(function(response) { return response.json(); })
+  .then(function(response) {
+    if (!response.ok) throw new Error('WP API returned ' + response.status);
+    return response.json();
+  })
   .then(function(wpPosts) {
+    if (!Array.isArray(wpPosts)) throw new Error('WP API response is not an array');
     var catColorMap = { academics:'navy', sports:'red', events:'green', clubs:'gold' };
     var catIconMap  = { academics:'📚', sports:'⚽', events:'🎉', clubs:'🎨' };
     var catImgMap   = { academics:'images/news/Academics.webp', sports:'images/news/Sports.webp', events:'images/news/events.webp', clubs:'images/news/Clubs.webp' };
@@ -567,8 +571,10 @@ fetch('https://brightsparksjunior.ac.ug/wp/wp-json/wp/v2/posts?_embed&per_page=2
         wpId:      post.id
       };
     });
-    // Keep pinned static announcements; replace article cards with live WP posts
-    ARTICLES = ARTICLES.filter(function(a) { return a.pinned; }).concat(wpArticles);
+    // Keep pinned announcements + hardcoded articles, then append live WP posts
+    var staticArticles = ARTICLES.filter(function(a) { return !a.pinned; });
+    var pinned = ARTICLES.filter(function(a) { return a.pinned; });
+    ARTICLES = pinned.concat(staticArticles).concat(wpArticles);
     runEngine();
   })
   .catch(function(error) {

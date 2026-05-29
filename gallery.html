@@ -728,7 +728,6 @@
   }
 
   // ── VIDEO MODAL ───────────────────────────────────────────
-  // ── VIDEO MODAL (handles gallery cards, YouTube API cards, and TikTok cards) ──
 
   // For static gallery video cards (data-youtube attribute on card element)
   function openVideoModal(card) {
@@ -844,9 +843,6 @@
   })();
 
   // ── YOUTUBE AUTO-LOAD ──────────────────────────────────────
-  // Two API calls on page load, total 3 quota units (free limit: 10,000/day).
-  // Step 1 — resolve @handle → channel uploads playlist ID (1 unit)
-  // Step 2 — fetch latest videos from that playlist (2 units)
   function loadYouTube() {
     var el = document.getElementById('ytContainer');
 
@@ -924,8 +920,6 @@
   loadYouTube();
 
   // ── TIKTOK MANUAL LOADER ───────────────────────────────────
-  // Each entry in TIKTOK_VIDEOS becomes a card; clicking opens the TikTok
-  // embed player (https://www.tiktok.com/embed/v2/VIDEO_ID) in the modal.
   function loadTikTok() {
     var el = document.getElementById('ttContainer');
     if (!TIKTOK_VIDEOS.length) {
@@ -965,8 +959,12 @@
   function loadWPGallery() {
     var ytRegex = /(?:youtube\.com\/embed\/|youtube\.com\/watch\?v=|youtu\.be\/)([A-Za-z0-9_-]{11})/g;
     fetch('https://brightsparksjunior.ac.ug/wp/wp-json/wp/v2/posts?_embed&per_page=20')
-      .then(function(r) { return r.json(); })
+      .then(function(r) {
+        if (!r.ok) throw new Error('WP API returned ' + r.status);
+        return r.json();
+      })
       .then(function(wpPosts) {
+        if (!Array.isArray(wpPosts)) throw new Error('WP API response is not an array');
         var grid    = document.getElementById('galleryGrid');
         var emptyEl = document.getElementById('galleryEmpty');
         var added   = false;
@@ -1027,9 +1025,6 @@
   }
 
   // ── NEWS ARTICLE IMAGES ───────────────────────────────────
-  // Populates the gallery with images from the static ARTICLES array
-  // (loaded from news-data.js). Sports & events go under matching filters;
-  // academics & clubs go under "blog".
   function loadNewsGallery() {
     if (typeof ARTICLES === 'undefined') return;
     var grid    = document.getElementById('galleryGrid');

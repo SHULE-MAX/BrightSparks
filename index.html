@@ -17,7 +17,7 @@
 <link rel="sitemap" type="application/xml" href="/sitemap.xml">
 <meta name="description" content="Bright Sparks Junior School – A leading nursery and primary school in Seguku, Kampala. We Shall Reach the Shore!">
 <link rel="preload" as="image" href="logo.webp">
-<link rel="preload" as="image" href="images/general/hero-main.webp">
+<link rel="preload" as="image" href="images/general/hero-main.webp" fetchpriority="high">
 </head>
 <body>
 
@@ -50,7 +50,7 @@
       </ul>
     </li>
     <li><a href="#contacts">Contact</a></li>
-<li><a href="admissions.html#apply" style="display:inline-block;background:#2E8B57;color:white;font-weight:700;padding:7px 16px;border-radius:8px;text-decoration:none;font-size:0.8rem;margin-left:4px;">Apply Online</a></li>
+<li><a href="admissions.html#apply" style="display:inline-block;background:#1B6B3A;color:white;font-weight:700;padding:7px 16px;border-radius:8px;text-decoration:none;font-size:0.8rem;margin-left:4px;">Apply Online</a></li>
   </ul>
   <div class="hamburger" onclick="toggleMenu()">
     <span></span><span></span><span></span>
@@ -69,6 +69,9 @@
   <a href="#contacts" onclick="closeMenu()">Contact</a>
   <a href="https://app.brightsparksjunior.ac.ug" target="_blank">Parent/Teacher Portal</a>
 </div>
+
+<!-- MAIN CONTENT -->
+<main>
 
 <!-- HERO -->
 <section id="home">
@@ -669,7 +672,7 @@
       </div>
     </div>
     <div class="map-embed">
-      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.7849842222554!2d32.52860717371991!3d0.2342172641484186!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x177d9973f4aea45b%3A0x9fd531181ac945ca!2sBright%20Sparks%20Junior%20School-%20Seguku%20Katale%20Entebbe%20road%20Kampala!5e0!3m2!1sen!2sug!4v1778871919726!5m2!1sen!2sug" width="100%" height="100%" style="border:0; display:block;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.7849842222554!2d32.52860717371991!3d0.2342172641484186!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x177d9973f4aea45b%3A0x9fd531181ac945ca!2sBright%20Sparks%20Junior%20School-%20Seguku%20Katale%20Entebbe%20road%20Kampala!5e0!3m2!1sen!2sug!4v1778871919726!5m2!1sen!2sug" title="Bright Sparks Junior School location on Google Maps" width="100%" height="100%" style="border:0; display:block;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
     </div>
   </div>
 </section>
@@ -697,6 +700,8 @@
     </a>
   </div>
 </div>
+
+</main>
 
 <!-- FOOTER -->
 <footer>
@@ -879,7 +884,7 @@
         cell.appendChild(span); grid.appendChild(cell);
       }
 
-      var typeColor = { key:'var(--gold)', 'event-type':'var(--red)', exam:'#e05a1e', holiday:'#1a3a5c' };
+      var typeColor = { key:'#7A5500', 'event-type':'var(--red)', exam:'#c24800', holiday:'#1a3a5c' };
       var monthEvs = termEvents.filter(function (ev) { return new Date(ev.date).getMonth() === m; });
       var evLabel = document.getElementById('cal-ev-label');
       var evList  = document.getElementById('cal-events');

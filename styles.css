@@ -425,7 +425,7 @@
   .cal-day.event.exam { background:#e05a1e; }
   .cal-day.event.holiday { background:#1a3a5c; }
   .cal-day.range { background:#fde8e8; border-radius:0; color:var(--red); font-weight:600; width:100%; justify-content:center; }
-  .cal-day.past { color:#ccc; }
+  .cal-day.past { color:#767676; }
   .cal-legend { display:flex; gap:12px; flex-wrap:wrap; margin-bottom:10px; }
   .cal-legend-item { display:flex; align-items:center; gap:5px; font-size:0.7rem; color:var(--text-muted); }
   .cal-legend-dot { width:10px; height:10px; border-radius:50%; flex-shrink:0; }
@@ -551,7 +551,7 @@
     text-decoration: none; font-weight: 700; font-size: 0.83rem; transition: all 0.25s;
   }
   .social-btn:hover { transform: translateY(-3px); box-shadow: 0 6px 18px rgba(0,0,0,0.3); }
-  .social-btn.fb { background: #1877F2; color: white; }
+  .social-btn.fb { background: #1558B0; color: white; }
   .social-btn.ig { background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); color: white; }
   .social-btn.tt { background: #010101; color: white; border: 1px solid #333; }
   .social-btn.x  { background: #000; color: white; border: 1px solid #333; }
@@ -561,8 +561,9 @@
     background: #060D1F; padding: 24px 4%; text-align: center;
     border-top: 1px solid rgba(255,255,255,0.05);
   }
-  footer p { color: rgba(255,255,255,0.4); font-size: 0.78rem; line-height: 1.75; }
+  footer p { color: rgba(255,255,255,0.75); font-size: 0.78rem; line-height: 1.75; }
   footer a { color: var(--gold-light); text-decoration: none; }
+  a[href^="tel:"] { display: inline-flex; align-items: center; min-height: 44px; padding: 0 2px; }
 
   /* ANIMATIONS */
   @keyframes fadeUp {

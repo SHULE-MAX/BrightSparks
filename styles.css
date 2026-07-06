@@ -82,6 +82,7 @@
   /* HERO */
   #home {
     min-height: 100vh;
+    min-height: 100svh;
     background: linear-gradient(150deg, #0D1A45 0%, #1A2E6E 45%, #152560 100%);
     position: relative; display: flex; align-items: center;
     padding: 100px 4% 60px; overflow: hidden;
@@ -127,7 +128,7 @@
     font-style: italic; font-weight: 700;
     font-size: clamp(1rem, 2vw, 1.35rem);
     color: #90CAF9; margin-bottom: 22px;
-    display: flex; align-items: center; justify-content: center; gap: 10px;
+    display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap;
   }
   .hero-motto::before, .hero-motto::after { content: '~'; color: var(--gold); }
   .hero-desc {
@@ -564,10 +565,13 @@
     .nav-links { display: none; }
     .hamburger { display: flex; }
     .nav-logo-text strong { font-size: 0.8rem; }
-    #home { padding: 90px 5% 50px; }
-    .hero-static-photos { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    #home { min-height: auto; padding: 90px 5% 50px; }
+    .hero-schoolname { margin-bottom: 14px; }
+    .hero-title { margin-bottom: 16px; }
+    .hero-static-photos { grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 24px; }
     .hero-static-photos img { height: 140px; }
-    .hero-stats { gap: 18px; flex-wrap: wrap; }
+    .hero-desc { margin-bottom: 28px; }
+    .hero-stats { gap: 18px; flex-wrap: wrap; margin-top: 32px; padding-top: 22px; }
     .stat-num { font-size: 1.5rem; }
     .about-grid, .admissions-grid, .careers-layout { grid-template-columns: 1fr; }
     .adm-full { grid-column: 1; }
@@ -590,16 +594,14 @@
     .transport-grid { grid-template-columns: 1fr; }
     .section-inner { padding: 52px 5%; }
     .section-header { margin-bottom: 32px; }
-  }
     .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
     .fees-table { min-width: 420px; }
     .about-card { padding: 20px; }
     .adm-card { padding: 20px; }
-    .section-inner { padding: 48px 4%; }
     .transport-card { padding: 20px; }
     .career-cta { position: static; }
-    .hero-stats { justify-content: flex-start; }
     .stat { min-width: 80px; }
+  }
   @media (max-width: 480px) {
     .mgmt-heading { font-size: 0.92rem; letter-spacing: 0.08em; padding-bottom: 14px; }
     .section-inner { padding: 36px 4%; }
@@ -622,8 +624,12 @@
     .nav-logo img { height: 40px; }
     .nav-logo-text span { display: none; }
     .mgmt-card { flex: 0 0 100%; border-right: none; }
-    .hero-schoolname { font-size: clamp(1.3rem, 5.5vw, 1.8rem); }
+    .hero-schoolname { font-size: clamp(1.3rem, 5.5vw, 1.8rem); margin-bottom: 10px; }
+    .hero-title { margin-bottom: 12px; }
+    .hero-static-photos { gap: 8px; margin-bottom: 20px; }
     .hero-static-photos img { height: 110px; }
+    .hero-desc { margin-bottom: 22px; }
+    .hero-stats { gap: 12px 20px; margin-top: 26px; padding-top: 18px; }
     .section-title { font-size: clamp(1.4rem, 5vw, 1.8rem); }
     .section-inner { padding: 44px 4%; }
     .values-grid { grid-template-columns: 1fr; }

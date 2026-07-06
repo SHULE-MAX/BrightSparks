@@ -81,12 +81,39 @@
   <div class="hero-bg"></div>
   <div class="hero-dots"></div>
   <div class="hero-left">
-    <div class="hero-badge">Seguku-Katale, Entebbe Road, Uganda</div>
-    <h1 class="hero-title">Nurturing <em>Brilliant Minds,</em><br>Building Tomorrow's Leaders</h1>
-    <div class="hero-motto">"We Shall Reach the Shore!"</div>
+    <div class="hero-schoolname">Bright Sparks Junior School, Kampala Uganda</div>
+    <h1 class="hero-title">Nurturing <em>Brilliant Minds,</em> Building Tomorrow's Leaders</h1>
+    <div class="hero-static-photos">
+      <img fetchpriority="high"
+           src="optimized/images/general/hero-main-663w.webp"
+           srcset="optimized/images/general/hero-main-375w.webp 375w,
+                   optimized/images/general/hero-main-663w.webp 663w,
+                   optimized/images/general/hero-main-1326w.webp 1326w"
+           sizes="(max-width: 640px) 45vw, 33vw"
+           alt="Bright Sparks Junior School Building">
+      <img src="optimized/images/general/school-building-663w.webp"
+           srcset="optimized/images/general/school-building-375w.webp 375w,
+                   optimized/images/general/school-building-663w.webp 663w,
+                   optimized/images/general/school-building-1326w.webp 1326w"
+           sizes="(max-width: 640px) 45vw, 33vw"
+           alt="Bright Sparks Junior School Classroom" loading="lazy">
+      <img src="optimized/images/general/bakery-663w.webp"
+           srcset="optimized/images/general/bakery-375w.webp 375w,
+                   optimized/images/general/bakery-663w.webp 663w,
+                   optimized/images/general/bakery-1326w.webp 1326w"
+           sizes="(max-width: 640px) 45vw, 33vw"
+           alt="Bright Sparks Junior School Bakery Club" loading="lazy">
+      <img src="optimized/images/general/candidates2025-663w.webp"
+           srcset="optimized/images/general/candidates2025-375w.webp 375w,
+                   optimized/images/general/candidates2025-663w.webp 663w,
+                   optimized/images/general/candidates2025-1326w.webp 1326w"
+           sizes="(max-width: 640px) 45vw, 33vw"
+           alt="Bright Sparks Junior School P.7 Candidates 2025" loading="lazy">
+    </div>
+    <div class="hero-motto">"We Shall Reach the Shore"</div>
     <p class="hero-desc">
-      A private school in Seguku-Katale offering Kindergarten and Primary education in both 
-      Day and Boarding sections. High-quality, affordable education developing academic, 
+      A private school in Seguku-Katale offering Kindergarten and Primary education in both
+      Day and Boarding sections. High-quality, affordable education developing academic,
       spiritual, and social potential since our founding.
     </p>
     <div class="hero-actions">
@@ -98,31 +125,6 @@
       <div class="stat"><span class="stat-num">Day &amp; Board</span><span class="stat-label">Sections</span></div>
       <div class="stat"><span class="stat-num">5 Clubs</span><span class="stat-label">Activities</span></div>
       <div class="stat"><span class="stat-num"></span><span class="stat-label">Global Trips</span></div>
-    </div>
-  </div>
-  <div class="hero-photos">
-    <div class="hero-photo-main">
-      <img fetchpriority="high"
-           src="optimized/images/general/hero-main-663w.webp"
-           srcset="optimized/images/general/hero-main-375w.webp 375w,
-                   optimized/images/general/hero-main-663w.webp 663w,
-                   optimized/images/general/hero-main-1326w.webp 1326w"
-           sizes="(max-width: 640px) 375px, 663px"
-           alt="Bright Sparks Junior School Building">
-    </div>
-    <div class="hero-photo-row">
-      <div class="hero-photo-sm"><img src="optimized/images/general/school-building-663w.webp"
-           srcset="optimized/images/general/school-building-375w.webp 375w,
-                   optimized/images/general/school-building-663w.webp 663w,
-                   optimized/images/general/school-building-1326w.webp 1326w"
-           sizes="(max-width: 640px) 375px, 663px"
-           alt="Classroom" loading="lazy"></div>
-      <div class="hero-photo-sm"><img src="optimized/images/general/classroom-663w.webp"
-           srcset="optimized/images/general/classroom-375w.webp 375w,
-                   optimized/images/general/classroom-663w.webp 663w,
-                   optimized/images/general/classroom-1326w.webp 1326w"
-           sizes="(max-width: 640px) 375px, 663px"
-           alt="Swimming Pool" loading="lazy"></div>
     </div>
   </div>
 </section>
@@ -824,46 +826,6 @@
     window.location.href = 'mailto:brightsparksjuniorsch@gmail.com?subject=' + subject + '&body=' + body;
     showToast('Opening your email app to submit the application!');
   }
-
-  // Animated photo strip
-  (function () {
-    var hp = document.querySelector('.hero-photos');
-    if (!hp) return;
-    var imgs = hp.querySelectorAll('img');
-    if (imgs.length < 3) return;
-
-    function ph(img) {
-      return '<div class="strip-photo"><img src="' + img.src + '" alt="' + img.alt + '" loading="eager"></div>';
-    }
-    function card(cls, title, sub) {
-      return '<div class="strip-card ' + cls + '"><strong>' + title + '</strong><span>' + sub + '</span></div>';
-    }
-
-    var col1 =
-      '<div class="photo-strip-col"><div class="strip-track">' +
-      ph(imgs[0]) +
-      card('navy-c', 'Academic Excellence', 'Quality Education K–P.7') +
-      card('red-c', 'Day &amp; Boarding', 'Flexible learning options') +
-      ph(imgs[2]) +
-      '</div></div>';
-
-    var col2 =
-      '<div class="photo-strip-col"><div class="strip-track">' +
-      card('green-c', '5 School Clubs', 'Music · Swimming · Chess · Ballet') +
-      ph(imgs[1]) +
-      card('gold-c', 'Seguku-Katale', 'Entebbe Road, Kampala') +
-      card('navy-c', '“We Shall Reach the Shore!”', 'Our school motto') +
-      '</div></div>';
-
-    hp.innerHTML = col1 + col2;
-
-    // Clone strip items for seamless infinite loop
-    hp.querySelectorAll('.strip-track').forEach(function (track) {
-      Array.from(track.children).forEach(function (child) {
-        track.appendChild(child.cloneNode(true));
-      });
-    });
-  })();
 
   // School Calendar
   (function () {

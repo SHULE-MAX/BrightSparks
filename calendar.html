@@ -178,8 +178,11 @@
   .cal-day.event.event-type { background: var(--red); }
   .cal-day.event.exam { background: #e05a1e; }
   .cal-day.event.holiday { background: #1a3a5c; }
-  .cal-day.range { background: #fde8e8; border-radius: 0; color: var(--red); font-weight: 600; width: 100%; justify-content: center; }
+  .cal-day.range { background: #fde8e8; border-radius: 0; color: var(--red); font-weight: 600; width: 100%; justify-content: center; cursor: pointer; }
+  .cal-day.range:hover { background: #fbd5d5; }
   .cal-day.past { color: #ccc; }
+  .cal-day.is-selected { box-shadow: 0 0 0 3px var(--white), 0 0 0 5px var(--navy); }
+  .cal-day:focus-visible { outline: 2px solid var(--navy); outline-offset: 3px; }
 
   /* EVENTS PANEL */
   .events-card {
@@ -190,6 +193,12 @@
   .events-card-sub { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 18px; padding-bottom: 14px; border-bottom: 1px solid rgba(26,46,110,0.08); }
 
   .ev-label { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 10px; }
+  .ev-back {
+    display: inline-flex; align-items: center; gap: 6px; margin-bottom: 14px;
+    background: none; border: none; padding: 0; cursor: pointer;
+    font-family: 'Montserrat', sans-serif; font-size: 0.75rem; font-weight: 700; color: var(--red);
+  }
+  .ev-back:hover { text-decoration: underline; }
   .events-list { list-style: none; display: flex; flex-direction: column; gap: 0; }
   .events-list li {
     display: flex; gap: 12px; padding: 11px 0;
@@ -419,6 +428,7 @@
     <div class="events-card">
       <div class="events-card-title" id="ev-panel-title">Events</div>
       <div class="events-card-sub" id="ev-panel-sub"></div>
+      <button type="button" class="ev-back" id="ev-back" hidden>&#8592; Back to the month</button>
       <div class="ev-label" id="ev-label"></div>
       <ul class="events-list" id="ev-list"></ul>
       <div class="upcoming-label" id="upcoming-label" style="display:none;">Upcoming events (next 60 days)</div>
@@ -524,28 +534,46 @@
   var MIN_M      = new Date(2024, 0);
   var MAX_M      = new Date(today.getFullYear() + 2, 11);
   var cur        = new Date(today.getFullYear(), today.getMonth());
+  // Day of the month currently opened in the events panel, or null for the whole
+  // month. Cleared whenever the calendar moves to a different month.
+  var selectedDay = null;
 
   // ─── HELPERS ────────────────────────────────────────────────────────────────
+  //
+  //  Every event date is read with parseYMD, never with new Date(str). A bare
+  //  'YYYY-MM-DD' is parsed as UTC midnight, which is 3am here in Kampala, so a
+  //  calendar cell's local midnight never compared equal to its own event and
+  //  no day was ever circled outside UTC+0.
+  function parseYMD(str) {
+    var p = String(str).split('-');
+    return new Date(+p[0], +p[1] - 1, +p[2]);
+  }
   function sameDay(a, b) {
     return a.getFullYear()===b.getFullYear() && a.getMonth()===b.getMonth() && a.getDate()===b.getDate();
   }
   function dateStr(d) {
     return MONTHS_SH[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear();
   }
-  function getEvent(y, m, d) {
+  function startOfToday() {
+    return new Date(today.getFullYear(), today.getMonth(), today.getDate());
+  }
+  // Every event covering this day, so a day holding two of them keeps both.
+  function eventsOn(y, m, d) {
     var dt = new Date(y, m, d);
-    for (var i = 0; i < events.length; i++) {
-      var s = new Date(events[i].date);
-      var e = events[i].endDate ? new Date(events[i].endDate) : s;
-      if (dt >= s && dt <= e) return events[i];
-    }
-    return null;
+    return events.filter(function(ev) {
+      var s = parseYMD(ev.date);
+      var e = ev.endDate ? parseYMD(ev.endDate) : s;
+      return dt >= s && dt <= e;
+    });
+  }
+  function getEvent(y, m, d) {
+    return eventsOn(y, m, d)[0] || null;
   }
   function isRangeMid(y, m, d) {
     var dt = new Date(y, m, d);
     for (var i = 0; i < events.length; i++) {
       if (!events[i].endDate) continue;
-      if (dt > new Date(events[i].date) && dt < new Date(events[i].endDate)) return true;
+      if (dt > parseYMD(events[i].date) && dt < parseYMD(events[i].endDate)) return true;
     }
     return false;
   }
@@ -587,6 +615,7 @@
         span.title = ev.label + (ev.desc ? ' — ' + ev.desc : '');
       } else if (mid) {
         span.className = 'cal-day range';
+        span.title = 'Part of a multi-day event';
       } else if (isToday) {
         span.className = 'cal-day today';
         span.title = 'Today';
@@ -595,6 +624,17 @@
       } else {
         span.className = 'cal-day';
       }
+      // Days carrying an event open in the panel when clicked; the rest are inert.
+      if (ev || mid) {
+        span.dataset.day = d;
+        span.setAttribute('role', 'button');
+        span.setAttribute('tabindex', '0');
+        span.setAttribute('aria-label', dateStr(dayDt) + (ev ? ' — ' + ev.label : ''));
+        if (selectedDay === d) {
+          span.classList.add('is-selected');
+          span.setAttribute('aria-current', 'date');
+        }
+      }
       cell.appendChild(span); grid.appendChild(cell);
     }
 
@@ -602,9 +642,56 @@
   }
 
   // ─── RENDER EVENTS PANEL ────────────────────────────────────────────────────
+  // One row of the panel list, shared by the day, month and upcoming views.
+  function eventItem(ev, dStr) {
+    var li = document.createElement('li');
+    li.innerHTML =
+      '<div class="ev-dot" style="background:' + (typeColor[ev.type]||'var(--red)') + '"></div>' +
+      '<div class="ev-content">' +
+        '<div class="ev-date-str">' + dStr + '</div>' +
+        '<div class="ev-name">' + ev.label + '</div>' +
+        (ev.desc ? '<div class="ev-desc">' + ev.desc + '</div>' : '') +
+      '</div>';
+    return li;
+  }
+
+  // The panel showing a single clicked day, with everything scheduled on it.
+  function renderDay(y, m, d) {
+    var dayEvs = eventsOn(y, m, d);
+    document.getElementById('ev-panel-title').textContent = dateStr(new Date(y, m, d));
+    document.getElementById('ev-panel-sub').textContent =
+      dayEvs.length + ' event' + (dayEvs.length === 1 ? '' : 's') + ' on this day';
+    document.getElementById('ev-back').hidden = false;
+    document.getElementById('ev-label').textContent = 'On this day';
+    document.getElementById('upcoming-label').style.display = 'none';
+    document.getElementById('upcoming-list').innerHTML = '';
+
+    var evList = document.getElementById('ev-list');
+    evList.innerHTML = '';
+
+    // The day can empty out under us if the live list lands while it is open.
+    if (!dayEvs.length) {
+      var none = document.createElement('li');
+      none.innerHTML = '<div class="no-events">Nothing scheduled on this day.</div>';
+      evList.appendChild(none);
+      return;
+    }
+
+    dayEvs.forEach(function(ev) {
+      var dStr = dateStr(parseYMD(ev.date));
+      // Show the whole span when the day sits inside a longer event.
+      if (ev.endDate) dStr += ' – ' + dateStr(parseYMD(ev.endDate));
+      evList.appendChild(eventItem(ev, dStr));
+    });
+  }
+
   function renderEvents(y, m) {
+    if (selectedDay) { renderDay(y, m, selectedDay); return; }
+    document.getElementById('ev-back').hidden = true;
+
     var monthEvs = events.filter(function(ev) {
-      return new Date(ev.date).getMonth() === m && new Date(ev.date).getFullYear() === y;
+      var s = parseYMD(ev.date);
+      return s.getMonth() === m && s.getFullYear() === y;
     });
     document.getElementById('ev-panel-title').textContent = MONTHS[m] + ' ' + y + ' Events';
     document.getElementById('ev-panel-sub').textContent   = monthEvs.length
@@ -617,18 +704,10 @@
     if (monthEvs.length) {
       evLabel.textContent = 'This month';
       monthEvs.forEach(function(ev) {
-        var s   = new Date(ev.date);
+        var s   = parseYMD(ev.date);
         var dStr = MONTHS_SH[s.getMonth()] + ' ' + s.getDate();
-        if (ev.endDate) dStr += ' – ' + new Date(ev.endDate).getDate();
-        var li = document.createElement('li');
-        li.innerHTML =
-          '<div class="ev-dot" style="background:' + (typeColor[ev.type]||'var(--red)') + '"></div>' +
-          '<div class="ev-content">' +
-            '<div class="ev-date-str">' + dStr + '</div>' +
-            '<div class="ev-name">' + ev.label + '</div>' +
-            (ev.desc ? '<div class="ev-desc">' + ev.desc + '</div>' : '') +
-          '</div>';
-        evList.appendChild(li);
+        if (ev.endDate) dStr += ' – ' + parseYMD(ev.endDate).getDate();
+        evList.appendChild(eventItem(ev, dStr));
       });
     } else {
       evLabel.textContent = '';
@@ -640,24 +719,16 @@
     upList.innerHTML = '';
     var viewingNow = y === today.getFullYear() && m === today.getMonth();
     if (viewingNow) {
-      var cutoff = new Date(today.getTime() + 60 * 24 * 60 * 60 * 1000);
+      var from   = startOfToday();
+      var cutoff = new Date(from.getFullYear(), from.getMonth(), from.getDate() + 60);
       var upcoming = events.filter(function(ev) {
-        var d = new Date(ev.date);
-        return d >= today && d <= cutoff;
+        var d = parseYMD(ev.date);
+        return d >= from && d <= cutoff;
       });
       if (upcoming.length) {
         upLabel.style.display = '';
         upcoming.forEach(function(ev) {
-          var s = new Date(ev.date);
-          var li = document.createElement('li');
-          li.innerHTML =
-            '<div class="ev-dot" style="background:' + (typeColor[ev.type]||'var(--red)') + '"></div>' +
-            '<div class="ev-content">' +
-              '<div class="ev-date-str">' + dateStr(s) + '</div>' +
-              '<div class="ev-name">' + ev.label + '</div>' +
-              (ev.desc ? '<div class="ev-desc">' + ev.desc + '</div>' : '') +
-            '</div>';
-          upList.appendChild(li);
+          upList.appendChild(eventItem(ev, dateStr(parseYMD(ev.date))));
         });
       } else {
         upLabel.style.display = 'none';
@@ -674,15 +745,6 @@
   var period   = 'all';
   var fromDate = null;
   var toDate   = null;
-
-  // 'YYYY-MM-DD' read as a local date, so a period boundary never slips a day.
-  function parseYMD(str) {
-    var p = String(str).split('-');
-    return new Date(+p[0], +p[1] - 1, +p[2]);
-  }
-  function startOfToday() {
-    return new Date(today.getFullYear(), today.getMonth(), today.getDate());
-  }
 
   // The window the table is showing, as { from, to } — either side may be null,
   // meaning "no limit in that direction".
@@ -815,20 +877,56 @@
     var t = new Date(y, m);
     if (t < MIN_M) t = new Date(MIN_M);
     if (t > MAX_M) t = new Date(MAX_M.getFullYear(), MAX_M.getMonth());
-    cur = t; render();
+    goTo(t);
+  }
+
+  // Moving to another month drops the opened day — it belongs to the old one.
+  function goTo(date) {
+    cur = date;
+    selectedDay = null;
+    render();
   }
 
   // ─── TODAY BUTTON ────────────────────────────────────────────────────────────
   window.goToday = function() {
-    cur = new Date(today.getFullYear(), today.getMonth()); render();
+    goTo(new Date(today.getFullYear(), today.getMonth()));
   };
 
   // ─── NAV BUTTONS ─────────────────────────────────────────────────────────────
   document.getElementById('cal-prev').addEventListener('click', function() {
-    cur = new Date(cur.getFullYear(), cur.getMonth() - 1); render();
+    goTo(new Date(cur.getFullYear(), cur.getMonth() - 1));
   });
   document.getElementById('cal-next').addEventListener('click', function() {
-    cur = new Date(cur.getFullYear(), cur.getMonth() + 1); render();
+    goTo(new Date(cur.getFullYear(), cur.getMonth() + 1));
+  });
+
+  // ─── DAY SELECTION ───────────────────────────────────────────────────────────
+  // Delegated, because render() rebuilds every cell from scratch each time.
+  function openDay(d) {
+    selectedDay = (selectedDay === d) ? null : d;   // clicking again closes it
+    render();
+    // Below 900px the panel drops under the calendar, so bring it into view.
+    if (selectedDay && window.matchMedia('(max-width: 900px)').matches) {
+      document.querySelector('.events-card').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+
+  var calGrid = document.getElementById('cal-grid');
+  calGrid.addEventListener('click', function(e) {
+    var day = e.target.closest('.cal-day[data-day]');
+    if (day) openDay(+day.dataset.day);
+  });
+  calGrid.addEventListener('keydown', function(e) {
+    if (e.key !== 'Enter' && e.key !== ' ') return;
+    var day = e.target.closest('.cal-day[data-day]');
+    if (!day) return;
+    e.preventDefault();                              // stop Space scrolling the page
+    openDay(+day.dataset.day);
+  });
+
+  document.getElementById('ev-back').addEventListener('click', function() {
+    selectedDay = null;
+    render();
   });
 
   // ─── SHARE / COPY LINK ───────────────────────────────────────────────────────

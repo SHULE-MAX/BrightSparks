@@ -7,9 +7,23 @@ import { createPortal } from 'react-dom';
  * and keeps its footer buttons visible while long forms scroll.
  */
 export default function Modal({ open, title, subtitle, onClose, children, footer, wide = false }) {
-  const panelRef = useRef(null);
+  const bodyRef = useRef(null);
   const previouslyFocused = useRef(null);
 
+  /* Every manager passes onClose as an inline arrow, so it is a different
+     function on each render. Reading it from a ref keeps the Escape handler
+     pointing at the current one WITHOUT making it a dependency of the effect
+     below — see the comment there for why that matters. */
+  const onCloseRef = useRef(onClose);
+  useEffect(() => {
+    onCloseRef.current = onClose;
+  });
+
+  /* Depends on `open` alone, deliberately.
+     Including onClose here meant the effect tore down and re-ran on every
+     keystroke: the cleanup handed focus back to the button behind the modal
+     and the re-run then moved it again, so a field went dead after a single
+     character and had to be clicked again for the next one. */
   useEffect(() => {
     if (!open) return undefined;
 
@@ -18,13 +32,15 @@ export default function Modal({ open, title, subtitle, onClose, children, footer
     document.body.style.overflow = 'hidden';
 
     const onKeyDown = (e) => {
-      if (e.key === 'Escape') onClose();
+      if (e.key === 'Escape') onCloseRef.current?.();
     };
     document.addEventListener('keydown', onKeyDown);
 
-    // Land focus inside the dialog rather than leaving it on the page behind.
-    const first = panelRef.current?.querySelector(
-      'input, select, textarea, [contenteditable], button'
+    /* Land on the first field the editor actually fills in. Searching the
+       whole panel would find the ✕ close button first, since it sits above
+       the form in the header. */
+    const first = bodyRef.current?.querySelector(
+      'input, select, textarea, [contenteditable]'
     );
     first?.focus();
 
@@ -33,7 +49,7 @@ export default function Modal({ open, title, subtitle, onClose, children, footer
       document.body.style.overflow = overflow;
       previouslyFocused.current?.focus?.();
     };
-  }, [open, onClose]);
+  }, [open]);
 
   if (!open) return null;
 
@@ -45,7 +61,6 @@ export default function Modal({ open, title, subtitle, onClose, children, footer
       }}
     >
       <div
-        ref={panelRef}
         role="dialog"
         aria-modal="true"
         aria-label={title}
@@ -67,7 +82,9 @@ export default function Modal({ open, title, subtitle, onClose, children, footer
           </button>
         </header>
 
-        <div className="max-h-[70vh] flex-1 overflow-y-auto px-6 py-5">{children}</div>
+        <div ref={bodyRef} className="max-h-[70vh] flex-1 overflow-y-auto px-6 py-5">
+          {children}
+        </div>
 
         {footer && (
           <footer className="flex flex-wrap items-center justify-end gap-3 border-t border-slate-200 bg-slate-50 px-6 py-4">

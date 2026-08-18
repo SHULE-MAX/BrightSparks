@@ -32,8 +32,16 @@ export default function Layout() {
   const sidebar = (
     <nav className="flex h-full flex-col gap-1 p-3">
       <div className="mb-4 px-3 pt-3">
-        <p className="text-xs font-bold tracking-widest text-white/50 uppercase">Bright Sparks</p>
-        <p className="text-lg leading-tight font-extrabold text-white">Website Manager</p>
+        {/* On the white panel for the same reason as the login screen: the
+            logo's navy lettering would disappear straight into the sidebar. */}
+        <img
+          src="/logo.webp"
+          alt="Bright Sparks Junior School"
+          width="1257"
+          height="666"
+          className="mb-2.5 h-auto w-full rounded-lg bg-white/95 px-2.5 py-2"
+        />
+        <p className="text-sm leading-tight font-extrabold text-white">Website Manager</p>
       </div>
 
       {NAV.map((item) => (

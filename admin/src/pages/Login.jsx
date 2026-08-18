@@ -45,12 +45,19 @@ export default function Login() {
   return (
     <div className="flex min-h-full items-center justify-center bg-gradient-to-br from-navy-deep via-navy to-navy-mid p-5">
       <div className="w-full max-w-md">
-        <div className="mb-6 text-center text-white">
-          <div aria-hidden="true" className="text-4xl">
-            ✨
-          </div>
-          <h1 className="mt-2 text-2xl font-extrabold">Bright Sparks Junior School</h1>
-          <p className="mt-1 text-sm text-white/70">Website Manager</p>
+        <div className="mb-6 text-center">
+          {/* The logo's lettering is navy and green, so it needs a light panel
+              behind it on this background — the same treatment the school
+              website gives it in its own navy header. The school name lives in
+              the alt text rather than being repeated as a heading below. */}
+          <img
+            src="/logo.webp"
+            alt="Bright Sparks Junior School"
+            width="1257"
+            height="666"
+            className="mx-auto h-auto w-56 rounded-xl bg-white/95 px-4 py-3 shadow-lg"
+          />
+          <h1 className="mt-4 text-lg font-bold tracking-wide text-white/80">Website Manager</h1>
         </div>
 
         <form

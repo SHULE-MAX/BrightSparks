@@ -214,9 +214,49 @@
   .all-events-card {
     background: var(--white); border-radius: var(--radius); padding: 28px;
     box-shadow: 0 2px 16px rgba(26,46,110,0.08); margin-top: 28px;
-    overflow-x: auto;
   }
-  .all-events-card h2 { font-size: 1.1rem; color: var(--navy); font-weight: 800; margin-bottom: 18px; }
+  .events-table-wrap { overflow-x: auto; }
+  .all-events-card h2 { font-size: 1.1rem; color: var(--navy); font-weight: 800; }
+  .all-events-head {
+    display: flex; align-items: baseline; justify-content: space-between;
+    gap: 12px; flex-wrap: wrap; margin-bottom: 14px;
+  }
+  .ev-count { font-size: 0.75rem; color: var(--text-muted); font-weight: 600; white-space: nowrap; }
+
+  /* PERIOD FILTER */
+  .ev-filter-bar {
+    display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+    background: var(--cream); border-radius: var(--radius-sm);
+    padding: 12px 14px; margin-bottom: 18px;
+  }
+  .ev-filter-label {
+    font-size: 0.68rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.08em; color: var(--text-muted); white-space: nowrap;
+  }
+  .ev-chips { display: flex; gap: 7px; flex-wrap: wrap; }
+  .ev-chip {
+    padding: 6px 13px; border: 1.5px solid rgba(26,46,110,0.16); border-radius: 999px;
+    background: var(--white); color: var(--navy); cursor: pointer;
+    font-family: 'Montserrat', sans-serif; font-size: 0.76rem; font-weight: 700;
+    transition: background 0.15s, border-color 0.15s, color 0.15s; white-space: nowrap;
+  }
+  .ev-chip:hover { border-color: var(--navy); }
+  .ev-chip.is-active { background: var(--navy); border-color: var(--navy); color: #fff; }
+  .ev-range { display: flex; align-items: center; gap: 7px; flex-wrap: wrap; margin-left: auto; }
+  .ev-range label { font-size: 0.7rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; }
+  .ev-range input {
+    padding: 6px 9px; border: 1.5px solid rgba(26,46,110,0.18); border-radius: var(--radius-sm);
+    font-family: 'Montserrat', sans-serif; font-size: 0.78rem; color: var(--text);
+    background: var(--white); outline: none; transition: border-color 0.2s;
+  }
+  .ev-range input:focus { border-color: var(--navy); }
+  .ev-clear {
+    background: none; border: none; cursor: pointer; padding: 4px 6px;
+    font-family: 'Montserrat', sans-serif; font-size: 0.74rem; font-weight: 700;
+    color: var(--red); text-decoration: underline;
+  }
+  .ev-empty { text-align: center; color: var(--text-muted); font-size: 0.85rem; padding: 26px 10px; }
+
   .events-table { width: 100%; border-collapse: collapse; }
   .events-table th {
     text-align: left; font-size: 0.7rem; font-weight: 700; text-transform: uppercase;
@@ -261,6 +301,9 @@
     .jump-bar { gap: 8px; }
     .share-url-box { display: none; }
     .all-events-card { padding: 18px; }
+    .ev-filter-bar { gap: 10px; }
+    .ev-range { margin-left: 0; width: 100%; }
+    .ev-range input { flex: 1; min-width: 0; }
     .events-table { min-width: 480px; }
     .events-table th, .events-table td { padding: 8px 6px; }
   }
@@ -386,18 +429,43 @@
 
   <!-- ALL EVENTS TABLE -->
   <div class="all-events-card">
-    <h2>All Scheduled Events</h2>
-    <table class="events-table" id="all-events-table">
-      <thead>
-        <tr>
-          <th>Date</th>
-          <th>Event</th>
-          <th>Description</th>
-          <th>Type</th>
-        </tr>
-      </thead>
-      <tbody id="all-events-body"></tbody>
-    </table>
+    <div class="all-events-head">
+      <h2>All Scheduled Events</h2>
+      <div class="ev-count" id="ev-count"></div>
+    </div>
+
+    <div class="ev-filter-bar">
+      <span class="ev-filter-label">Period</span>
+      <div class="ev-chips" id="ev-chips">
+        <button type="button" class="ev-chip is-active" data-period="all">All</button>
+        <button type="button" class="ev-chip" data-period="upcoming">Upcoming</button>
+        <button type="button" class="ev-chip" data-period="month">This month</button>
+        <button type="button" class="ev-chip" data-period="quarter">Next 3 months</button>
+        <button type="button" class="ev-chip" data-period="year">This year</button>
+        <button type="button" class="ev-chip" data-period="past">Past</button>
+      </div>
+      <div class="ev-range">
+        <label for="ev-from">From</label>
+        <input type="date" id="ev-from">
+        <label for="ev-to">To</label>
+        <input type="date" id="ev-to">
+        <button type="button" class="ev-clear" id="ev-clear" hidden>Clear dates</button>
+      </div>
+    </div>
+
+    <div class="events-table-wrap">
+      <table class="events-table" id="all-events-table">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Event</th>
+            <th>Description</th>
+            <th>Type</th>
+          </tr>
+        </thead>
+        <tbody id="all-events-body"></tbody>
+      </table>
+    </div>
   </div>
 
 </div>
@@ -599,15 +667,77 @@
     }
   }
 
+  // ─── PERIOD FILTER (ALL EVENTS TABLE) ────────────────────────────────────────
+  //
+  //  'period' is the chosen preset chip. The two date boxes override it: as soon
+  //  as either one is filled the table follows those dates instead of the chip.
+  var period   = 'all';
+  var fromDate = null;
+  var toDate   = null;
+
+  // 'YYYY-MM-DD' read as a local date, so a period boundary never slips a day.
+  function parseYMD(str) {
+    var p = String(str).split('-');
+    return new Date(+p[0], +p[1] - 1, +p[2]);
+  }
+  function startOfToday() {
+    return new Date(today.getFullYear(), today.getMonth(), today.getDate());
+  }
+
+  // The window the table is showing, as { from, to } — either side may be null,
+  // meaning "no limit in that direction".
+  function periodBounds() {
+    if (fromDate || toDate) return { from: fromDate, to: toDate };
+    var t = startOfToday();
+    switch (period) {
+      case 'upcoming': return { from: t, to: null };
+      case 'past':     return { from: null, to: new Date(t.getFullYear(), t.getMonth(), t.getDate() - 1) };
+      case 'month':    return { from: new Date(t.getFullYear(), t.getMonth(), 1),
+                                to:   new Date(t.getFullYear(), t.getMonth() + 1, 0) };
+      case 'quarter':  return { from: t, to: new Date(t.getFullYear(), t.getMonth() + 3, t.getDate()) };
+      case 'year':     return { from: new Date(t.getFullYear(), 0, 1),
+                                to:   new Date(t.getFullYear(), 11, 31) };
+      default:         return { from: null, to: null };
+    }
+  }
+
+  // A multi-day event counts as being in the period if any part of it overlaps.
+  function inPeriod(ev, b) {
+    var s = parseYMD(ev.date);
+    var e = ev.endDate ? parseYMD(ev.endDate) : s;
+    if (b.from && e < b.from) return false;
+    if (b.to   && s > b.to)   return false;
+    return true;
+  }
+
   // ─── POPULATE ALL EVENTS TABLE ───────────────────────────────────────────────
   function buildAllEventsTable() {
-    var sorted = events.slice().sort(function(a, b) { return new Date(a.date) - new Date(b.date); });
+    var bounds = periodBounds();
+    var sorted = events.slice().sort(function(a, b) { return parseYMD(a.date) - parseYMD(b.date); });
+    var shown  = sorted.filter(function(ev) { return inPeriod(ev, bounds); });
+
+    // Looking backwards reads better with the most recent event first.
+    if (period === 'past' && !fromDate && !toDate) shown.reverse();
+
     var tbody = document.getElementById('all-events-body');
     tbody.innerHTML = '';
-    sorted.forEach(function(ev) {
-      var s = new Date(ev.date);
+
+    if (!shown.length) {
+      var backwards = bounds.from && bounds.to && bounds.from > bounds.to;
+      var empty = document.createElement('tr');
+      empty.innerHTML = '<td colspan="4" class="ev-empty">' +
+        (backwards ? 'Check the dates — “From” falls after “To”.'
+                   : 'No events fall in this period.') + '</td>';
+      tbody.appendChild(empty);
+    }
+
+    shown.forEach(function(ev) {
+      var s = parseYMD(ev.date);
       var dStr = MONTHS_SH[s.getMonth()] + ' ' + s.getDate() + ', ' + s.getFullYear();
-      if (ev.endDate) dStr += ' – ' + MONTHS_SH[new Date(ev.endDate).getMonth()] + ' ' + new Date(ev.endDate).getDate();
+      if (ev.endDate) {
+        var e = parseYMD(ev.endDate);
+        dStr += ' – ' + MONTHS_SH[e.getMonth()] + ' ' + e.getDate();
+      }
       var tr = document.createElement('tr');
       tr.innerHTML =
         '<td><strong>' + dStr + '</strong></td>' +
@@ -616,6 +746,52 @@
         '<td><span class="ev-badge ' + ev.type + '">' + (typeLabel[ev.type]||ev.type) + '</span></td>';
       tbody.appendChild(tr);
     });
+
+    document.getElementById('ev-count').textContent =
+      shown.length === sorted.length
+        ? sorted.length + ' event' + (sorted.length === 1 ? '' : 's') + ' in total'
+        : 'Showing ' + shown.length + ' of ' + sorted.length + ' events';
+  }
+
+  // ─── PERIOD FILTER CONTROLS ──────────────────────────────────────────────────
+  function buildPeriodFilter() {
+    var fromInput = document.getElementById('ev-from');
+    var toInput   = document.getElementById('ev-to');
+    var clearBtn  = document.getElementById('ev-clear');
+
+    function syncChips() {
+      var custom = !!(fromDate || toDate);
+      document.querySelectorAll('#ev-chips .ev-chip').forEach(function(chip) {
+        chip.classList.toggle('is-active', !custom && chip.getAttribute('data-period') === period);
+      });
+      clearBtn.hidden = !custom;
+    }
+
+    document.getElementById('ev-chips').addEventListener('click', function(e) {
+      var chip = e.target.closest('.ev-chip');
+      if (!chip) return;
+      period   = chip.getAttribute('data-period');
+      fromDate = toDate = null;
+      fromInput.value = toInput.value = '';
+      syncChips();
+      buildAllEventsTable();
+    });
+
+    function readRange() {
+      fromDate = fromInput.value ? parseYMD(fromInput.value) : null;
+      toDate   = toInput.value   ? parseYMD(toInput.value)   : null;
+      syncChips();
+      buildAllEventsTable();
+    }
+    fromInput.addEventListener('change', readRange);
+    toInput.addEventListener('change', readRange);
+
+    clearBtn.addEventListener('click', function() {
+      fromInput.value = toInput.value = '';
+      readRange();
+    });
+
+    syncChips();
   }
 
   // ─── JUMP SELECTS ───────────────────────────────────────────────────────────
@@ -683,6 +859,7 @@
 
   // ─── INIT ────────────────────────────────────────────────────────────────────
   buildJumpSelects();
+  buildPeriodFilter();
 
   // Redraws everything that depends on the event list.
   function showEvents(list) {

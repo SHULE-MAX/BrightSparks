@@ -444,111 +444,6 @@
 
   <!-- GRID -->
   <div class="gallery-grid" id="galleryGrid">
-
-    <div class="gallery-card" data-category="facilities" data-title="ICT Computer Lab" data-caption="Facilities">
-      <img src="images/assets/ictlab.webp" alt="ICT Computer Lab" loading="lazy">
-      <div class="gallery-caption">
-        <h3>ICT Computer Lab</h3>
-        <span>Facilities</span>
-      </div>
-      <div class="gallery-zoom">&#128269;</div>
-    </div>
-
-    <div class="gallery-card" data-category="facilities" data-title="School Library" data-caption="Facilities">
-      <img src="images/assets/library.webp" alt="School Library" loading="lazy">
-      <div class="gallery-caption">
-        <h3>School Library</h3>
-        <span>Facilities</span>
-      </div>
-      <div class="gallery-zoom">&#128269;</div>
-    </div>
-
-    <div class="gallery-card" data-category="facilities" data-title="School Grounds" data-caption="Facilities">
-      <img src="images/general/school-building.webp"
-           srcset="optimized/images/general/school-building-375w.webp 375w,
-                   optimized/images/general/school-building-663w.webp 663w,
-                   optimized/images/general/school-building-1326w.webp 1326w"
-           sizes="(max-width: 640px) calc(50vw - 10px), (max-width: 1024px) calc(33vw - 12px), 375px"
-           alt="School Grounds & Entrance" loading="lazy">
-      <div class="gallery-caption">
-        <h3>School Grounds</h3>
-        <span>Facilities</span>
-      </div>
-      <div class="gallery-zoom">&#128269;</div>
-    </div>
-
-    <div class="gallery-card" data-category="sports" data-title="Sports Day" data-caption="Sports">
-      <img src="images/general/sports.webp" alt="Sports Day" loading="lazy">
-      <div class="gallery-caption">
-        <h3>Sports Day</h3>
-        <span>Sports</span>
-      </div>
-      <div class="gallery-zoom">&#128269;</div>
-    </div>
-
-    <div class="gallery-card" data-category="events" data-title="Music, Dance &amp; Drama" data-caption="Events">
-      <img src="images/general/MDD.webp" alt="Music, Dance and Drama" loading="lazy">
-      <div class="gallery-caption">
-        <h3>Music, Dance &amp; Drama</h3>
-        <span>Events</span>
-      </div>
-      <div class="gallery-zoom">&#128269;</div>
-    </div>
-
-    <div class="gallery-card" data-category="events" data-title="School Excursions &amp; Tours" data-caption="Events">
-      <img src="images/general/TOURS.webp" alt="School Excursions and Tours" loading="lazy">
-      <div class="gallery-caption">
-        <h3>School Excursions &amp; Tours</h3>
-        <span>Events</span>
-      </div>
-      <div class="gallery-zoom">&#128269;</div>
-    </div>
-
-    <div class="gallery-card" data-category="events" data-title="Welcome Back Ceremony" data-caption="Events">
-      <img src="images/news/Welcome.webp" alt="Welcome Back Ceremony" loading="lazy">
-      <div class="gallery-caption">
-        <h3>Welcome Back Ceremony</h3>
-        <span>Events</span>
-      </div>
-      <div class="gallery-zoom">&#128269;</div>
-    </div>
-
-    <div class="gallery-card" data-category="staff" data-title="School Director" data-caption="Staff">
-      <img src="Director.webp" alt="School Director" loading="lazy">
-      <div class="gallery-caption">
-        <h3>School Director</h3>
-        <span>Staff</span>
-      </div>
-      <div class="gallery-zoom">&#128269;</div>
-    </div>
-
-    <div class="gallery-card" data-category="staff" data-title="Head Teacher" data-caption="Staff">
-      <img src="head teacher.webp" alt="Head Teacher" loading="lazy">
-      <div class="gallery-caption">
-        <h3>Head Teacher</h3>
-        <span>Staff</span>
-      </div>
-      <div class="gallery-zoom">&#128269;</div>
-    </div>
-
-    <div class="gallery-card" data-category="staff" data-title="Deputy Head Teacher" data-caption="Staff">
-      <img src="images/general/Deputy Head Teacher.webp" alt="Deputy Head Teacher" loading="lazy">
-      <div class="gallery-caption">
-        <h3>Deputy Head Teacher</h3>
-        <span>Staff</span>
-      </div>
-      <div class="gallery-zoom">&#128269;</div>
-    </div>
-
-    <div class="gallery-card" data-category="staff" data-title="Head of Kindergarten" data-caption="Staff">
-      <img src="images/general/HeadKindergarten.webp" alt="Head of Kindergarten" loading="lazy">
-      <div class="gallery-caption">
-        <h3>Head of Kindergarten</h3>
-        <span>Staff</span>
-      </div>
-      <div class="gallery-zoom">&#128269;</div>
-    </div>
-
   </div><!-- /gallery-grid -->
 
   <div class="gallery-empty" id="galleryEmpty">
@@ -627,6 +522,7 @@
   <p>&copy; 2026 Bright Sparks Junior School &mdash; Kampala, Uganda &mdash; <a href="index.html">Back to Home</a></p>
 </footer>
 
+<script src="bsjs-data.js"></script>
 <script src="news-data.js"></script>
 <script>
   function slugify(s) {
@@ -656,21 +552,49 @@
   var YT_MAX     = 12; // number of videos to show
   var ytCache    = null; // avoid re-fetching on tab switch
 
-  
-  var TIKTOK_VIDEOS = [
+  // ══════════════════════════════════════════════════════════════════════════
+  //  The photos and TikTok videos on this page are managed in the Website
+  //  Manager dashboard. To add or remove one, use the dashboard — the lists
+  //  below are only the safety net shown if the database cannot be reached.
+  // ══════════════════════════════════════════════════════════════════════════
+  var FALLBACK_TIKTOK = [
     { id: '7560582960806694200', title: 'Prom Party Entry!' },
-    { id: '7632982581956332818', title: 'Parent Testimonies' },
-    // Add more here — each one will appear as a card in the TikTok section
+    { id: '7632982581956332818', title: 'Parent Testimonies' }
   ];
 
+  var FALLBACK_PHOTOS = [
+    { title: 'ICT Computer Lab',         caption: 'Facilities', category: 'facilities', image: 'images/assets/ictlab.webp' },
+    { title: 'School Library',           caption: 'Facilities', category: 'facilities', image: 'images/assets/library.webp' },
+    { title: 'School Grounds',           caption: 'Facilities', category: 'facilities', image: 'images/general/school-building.webp' },
+    { title: 'Sports Day',               caption: 'Sports',     category: 'sports',     image: 'images/general/sports.webp' },
+    { title: 'Music, Dance &amp; Drama', caption: 'Events',     category: 'events',     image: 'images/general/MDD.webp' },
+    { title: 'School Excursions &amp; Tours', caption: 'Events', category: 'events',    image: 'images/general/TOURS.webp' },
+    { title: 'Welcome Back Ceremony',    caption: 'Events',     category: 'events',     image: 'images/news/Welcome.webp' },
+    { title: 'School Director',          caption: 'Staff',      category: 'staff',      image: 'Director.webp' },
+    { title: 'Head Teacher',             caption: 'Staff',      category: 'staff',      image: 'head teacher.webp' },
+    { title: 'Deputy Head Teacher',      caption: 'Staff',      category: 'staff',      image: 'images/general/Deputy Head Teacher.webp' },
+    { title: 'Head of Kindergarten',     caption: 'Staff',      category: 'staff',      image: 'images/general/HeadKindergarten.webp' }
+  ];
+
+  var TIKTOK_VIDEOS = FALLBACK_TIKTOK;
+
   // ── FILTER ───────────────────────────────────────────────
-  var cards = Array.from(document.querySelectorAll('.gallery-card'));
+  // Cards are built from data now rather than written into the HTML, so this
+  // list is filled in by registerCard() as each one is created.
+  var cards = [];
 
   function getVisible() {
     return cards.filter(function(c) { return !c.classList.contains('hidden'); });
   }
 
   function updateCounts() {
+    /* Cards arrive from several loaders that finish in an unpredictable order,
+       so re-read them from the page here. That keeps the counts, the filter
+       and the lightbox's ← → navigation all following what the visitor
+       actually sees, rather than the order the data happened to load in. */
+    var grid = document.getElementById('galleryGrid');
+    if (grid) cards = Array.prototype.slice.call(grid.querySelectorAll('.gallery-card'));
+
     var cats = ['all','facilities','sports','events','staff','blog'];
     cats.forEach(function(cat) {
       var n = cat === 'all'
@@ -695,6 +619,63 @@
   document.querySelectorAll('.filter-btn').forEach(function(btn) {
     btn.addEventListener('click', function() { applyFilter(btn.dataset.filter); });
   });
+
+  /* Every card — a school photo, a news photo or a video — goes through here,
+     so each one is counted, filtered and clickable in exactly the same way. */
+  function registerCard(card) {
+    cards.push(card);
+    card.addEventListener('click', function() {
+      if (card.dataset.youtube !== undefined) {
+        openVideoModal(card);
+      } else {
+        openLightbox(card);
+      }
+    });
+  }
+
+  /** Draws the main photo grid. Called once with the built-in list, then again
+      with the live one from the dashboard. */
+  function renderPhotos(photos) {
+    var grid = document.getElementById('galleryGrid');
+
+    /* Remove only the cards this function put there. News photos, blog photos
+       and videos are added to the same grid by the loaders further down, and
+       they may well have arrived first — clearing the whole grid would throw
+       them away. */
+    cards = cards.filter(function(c) {
+      if (c.dataset.source !== 'gallery') return true;
+      if (c.parentNode) c.parentNode.removeChild(c);
+      return false;
+    });
+
+    // Built as one fragment and placed at the front, so the school's own
+    // photos always lead the grid regardless of which loader finished first.
+    var fragment = document.createDocumentFragment();
+
+    photos.forEach(function(photo) {
+      var card = document.createElement('div');
+      card.className        = 'gallery-card';
+      card.dataset.source   = 'gallery';
+      card.dataset.category = photo.category;
+      card.dataset.title    = photo.title;
+      card.dataset.caption  = photo.caption || '';
+      card.innerHTML =
+        '<img src="' + encodeURI(photo.image) + '" alt="' + photo.title.replace(/"/g, '&quot;') + '" loading="lazy">' +
+        '<div class="gallery-caption">' +
+          '<h3>' + photo.title + '</h3>' +
+          '<span>' + (photo.caption || '') + '</span>' +
+        '</div>' +
+        '<div class="gallery-zoom">&#128269;</div>';
+      fragment.appendChild(card);
+      registerCard(card);
+    });
+
+    grid.insertBefore(fragment, grid.firstChild);
+
+    updateCounts();
+    var active = document.querySelector('.filter-btn.active');
+    applyFilter(active ? active.dataset.filter : 'all');
+  }
 
   updateCounts();
 
@@ -788,17 +769,10 @@
   }
 
   // ── CLICK ROUTING ─────────────────────────────────────────
-  // Photo cards → photo lightbox (← → navigation)
-  // Gallery video cards (data-youtube) → video modal
-  cards.forEach(function(card) {
-    card.addEventListener('click', function() {
-      if (card.dataset.youtube !== undefined) {
-        openVideoModal(card);
-      } else {
-        openLightbox(card);
-      }
-    });
-  });
+  // Handled by registerCard() above, which binds each card as it is created:
+  // photo cards open the lightbox, video cards (data-youtube) open the video
+  // modal. Cards no longer exist in the HTML at load time, so binding them in
+  // one pass here would miss every one of them.
 
   // ── KEYBOARD ──────────────────────────────────────────────
   document.addEventListener('keydown', function(e) {
@@ -936,10 +910,10 @@
           '<h4>Add TikTok Videos</h4>' +
           '<p>TikTok doesn\'t support automatic fetching on static websites, but you can feature specific clips here:</p>' +
           '<ol>' +
-            '<li>Open a video from your TikTok profile on a phone or browser</li>' +
-            '<li>Copy the long number from the URL &mdash; that is the video ID</li>' +
-            '<li>In <code>gallery.html</code>, add <code>{ id: \'THE_NUMBER\', title: \'Your Title\' }</code> to the <code>TIKTOK_VIDEOS</code> array near the top of the script</li>' +
-            '<li>Save &mdash; each video will appear as a card and play inside the gallery</li>' +
+            '<li>Open the video on TikTok, press <strong>Share</strong>, then <strong>Copy link</strong></li>' +
+            '<li>Sign in to the Website Manager and open <strong>Gallery &rarr; TikTok videos</strong></li>' +
+            '<li>Press <strong>Add a video</strong>, paste the link, and save</li>' +
+            '<li>Each video appears here as a card and plays inside the gallery</li>' +
           '</ol>' +
         '</div>';
       return;
@@ -993,9 +967,8 @@
                 '<span>Blog</span>' +
               '</div>' +
               '<div class="gallery-zoom">&#128269;</div>';
-            grid.insertBefore(card, emptyEl);
-            cards.push(card);
-            card.addEventListener('click', function() { openLightbox(card); });
+            grid.appendChild(card);
+            registerCard(card);
             added = true;
           }
           // YouTube video cards from post content
@@ -1021,9 +994,8 @@
                 '<span>Video</span>' +
               '</div>' +
               '<div class="gallery-zoom">&#128269;</div>';
-            grid.insertBefore(vcard, emptyEl);
-            cards.push(vcard);
-            (function(vc) { vc.addEventListener('click', function() { openVideoModal(vc); }); })(vcard);
+            grid.appendChild(vcard);
+            registerCard(vcard);
             added = true;
           }
         });
@@ -1033,13 +1005,15 @@
   }
 
   // ── NEWS ARTICLE IMAGES ───────────────────────────────────
-  function loadNewsGallery() {
-    if (typeof ARTICLES === 'undefined') return;
-    var grid    = document.getElementById('galleryGrid');
-    var emptyEl = document.getElementById('galleryEmpty');
-    var catMap  = { sports: 'sports', events: 'events', academics: 'blog', clubs: 'blog' };
+  // Photos attached to news articles appear here automatically, so staff only
+  // ever upload them once — in the News section of the dashboard.
+  function loadNewsGallery(articles) {
+    if (!articles || !articles.length) return;
+    var grid       = document.getElementById('galleryGrid');
+    var catMap     = { sports: 'sports', events: 'events', academics: 'blog', clubs: 'blog' };
     var captionMap = { sports: 'Sports', events: 'Events', blog: 'News' };
-    ARTICLES.filter(function(a) { return !a.pinned && a.image; })
+
+    articles.filter(function(a) { return !a.pinned && a.image; })
       .forEach(function(art) {
         var cat   = catMap[art.category] || 'blog';
         var title = art.title.replace(/&amp;/g, '&').replace(/<[^>]*>/g, '');
@@ -1049,23 +1023,55 @@
         card.dataset.title    = title;
         card.dataset.caption  = captionMap[cat] || 'News';
         card.innerHTML =
-          '<img src="' + art.image + '" alt="' + title.replace(/"/g, '&quot;') + '" loading="lazy">' +
+          '<img src="' + encodeURI(art.image) + '" alt="' + title.replace(/"/g, '&quot;') + '" loading="lazy">' +
           '<div class="gallery-caption">' +
             '<h3>' + title + '</h3>' +
             '<span>' + (art.dateLabel || '') + '</span>' +
           '</div>' +
           '<div class="gallery-zoom">&#128269;</div>';
-        grid.insertBefore(card, emptyEl);
-        cards.push(card);
-        (function(c) { c.addEventListener('click', function() { openLightbox(c); }); })(card);
+        grid.appendChild(card);
+        registerCard(card);
       });
     updateCounts();
   }
 
-  loadNewsGallery();
+  // ── LOADING EVERYTHING ────────────────────────────────────
+  // Draw the built-in photos immediately so the page is never empty, then
+  // replace them with the live gallery from the dashboard.
+  renderPhotos(FALLBACK_PHOTOS);
+
+  if (window.BSJS) {
+    BSJS.fetchGallery()
+      .then(function(photos) {
+        if (photos && photos.length) renderPhotos(photos);
+      })
+      .catch(function(error) {
+        console.warn('[Gallery] Showing the built-in photo list:', error.message);
+      });
+
+    BSJS.fetchTiktok()
+      .then(function(videos) {
+        if (videos && videos.length) {
+          TIKTOK_VIDEOS = videos;
+          loadTikTok();
+        }
+      })
+      .catch(function(error) {
+        console.warn('[Gallery] Showing the built-in TikTok list:', error.message);
+      });
+
+    // News photos come from the dashboard, falling back to the built-in list.
+    BSJS.fetchArticles()
+      .then(loadNewsGallery)
+      .catch(function() { loadNewsGallery(typeof ARTICLES !== 'undefined' ? ARTICLES : []); });
+  } else {
+    loadNewsGallery(typeof ARTICLES !== 'undefined' ? ARTICLES : []);
+  }
+
   loadWPGallery();
 </script>
 <script src="chatbot.js"></script>
 <script src="cookies-banner.js"></script>
+<script src="analytics.js"></script>
 </body>
 </html>

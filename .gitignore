@@ -1,4 +1,13 @@
 node_modules/
-package.json
-package-lock.json
+
+# Root-only build helpers for the image scripts. These patterns are anchored
+# with a leading slash on purpose — unanchored they would also swallow
+# admin/package.json, which Railway needs in order to build the dashboard.
+/package.json
+/package-lock.json
 convert-webp.mjs
+
+# Admin dashboard
+admin/dist/
+admin/.env
+admin/.env.local

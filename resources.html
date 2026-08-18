@@ -331,75 +331,6 @@
   <p class="section-sub" data-section="cat-newsletter">Term-by-term newsletters keeping parents informed of school life, achievements, and upcoming activities.</p>
 
   <div class="doc-grid" id="docGrid">
-
-    <!-- Circular: Term II Roadmap -->
-    <div class="doc-card cat-circular" data-cat="cat-circular">
-      <span class="doc-badge cat-circular">Circular</span>
-      <div class="doc-body">
-        <div class="doc-title">Term II Roadmap Circular</div>
-        <div class="doc-desc">Official Term II communication to parents covering the term schedule, key dates, fees deadlines, and school expectations for the term.</div>
-      </div>
-      <div class="doc-meta">
-        <span class="doc-meta-item">&#128197; Term II 2026</span>
-        <span class="doc-meta-item">&#128196; PDF &middot; 213 KB</span>
-      </div>
-      <a href="Resources/School Circular_ Term II Roadmap.pdf" class="btn-download" download>
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-        Download PDF
-      </a>
-    </div>
-
-    <!-- Rules & Regulations -->
-    <div class="doc-card cat-rules" data-cat="cat-rules">
-      <span class="doc-badge cat-rules">Rules &amp; Regulations</span>
-      <div class="doc-body">
-        <div class="doc-title">Draft Rules &amp; Regulations</div>
-        <div class="doc-desc">The school's official rules and regulations governing pupil conduct, discipline, uniform, attendance, and general school expectations for all enrolled pupils.</div>
-      </div>
-      <div class="doc-meta">
-        <span class="doc-meta-item">&#128197; Rules and Reulations 2026</span>
-        <span class="doc-meta-item">&#128196; PDF &middot; 176 KB</span>
-      </div>
-      <a href="Resources/Draft Rules and Regulations.pdf" class="btn-download" download>
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-        Download PDF
-      </a>
-    </div>
-
-    <!-- Newsletter -->
-    <div class="doc-card cat-newsletter" data-cat="cat-newsletter">
-      <span class="doc-badge cat-newsletter">Newsletter</span>
-      <div class="doc-body">
-        <div class="doc-title">Term II Newsletter 2026</div>
-        <div class="doc-desc">Highlights from Term II upcoming events.</div>
-      </div>
-      <div class="doc-meta">
-        <span class="doc-meta-item">&#128197; Term II 2026</span>
-        <span class="doc-meta-item">&#128196; PDF</span>
-      </div>
-      <a href="Resources/Term II 2026 Opening Circular.pdf" class="btn-download" download>
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-        Download PDF
-      </a>
-    </div>
-
-    <!-- School Routine / Workplan -->
-    <div class="doc-card cat-workplan" data-cat="cat-workplan">
-      <span class="doc-badge cat-workplan">Workplan &amp; Routine</span>
-      <div class="doc-body">
-        <div class="doc-title">School Routine</div>
-        <div class="doc-desc">The official school daily and weekly routine showing the timetable structure, lesson periods, break times, and activity schedules across all classes.</div>
-      </div>
-      <div class="doc-meta">
-        <span class="doc-meta-item">&#128197; School Routine 2026</span>
-        <span class="doc-meta-item">&#128196; PDF &middot; 57 KB</span>
-      </div>
-      <a href="Resources/SCHOOL ROUTINE.pdf" class="btn-download" download>
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-        Download PDF
-      </a>
-    </div>
-
   </div>
 
   <!-- EMPTY STATE (shown when filter has no results) -->
@@ -436,12 +367,77 @@
   </p>
 </footer>
 
+<script src="bsjs-data.js"></script>
 <script>
 (function () {
-  var cards  = document.querySelectorAll('.doc-card');
-  var empty  = document.getElementById('emptyState');
-  var count  = document.getElementById('filterCount');
+  // ══════════════════════════════════════════════════════════════════════════
+  //  The documents on this page are managed in the Website Manager dashboard.
+  //  To add, replace or remove a PDF, use the dashboard — nothing here needs
+  //  to change. The list below is only the safety net shown if the database
+  //  cannot be reached.
+  // ══════════════════════════════════════════════════════════════════════════
+  var FALLBACK_DOCS = [
+    { title: 'Term II Roadmap Circular', category: 'circular', metaLabel: 'Term II 2026', sizeLabel: '209 KB',
+      fileUrl: 'Resources/School Circular_ Term II Roadmap.pdf',
+      description: 'Official Term II communication to parents covering the term schedule, key dates, fees deadlines, and school expectations for the term.' },
+    { title: 'Draft Rules &amp; Regulations', category: 'rules', metaLabel: 'Rules and Regulations 2026', sizeLabel: '172 KB',
+      fileUrl: 'Resources/Draft Rules and Regulations.pdf',
+      description: 'The school\'s official rules and regulations governing pupil conduct, discipline, uniform, attendance, and general school expectations for all enrolled pupils.' },
+    { title: 'Term II Newsletter 2026', category: 'newsletter', metaLabel: 'Term II 2026', sizeLabel: '197 KB',
+      fileUrl: 'Resources/Term II 2026 Opening Circular.pdf',
+      description: 'Highlights from Term II upcoming events.' },
+    { title: 'School Routine', category: 'workplan', metaLabel: 'School Routine 2026', sizeLabel: '56 KB',
+      fileUrl: 'Resources/SCHOOL ROUTINE.pdf',
+      description: 'The official school daily and weekly routine showing the timetable structure, lesson periods, break times, and activity schedules across all classes.' }
+  ];
+
+  var BADGE_LABELS = {
+    circular:   'Circular',
+    rules:      'Rules &amp; Regulations',
+    newsletter: 'Newsletter',
+    workplan:   'Workplan &amp; Routine',
+    other:      'Other'
+  };
+
+  var DOWNLOAD_ICON =
+    '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" ' +
+    'stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">' +
+    '<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>' +
+    '<polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>';
+
+  var grid     = document.getElementById('docGrid');
+  var empty    = document.getElementById('emptyState');
+  var count    = document.getElementById('filterCount');
   var sections = document.querySelectorAll('[data-section]');
+
+  // Built fresh on every render, because the cards no longer exist in the HTML.
+  var cards = [];
+
+  function cardHtml(doc) {
+    var cls  = 'cat-' + (BADGE_LABELS[doc.category] ? doc.category : 'other');
+    var meta = [];
+    if (doc.metaLabel) meta.push('<span class="doc-meta-item">&#128197; ' + doc.metaLabel + '</span>');
+    meta.push('<span class="doc-meta-item">&#128196; PDF' + (doc.sizeLabel ? ' &middot; ' + doc.sizeLabel : '') + '</span>');
+
+    return '' +
+      '<div class="doc-card ' + cls + '" data-cat="' + cls + '">' +
+        '<span class="doc-badge ' + cls + '">' + (BADGE_LABELS[doc.category] || BADGE_LABELS.other) + '</span>' +
+        '<div class="doc-body">' +
+          '<div class="doc-title">' + doc.title + '</div>' +
+          '<div class="doc-desc">' + (doc.description || '') + '</div>' +
+        '</div>' +
+        '<div class="doc-meta">' + meta.join('') + '</div>' +
+        '<a href="' + encodeURI(doc.fileUrl) + '" class="btn-download" download>' +
+          DOWNLOAD_ICON + ' Download PDF' +
+        '</a>' +
+      '</div>';
+  }
+
+  function showDocs(docs) {
+    grid.innerHTML = docs.map(cardHtml).join('');
+    cards = Array.prototype.slice.call(grid.querySelectorAll('.doc-card'));
+    filterDocs();
+  }
 
   function updateCount(visible) {
     count.textContent = visible + ' document' + (visible !== 1 ? 's' : '');
@@ -472,11 +468,22 @@
     });
   });
 
-  // Init count
-  updateCount(cards.length);
+  // Show the built-in copy immediately, then swap in the live documents.
+  showDocs(FALLBACK_DOCS);
+
+  if (window.BSJS) {
+    BSJS.fetchResources()
+      .then(function (docs) {
+        if (docs && docs.length) showDocs(docs);
+      })
+      .catch(function (error) {
+        console.warn('[Resources] Showing the built-in document list:', error.message);
+      });
+  }
 })();
 </script>
 <script src="chatbot.js"></script>
 <script src="cookies-banner.js"></script>
+<script src="analytics.js"></script>
 </body>
 </html>

@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,500;0,600;0,700;0,800;0,900;1,700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,500;0,600;0,700;0,800;0,900;1,700&display=swap"></noscript>
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="styles.css?v=20260706">
 <meta name="description" content="Cookies Policy for Bright Sparks Junior School website.">
 <style>
   .policy-hero {
@@ -232,6 +232,11 @@
       <li><strong>Google Fonts</strong> — We use Google Fonts to display consistent typography. Google's servers may log a request when fonts are loaded, which can involve cookies.</li>
     </ul>
     <p>We also use <strong>localStorage</strong> (not a cookie, but a similar browser storage mechanism) to remember that you have acknowledged this cookie notice, so it does not reappear on every visit.</p>
+
+    <h3 style="margin-top:22px;">Counting Visits to Our Own Pages</h3>
+    <p>So that we can see which pages are useful and improve the site, we keep a simple count of the pages opened on this website. This is run entirely by the school on its own systems — no advertising or analytics company is involved, and nothing is shared with anyone.</p>
+    <p>For each page opened we record only: the address of the page, the website you arrived from (if any), whether you are using a phone, tablet or computer, and a randomly generated number that links together the pages of a single visit. That random number is held in <strong>sessionStorage</strong> and is erased the moment you close the tab.</p>
+    <p><strong>We do not record your name, your email address, your IP address, or anything else that could identify you</strong>, and this counting sets no cookies at all. If your browser is set to send a "Do Not Track" signal, we do not count your visit.</p>
   </div>
 
   <div class="policy-section">
@@ -338,5 +343,7 @@
 </script>
 <script src="chatbot.js"></script>
 <script src="cookies-banner.js"></script>
+<script src="bsjs-data.js"></script>
+<script src="analytics.js"></script>
 </body>
 </html>

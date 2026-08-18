@@ -1,0 +1,81 @@
+@import 'tailwindcss';
+
+/* ──────────────────────────────────────────────────────────────────────────
+   Brand palette, taken from the school website's styles.css so the dashboard
+   feels like part of Bright Sparks rather than a generic admin tool.
+   ────────────────────────────────────────────────────────────────────────── */
+@theme {
+  --color-navy: #1a2e6e;
+  --color-navy-mid: #203580;
+  --color-navy-light: #2b42a0;
+  --color-navy-deep: #0d1a45;
+  --color-brand-red: #d32f2f;
+  --color-brand-red-dark: #b71c1c;
+  --color-brand-green: #1b6b3a;
+  --color-brand-green-light: #2e8b57;
+  --color-gold: #e8a020;
+  --color-gold-light: #f5c252;
+  --color-sky: #3b9fd4;
+  --color-cream: #f8fbf8;
+  --color-ink: #1a1a2e;
+  --color-ink-muted: #5a6480;
+
+  --font-sans: 'Montserrat', ui-sans-serif, system-ui, -apple-system, 'Segoe UI',
+    Roboto, sans-serif;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  @apply bg-slate-100 text-ink antialiased;
+  font-family: var(--font-sans);
+}
+
+/* Keyboard focus should always be obvious — staff may navigate by tab. */
+:focus-visible {
+  outline: 2px solid var(--color-navy-light);
+  outline-offset: 2px;
+}
+
+/* Rich-text preview and article bodies rendered inside the dashboard. */
+.prose-bsjs {
+  @apply text-[0.92rem] leading-relaxed text-slate-700;
+}
+.prose-bsjs p {
+  @apply mb-3;
+}
+.prose-bsjs ul {
+  @apply mb-3 list-disc pl-5;
+}
+.prose-bsjs ol {
+  @apply mb-3 list-decimal pl-5;
+}
+.prose-bsjs a {
+  @apply font-semibold text-navy underline;
+}
+.prose-bsjs strong {
+  @apply font-bold text-ink;
+}
+.prose-bsjs h2,
+.prose-bsjs h3 {
+  @apply mt-4 mb-2 font-bold text-ink;
+}
+
+/* The contenteditable news editor needs a visible placeholder when empty. */
+[contenteditable][data-placeholder]:empty::before {
+  content: attr(data-placeholder);
+  @apply text-slate-400;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

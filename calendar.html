@@ -416,10 +416,19 @@
   </p>
 </footer>
 
+<script src="bsjs-data.js"></script>
 <script>
 (function () {
   // ─── EVENT DATA ─────────────────────────────────────────────────────────────
-  var events = [
+  //
+  //  Events are managed in the Website Manager dashboard and loaded from the
+  //  school's database at the bottom of this file. Do NOT edit the list below
+  //  to add or change an event — use the dashboard.
+  //
+  //  This copy is kept only as a safety net: it is what visitors see for the
+  //  moment before the live list arrives, and what they keep seeing if the
+  //  database is ever unreachable.
+  var FALLBACK_EVENTS = [
     // Term II 2026
     { date:'2026-05-27', label:'Eid Al Adhuha',        desc:'Day for Sacrificing animals in rememberance of Faith demonstrated by Prophet Ibrahim', type:'holiday' },
     { date:'2026-05-25', label:'Reporting Day',         desc:'Term II begins — all pupils report to school',                                         type:'key' },
@@ -434,6 +443,9 @@
     { date:'2026-08-13', label:'Fun Day',               desc:'Kindergarten Section',                                                                  type:'event-type' },
     { date:'2026-08-14', label:'Term Closure',          desc:'Official end of Term II — collection day',                                              type:'key' },
   ];
+
+  // The list the page is currently drawing. Swapped for the live one on load.
+  var events = FALLBACK_EVENTS;
 
   var typeColor  = { key:'var(--gold)', 'event-type':'var(--red)', exam:'#e05a1e', holiday:'#1a3a5c' };
   var typeLabel  = { key:'Key Date', 'event-type':'School Event', exam:'Exams', holiday:'Public Holiday' };
@@ -671,11 +683,31 @@
 
   // ─── INIT ────────────────────────────────────────────────────────────────────
   buildJumpSelects();
-  buildAllEventsTable();
-  render();
+
+  // Redraws everything that depends on the event list.
+  function showEvents(list) {
+    events = list;
+    buildAllEventsTable();
+    render();
+  }
+
+  // Draw straight away from the built-in copy so the calendar is never blank,
+  // then replace it with the live list from the dashboard the moment it lands.
+  showEvents(FALLBACK_EVENTS);
+
+  if (window.BSJS) {
+    BSJS.fetchEvents()
+      .then(function (list) {
+        if (list && list.length) showEvents(list);
+      })
+      .catch(function (error) {
+        console.warn('[Calendar] Showing the built-in event list:', error.message);
+      });
+  }
 })();
 </script>
 <script src="chatbot.js"></script>
 <script src="cookies-banner.js"></script>
+<script src="analytics.js"></script>
 </body>
 </html>

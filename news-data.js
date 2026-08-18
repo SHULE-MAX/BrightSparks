@@ -1,35 +1,17 @@
 // ════════════════════════════════════════════════════════════════════════════
 //  NEWS DATA — shared between news.html and gallery.html
 //
-//  To add a new article, copy the template below into the ARTICLES array,
-//  fill in the fields, and save. The article will appear on the news page
-//  and any image will also appear in the gallery (under the matching filter).
+//  ⚠  DO NOT EDIT THIS LIST TO PUBLISH AN ARTICLE.
 //
-//  Template:
-//  {
-//    date:      'YYYY-MM-DD',        // used for sorting — newest shown first
-//    dateLabel: 'Month DD, YYYY',    // displayed on the card
-//    category:  'academics',         // academics | sports | events | clubs
-//    color:     'navy',              // navy | red | green | gold | sky (fallback when no photo)
-//    icon:      '📚',               // emoji shown when no photo is set
-//    image:     'images/news/your-photo.webp',  // OPTIONAL — drop photo in images/news/ folder
-//    title:     'Your headline here',
-//    excerpt:   'One or two sentence preview shown on the card.',
-//    body:      '<p>Full article text. You can use <strong>bold</strong>, lists, etc.</p>'
-//              // To show a photo inside the article, add this inside body:
-//              // '<img src="images/news/your-photo.webp" style="width:100%;border-radius:8px;margin:12px 0">'
-//  }
+//  News is now written in the Website Manager dashboard, which saves it to the
+//  school's database. news.html loads it from there (together with any posts
+//  from the WordPress blog) every time the page opens.
 //
-//  To pin an announcement at the top, add:
-//  {
-//    pinned:      true,
-//    pinnedLabel: '📌 PINNED — May 2026',
-//    borderColor: 'var(--gold)',     // var(--gold) | var(--red) | var(--navy) | var(--green)
-//    title:       'Announcement headline',
-//    body:        'Announcement text. Can include <strong>HTML</strong>.'
-//  }
+//  The list below is kept only as a safety net. It is what visitors see for
+//  the instant before the live articles arrive, and what they keep seeing if
+//  the database is ever unreachable — so the news page is never empty.
 // ════════════════════════════════════════════════════════════════════════════
-var ARTICLES = [
+var FALLBACK_ARTICLES = [
 
   // ── PINNED ANNOUNCEMENTS (shown at top, not in the grid) ─────────────────
   {
@@ -129,4 +111,8 @@ var ARTICLES = [
     body: '<p>Bright Sparks Junior School warmly invites all parents, guardians, and friends to our annual <strong>Academic Day &amp; Club Exhibitions on Saturday, July 11, 2026</strong>.</p><p>This is one of the most celebrated events in our school calendar. Pupils from all classes will display their academic work, creative projects, and the achievements of their co-curricular clubs including:</p><ul><li>Music — Piano &amp; Guitar performances</li><li>Cookery &amp; Baking — tasting display</li><li>Chess &amp; Checkers — live demonstrations</li><li>Ballet &amp; Modelling — performance showcase</li><li>Swimming — certificate presentations</li></ul><p>Academic progress reports and class performance highlights will also be shared with parents during the event.</p><p>Entry is free. Refreshments will be available. We look forward to seeing you!</p>'
   }
 
-]; // end of ARTICLES array
+]; // end of FALLBACK_ARTICLES
+
+// The list the pages actually draw from. news.html replaces this with the live
+// articles once they load; gallery.html reads whatever is current.
+var ARTICLES = FALLBACK_ARTICLES;

@@ -1,0 +1,9 @@
+node_modules
+dist
+.env
+.env.local
+supabase
+README.md
+railway.json
+.dockerignore
+Dockerfile

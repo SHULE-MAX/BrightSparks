@@ -20,8 +20,9 @@
 window.BSJS = (function () {
   'use strict';
 
-  var SUPABASE_URL = 'https://YOUR-PROJECT.supabase.co';
-  var SUPABASE_ANON_KEY = 'YOUR-ANON-PUBLIC-KEY';
+  var SUPABASE_URL = 'https://cbfywxwatrtcfhamksfl.supabase.co';
+  var SUPABASE_ANON_KEY =
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNiZnl3eHdhdHJ0Y2ZoYW1rc2ZsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODcwNDcxMjEsImV4cCI6MjEwMjYyMzEyMX0.AEbwpXE14jAdcNJjrjevbsX5nlBdXhjYGXciIsGI1Nc';
 
   var configured =
     SUPABASE_URL.indexOf('YOUR-PROJECT') === -1 && SUPABASE_ANON_KEY.indexOf('YOUR-ANON') === -1;

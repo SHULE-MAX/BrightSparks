@@ -48,11 +48,18 @@ app.get('/config.js', (_req, res) => {
 app.get('/healthz', (_req, res) => res.json({ ok: true }));
 
 // Hashed asset filenames can be cached hard; index.html never should be.
+//
+// sw.js is the other file that must never be cached. A browser holding an old
+// copy of the service worker would keep serving an old dashboard, and there
+// would be no way to correct it from here.
 app.use(
   express.static(dist, {
     setHeaders(res, filePath) {
-      if (filePath.endsWith('index.html')) res.set('Cache-Control', 'no-store');
-      else if (filePath.includes(`${path.sep}assets${path.sep}`)) {
+      const name = path.basename(filePath);
+      if (name === 'index.html' || name === 'sw.js') res.set('Cache-Control', 'no-store');
+      else if (name === 'manifest.webmanifest' || name === 'offline.html') {
+        res.set('Cache-Control', 'no-cache');
+      } else if (filePath.includes(`${path.sep}assets${path.sep}`)) {
         res.set('Cache-Control', 'public, max-age=31536000, immutable');
       }
     },

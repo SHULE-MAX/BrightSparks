@@ -1,0 +1,61 @@
+{
+  "id": "/",
+  "name": "Bright Sparks — Website Manager",
+  "short_name": "Website Manager",
+  "description": "Update the Bright Sparks Junior School website: calendar, news, resources, gallery and visitor figures.",
+  "lang": "en-GB",
+  "dir": "ltr",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#ffffff",
+  "theme_color": "#1a2e6e",
+  "categories": ["education", "productivity"],
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/maskable-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/icons/maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Calendar",
+      "short_name": "Calendar",
+      "description": "Add or edit term dates and events",
+      "url": "/calendar"
+    },
+    {
+      "name": "News",
+      "short_name": "News",
+      "description": "Write an article or announcement",
+      "url": "/news"
+    },
+    {
+      "name": "Gallery",
+      "short_name": "Gallery",
+      "description": "Add photos and TikTok videos",
+      "url": "/gallery"
+    }
+  ]
+}

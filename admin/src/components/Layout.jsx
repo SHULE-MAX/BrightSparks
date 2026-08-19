@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { NavLink, Navigate, Outlet, useLocation } from 'react-router-dom';
 import { useAuth } from '../lib/AuthContext.jsx';
 import { SITE_URL } from '../lib/supabase.js';
+import { InstallButton, PwaNotices } from './Pwa.jsx';
 
 const NAV = [
   { to: '/', label: 'Visitors', icon: '📊', end: true, blurb: 'How the website is doing' },
@@ -67,6 +68,7 @@ export default function Layout() {
       ))}
 
       <div className="mt-auto border-t border-white/15 pt-3">
+        <InstallButton />
         <a
           href={SITE_URL}
           target="_blank"
@@ -124,6 +126,8 @@ export default function Layout() {
           <Outlet />
         </main>
       </div>
+
+      <PwaNotices />
     </div>
   );
 }

@@ -5,10 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="robots" content="noindex, nofollow" />
     <meta name="theme-color" content="#1A2E6E" />
+    <meta
+      name="description"
+      content="Update the Bright Sparks Junior School website: calendar, news, resources, gallery and visitor figures."
+    />
     <title>Bright Sparks — Website Manager</title>
     <!-- The small copy is used for the tab icon; browsers scale it to 16-32px. -->
     <link rel="icon" type="image/webp" href="/logo-small.webp" />
-    <link rel="apple-touch-icon" href="/logo.webp" />
+
+    <!-- Installable app. The manifest carries the icons, name and colours the
+         operating system uses; the apple-* tags below are Safari's older
+         equivalent, which it still requires on iPhones and iPads. -->
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="Website Manager" />
+    <meta name="application-name" content="Website Manager" />
     <!-- Supabase settings, generated at runtime by the server. Must load first. -->
     <script src="/config.js"></script>
   </head>

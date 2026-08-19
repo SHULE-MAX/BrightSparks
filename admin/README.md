@@ -102,6 +102,43 @@ content change is made in the dashboard and appears on the site immediately.
 
 ---
 
+## Installing it as an app
+
+The dashboard is a **progressive web app**: it can be installed on a phone,
+tablet or computer and then opens in its own window, with its own icon, no
+address bar, and no need to remember the Railway address.
+
+| Where | How |
+|---|---|
+| Android (Chrome) | Sign in, then press **Install app** at the bottom of the menu |
+| Windows / Mac (Chrome or Edge) | The same **Install app** button, or the install icon in the address bar |
+| iPhone / iPad (Safari) | **Share → Add to Home Screen** — the button in the menu shows this reminder |
+
+Long-pressing the installed icon on Android offers shortcuts straight into
+**Calendar**, **News** and **Gallery**.
+
+**What works without a connection:** the app itself opens, so staff on a weak
+signal get the dashboard rather than a browser error page. The content does
+*not*, because every list in here is live data from Supabase that a colleague
+may have changed a minute ago — a stale copy would be worse than an honest
+message. A notice appears while the connection is down, and nothing is saved
+until it returns.
+
+**When a new version is deployed**, the app notices, and offers **Reload**
+rather than swapping itself out mid-edit. Nobody has to clear a cache.
+
+The pieces involved: [`public/manifest.webmanifest`](public/manifest.webmanifest)
+(name, icons, colours), [`public/sw.js`](public/sw.js) (the service worker that
+stores the app's own files), [`public/offline.html`](public/offline.html) (the
+last-resort page) and [`src/lib/pwa.js`](src/lib/pwa.js) (install prompt,
+update prompt, offline flag). The icons in `public/icons/` were generated from
+the school logo in `../favicon_io.zip`.
+
+> The service worker is only registered in the built app, never by
+> `npm run dev`, so it can never serve stale modules while you are working.
+
+---
+
 ## Running it on your own computer
 
 ```bash
@@ -195,6 +232,7 @@ admin/
 │   ├── schema.sql         tables, security policies, analytics functions
 │   ├── seed.sql           one-time import of the old hardcoded content
 │   └── storage-buckets.md file storage setup
+├── public/                logos, app icons, manifest, service worker
 └── src/
     ├── lib/               Supabase client, auth, the shared useCollection hook
     ├── components/        modal, form fields, toasts, file upload, rich text

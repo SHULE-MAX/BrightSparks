@@ -3,13 +3,179 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>News &amp; Announcements | Bright Sparks Junior School</title>
+<meta name="description" content="Stay up to date with the latest news, announcements, and stories from Bright Sparks Junior School in Seguku, Kampala.">
+<link rel="canonical" href="https://brightsparksjunior.ac.ug/news.html">
+
+<!-- max-image-preview:large is what lets a story qualify for Google Discover;
+     without it Google is limited to a thumbnail and Discover skips the page. -->
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+<meta name="author" content="Bright Sparks Junior School">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Bright Sparks Junior School">
+<meta property="og:title" content="News &amp; Announcements | Bright Sparks Junior School">
+<meta property="og:description" content="Latest news, announcements and events from Bright Sparks Junior School in Seguku, Kampala.">
+<meta property="og:url" content="https://brightsparksjunior.ac.ug/news.html">
+<meta property="og:image" content="https://brightsparksjunior.ac.ug/logo.png">
+<meta property="og:locale" content="en_UG">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="News &amp; Announcements | Bright Sparks Junior School">
+<meta name="twitter:description" content="Latest news, announcements and events from Bright Sparks Junior School in Seguku, Kampala.">
+<meta name="twitter:image" content="https://brightsparksjunior.ac.ug/logo.png">
+
 <link rel="icon" type="image/png" href="logo.png">
 <link rel="apple-touch-icon" href="logo.png">
-<meta name="description" content="Stay up to date with the latest news, announcements, and stories from Bright Sparks Junior School in Seguku, Kampala.">
-<title>News &amp; Announcements | Bright Sparks Junior School</title>
+
+<!-- The feed is announced to a WebSub hub by build-news.mjs, so subscribers
+     hear about a new story instead of waiting for the next crawl. -->
+<link rel="alternate" type="application/rss+xml" title="Bright Sparks Junior School News" href="feed.xml">
+<link rel="sitemap" type="application/xml" href="/sitemap.xml">
+
 <link rel="stylesheet" href="fonts/montserrat.css">
 <link rel="preload" as="font" type="font/woff2" crossorigin href="fonts/Montserrat-400-normal-latin.woff2">
 <link rel="preload" as="font" type="font/woff2" crossorigin href="fonts/Montserrat-700-normal-latin.woff2">
+
+<!-- Structured data for this index page — the school as publisher, and an
+     ItemList of the articles below. Written by build-news.mjs. -->
+<!-- BUILD:JSONLD:START -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "CollectionPage",
+      "@id": "https://brightsparksjunior.ac.ug/news.html#webpage",
+      "url": "https://brightsparksjunior.ac.ug/news.html",
+      "name": "News & Announcements | Bright Sparks Junior School",
+      "description": "Latest news, announcements and events from Bright Sparks Junior School in Seguku, Kampala.",
+      "inLanguage": "en-UG",
+      "isPartOf": {
+        "@id": "https://brightsparksjunior.ac.ug/#website"
+      },
+      "publisher": {
+        "@id": "https://brightsparksjunior.ac.ug/#organization"
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://brightsparksjunior.ac.ug/#website",
+      "url": "https://brightsparksjunior.ac.ug/",
+      "name": "Bright Sparks Junior School",
+      "publisher": {
+        "@id": "https://brightsparksjunior.ac.ug/#organization"
+      },
+      "inLanguage": "en-UG"
+    },
+    {
+      "@type": "NewsMediaOrganization",
+      "@id": "https://brightsparksjunior.ac.ug/#organization",
+      "name": "Bright Sparks Junior School",
+      "url": "https://brightsparksjunior.ac.ug/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://brightsparksjunior.ac.ug/logo.png",
+        "width": 1237,
+        "height": 667
+      },
+      "email": "brightsparksjuniorsch@gmail.com",
+      "telephone": "+256 700 116 093",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Seguku-Katale, off Entebbe Road",
+        "addressLocality": "Kampala",
+        "addressCountry": "UG"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://brightsparksjunior.ac.ug/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "News & Announcements",
+          "item": "https://brightsparksjunior.ac.ug/news.html"
+        }
+      ]
+    },
+    {
+      "@type": "ItemList",
+      "name": "Bright Sparks Junior School — latest news",
+      "numberOfItems": 10,
+      "itemListOrder": "https://schema.org/ItemListOrderDescending",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "url": "https://brightsparksjunior.ac.ug/news/academic-day-and-club-exhibitions-july-11-2026/",
+          "name": "Academic Day & Club Exhibitions — July 11, 2026"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "url": "https://brightsparksjunior.ac.ug/news/colour-day-kindergarten-section-june-12/",
+          "name": "Colour Day — Kindergarten Section (June 12)"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "url": "https://brightsparksjunior.ac.ug/news/bright-sparks-celebrates-eid-al-adhuha/",
+          "name": "Bright Sparks Celebrates Eid Al Adhuha"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "url": "https://brightsparksjunior.ac.ug/news/eid-al-adhuha-school-closed-may-27/",
+          "name": "Eid Al Adhuha — School Closed May 27"
+        },
+        {
+          "@type": "ListItem",
+          "position": 5,
+          "url": "https://brightsparksjunior.ac.ug/news/eid-al-adhuha/",
+          "name": "Eid Al Adhuha"
+        },
+        {
+          "@type": "ListItem",
+          "position": 6,
+          "url": "https://brightsparksjunior.ac.ug/news/welcome-back-to-school-for-term-ii-2026/",
+          "name": "Welcome Back to School for Term II 2026!"
+        },
+        {
+          "@type": "ListItem",
+          "position": 7,
+          "url": "https://brightsparksjunior.ac.ug/news/educational-tours-for-p1p7-july-2026/",
+          "name": "Educational Tours for P.1–P.7 — July 2026"
+        },
+        {
+          "@type": "ListItem",
+          "position": 8,
+          "url": "https://brightsparksjunior.ac.ug/news/cookery-and-baking-club-prepares-for-academic-day-exhibition/",
+          "name": "Cookery & Baking Club Prepares for Academic Day Exhibition"
+        },
+        {
+          "@type": "ListItem",
+          "position": 9,
+          "url": "https://brightsparksjunior.ac.ug/news/term-ii-2026-roadmap-released-by-head-teacher/",
+          "name": "Term II 2026 Roadmap Released by Head Teacher"
+        },
+        {
+          "@type": "ListItem",
+          "position": 10,
+          "url": "https://brightsparksjunior.ac.ug/news/football-team-wins-against-st-james-junior-school/",
+          "name": "Football Team Wins Against St. James Junior School"
+        }
+      ]
+    }
+  ]
+}
+</script>
+<!-- BUILD:JSONLD:END -->
 <style>
   :root {
     --red: #D32F2F; --red-dark: #B71C1C;
@@ -94,8 +260,11 @@
     background: var(--white); border-radius: var(--radius); padding: 22px 26px;
     border-left: 5px solid var(--gold); box-shadow: 0 2px 12px rgba(26,46,110,0.07);
   }
-  .announcement h3 { font-size: 1.05rem; color: var(--navy); margin-bottom: 6px; }
-  .announcement p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.65; }
+  .announcement h2, .announcement h3 { font-size: 1.05rem; color: var(--navy); margin-bottom: 6px; }
+  .announcement p, .ann-body { font-size: 0.88rem; color: var(--text-muted); line-height: 1.65; }
+  .ann-body p { margin-bottom: 8px; }
+  .ann-body p:last-child { margin-bottom: 0; }
+  .ann-body strong { color: var(--navy); }
   .ann-date { font-size: 0.74rem; color: var(--gold); font-weight: 700; margin-bottom: 5px; letter-spacing: 0.05em; }
   .ann-read-more { display: inline-flex; align-items: center; gap: 4px; margin-top: 10px; font-size: 0.8rem; font-weight: 700; color: var(--navy); cursor: pointer; background: none; border: none; font-family: inherit; padding: 0; transition: gap 0.2s, color 0.2s; }
   .ann-read-more:hover { gap: 8px; color: var(--red); }
@@ -140,6 +309,10 @@
   }
   .news-card:hover { transform: translateY(-4px); box-shadow: 0 8px 32px rgba(26,46,110,0.14); }
   .news-card.hidden { display: none; }
+  /* Each card is a real link to the article's own page, so a crawler can walk
+     from this index into every story. Clicking still opens the reader here. */
+  .news-card-link { display: flex; flex-direction: column; flex: 1; text-decoration: none; color: inherit; }
+  .news-card-link:focus-visible { outline: 3px solid var(--navy); outline-offset: 2px; border-radius: var(--radius); }
   @keyframes cardIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
   .news-card.card-anim { animation: cardIn 0.22s ease both; }
 
@@ -189,10 +362,20 @@
     animation: modalIn 0.22s ease both;
   }
   @keyframes modalIn { from { opacity: 0; transform: translateY(16px) scale(0.98); } to { opacity: 1; transform: none; } }
+  .modal-box:focus { outline: none; }
   .modal-header { padding: 28px 32px 20px; border-bottom: 1px solid rgba(26,46,110,0.09); position: relative; }
   .modal-cat { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px; }
   .modal-title { font-size: 1.3rem; color: var(--navy); line-height: 1.35; font-weight: 800; padding-right: 32px; }
   .modal-date { font-size: 0.76rem; color: var(--text-muted); margin-top: 8px; }
+  /* Byline and timestamps sit above the story, where Google — and a parent
+     deciding whether to trust it — expects to find them. */
+  .modal-byline { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(26,46,110,0.08); }
+  .modal-byline-name { font-size: 0.8rem; font-weight: 700; color: var(--navy); }
+  .modal-byline-name a { color: inherit; text-decoration: none; border-bottom: 1px solid rgba(26,46,110,0.3); }
+  .modal-byline-name a:hover { color: var(--red); }
+  .modal-byline-times { font-size: 0.72rem; color: var(--text-muted); margin-left: auto; text-align: right; }
+  .modal-permalink { display: inline-flex; align-items: center; gap: 5px; font-size: 0.76rem; font-weight: 700; color: var(--navy); text-decoration: none; margin-top: 4px; }
+  .modal-permalink:hover { color: var(--red); }
   .modal-close {
     position: absolute; top: 20px; right: 20px; background: rgba(26,46,110,0.07);
     border: none; border-radius: 50%; width: 34px; height: 34px; cursor: pointer;
@@ -259,6 +442,9 @@
   /* FOOTER */
   footer { background: var(--navy); color: rgba(255,255,255,0.7); text-align: center; padding: 28px 4%; font-size: 0.82rem; margin-top: 80px; }
   footer a { color: var(--gold-light); text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
+  .footer-policy { margin-top: 10px; font-size: 0.76rem; display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; align-items: center; }
+  .footer-policy span { opacity: 0.4; }
 
   /* RESPONSIVE */
   @media (max-width: 720px) {
@@ -338,11 +524,20 @@
 </div>
 
 <!-- CONTENT -->
-<div class="content-wrap">
+<main class="content-wrap">
   <a href="index.html" class="back-link">&#8592; Back to Home</a>
 
-  <!-- Pinned announcements rendered here by JS -->
-  <div id="pinned-area"></div>
+  <!-- Pinned announcements. Written into the page by build-news.mjs so they are
+       readable before any JavaScript runs; refreshed live once it does. -->
+  <div id="pinned-area">
+    <!-- BUILD:PINNED:START -->
+    <div class="announcement" style="border-left-color:var(--gold)">
+      <div class="ann-date">📌 PINNED — May 2026</div>
+      <h2>Term II 2026 Begins May 25, 2026</h2>
+      <div class="ann-body">All pupils are expected to report on <strong> Monday, May 25, 2026</strong>. Please ensure all fees are cleared before reporting day. Parents will receive the complete Term II schedule, uniform list, and booklist at orientation. Contact the school office for any queries: <strong>+256 700 116 093</strong>.</div>
+    </div>
+<!-- BUILD:PINNED:END -->
+  </div>
 
   <div class="section-label">School News</div>
   <div class="section-heading">Recent <span>Stories</span></div>
@@ -365,6 +560,152 @@
 
   <div class="results-meta" id="resultsMeta"></div>
   <div class="news-grid" id="newsGrid">
+    <!-- The cards below are written into this file by build-news.mjs, so the
+         headlines, dates and summaries are in the HTML the moment the page is
+         served. Every card links to the article's own permanent page. Once the
+         live articles load, the script replaces them with the current set. -->
+    <!-- BUILD:CARDS:START -->
+    <article class="news-card" data-category="academics" data-slug="academic-day-and-club-exhibitions-july-11-2026">
+    <a class="news-card-link" href="news/academic-day-and-club-exhibitions-july-11-2026/">
+      <div class="news-card-img"><img src="images/news/Academics.webp" alt="Academic Day &amp; Club Exhibitions — July 11, 2026" loading="lazy" width="320" height="170"></div>
+      <div class="news-card-body">
+        <div class="news-card-cat cat-academics">Academics</div>
+        <h3 class="news-card-title">Academic Day &amp; Club Exhibitions — July 11, 2026</h3>
+        <p>Join us for our annual Academic Day and Club Exhibitions. Pupils will showcase their academic progress and club achievements. All parents and guardians are warmly invited.</p>
+        <div class="news-card-footer">
+          <time class="news-date" datetime="2026-07-11T09:00:00+03:00">July 11, 2026</time>
+          <span class="read-more">Read more &#8594;</span>
+        </div>
+      </div>
+    </a>
+    </article>
+    <article class="news-card" data-category="events" data-slug="colour-day-kindergarten-section-june-12">
+    <a class="news-card-link" href="news/colour-day-kindergarten-section-june-12/">
+      <div class="news-card-img sky-bg">🎨</div>
+      <div class="news-card-body">
+        <div class="news-card-cat cat-events">Events</div>
+        <h3 class="news-card-title">Colour Day — Kindergarten Section (June 12)</h3>
+        <p>Kindergarten pupils and their families are invited to celebrate Colour Day on June 12, 2026. Children are encouraged to dress in their favourite colours.</p>
+        <div class="news-card-footer">
+          <time class="news-date" datetime="2026-06-12T09:00:00+03:00">June 12, 2026</time>
+          <span class="read-more">Read more &#8594;</span>
+        </div>
+      </div>
+    </a>
+    </article>
+    <article class="news-card" data-category="events" data-slug="bright-sparks-celebrates-eid-al-adhuha">
+    <a class="news-card-link" href="news/bright-sparks-celebrates-eid-al-adhuha/">
+      <div class="news-card-img"><img src="https://brightsparksjunior.ac.ug/wp/wp-content/uploads/2026/05/Eid-al-Adhuha-4.webp" alt="Bright Sparks Celebrates Eid Al Adhuha" loading="lazy" width="320" height="170"></div>
+      <div class="news-card-body">
+        <div class="news-card-cat cat-events">Events</div>
+        <h3 class="news-card-title">Bright Sparks Celebrates Eid Al Adhuha</h3>
+        <p>The Bright Sparks family celebrated Eid al Adhuha with a Cow Sacrificed at Bright Sparks Mpererwe Campus</p>
+        <div class="news-card-footer">
+          <time class="news-date" datetime="2026-05-28T09:13:33Z">May 28, 2026</time>
+          <span class="read-more">Read more &#8594;</span>
+        </div>
+      </div>
+    </a>
+    </article>
+    <article class="news-card" data-category="events" data-slug="eid-al-adhuha-school-closed-may-27">
+    <a class="news-card-link" href="news/eid-al-adhuha-school-closed-may-27/">
+      <div class="news-card-img"><img src="images/news/EID.webp" alt="Eid Al Adhuha — School Closed May 27" loading="lazy" width="320" height="170"></div>
+      <div class="news-card-body">
+        <div class="news-card-cat cat-events">Events</div>
+        <h3 class="news-card-title">Eid Al Adhuha — School Closed May 27</h3>
+        <p>In observance of Eid Al Adhuha, there will be no classes on Wednesday, May 27, 2026. We wish all our Muslim families a blessed celebration.</p>
+        <div class="news-card-footer">
+          <time class="news-date" datetime="2026-05-27T09:00:00+03:00">May 27, 2026</time>
+          <span class="read-more">Read more &#8594;</span>
+        </div>
+      </div>
+    </a>
+    </article>
+    <article class="news-card" data-category="events" data-slug="eid-al-adhuha">
+    <a class="news-card-link" href="news/eid-al-adhuha/">
+      <div class="news-card-img"><img src="https://brightsparksjunior.ac.ug/wp/wp-content/uploads/2026/05/EID.png" alt="Eid Al Adhuha" loading="lazy" width="320" height="170"></div>
+      <div class="news-card-body">
+        <div class="news-card-cat cat-events">Events</div>
+        <h3 class="news-card-title">Eid Al Adhuha</h3>
+        <p>Dear Parents and Guardians, Warm greetings from the Administration of Bright Sparks Junior School. As we approach the blessed occasion of Eid Al-Adha, I take this opportunity on…</p>
+        <div class="news-card-footer">
+          <time class="news-date" datetime="2026-05-26T15:30:27Z">May 26, 2026</time>
+          <span class="read-more">Read more &#8594;</span>
+        </div>
+      </div>
+    </a>
+    </article>
+    <article class="news-card" data-category="academics" data-slug="welcome-back-to-school-for-term-ii-2026">
+    <a class="news-card-link" href="news/welcome-back-to-school-for-term-ii-2026/">
+      <div class="news-card-img"><img src="images/news/Welcome.webp" alt="Welcome Back to School for Term II 2026!" loading="lazy" width="320" height="170"></div>
+      <div class="news-card-body">
+        <div class="news-card-cat cat-academics">Academics</div>
+        <h3 class="news-card-title">Welcome Back to School for Term II 2026!</h3>
+        <p>The start of a new term brings exciting opportunities for learning and growth.</p>
+        <div class="news-card-footer">
+          <time class="news-date" datetime="2026-05-25T09:00:00+03:00">May 25, 2026</time>
+          <span class="read-more">Read more &#8594;</span>
+        </div>
+      </div>
+    </a>
+    </article>
+    <article class="news-card" data-category="events" data-slug="educational-tours-for-p1p7-july-2026">
+    <a class="news-card-link" href="news/educational-tours-for-p1p7-july-2026/">
+      <div class="news-card-img"><img src="images/news/events.webp" alt="Educational Tours for P.1–P.7 — July 2026" loading="lazy" width="320" height="170"></div>
+      <div class="news-card-body">
+        <div class="news-card-cat cat-events">Events</div>
+        <h3 class="news-card-title">Educational Tours for P.1–P.7 — July 2026</h3>
+        <p>Educational tours are planned for all classes from July 14–21, 2026. Destinations include the Airport &amp; Zoo, Source of the Nile, and Murchison Falls.</p>
+        <div class="news-card-footer">
+          <time class="news-date" datetime="2026-05-15T09:00:00+03:00">May 15, 2026</time>
+          <span class="read-more">Read more &#8594;</span>
+        </div>
+      </div>
+    </a>
+    </article>
+    <article class="news-card" data-category="clubs" data-slug="cookery-and-baking-club-prepares-for-academic-day-exhibition">
+    <a class="news-card-link" href="news/cookery-and-baking-club-prepares-for-academic-day-exhibition/">
+      <div class="news-card-img"><img src="images/news/Clubs.webp" alt="Cookery &amp; Baking Club Prepares for Academic Day Exhibition" loading="lazy" width="320" height="170"></div>
+      <div class="news-card-body">
+        <div class="news-card-cat cat-clubs">Clubs</div>
+        <h3 class="news-card-title">Cookery &amp; Baking Club Prepares for Academic Day Exhibition</h3>
+        <p>Our young chefs in the Cookery &amp; Baking Club have been busy preparing for the Academic Day &amp; Club Exhibitions scheduled for July 11, 2026.</p>
+        <div class="news-card-footer">
+          <time class="news-date" datetime="2026-05-10T09:00:00+03:00">May 10, 2026</time>
+          <span class="read-more">Read more &#8594;</span>
+        </div>
+      </div>
+    </a>
+    </article>
+    <article class="news-card" data-category="academics" data-slug="term-ii-2026-roadmap-released-by-head-teacher">
+    <a class="news-card-link" href="news/term-ii-2026-roadmap-released-by-head-teacher/">
+      <div class="news-card-img navy-bg">📋</div>
+      <div class="news-card-body">
+        <div class="news-card-cat cat-academics">Academics</div>
+        <h3 class="news-card-title">Term II 2026 Roadmap Released by Head Teacher</h3>
+        <p>Head Teacher Muneeb Ali Wanyeni has released the comprehensive Term II 2026 roadmap including the full calendar, educational tours for all classes, and key dates for parents.</p>
+        <div class="news-card-footer">
+          <time class="news-date" datetime="2026-04-24T09:00:00+03:00">April 24, 2026</time>
+          <span class="read-more">Read more &#8594;</span>
+        </div>
+      </div>
+    </a>
+    </article>
+    <article class="news-card" data-category="sports" data-slug="football-team-wins-against-st-james-junior-school">
+    <a class="news-card-link" href="news/football-team-wins-against-st-james-junior-school/">
+      <div class="news-card-img"><img src="images/news/Sports.webp" alt="Football Team Wins Against St. James Junior School" loading="lazy" width="320" height="170"></div>
+      <div class="news-card-body">
+        <div class="news-card-cat cat-sports">Sports</div>
+        <h3 class="news-card-title">Football Team Wins Against St. James Junior School</h3>
+        <p>Our football team emerged victorious in a thrilling match against St. James Junior School, greatly boosting school spirit and pride across the campus.</p>
+        <div class="news-card-footer">
+          <time class="news-date" datetime="2026-04-10T09:00:00+03:00">April 10, 2026</time>
+          <span class="read-more">Read more &#8594;</span>
+        </div>
+      </div>
+    </a>
+    </article>
+<!-- BUILD:CARDS:END -->
     <div class="no-results" id="noResults">
       <div class="no-results-icon">&#128269;</div>
       <h3>No articles found</h3>
@@ -372,15 +713,21 @@
       <button id="clearFilters">Clear filters</button>
     </div>
   </div>
-</div>
+</main>
 
 <!-- ARTICLE MODAL -->
 <div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
-  <div class="modal-box" id="modalBox">
+  <div class="modal-box" id="modalBox" role="dialog" aria-modal="true" aria-labelledby="modalTitle" tabindex="-1">
     <div class="modal-header">
       <div class="modal-cat" id="modalCat"></div>
-      <div class="modal-title" id="modalTitle"></div>
-      <div class="modal-date" id="modalDate"></div>
+      <h2 class="modal-title" id="modalTitle"></h2>
+      <div class="modal-byline">
+        <div>
+          <div class="modal-byline-name" id="modalAuthor"></div>
+          <a class="modal-permalink" id="modalPermalink" href="#">&#128279; Open the full article page &#8594;</a>
+        </div>
+        <div class="modal-byline-times" id="modalDate"></div>
+      </div>
       <button class="modal-share" id="modalShare" title="Copy link to this article">&#128279; Copy link</button>
     <button class="modal-close" onclick="closeModalDirect()" title="Close">&#10005;</button>
     </div>
@@ -390,16 +737,30 @@
 </div>
 
 <footer>
-  <p>&copy; 2026 Bright Sparks Junior School &mdash; Kampala, Uganda &mdash; <a href="index.html">Back to Home</a></p>
+  <p>&copy; 2026 Bright Sparks Junior School &mdash; Kampala, Uganda</p>
+  <!-- Google looks for these when judging whether a site is accountable for
+       what it publishes. -->
+  <div class="footer-policy">
+    <a href="index.html">Home</a><span>&bull;</span>
+    <a href="index.html#about">About Us</a><span>&bull;</span>
+    <a href="index.html#contacts">Contact</a><span>&bull;</span>
+    <a href="cookies-policy.html">Cookies &amp; Privacy</a><span>&bull;</span>
+    <a href="feed.xml">RSS Feed</a>
+  </div>
 </footer>
 
 <script src="bsjs-data.js"></script>
 <script src="news-data.js"></script>
+<script src="news-comments.js"></script>
 <script>
+// An article's address, derived from its headline. build-news.mjs contains the
+// identical function — the two must agree, or the links on this page would miss
+// the pages it writes.
 function slugify(s) {
   return String(s).toLowerCase()
     .replace(/&amp;/g, 'and').replace(/&/g, 'and')
-    .replace(/[^a-z0-9\s-]/g, '').replace(/\s+/g, '-').replace(/-+/g, '-').trim();
+    .replace(/[^a-z0-9\s-]/g, '').replace(/\s+/g, '-').replace(/-+/g, '-')
+    .replace(/^-+|-+$/g, '').trim();
 }
 
 
@@ -439,6 +800,8 @@ function fromWordPress(post) {
   }
   var cat = mapWpCategory(post.categories);
 
+  var wpAuthor = post._embedded && post._embedded.author && post._embedded.author[0];
+
   return {
     date:      post.date.split('T')[0],
     dateLabel: new Date(post.date).toLocaleDateString('en-US', {
@@ -451,6 +814,12 @@ function fromWordPress(post) {
     title:     post.title.rendered,
     excerpt:   post.excerpt.rendered.replace(/<[^>]*>/g, '').substring(0, 120) + '...',
     body:      post.content.rendered,
+    // A blog post carries a real person's name — a stronger byline than the
+    // school's own, so it is kept and shown.
+    author:    wpAuthor ? wpAuthor.name : null,
+    authorUrl: wpAuthor ? wpAuthor.link : null,
+    publishedAt: post.date_gmt ? post.date_gmt + 'Z' : post.date,
+    updatedAt: post.modified_gmt ? post.modified_gmt + 'Z' : null,
     wpId:      post.id
   };
 }
@@ -472,6 +841,43 @@ function loadDashboardArticles() {
   return window.BSJS.fetchArticles();
 }
 
+/**
+ * Reads the articles back out of the cards build-news.mjs wrote into this page.
+ * Used only when the database cannot be reached: the headline, summary, date
+ * and picture are all here already. The full text is not — that lives on the
+ * article's own page — so these carry no `body`, and clicking one follows the
+ * link there instead of opening the reader. Returns null if the page has no
+ * built cards, so the caller can fall back again.
+ */
+function articlesInPage() {
+  var cards = document.querySelectorAll('#newsGrid .news-card[data-slug]');
+  if (!cards.length) return null;
+
+  return Array.prototype.map.call(cards, function (card) {
+    var when    = card.querySelector('.news-date');
+    var frame   = card.querySelector('.news-card-img');
+    var picture = frame.querySelector('img');
+    var plain   = card.querySelector('.news-card-body p');
+    var iso     = when ? when.getAttribute('datetime') : '';
+    // Cards with no picture are tinted by a colour class; keep that tint.
+    var tint    = frame.className.match(/(navy|red|green|gold|sky)-bg/);
+
+    return {
+      slug:        card.getAttribute('data-slug'),
+      category:    card.getAttribute('data-category'),
+      title:       card.querySelector('.news-card-title').innerHTML,
+      excerpt:     plain ? plain.innerHTML : '',
+      dateLabel:   when ? when.textContent : '',
+      date:        iso ? iso.slice(0, 10) : '',
+      publishedAt: iso || null,
+      image:       picture ? picture.getAttribute('src') : '',
+      icon:        picture ? '' : frame.textContent.trim(),
+      color:       tint ? tint[1] : 'navy',
+      body:        ''      // no full text here — the card links out to it
+    };
+  });
+}
+
 // allSettled, not all — one source failing must never hide the other.
 Promise.allSettled([loadDashboardArticles(), loadWordPressPosts()])
   .then(function(results) {
@@ -485,12 +891,19 @@ Promise.allSettled([loadDashboardArticles(), loadWordPressPosts()])
       }
     });
 
-    // Only fall back to the built-in copy if the dashboard itself is
-    // unreachable — an empty dashboard is a real answer, not a failure.
-    // The typeof guard matters: if news-data.js itself failed to load, the
-    // page must still render whatever WordPress returned rather than crash.
+    // Only fall back if the dashboard itself is unreachable — an empty
+    // dashboard is a real answer, not a failure.
+    //
+    // What to fall back TO changed once build-news.mjs began writing the
+    // articles straight into this file: those cards are rebuilt every half
+    // hour, so they are newer than the built-in list in news-data.js and
+    // already link to pages that work. Replacing them with older copy would
+    // make a bad moment worse, so they are left where they are and the
+    // filters, search and counters are wired up over them instead.
+    // news-data.js remains the last resort, for a visitor who somehow has
+    // this page without its built cards.
     var builtIn = typeof FALLBACK_ARTICLES !== 'undefined' ? FALLBACK_ARTICLES : [];
-    var own = dashboard || builtIn;
+    var own = dashboard || articlesInPage() || builtIn;
 
     // Pinned announcements first, then everything else. The engine sorts the
     // unpinned articles by date, so the two sources interleave naturally.
@@ -510,53 +923,122 @@ function runEngine() {
   var catLabel = { academics:'Academics', sports:'Sports', events:'Events', clubs:'Clubs' };
   var colorCls = { navy:'navy-bg', red:'red-bg', green:'green-bg', gold:'gold-bg', sky:'sky-bg' };
 
+  var grid  = document.getElementById('newsGrid');
+  var noRes = document.getElementById('noResults');
+
+  // Which articles already have a page of their own under /news/. The cards
+  // build-news.mjs wrote into this file are the record of that, so they are
+  // read before being replaced by the live set. A story published in the
+  // dashboard since the last build simply has no page yet, and is linked
+  // back to this page instead of to an address that would 404.
+  var hasOwnPage = {};
+  Array.prototype.forEach.call(grid.querySelectorAll('.news-card[data-slug]'), function (card) {
+    hasOwnPage[card.getAttribute('data-slug')] = true;
+  });
+
+  function articleUrl(art) {
+    return hasOwnPage[art.slug] ? 'news/' + art.slug + '/' : 'news.html?article=' + art.slug;
+  }
+
+  // The moment a story was published. Dashboard articles carry a date but no
+  // clock time; build-news.mjs stamps them at 09:00 East Africa Time, and this
+  // matches it so the page and its structured data never disagree.
+  function publishedAt(art) {
+    return art.publishedAt || (art.date ? art.date + 'T09:00:00+03:00' : null);
+  }
+  function stamp(iso) {
+    if (!iso) return '';
+    return new Date(iso).toLocaleString('en-US', {
+      month: 'short', day: 'numeric', year: 'numeric', hour: 'numeric', minute: '2-digit',
+      timeZone: 'Africa/Kampala'
+    }) + ' EAT';
+  }
+
   // Split pinned vs articles, sort articles newest first
   var pinned   = ARTICLES.filter(function(a){ return a.pinned; });
   var articles = ARTICLES.filter(function(a){ return !a.pinned; })
                          .sort(function(a,b){ return new Date(b.date) - new Date(a.date); });
 
+  articles.forEach(function(art){ art.slug = slugify(art.title); });
+
   // ── Render pinned ──────────────────────────────────────────────────────
   var pinnedArea = document.getElementById('pinned-area');
+  pinnedArea.innerHTML = '';        // clears whatever the build wrote here
+  pinnedArea.style.display = '';
   pinned.forEach(function(p) {
     var div = document.createElement('div');
     div.className = 'announcement';
     div.style.borderLeftColor = p.borderColor || 'var(--gold)';
     div.innerHTML =
       '<div class="ann-date">' + p.pinnedLabel + '</div>' +
-      '<h3>' + p.title + '</h3>' +
-      '<p>' + p.body + '</p>';
+      '<h2>' + p.title + '</h2>' +
+      '<div class="ann-body">' + p.body + '</div>';
     pinnedArea.appendChild(div);
   });
   if (!pinned.length) pinnedArea.style.display = 'none';
 
   // ── Render article cards ───────────────────────────────────────────────
-  var grid = document.getElementById('newsGrid');
-  var noRes = document.getElementById('noResults');
-  var cards = [];
+  // The built-in cards go first, so the live set replaces them rather than
+  // piling up underneath.
+  Array.prototype.forEach.call(grid.querySelectorAll('.news-card'), function (card) {
+    card.parentNode.removeChild(card);
+  });
 
-  articles.forEach(function(art, idx) {
-    var card = document.createElement('div');
+  var cards = [];
+  var bySlug = {};
+
+  articles.forEach(function(art) {
+    bySlug[art.slug] = art;
+
+    var card = document.createElement('article');
     card.className = 'news-card';
     card.dataset.category = art.category;
-    card.dataset.idx      = idx;
+    card.dataset.slug     = art.slug;
+
     var imgHtml = art.image
       ? '<div class="news-card-img"><img src="' + art.image + '" alt="' + art.title + '" loading="lazy" onerror="this.parentElement.className=\'news-card-img ' + (colorCls[art.color]||'navy-bg') + '\';this.remove();this.parentElement.textContent=\'' + (art.icon||'') + '\'"></div>'
       : '<div class="news-card-img ' + (colorCls[art.color] || 'navy-bg') + '">' + (art.icon || '') + '</div>';
+
+    var published = publishedAt(art);
+
+    // An external link overrides everything; otherwise the card is a link to
+    // the article's own page, which the click handler below opens in place.
+    var href = art.link || articleUrl(art);
+
     card.innerHTML =
-      imgHtml +
-      '<div class="news-card-body">' +
-        '<div class="news-card-cat ' + (catColor[art.category] || '') + '">' + (catLabel[art.category] || art.category) + '</div>' +
-        '<div class="news-card-title">' + art.title + '</div>' +
-        '<p>' + art.excerpt + '</p>' +
-        '<div class="news-card-footer">' +
-          '<span class="news-date">' + art.dateLabel + '</span>' +
-          (art.link
-            ? '<a href="' + art.link + '" class="read-more">' + (art.linkLabel || 'Read more') + ' &#8594;</a>'
-            : '<button class="read-more" onclick="openModal(' + idx + ')">Read more &#8594;</button>') +
+      '<a class="news-card-link" href="' + href + '"' + (art.link ? ' target="_blank" rel="noopener"' : '') + '>' +
+        imgHtml +
+        '<div class="news-card-body">' +
+          '<div class="news-card-cat ' + (catColor[art.category] || '') + '">' + (catLabel[art.category] || art.category) + '</div>' +
+          '<h3 class="news-card-title">' + art.title + '</h3>' +
+          '<p>' + art.excerpt + '</p>' +
+          '<div class="news-card-footer">' +
+            '<time class="news-date"' + (published ? ' datetime="' + published + '"' : '') + '>' + art.dateLabel + '</time>' +
+            '<span class="read-more">' + (art.link ? (art.linkLabel || 'Read more') : 'Read more') + ' &#8594;</span>' +
+          '</div>' +
         '</div>' +
-      '</div>';
+      '</a>';
+
     grid.insertBefore(card, noRes);
     cards.push(card);
+  });
+
+  // Reading happens here, without a page load — but the card stays a genuine
+  // link, so a crawler follows it, and ctrl-click or "open in new tab" still
+  // lands on the article's own page the way a reader expects.
+  grid.addEventListener('click', function (event) {
+    var link = event.target.closest ? event.target.closest('.news-card-link') : null;
+    if (!link) return;
+    if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) return;
+    if (link.target === '_blank') return;      // external "Read more" links
+
+    var slug = link.parentNode.getAttribute('data-slug');
+    // No full text to show in place — let the link do its job and go to the
+    // article's own page. This is the path taken when the database was
+    // unreachable and the page is running on its built-in cards.
+    if (!bySlug[slug] || !bySlug[slug].body) return;
+    event.preventDefault();
+    openArticle(slug);
   });
 
   // ── Filter counts ──────────────────────────────────────────────────────
@@ -618,155 +1100,85 @@ function runEngine() {
   });
   applyFilter();
 
-  // ── Modal ──────────────────────────────────────────────────────────────
-  window.openModal = function(idx) {
-    var art = articles[idx];
+  // ── Reader ─────────────────────────────────────────────────────────────
+  //  Opens a story in place. The address bar is changed to the article's own
+  //  page, so the link a reader copies, bookmarks or shares is the permanent
+  //  one — and reloading it serves the real page rather than this index.
+  window.openArticle = function(slug) {
+    var art = bySlug[slug];
     if (!art) return;
+
+    var url       = articleUrl(art);
+    var published = publishedAt(art);
+    var updated   = art.updatedAt;
+    var wasEdited = updated && (new Date(updated) - new Date(published)) > 3600000;
+
     document.getElementById('modalCat').textContent   = catLabel[art.category] || art.category;
     document.getElementById('modalCat').className     = 'modal-cat ' + (catColor[art.category]||'');
     document.getElementById('modalTitle').textContent = art.title;
-    document.getElementById('modalDate').textContent  = art.dateLabel;
+
+    var author    = art.author || 'Bright Sparks Junior School';
+    var authorUrl = art.authorUrl || 'index.html#about';
+    document.getElementById('modalAuthor').innerHTML =
+      'By <a href="' + authorUrl + '" rel="author">' + author + '</a>';
+
+    document.getElementById('modalDate').innerHTML =
+      '<div>Published <time datetime="' + (published || '') + '">' + (stamp(published) || art.dateLabel) + '</time></div>' +
+      (wasEdited ? '<div>Updated <time datetime="' + updated + '">' + stamp(updated) + '</time></div>' : '');
+
+    var permalink = document.getElementById('modalPermalink');
+    permalink.setAttribute('href', url);
+
     var heroImg = art.image
       ? '<img src="' + art.image + '" alt="' + art.title + '" class="modal-hero-img" style="margin-bottom:0">'
       : '';
     document.getElementById('modalBody').innerHTML = heroImg + art.body;
+
+    // Comments live in WordPress, so only blog articles have a thread.
     var commentsEl = document.getElementById('modalComments');
     commentsEl.innerHTML = '';
     commentsEl.classList.remove('active');
-    if (art.wpId) {
+    if (art.wpId && window.BSJSComments) {
       commentsEl.classList.add('active');
-      loadComments(art.wpId);
+      window.BSJSComments.render(commentsEl, art.wpId);
     }
+
     document.getElementById('modalOverlay').classList.add('open');
     document.getElementById('modalOverlay').scrollTop = 0;
     document.body.style.overflow = 'hidden';
-    history.pushState(null, '', '#article-' + slugify(art.title));
+    history.pushState({ article: slug }, '', url);
+
     var shareBtn = document.getElementById('modalShare');
     shareBtn.innerHTML = '&#128279; Copy link';
     shareBtn.classList.remove('copied');
+    document.getElementById('modalBox').focus();
   };
 
-  function commentInitials(name) {
-    var parts = name.trim().split(/\s+/);
-    return parts.length >= 2
-      ? (parts[0][0] + parts[parts.length - 1][0]).toUpperCase()
-      : name.slice(0, 2).toUpperCase();
-  }
-  function avatarColor(name) {
-    var palette = ['#1A2E6E','#B71C1C','#1B6B3A','#B8860B','#1565A0','#6A1B9A','#00695C','#C75000'];
-    var h = 0;
-    for (var i = 0; i < name.length; i++) h = name.charCodeAt(i) + ((h << 5) - h);
-    return palette[Math.abs(h) % palette.length];
-  }
-
-  window.loadComments = function(wpId) {
-    var el = document.getElementById('modalComments');
-    el.innerHTML =
-      '<div class="comments-divider"></div>' +
-      '<p class="comments-loading">Loading comments…</p>';
-    fetch('https://brightsparksjunior.ac.ug/wp/wp-json/wp/v2/comments?post=' + wpId +
-          '&per_page=50&orderby=date&order=asc')
-      .then(function(r) { return r.json(); })
-      .then(function(comments) {
-        if (!Array.isArray(comments)) {
-          throw new Error(comments.message || 'Unexpected response');
-        }
-        var html = '<div class="comments-divider"></div>';
-        html += '<h3 class="comments-heading">&#128172; ' + comments.length +
-                ' Comment' + (comments.length !== 1 ? 's' : '') + '</h3>';
-        if (comments.length > 0) {
-          html += '<div class="comment-list">';
-          comments.forEach(function(c) {
-            var d = new Date(c.date);
-            var dateStr = d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-            var text = c.content.rendered.replace(/<[^>]*>/g, '').trim();
-            var initials = commentInitials(c.author_name);
-            var bg      = avatarColor(c.author_name);
-            var gravUrl = c.author_avatar_urls && (c.author_avatar_urls['48'] || c.author_avatar_urls['96'] || '');
-            if (gravUrl) gravUrl = gravUrl.replace(/([?&]d=)[^&]*/g, '$1404');
-            html += '<div class="comment-item">' +
-              '<div class="comment-avatar" style="background:' + bg + '">' +
-                initials +
-                (gravUrl ? '<img src="' + gravUrl + '" alt="" loading="lazy" onerror="this.remove()">' : '') +
-              '</div>' +
-              '<div class="comment-content">' +
-                '<div class="comment-meta">' +
-                  '<span class="comment-author">' + c.author_name + '</span>' +
-                  '<span class="comment-date">' + dateStr + '</span>' +
-                '</div>' +
-                '<div class="comment-text">' + text + '</div>' +
-              '</div>' +
-            '</div>';
-          });
-          html += '</div>';
-        } else {
-          html += '<p class="no-comments">No comments yet. Be the first!</p>';
-        }
-        html += '<form class="comment-form" id="commentForm">' +
-          '<p class="comment-form-title">Leave a Comment</p>' +
-          '<div class="comment-form-row">' +
-            '<input type="text" id="cName" placeholder="Your name *" required>' +
-            '<input type="email" id="cEmail" placeholder="Email address *" required>' +
-          '</div>' +
-          '<textarea id="cText" placeholder="Write your comment here…" required></textarea>' +
-          '<button type="submit" class="comment-submit" id="cSubmit">Post Comment</button>' +
-          '<span class="comment-note">Comments are reviewed before appearing.</span>' +
-        '</form>';
-        el.innerHTML = html;
-        document.getElementById('commentForm').addEventListener('submit', function(e) {
-          e.preventDefault();
-          submitComment(wpId);
-        });
-      })
-      .catch(function() {
-        el.innerHTML =
-          '<div class="comments-divider"></div>' +
-          '<p class="comments-error">Comments could not be loaded.</p>';
-      });
+  // Kept so that anything still calling openModal(index) keeps working.
+  window.openModal = function(idx) {
+    if (articles[idx]) openArticle(articles[idx].slug);
   };
 
-  window.submitComment = function(wpId) {
-    var name    = document.getElementById('cName').value.trim();
-    var email   = document.getElementById('cEmail').value.trim();
-    var content = document.getElementById('cText').value.trim();
-    var btn     = document.getElementById('cSubmit');
-    btn.disabled = true;
-    btn.textContent = 'Posting…';
-    var errEl = document.getElementById('cError');
-    if (errEl) errEl.remove();
-    fetch('https://brightsparksjunior.ac.ug/wp/wp-json/wp/v2/comments', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ post: wpId, author_name: name, author_email: email, content: content })
-    })
-    .then(function(r) {
-      if (r.status === 201 || r.status === 200) {
-        document.getElementById('commentForm').innerHTML =
-          '<p class="comment-success">&#10003; Thank you! Your comment has been submitted and will appear after review.</p>';
-        return;
-      }
-      return r.json().then(function(data) {
-        throw new Error(data && data.message ? data.message : 'HTTP ' + r.status);
-      });
-    })
-    .catch(function(err) {
-      btn.disabled = false;
-      btn.textContent = 'Post Comment';
-      var e = document.createElement('p');
-      e.id = 'cError'; e.className = 'comment-error-msg';
-      e.textContent = err && err.message ? err.message : 'Could not post comment. Please try again.';
-      document.getElementById('commentForm').appendChild(e);
-    });
-  };
-  window.closeModalDirect = function() {
-    document.getElementById('modalOverlay').classList.remove('open');
+  // `keepHistory` is set when the browser itself moved us — going Back has
+  // already changed the address, and pushing another entry on top of it would
+  // trap the reader on this page.
+  window.closeModalDirect = function(keepHistory) {
+    var overlay = document.getElementById('modalOverlay');
+    if (!overlay.classList.contains('open')) return;
+    overlay.classList.remove('open');
     document.body.style.overflow = '';
-    history.pushState(null, '', window.location.pathname + window.location.search);
+    if (keepHistory !== true) history.pushState(null, '', 'news.html');
   };
   window.closeModal = function(e) {
     if (e.target === document.getElementById('modalOverlay')) closeModalDirect();
   };
   document.addEventListener('keydown', function(e){ if (e.key==='Escape') closeModalDirect(); });
+
+  // Back and forward move between the index and whichever story was open.
+  window.addEventListener('popstate', function(e) {
+    if (e.state && e.state.article) openArticle(e.state.article);
+    else closeModalDirect(true);
+  });
 
   // ── Share / copy-link button ───────────────────────────────────────────
   document.getElementById('modalShare').addEventListener('click', function() {
@@ -789,16 +1201,17 @@ function runEngine() {
     }
   });
 
-  // ── Deep link: open article from URL hash on page load ────────────────
-  var initHash = location.hash.replace('#', '');
-  if (initHash.indexOf('article-') === 0) {
-    var targetSlug = initHash.slice(8);
-    var targetIdx = -1;
-    for (var i = 0; i < articles.length; i++) {
-      if (slugify(articles[i].title) === targetSlug) { targetIdx = i; break; }
-    }
-    if (targetIdx !== -1) openModal(targetIdx);
+  // ── Deep link ──────────────────────────────────────────────────────────
+  //  Stories now live at /news/<slug>/, and that page opens on its own. Two
+  //  older forms still have to work: "?article=slug", which is what a story
+  //  with no page of its own yet gets linked as, and "#article-slug", the
+  //  address this page used before — links to it are already out in the world,
+  //  in WhatsApp groups and parents' bookmarks.
+  var requested = new URLSearchParams(location.search).get('article');
+  if (!requested && location.hash.indexOf('#article-') === 0) {
+    requested = location.hash.slice(9);
   }
+  if (requested && bySlug[requested]) openArticle(requested);
 
   // ── Mobile menu ────────────────────────────────────────────────────────
   document.querySelectorAll('.mobile-menu a').forEach(function(a){

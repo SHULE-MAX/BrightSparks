@@ -151,6 +151,13 @@ window.BSJS = (function () {
           title: esc(r.title),
           excerpt: esc(r.excerpt),
           body: r.body,
+
+          /* Carried through for the news page's byline and timestamps, and to
+             match the structured data build-news.mjs writes for each article.
+             `author` is optional — until the articles table has that column
+             the news page falls back to crediting the school itself. */
+          updatedAt: r.updated_at || r.created_at || null,
+          author: r.author ? esc(r.author) : null,
         };
       });
     });

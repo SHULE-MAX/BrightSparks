@@ -1,4 +1,10 @@
 User-agent: *
 Allow: /
 
+# Google News and Discover read the article pages under /news/, which are
+# written by build-news.mjs. Nothing here is blocked from them.
+User-agent: Googlebot-News
+Allow: /
+
 Sitemap: https://brightsparksjunior.ac.ug/sitemap.xml
+Sitemap: https://brightsparksjunior.ac.ug/news-sitemap.xml

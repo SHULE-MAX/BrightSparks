@@ -1,0 +1,66 @@
+# ════════════════════════════════════════════════════════════════════════════
+#  KEEP THE NEWS PAGES IN STEP WITH THE DASHBOARD
+#
+#  Staff publish a story in the Website Manager, which saves it to the school's
+#  database. This workflow turns that story into a real page — news/<slug>/ —
+#  along with a fresh sitemap, news sitemap and RSS feed, then commits them.
+#  Committing to main is what triggers the deploy workflow, so the story is on
+#  the live site within the half hour without anyone touching the code.
+#
+#  It can also be run by hand: Actions → Build news pages → Run workflow.
+# ════════════════════════════════════════════════════════════════════════════
+name: Build news pages
+
+on:
+  schedule:
+    # Every 30 minutes. GitHub runs scheduled jobs on a best-effort basis, so
+    # the exact minute drifts; for school news that is fine.
+    - cron: '*/30 * * * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      # Only when something that shapes the output actually changes — a commit
+      # to an unrelated page must not start a second build.
+      - 'build-news.mjs'
+      - 'news.html'
+      - 'news-article.css'
+      - 'news-comments.js'
+      - 'bsjs-data.js'
+
+# One run at a time. Two builds writing the same files would collide.
+concurrency:
+  group: news-build
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Build the article pages, sitemaps and feed
+        run: node build-news.mjs --ping
+
+      - name: Commit whatever changed
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add news news.html sitemap.xml news-sitemap.xml feed.xml
+
+          # Nothing published since the last run is the normal case, not a
+          # failure — the build writes files only when their contents change.
+          if git diff --staged --quiet; then
+            echo "No new or edited articles. Nothing to commit."
+            exit 0
+          fi
+
+          git commit -m "chore: rebuild news pages from published articles"
+          git push

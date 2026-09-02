@@ -10,7 +10,7 @@
     <description>News, announcements and events from Bright Sparks Junior School in Seguku, Kampala.</description>
     <language>en-UG</language>
     <copyright>Copyright 2026 Bright Sparks Junior School</copyright>
-    <lastBuildDate>Wed, 02 Sep 2026 12:55:25 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 02 Sep 2026 20:46:58 GMT</lastBuildDate>
     <image>
       <url>https://brightsparksjunior.ac.ug/logo.png</url>
       <title>Bright Sparks Junior School</title>
@@ -20,6 +20,16 @@
     <!-- WebSub: subscribers are told the moment this feed changes,
          instead of waiting to be crawled again. -->
     <atom:link rel="hub" href="https://pubsubhubbub.appspot.com/"/>
+    <item>
+      <title>NAMING OF UGANDA&#39;S CRUDE OIL</title>
+      <link>https://brightsparksjunior.ac.ug/news/naming-of-ugandas-crude-oil/</link>
+      <guid isPermaLink="true">https://brightsparksjunior.ac.ug/news/naming-of-ugandas-crude-oil/</guid>
+      <pubDate>Wed, 02 Sep 2026 06:00:00 GMT</pubDate>
+      <category>Events</category>
+      <dc:creator>Bright Sparks Junior School</dc:creator>
+      <description>In a historic gathering along the southeastern shores of Lake Albert, on 2nd September, 2026. President Yoweri Museveni officiated the unveiling and ceremonial naming of Uganda’s crude oil. The landmark event, hosted at the Kingfisher Development Area, brings the country a step closer to commercial…</description>
+      <content:encoded><![CDATA[<p><img src="https://cbfywxwatrtcfhamksfl.supabase.co/storage/v1/object/public/news-images/1788373275303-1000130295.webp" alt="NAMING OF UGANDA&#39;S CRUDE OIL"></p><h3>President Museveni Officiates Naming of Uganda’s Crude Oil as Commercial Production Approaches</h3><b>KIKUUBE DISTRICT</b> — In a historic gathering along the southeastern shores of Lake Albert, on 2nd September, 2026. President Yoweri Museveni officiated the unveiling and ceremonial naming of Uganda’s crude oil. The landmark event, hosted at the Kingfisher Development Area, brings the country a step closer to commercial petroleum extraction.<div><br><div>The project naming convention bridges Uganda's natural ecosystem with its national heritage. The flagship <b>Tilenga</b> project operated by TotalEnergies across the Buliisa and Nwoya districts—blends the Acholi word <i><b>"Til"</b></i> and the Runyoro/Rutooro word<i><b> "Engabi",</b></i> both referencing the native Uganda Kob and Bushbuck antelopes. Meanwhile, the Kingfisher field in Kikuube District, managed by CNOOC Uganda Limited, draws its title from the agile, fish-eating bird native to the Lake Albert basin.</div></div><div><br></div><div>Uganda’s petroleum reserves, estimated at 6.5 billion barrels in place with up to 1.7 billion recoverable barrels, present unique technical properties. Classified as medium-sweet crude due to its low sulfur content, the oil is exceptionally waxy, solidifying at room temperatures. To transport it from the Albertine Graben to the Tanzanian port of Tanga, developers are constructing the 1,443-kilometer East African Crude Oil Pipeline (EACOP), set to become the world’s longest electrically heat-traced pipeline.</div><div><br></div><div>The government and joint-venture partners maintain that overall infrastructure including the Central Processing Facilities (CPFs) and well pads remains on track to achieve first commercial oil. Once fully operational, the joint developments at Tilenga and Kingfisher are projected to reach a peak extraction capacity of approximately 230,000 barrels per day.</div>]]></content:encoded>
+    </item>
     <item>
       <title>Academic Day &amp; Club Exhibitions — July 11, 2026</title>
       <link>https://brightsparksjunior.ac.ug/news/academic-day-and-club-exhibitions-july-11-2026/</link>

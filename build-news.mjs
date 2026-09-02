@@ -103,6 +103,8 @@ const STATIC_PAGES = [
   { loc: '/calendar.html',       changefreq: 'monthly', priority: '0.7', lastmod: '2026-05-26' },
   { loc: '/resources.html',      changefreq: 'monthly', priority: '0.6', lastmod: '2026-05-26' },
   { loc: '/careers.html',        changefreq: 'monthly', priority: '0.5', lastmod: '2026-05-26' },
+  { loc: '/editorial-policy.html', changefreq: 'yearly', priority: '0.4', lastmod: '2026-09-02' },
+  { loc: '/privacy-policy.html', changefreq: 'yearly',  priority: '0.4', lastmod: '2026-09-02' },
   { loc: '/cookies-policy.html', changefreq: 'yearly',  priority: '0.3', lastmod: '2026-05-26' }
 ];
 
@@ -422,8 +424,9 @@ const FOOTER = `<footer>
   <div class="footer-policy">
     <a href="../../index.html#about">About Us</a><span>&bull;</span>
     <a href="../../index.html#contacts">Contact</a><span>&bull;</span>
-    <a href="../../news.html">All News</a><span>&bull;</span>
-    <a href="../../cookies-policy.html">Cookies &amp; Privacy</a><span>&bull;</span>
+    <a href="../../editorial-policy.html">Editorial Policy</a><span>&bull;</span>
+    <a href="../../privacy-policy.html">Privacy Policy</a><span>&bull;</span>
+    <a href="../../cookies-policy.html">Cookies</a><span>&bull;</span>
     <a href="../../feed.xml">RSS Feed</a>
   </div>
 </footer>`;
@@ -442,7 +445,14 @@ function publisherSchema() {
       streetAddress: SCHOOL.street,
       addressLocality: SCHOOL.locality,
       addressCountry: SCHOOL.country
-    }
+    },
+
+    /* The three things Google looks for when deciding whether a news site is
+       accountable for what it publishes: how it decides what to publish, how it
+       fixes mistakes, and who pays for it. */
+    publishingPrinciples: SITE_URL + '/editorial-policy.html',
+    correctionsPolicy: SITE_URL + '/editorial-policy.html#corrections',
+    ownershipFundingInfo: SITE_URL + '/editorial-policy.html#independence'
   };
 }
 

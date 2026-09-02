@@ -20,8 +20,13 @@
  *
  *  HOW TO RUN IT
  *      node build-news.mjs             build everything
- *      node build-news.mjs --ping      build, then tell the WebSub hub
  *      node build-news.mjs --check     report what would change, write nothing
+ *      node build-news.mjs --ping      build, then tell the WebSub hub
+ *      node build-news.mjs --ping-only tell the hub, build nothing
+ *
+ *  Updating the site by hand? Build, upload, and only then announce it:
+ *      node build-news.mjs  →  node package-upload.mjs  →  upload and extract
+ *                           →  node build-news.mjs --ping-only
  *
  *  It also runs by itself every 30 minutes — see
  *  .github/workflows/news-build.yml — so a story published in the dashboard
@@ -112,6 +117,12 @@ const GENERATED_MARK = '<!-- Written by build-news.mjs — do not edit by hand. 
 const args = process.argv.slice(2);
 const CHECK_ONLY = args.includes('--check');
 const SHOULD_PING = args.includes('--ping');
+
+/* Announcing the feed is a separate step when the site is updated by hand: the
+   hub comes and reads feed.xml the moment it is told, so it has to be told
+   AFTER the new file is on the server, not while it is still on this machine.
+   Build, upload, then run this. */
+const PING_ONLY = args.includes('--ping-only');
 
 // ════════════════════════════════════════════════════════════════════════════
 //  SMALL HELPERS
@@ -932,6 +943,22 @@ async function write(file, contents, ignore) {
 }
 
 async function main() {
+  /* Nothing to build — just tell the hub the feed it already knows about has
+     changed. Checks the feed is really reachable first, because pointing the
+     hub at a page that is not there yet achieves nothing. */
+  if (PING_ONLY) {
+    console.log(`\n  Telling the WebSub hub that ${SITE_URL}/feed.xml has changed…\n`);
+    const live = await fetch(`${SITE_URL}/feed.xml`, { method: 'HEAD' }).catch(() => null);
+    if (!live || !live.ok) {
+      console.error('  ✗ The feed could not be read at that address.');
+      console.error('    Upload feed.xml to the server first, then run this again.\n');
+      process.exit(1);
+    }
+    await pingHub();
+    console.log('  ✓ Hub notified. Subscribers will fetch the new feed.\n');
+    return;
+  }
+
   console.log(`\n  Bright Sparks — building the news pages${CHECK_ONLY ? ' (check only, nothing will be written)' : ''}`);
   console.log(`  Site address: ${SITE_URL}\n`);
 

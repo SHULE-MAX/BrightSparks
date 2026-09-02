@@ -9,6 +9,17 @@
   RewriteEngine On
   RewriteCond %{HTTPS} off
   RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+
+  # ------------------------------------------------
+  # ONE ADDRESS FOR THE SITE  (www → no www)
+  # ------------------------------------------------
+  # Both www.brightsparksjunior.ac.ug and brightsparksjunior.ac.ug were
+  # answering with the whole site, which leaves Google looking at two complete
+  # copies of every page and having to guess which one counts. Everything the
+  # site says about itself — canonical links, sitemaps, the feed — uses the
+  # address without "www", so that is the one kept.
+  RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+  RewriteRule ^ https://%1%{REQUEST_URI} [R=301,L]
 </IfModule>
 
 # ------------------------------------------------

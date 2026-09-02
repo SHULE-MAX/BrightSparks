@@ -804,8 +804,11 @@ function cardHtml(a) {
     ? `      <div class="news-card-img"><img src="${esc(a.image)}" alt="${esc(a.title)}" loading="lazy" width="320" height="170"></div>`
     : `      <div class="news-card-img ${COLOR_CLASS[a.color] || 'navy-bg'}">${esc(a.icon)}</div>`;
 
+  /* Written from the site root: opening a story rewrites the address bar to
+     /news/<slug>/, and a link relative to that would resolve one level too
+     deep the next time somebody clicked a card. */
   return `    <article class="news-card" data-category="${esc(a.category)}" data-slug="${esc(a.slug)}">
-    <a class="news-card-link" href="news/${esc(a.slug)}/">
+    <a class="news-card-link" href="/news/${esc(a.slug)}/">
 ${img}
       <div class="news-card-body">
         <div class="news-card-cat ${CATEGORY_CLASS[a.category]}">${esc(CATEGORY_LABEL[a.category])}</div>

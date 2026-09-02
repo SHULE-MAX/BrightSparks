@@ -7,6 +7,14 @@
 <meta name="description" content="Stay up to date with the latest news, announcements, and stories from Bright Sparks Junior School in Seguku, Kampala.">
 <link rel="canonical" href="https://brightsparksjunior.ac.ug/news.html">
 
+<!-- Opening a story rewrites the address bar to /news/<slug>/ so the link a
+     reader copies is the permanent one. That also moves the point every
+     relative link on this page is measured from — "index.html" would start
+     resolving inside /news/<slug>/ and 404. Pinning the base to the site root
+     keeps every link on the page pointing where it says it does, whichever
+     story happens to be open. -->
+<base href="/">
+
 <!-- max-image-preview:large is what lets a story qualify for Google Discover;
      without it Google is limited to a thumbnail and Discover skips the page. -->
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
@@ -566,7 +574,7 @@
          live articles load, the script replaces them with the current set. -->
     <!-- BUILD:CARDS:START -->
     <article class="news-card" data-category="academics" data-slug="academic-day-and-club-exhibitions-july-11-2026">
-    <a class="news-card-link" href="news/academic-day-and-club-exhibitions-july-11-2026/">
+    <a class="news-card-link" href="/news/academic-day-and-club-exhibitions-july-11-2026/">
       <div class="news-card-img"><img src="images/news/Academics.webp" alt="Academic Day &amp; Club Exhibitions — July 11, 2026" loading="lazy" width="320" height="170"></div>
       <div class="news-card-body">
         <div class="news-card-cat cat-academics">Academics</div>
@@ -580,7 +588,7 @@
     </a>
     </article>
     <article class="news-card" data-category="events" data-slug="colour-day-kindergarten-section-june-12">
-    <a class="news-card-link" href="news/colour-day-kindergarten-section-june-12/">
+    <a class="news-card-link" href="/news/colour-day-kindergarten-section-june-12/">
       <div class="news-card-img sky-bg">🎨</div>
       <div class="news-card-body">
         <div class="news-card-cat cat-events">Events</div>
@@ -594,7 +602,7 @@
     </a>
     </article>
     <article class="news-card" data-category="events" data-slug="bright-sparks-celebrates-eid-al-adhuha">
-    <a class="news-card-link" href="news/bright-sparks-celebrates-eid-al-adhuha/">
+    <a class="news-card-link" href="/news/bright-sparks-celebrates-eid-al-adhuha/">
       <div class="news-card-img"><img src="https://brightsparksjunior.ac.ug/wp/wp-content/uploads/2026/05/Eid-al-Adhuha-4.webp" alt="Bright Sparks Celebrates Eid Al Adhuha" loading="lazy" width="320" height="170"></div>
       <div class="news-card-body">
         <div class="news-card-cat cat-events">Events</div>
@@ -608,7 +616,7 @@
     </a>
     </article>
     <article class="news-card" data-category="events" data-slug="eid-al-adhuha-school-closed-may-27">
-    <a class="news-card-link" href="news/eid-al-adhuha-school-closed-may-27/">
+    <a class="news-card-link" href="/news/eid-al-adhuha-school-closed-may-27/">
       <div class="news-card-img"><img src="images/news/EID.webp" alt="Eid Al Adhuha — School Closed May 27" loading="lazy" width="320" height="170"></div>
       <div class="news-card-body">
         <div class="news-card-cat cat-events">Events</div>
@@ -622,7 +630,7 @@
     </a>
     </article>
     <article class="news-card" data-category="events" data-slug="eid-al-adhuha">
-    <a class="news-card-link" href="news/eid-al-adhuha/">
+    <a class="news-card-link" href="/news/eid-al-adhuha/">
       <div class="news-card-img"><img src="https://brightsparksjunior.ac.ug/wp/wp-content/uploads/2026/05/EID.png" alt="Eid Al Adhuha" loading="lazy" width="320" height="170"></div>
       <div class="news-card-body">
         <div class="news-card-cat cat-events">Events</div>
@@ -636,7 +644,7 @@
     </a>
     </article>
     <article class="news-card" data-category="academics" data-slug="welcome-back-to-school-for-term-ii-2026">
-    <a class="news-card-link" href="news/welcome-back-to-school-for-term-ii-2026/">
+    <a class="news-card-link" href="/news/welcome-back-to-school-for-term-ii-2026/">
       <div class="news-card-img"><img src="images/news/Welcome.webp" alt="Welcome Back to School for Term II 2026!" loading="lazy" width="320" height="170"></div>
       <div class="news-card-body">
         <div class="news-card-cat cat-academics">Academics</div>
@@ -650,7 +658,7 @@
     </a>
     </article>
     <article class="news-card" data-category="events" data-slug="educational-tours-for-p1p7-july-2026">
-    <a class="news-card-link" href="news/educational-tours-for-p1p7-july-2026/">
+    <a class="news-card-link" href="/news/educational-tours-for-p1p7-july-2026/">
       <div class="news-card-img"><img src="images/news/events.webp" alt="Educational Tours for P.1–P.7 — July 2026" loading="lazy" width="320" height="170"></div>
       <div class="news-card-body">
         <div class="news-card-cat cat-events">Events</div>
@@ -664,7 +672,7 @@
     </a>
     </article>
     <article class="news-card" data-category="clubs" data-slug="cookery-and-baking-club-prepares-for-academic-day-exhibition">
-    <a class="news-card-link" href="news/cookery-and-baking-club-prepares-for-academic-day-exhibition/">
+    <a class="news-card-link" href="/news/cookery-and-baking-club-prepares-for-academic-day-exhibition/">
       <div class="news-card-img"><img src="images/news/Clubs.webp" alt="Cookery &amp; Baking Club Prepares for Academic Day Exhibition" loading="lazy" width="320" height="170"></div>
       <div class="news-card-body">
         <div class="news-card-cat cat-clubs">Clubs</div>
@@ -678,7 +686,7 @@
     </a>
     </article>
     <article class="news-card" data-category="academics" data-slug="term-ii-2026-roadmap-released-by-head-teacher">
-    <a class="news-card-link" href="news/term-ii-2026-roadmap-released-by-head-teacher/">
+    <a class="news-card-link" href="/news/term-ii-2026-roadmap-released-by-head-teacher/">
       <div class="news-card-img navy-bg">📋</div>
       <div class="news-card-body">
         <div class="news-card-cat cat-academics">Academics</div>
@@ -692,7 +700,7 @@
     </a>
     </article>
     <article class="news-card" data-category="sports" data-slug="football-team-wins-against-st-james-junior-school">
-    <a class="news-card-link" href="news/football-team-wins-against-st-james-junior-school/">
+    <a class="news-card-link" href="/news/football-team-wins-against-st-james-junior-school/">
       <div class="news-card-img"><img src="images/news/Sports.webp" alt="Football Team Wins Against St. James Junior School" loading="lazy" width="320" height="170"></div>
       <div class="news-card-body">
         <div class="news-card-cat cat-sports">Sports</div>
@@ -724,7 +732,7 @@
       <div class="modal-byline">
         <div>
           <div class="modal-byline-name" id="modalAuthor"></div>
-          <a class="modal-permalink" id="modalPermalink" href="#">&#128279; Open the full article page &#8594;</a>
+          <a class="modal-permalink" id="modalPermalink" href="/news.html">&#128279; Open the full article page &#8594;</a>
         </div>
         <div class="modal-byline-times" id="modalDate"></div>
       </div>
@@ -936,8 +944,10 @@ function runEngine() {
     hasOwnPage[card.getAttribute('data-slug')] = true;
   });
 
+  // Written from the site root rather than relative to wherever the address
+  // bar currently points, which changes as stories are opened and closed.
   function articleUrl(art) {
-    return hasOwnPage[art.slug] ? 'news/' + art.slug + '/' : 'news.html?article=' + art.slug;
+    return hasOwnPage[art.slug] ? '/news/' + art.slug + '/' : '/news.html?article=' + art.slug;
   }
 
   // The moment a story was published. Dashboard articles carry a date but no
@@ -1167,7 +1177,7 @@ function runEngine() {
     if (!overlay.classList.contains('open')) return;
     overlay.classList.remove('open');
     document.body.style.overflow = '';
-    if (keepHistory !== true) history.pushState(null, '', 'news.html');
+    if (keepHistory !== true) history.pushState(null, '', '/news.html');
   };
   window.closeModal = function(e) {
     if (e.target === document.getElementById('modalOverlay')) closeModalDirect();

@@ -200,20 +200,11 @@ function pageRelative(src) {
   return '../../' + String(src).replace(/^\/+/, '');
 }
 
-/* Reads the real size of a picture stored on the site, straight out of the
-   file header. Putting the true width and height on an <img> stops the page
-   jumping about as pictures arrive, which is one of the things Google measures.
-   Pictures uploaded through the dashboard live elsewhere and cannot be
-   measured from here; those are left without a size rather than guessed at. */
-async function imageSize(src) {
-  if (!src || /^https?:\/\//i.test(src)) return null;
-
-  const file = path.join(ROOT, String(src).replace(/^\/+/, ''));
-  if (!existsSync(file)) return null;
-
+/* Picks the width and height out of a picture's header. Only the first few
+   kilobytes are ever needed: every format below states its size near the
+   front, before the image data. */
+function dimensionsFrom(b) {
   try {
-    const b = await readFile(file);
-
     if (b.toString('ascii', 0, 4) === 'RIFF' && b.toString('ascii', 8, 12) === 'WEBP') {
       const chunk = b.toString('ascii', 12, 16);
       if (chunk === 'VP8 ') return { w: b.readUInt16LE(26) & 0x3fff, h: b.readUInt16LE(28) & 0x3fff };
@@ -240,9 +231,48 @@ async function imageSize(src) {
       }
     }
   } catch {
-    /* An unreadable picture is not a reason to stop building the page. */
+    /* A picture that will not parse is not a reason to stop building. */
   }
   return null;
+}
+
+/* Reads the real size of an article's lead picture. Putting the true width and
+   height on an <img> stops the page jumping about as the picture arrives,
+   which is one of the things Google measures — and it is what tells the
+   Discover check below whether a picture is big enough to qualify.
+
+   A photo added in the dashboard is not on this machine; it sits in the
+   database's own storage. Those used to be skipped, which was fair enough when
+   nearly every picture was a file in this repository — but every photo staff
+   upload is now one of them, so they were all going out unmeasured. Only the
+   head of the file is asked for, since that is where the size is written.
+   Anything that fails is left without a size rather than guessed at. */
+const REMOTE_HEADER_BYTES = 65536;
+
+async function imageSize(src) {
+  if (!src) return null;
+
+  if (/^https?:\/\//i.test(src)) {
+    try {
+      const response = await fetch(src, {
+        headers: { Range: `bytes=0-${REMOTE_HEADER_BYTES - 1}` },
+        signal: AbortSignal.timeout(15000)
+      });
+      if (!response.ok) return null;
+
+      /* A server within its rights to ignore Range sends the whole picture.
+         Reading it is still fine; it is a photograph, not a disk image. */
+      const head = Buffer.from(await response.arrayBuffer());
+      return dimensionsFrom(head);
+    } catch {
+      /* A slow or unreachable picture must not fail the build. */
+      return null;
+    }
+  }
+
+  const file = path.join(ROOT, String(src).replace(/^\/+/, ''));
+  if (!existsSync(file)) return null;
+  return dimensionsFrom(await readFile(file));
 }
 
 /* Google Discover only shows a story with a large picture, and only counts a

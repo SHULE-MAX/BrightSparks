@@ -92,8 +92,20 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://brightsparksjunior.ac.ug/news/bright-sparks-celebrates-eid-al-adhuha/</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://brightsparksjunior.ac.ug/news/eid-al-adhuha-school-closed-may-27/</loc>
     <lastmod>2026-08-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://brightsparksjunior.ac.ug/news/eid-al-adhuha/</loc>
+    <lastmod>2026-05-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>

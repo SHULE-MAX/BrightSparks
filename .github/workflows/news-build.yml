@@ -85,21 +85,52 @@ jobs:
       - name: Build the article pages, sitemaps and feed
         run: node build-news.mjs --ping
 
-      - name: Commit whatever changed
+      # ────────────────────────────────────────────────────────────────────
+      #  KEEP THE RESULT
+      # ────────────────────────────────────────────────────────────────────
+      #  Between checking the code out and pushing the pages it built, this job
+      #  may find that somebody else has pushed — a person working on the site,
+      #  or a run of this workflow that overlapped. Git then refuses the push
+      #  rather than throwing their work away, and a job that gave up there lost
+      #  its own instead: on 3 September a story sat unpublished for exactly
+      #  that reason, built and then discarded.
+      #
+      #  Forcing the push would be the wrong repair — it would drop whatever
+      #  arrived. Nothing here needs forcing, though, because these pages are
+      #  written from the database rather than edited by hand: the fix is to
+      #  take the newer work, write the pages again on top of it, and push that.
+      - name: Commit and push whatever changed
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add news news.html sitemap.xml news-sitemap.xml feed.xml
 
-          # Nothing published since the last run is the normal case, not a
-          # failure — the build writes files only when their contents change.
-          if git diff --staged --quiet; then
-            echo "No new or edited articles. Nothing to commit."
-            exit 0
-          fi
+          for attempt in 1 2 3; do
+            git add news news.html sitemap.xml news-sitemap.xml feed.xml
 
-          git commit -m "chore: rebuild news pages from published articles"
-          git push
+            # Nothing published since the last run is the normal case, not a
+            # failure — the build writes files only when their contents change.
+            if git diff --staged --quiet; then
+              echo "No new or edited articles. Nothing to commit."
+              exit 0
+            fi
+
+            git commit -m "chore: rebuild news pages from published articles"
+            if git push; then
+              exit 0
+            fi
+
+            echo "Someone pushed first. Rebuilding on top of their work (attempt ${attempt} of 3)."
+            git fetch origin main
+            git reset --hard FETCH_HEAD
+
+            # No --ping on a retry: the hub was already told the feed changed
+            # on the first pass, and telling it three times helps nobody.
+            node build-news.mjs
+          done
+
+          echo "::error::Could not push the rebuilt pages after 3 attempts. The articles are"
+          echo "::error::still in the database and the next run will build them again."
+          exit 1
 
       # ────────────────────────────────────────────────────────────────────
       #  PUT THE PAGES ON THE LIVE SERVER

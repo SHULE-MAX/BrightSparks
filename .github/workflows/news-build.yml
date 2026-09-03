@@ -172,7 +172,15 @@ jobs:
           protocol: ${{ secrets.FTP_FTPS_PORT == '990' && 'ftps-legacy' || 'ftps' }}
           port: ${{ secrets.FTP_FTPS_PORT || 21 }}
           security: loose
-          timeout: 60000
+
+          # Per operation, not for the upload as a whole. The school's host is
+          # a slow one: the first run spent two minutes just establishing that
+          # it had never deployed here before, and then gave up creating the
+          # news folder because a single step had taken longer than a minute.
+          # Five minutes is far longer than any of these should need, and the
+          # only thing a generous limit costs is how long a genuinely dead
+          # connection takes to admit it.
+          timeout: 300000
 
           local-dir: ./_deploy/
           # Where the FTP account lands. Most cPanel accounts open in the home

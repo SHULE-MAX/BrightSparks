@@ -46,6 +46,10 @@ on:
         description: 'Dry run — list what would be uploaded, upload nothing'
         type: boolean
         default: false
+      verbose:
+        description: 'Log every FTP command and reply (for when the upload misbehaves)'
+        type: boolean
+        default: false
   push:
     branches: [main]
     paths:
@@ -194,7 +198,11 @@ jobs:
           state-name: .bsjs-news-deploy.json
 
           dry-run: ${{ inputs.dry_run == true }}
-          log-level: standard
+
+          # Verbose prints the whole conversation with the server, which is the
+          # only way to see which command it stops answering. The password is
+          # not among it — the client logs that one as "PASS ###".
+          log-level: ${{ inputs.verbose == true && 'verbose' || 'standard' }}
 
       - name: Say so if the server details are missing
         if: env.FTP_SERVER == ''

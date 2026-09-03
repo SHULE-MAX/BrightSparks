@@ -156,15 +156,21 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
 
-          # Explicit FTPS on the ordinary FTP port — cPanel's usual setup, and
-          # what keeps the password off the wire. Shared hosting normally
-          # presents a certificate issued for the server's own hostname rather
-          # than for brightsparksjunior.ac.ug, which "loose" accepts; the
-          # connection is encrypted either way. If the host turns out to
-          # support SFTP instead, that is the better protocol — but this
-          # action does not speak it.
-          protocol: ftps
-          port: 21
+          # FTPS either way, so the password never crosses the wire in the
+          # clear. Which of the two kinds depends on the port the host gives:
+          # 21 is the ordinary FTP port, where the connection starts in plain
+          # text and is upgraded to TLS before anyone logs in ("explicit", the
+          # cPanel default); 990 is encrypted from the first byte ("implicit",
+          # which this action calls ftps-legacy). Set FTP_FTPS_PORT only if the
+          # host asks for something other than 21.
+          #
+          # Shared hosting normally presents a certificate issued for the
+          # server's own hostname rather than for brightsparksjunior.ac.ug,
+          # which "loose" accepts; the connection is encrypted either way. If
+          # the host turns out to offer SFTP, that is the better protocol —
+          # but this action does not speak it.
+          protocol: ${{ secrets.FTP_FTPS_PORT == '990' && 'ftps-legacy' || 'ftps' }}
+          port: ${{ secrets.FTP_FTPS_PORT || 21 }}
           security: loose
           timeout: 60000
 

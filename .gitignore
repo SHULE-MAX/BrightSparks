@@ -7,6 +7,10 @@ node_modules/
 /package-lock.json
 convert-webp.mjs
 
+# Copies of files that already live in this repository, laid out the way the
+# server wants them. Written fresh by "package-upload.mjs --stage" every time.
+/_deploy/
+
 # Admin dashboard
 admin/dist/
 admin/.env

@@ -20,9 +20,20 @@
  *      node package-upload.mjs    then  — bundle them
  *
  *  Upload the resulting news-upload.zip into public_html and choose Extract.
+ *
+ *  THE ZIP IS NOW THE FALLBACK, NOT THE USUAL ROUTE
+ *  The Build news pages workflow sends these same files to the server over FTPS
+ *  on every run, so nobody has to remember to upload anything. It uses this
+ *  file's list rather than keeping a second copy of it:
+ *
+ *      node package-upload.mjs --stage _deploy
+ *
+ *  copies exactly what the zip would contain into _deploy/, laid out the way it
+ *  has to land on the server, and the workflow uploads that folder. Keep the
+ *  zip for the days the workflow cannot run and a story has to go up by hand.
  * ════════════════════════════════════════════════════════════════════════════ */
 
-import { readFile, writeFile, readdir, stat } from 'node:fs/promises';
+import { readFile, writeFile, readdir, stat, mkdir, copyFile, rm } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import { deflateRawSync } from 'node:zlib';
 import path from 'node:path';
@@ -30,6 +41,10 @@ import { fileURLToPath } from 'node:url';
 
 const ROOT = path.dirname(fileURLToPath(import.meta.url));
 const OUTPUT = 'news-upload.zip';
+
+/* --stage <folder> copies the files instead of zipping them. */
+const STAGE_ARG = process.argv.indexOf('--stage');
+const STAGE_DIR = STAGE_ARG === -1 ? null : process.argv[STAGE_ARG + 1] || '_deploy';
 
 /* Everything the news pages need on the server, and nothing else — no build
    scripts, no workflow files, nothing that only matters on this machine. */
@@ -72,12 +87,17 @@ function dosStamp(date) {
   return { time, day };
 }
 
+const missing = [];
+
 async function collect() {
   const files = [];
 
   for (const name of LOOSE_FILES) {
     if (existsSync(path.join(ROOT, name))) files.push(name);
-    else console.warn(`  ! ${name} is missing — run build-news.mjs first.`);
+    else {
+      missing.push(name);
+      console.warn(`  ! ${name} is missing — run build-news.mjs first.`);
+    }
   }
 
   for (const folder of FOLDERS) {
@@ -98,12 +118,47 @@ async function collect() {
   return files;
 }
 
+/* Lays the files out in a folder of their own, ready to be uploaded as-is.
+ *
+ * The deploy that reads this folder mirrors it: anything it put on the server
+ * before and cannot find here now is deleted there. That is what retires the
+ * page of a withdrawn story — and it is also why a half-filled folder would be
+ * destructive, so a missing file stops the run rather than quietly shipping a
+ * short list. */
+async function stage(files) {
+  const target = path.resolve(ROOT, STAGE_DIR);
+
+  if (target === ROOT || !target.startsWith(ROOT + path.sep)) {
+    console.error(`\n  Refusing to stage into ${target} — it must be a folder inside the project.\n`);
+    process.exit(1);
+  }
+
+  if (missing.length) {
+    console.error(`\n  ${missing.length} file(s) missing, so nothing was staged. Deploying an`);
+    console.error('  incomplete folder would delete the missing files from the server.\n');
+    process.exit(1);
+  }
+
+  await rm(target, { recursive: true, force: true });
+  for (const name of files) {
+    const to = path.join(target, name);
+    await mkdir(path.dirname(to), { recursive: true });
+    await copyFile(path.join(ROOT, name), to);
+  }
+
+  console.log(`\n  ${STAGE_DIR}/ — ${files.length} files ready to upload\n`);
+  for (const name of files) console.log(`    ${name}`);
+  console.log('');
+}
+
 async function main() {
   const files = await collect();
   if (!files.length) {
     console.error('\n  Nothing to pack. Run "node build-news.mjs" first.\n');
     process.exit(1);
   }
+
+  if (STAGE_DIR) return stage(files);
 
   const locals = [];
   const central = [];

@@ -116,6 +116,16 @@ FileETag None
 </IfModule>
 
 # ------------------------------------------------
+# FILES THAT ARE NOT FOR VISITORS
+# ------------------------------------------------
+# The news deploy keeps its record of what it has uploaded beside the pages it
+# uploads, because that is where FTP can reach it. It is a listing of every
+# file on the site and answers no useful question for a reader or a crawler.
+<Files ".bsjs-news-deploy.json">
+  Require all denied
+</Files>
+
+# ------------------------------------------------
 # MIME TYPES  (ensure WebP is served correctly)
 # ------------------------------------------------
 <IfModule mod_mime.c>

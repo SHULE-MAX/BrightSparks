@@ -905,8 +905,12 @@ function listSchema(articles) {
 
 /* When a story is unpublished in the dashboard its page has to go too, or the
    site keeps serving an article the school has withdrawn. Only pages this
-   script wrote are ever removed — the marker in the file is what proves it. */
-async function removeWithdrawn(currentSlugs) {
+   script wrote are ever removed — the marker in the file is what proves it.
+   `skip` is passed when one of the two sources could not be read: an article
+   missing because the blog was briefly down is not a withdrawn article, and
+   deleting its page over a moment's outage would break links already shared. */
+async function removeWithdrawn(currentSlugs, skip = false) {
+  if (skip) return [];
   if (!existsSync(NEWS_DIR)) return [];
 
   const removed = [];
@@ -1044,8 +1048,12 @@ async function main() {
   }
   if (!written) console.log('  Every article page is already up to date.');
 
-  const removed = await removeWithdrawn(seen);
+  const removed = await removeWithdrawn(seen, wordpress.status === 'rejected');
   for (const slug of removed) console.log(`  ✗ removed news/${slug}/ — no longer published`);
+  if (wordpress.status === 'rejected') {
+    console.log('  Nothing was removed this run — the blog was unreachable, so a missing');
+    console.log('  article cannot be told apart from a withdrawn one.');
+  }
 
   // ── Sitemaps and feed ───────────────────────────────────────────────────
   const news = newsSitemap(unique);

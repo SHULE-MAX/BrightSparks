@@ -3,11 +3,35 @@
 #
 #  Staff publish a story in the Website Manager, which saves it to the school's
 #  database. This workflow turns that story into a real page — news/<slug>/ —
-#  along with a fresh sitemap, news sitemap and RSS feed, then commits them.
-#  Committing to main is what triggers the deploy workflow, so the story is on
-#  the live site within the half hour without anyone touching the code.
+#  along with a fresh sitemap, news sitemap and RSS feed, commits them, and
+#  uploads them to the school's cPanel server. Within the half hour the story
+#  is live, and nobody has touched the code or a File Manager.
+#
+#  THE UPLOAD IS THE STEP THAT MATTERS
+#  brightsparksjunior.ac.ug is not served from this repository — it is a cPanel
+#  account, and a page committed here reaches nobody until it is put there.
+#  Until the FTPS step below existed that was a manual zip upload, so a story
+#  published in the dashboard stayed invisible until somebody remembered to do
+#  it. That is exactly how "NAMING OF UGANDA'S CRUDE OIL" came to have a page
+#  in the repository, a card on the news page, and a 404 behind the link.
+#
+#  SETTING THE UPLOAD UP — ONCE
+#  1. In cPanel → FTP Accounts, add an account whose directory is public_html.
+#     A dedicated account, not the main cPanel login: it can be changed or
+#     revoked on its own, and it cannot reach the rest of the hosting.
+#  2. In GitHub → Settings → Secrets and variables → Actions → Secrets, add
+#       FTP_SERVER     ftp.brightsparksjunior.ac.ug  (or the host's server name)
+#       FTP_USERNAME   the account from step 1, in full — user@domain
+#       FTP_PASSWORD   its password
+#  3. If that account opens straight into public_html rather than the home
+#     folder, add a repository *variable* FTP_SERVER_DIR set to  ./
+#  4. Run the workflow by hand with "dry run" ticked and read the log before
+#     letting it write anything.
+#  Without those secrets the build still runs and still commits; it just says
+#  in the log that nothing was uploaded.
 #
 #  It can also be run by hand: Actions → Build news pages → Run workflow.
+#  Tick "dry run" there to see what the upload would change, and change nothing.
 # ════════════════════════════════════════════════════════════════════════════
 name: Build news pages
 
@@ -17,6 +41,11 @@ on:
     # the exact minute drifts; for school news that is fine.
     - cron: '*/30 * * * *'
   workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Dry run — list what would be uploaded, upload nothing'
+        type: boolean
+        default: false
   push:
     branches: [main]
     paths:
@@ -39,6 +68,13 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+
+    # Read here rather than inside the step so the upload can be skipped when
+    # the server details have not been set yet: a secret cannot be tested in an
+    # "if:" directly, but an environment variable can.
+    env:
+      FTP_SERVER: ${{ secrets.FTP_SERVER }}
+
     steps:
       - uses: actions/checkout@v4
 
@@ -64,3 +100,60 @@ jobs:
 
           git commit -m "chore: rebuild news pages from published articles"
           git push
+
+      # ────────────────────────────────────────────────────────────────────
+      #  PUT THE PAGES ON THE LIVE SERVER
+      # ────────────────────────────────────────────────────────────────────
+      #  Staged rather than uploaded straight from the checkout, because the
+      #  repository holds a good deal that has no business on a web server —
+      #  the build scripts, this workflow, the admin dashboard's source. The
+      #  staged folder is the same list the by-hand zip has always used, so
+      #  the two routes cannot drift apart.
+      - name: Stage the files that belong on the server
+        run: node package-upload.mjs --stage _deploy
+
+      #  Only what this step has put there before is ever touched. The upload
+      #  keeps its own record of that on the server, so the WordPress blog
+      #  under /wp, the pictures, and every page the news build does not write
+      #  are invisible to it and cannot be overwritten or deleted. A story
+      #  withdrawn in the dashboard loses its page here, which is the point.
+      - name: Upload to cPanel over FTPS
+        if: env.FTP_SERVER != ''
+        uses: SamKirkland/FTP-Deploy-Action@v4.4.0
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+
+          # Explicit FTPS on the ordinary FTP port — cPanel's usual setup, and
+          # what keeps the password off the wire. Shared hosting normally
+          # presents a certificate issued for the server's own hostname rather
+          # than for brightsparksjunior.ac.ug, which "loose" accepts; the
+          # connection is encrypted either way. If the host turns out to
+          # support SFTP instead, that is the better protocol — but this
+          # action does not speak it.
+          protocol: ftps
+          port: 21
+          security: loose
+          timeout: 60000
+
+          local-dir: ./_deploy/
+          # Where the FTP account lands. Most cPanel accounts open in the home
+          # folder, so the site is one level down; an account created for
+          # public_html itself wants "./" instead. Set the FTP_SERVER_DIR
+          # repository variable to override — trailing slash required.
+          server-dir: ${{ vars.FTP_SERVER_DIR || 'public_html/' }}
+
+          # The record of what this deploy has uploaded. Blocked from the web
+          # in .htaccess — it lists every file and does not belong to visitors.
+          state-name: .bsjs-news-deploy.json
+
+          dry-run: ${{ inputs.dry_run == true }}
+          log-level: standard
+
+      - name: Say so if the server details are missing
+        if: env.FTP_SERVER == ''
+        run: |
+          echo "::warning::No FTP_SERVER secret, so nothing was uploaded. The pages" \
+               "are committed but not live. Add FTP_SERVER, FTP_USERNAME and" \
+               "FTP_PASSWORD under Settings → Secrets and variables → Actions."

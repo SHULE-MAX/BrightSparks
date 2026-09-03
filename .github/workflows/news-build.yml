@@ -177,14 +177,20 @@ jobs:
           port: ${{ secrets.FTP_FTPS_PORT || 21 }}
           security: loose
 
-          # Per operation, not for the upload as a whole. The school's host is
-          # a slow one: the first run spent two minutes just establishing that
-          # it had never deployed here before, and then gave up creating the
-          # news folder because a single step had taken longer than a minute.
-          # Five minutes is far longer than any of these should need, and the
-          # only thing a generous limit costs is how long a genuinely dead
-          # connection takes to admit it.
-          timeout: 300000
+          # Per operation, not for the upload as a whole. Two minutes is far
+          # longer than moving a page of HTML can honestly take; it is set
+          # generously only so a slow moment is never mistaken for a failure.
+          #
+          # It is not a cure for a connection that cannot be made. This was
+          # briefly raised to five minutes against the idea that the host was
+          # merely slow, and all that bought was the same failure taking five
+          # minutes to arrive: the host does not allow the passive data ports
+          # FTPS needs, so the server names a port and nothing ever answers on
+          # it. Only the host can open those. If uploads start timing out
+          # again, run this workflow with "verbose" ticked — a stall right
+          # after EPSV or PASV means the passive ports have closed again, and
+          # no setting here will help.
+          timeout: 120000
 
           local-dir: ./_deploy/
           # Where the FTP account lands. Most cPanel accounts open in the home

@@ -80,6 +80,17 @@ const COOLDOWN_MS = 20000;
 let lastDispatch = 0;
 let trailing = null;
 
+/* The last thing that happened, so the question "why did my story not appear
+   at once?" can be answered without anybody reading a deploy log. Two failures
+   look identical from the outside — the dashboard never asking, and GitHub
+   refusing the token — and they need opposite fixes, so it is worth recording
+   which one it was. Nothing secret is kept here: a time, an outcome, and
+   whatever GitHub said, which never contains the token. */
+let lastAttempt = null;
+const note = (outcome, detail) => {
+  lastAttempt = { at: new Date().toISOString(), outcome, detail: detail ? String(detail).slice(0, 300) : undefined };
+};
+
 async function tellGitHub() {
   lastDispatch = Date.now();
 
@@ -98,9 +109,22 @@ async function tellGitHub() {
   // 204 is the success here — GitHub returns no body for a dispatch.
   if (res.status !== 204) {
     const detail = await res.text().catch(() => '');
+    note('github-refused', `HTTP ${res.status} ${detail.slice(0, 200)}`);
     throw new Error(`GitHub answered ${res.status} ${detail.slice(0, 200)}`);
   }
+  note('sent');
 }
+
+/* Read-only, and deliberately open: it holds no secret, and needing to be
+   signed in to find out why publishing is slow would defeat the purpose. */
+app.get('/api/rebuild/status', (_req, res) => {
+  res.set('Cache-Control', 'no-store');
+  res.json({
+    configured: Boolean(GITHUB_TOKEN && GITHUB_REPO),
+    repo: GITHUB_REPO || null,
+    lastAttempt,
+  });
+});
 
 app.post('/api/rebuild', async (req, res) => {
   const absent = [
@@ -113,6 +137,7 @@ app.post('/api/rebuild', async (req, res) => {
        acted on. Only the names are ever reported — never a value, and a token
        is a value. */
     console.warn(`  A rebuild was asked for, but ${absent.join(' and ')} is not set on this service.`);
+    note('not-configured', absent.join(', '));
     return res.status(503).json({ ok: false, reason: 'not-configured', missing: absent });
   }
 
@@ -121,15 +146,22 @@ app.post('/api/rebuild', async (req, res) => {
      the token; an answer of anything but a user means no. */
   const header = req.get('authorization') || '';
   const jwt = header.startsWith('Bearer ') ? header.slice(7) : '';
-  if (!jwt) return res.status(401).json({ ok: false, reason: 'signed-out' });
+  if (!jwt) {
+    note('signed-out', 'no Authorization header');
+    return res.status(401).json({ ok: false, reason: 'signed-out' });
+  }
 
   try {
     const who = await fetch(`${process.env.SUPABASE_URL}/auth/v1/user`, {
       headers: { apikey: process.env.SUPABASE_ANON_KEY, Authorization: `Bearer ${jwt}` },
       signal: AbortSignal.timeout(10000),
     });
-    if (!who.ok) return res.status(401).json({ ok: false, reason: 'signed-out' });
+    if (!who.ok) {
+      note('signed-out', `Supabase answered ${who.status}`);
+      return res.status(401).json({ ok: false, reason: 'signed-out' });
+    }
   } catch {
+    note('auth-unreachable');
     return res.status(503).json({ ok: false, reason: 'auth-unreachable' });
   }
 

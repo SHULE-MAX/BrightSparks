@@ -53,9 +53,19 @@ name: Build news pages
 
 on:
   schedule:
-    # Every 30 minutes. GitHub runs scheduled jobs on a best-effort basis, so
-    # the exact minute drifts; for school news that is fine.
-    - cron: '*/30 * * * *'
+    # Every 15 minutes, so a story published in the Website Manager is live
+    # within the quarter hour rather than the half.
+    #
+    # A run with no news costs nothing worth counting: the build rewrites a
+    # file only when its contents change, the commit step stops when nothing
+    # is staged, and the upload says "Nothing has changed" without writing
+    # anything. Twenty seconds of finding nothing to do, on a public
+    # repository where the minutes are free.
+    #
+    # GitHub runs scheduled jobs on a best-effort basis and drops them under
+    # load, so this is the interval asked for and not the interval promised —
+    # a quarter of an hour is the usual wait, not the guaranteed one.
+    - cron: '*/15 * * * *'
   workflow_dispatch:
     inputs:
       dry_run:

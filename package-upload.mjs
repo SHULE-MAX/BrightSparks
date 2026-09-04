@@ -22,9 +22,9 @@
  *  Upload the resulting news-upload.zip into public_html and choose Extract.
  *
  *  THE ZIP IS NOW THE FALLBACK, NOT THE USUAL ROUTE
- *  The Build news pages workflow sends these same files to the server over FTPS
- *  on every run, so nobody has to remember to upload anything. It uses this
- *  file's list rather than keeping a second copy of it:
+ *  The Build news pages workflow sends these same files to the server over
+ *  cPanel's HTTPS API on every run, so nobody has to remember to upload
+ *  anything. It uses this file's list rather than keeping a second copy of it:
  *
  *      node package-upload.mjs --stage _deploy
  *
@@ -33,7 +33,7 @@
  *  zip for the days the workflow cannot run and a story has to go up by hand.
  * ════════════════════════════════════════════════════════════════════════════ */
 
-import { readFile, writeFile, readdir, stat, mkdir, copyFile, rm } from 'node:fs/promises';
+import { readFile, writeFile, readdir, stat, mkdir, rm } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import { deflateRawSync } from 'node:zlib';
 import path from 'node:path';
@@ -62,6 +62,20 @@ const LOOSE_FILES = [
   'feed.xml'
 ];
 const FOLDERS = ['news'];
+
+/* Line endings are normalised on the way out, for the same reason the zip uses
+   forward slashes: this repository is worked on from Windows, and the server is
+   Linux. Git is set to check files out with CRLF here, so a file staged on this
+   machine and the identical file staged on the GitHub runner differ byte for
+   byte. The deploy decides what to upload by hashing contents, so without this
+   the two would disagree about every text file — a run from a laptop would
+   re-upload all of them, then the next scheduled run would re-upload all of
+   them again, back and forth, for ever. The page reads the same either way. */
+const TEXT = /\.(html|css|js|xml|txt|json)$/i;
+
+function normalise(name, contents) {
+  return TEXT.test(name) ? Buffer.from(contents.toString('utf8').replace(/\r\n/g, '\n'), 'utf8') : contents;
+}
 
 // ── CRC-32, which every entry in a zip has to carry ────────────────────────
 const CRC_TABLE = (() => {
@@ -143,7 +157,7 @@ async function stage(files) {
   for (const name of files) {
     const to = path.join(target, name);
     await mkdir(path.dirname(to), { recursive: true });
-    await copyFile(path.join(ROOT, name), to);
+    await writeFile(to, normalise(name, await readFile(path.join(ROOT, name))));
   }
 
   console.log(`\n  ${STAGE_DIR}/ — ${files.length} files ready to upload\n`);
@@ -165,7 +179,7 @@ async function main() {
   let offset = 0;
 
   for (const name of files) {
-    const contents = await readFile(path.join(ROOT, name));
+    const contents = normalise(name, await readFile(path.join(ROOT, name)));
     const packed = deflateRawSync(contents, { level: 9 });
     const nameBytes = Buffer.from(name, 'utf8');
     const crc = crc32(contents);

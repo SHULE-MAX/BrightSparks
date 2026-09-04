@@ -15,3 +15,11 @@ convert-webp.mjs
 admin/dist/
 admin/.env
 admin/.env.local
+
+# The cPanel API token, for running the deploy from this machine by hand.
+# On the server side it is a GitHub Actions secret; this file is only so the
+# smoke test and a manual deploy can authenticate. It is a live credential
+# with the run of the whole cPanel account — never commit it, never paste it
+# into a chat or an issue. If it leaks, revoke it in cPanel → Security →
+# Manage API Tokens and issue a new one; nothing here needs changing.
+/.cpanel-token

@@ -10,25 +10,41 @@
 #  THE UPLOAD IS THE STEP THAT MATTERS
 #  brightsparksjunior.ac.ug is not served from this repository — it is a cPanel
 #  account, and a page committed here reaches nobody until it is put there.
-#  Until the FTPS step below existed that was a manual zip upload, so a story
+#  Before this step was automated that was a manual zip upload, so a story
 #  published in the dashboard stayed invisible until somebody remembered to do
 #  it. That is exactly how "NAMING OF UGANDA'S CRUDE OIL" came to have a page
 #  in the repository, a card on the news page, and a 404 behind the link.
 #
+#  WHY THIS UPLOADS OVER HTTPS AND NOT FTP
+#  It used to be an FTPS step, and that step never once succeeded. FTP sends
+#  file contents over a second connection to a high port the server picks, and
+#  this host does not allow those from outside: the log shows the server answer
+#  "229 Extended Passive mode OK (|||55656|)" and then nothing ever answering on
+#  55656. Only the host can open that range, GitHub's runners have no fixed
+#  address to allowlist, and raising the timeout only made the same failure take
+#  longer to arrive. cpanel-deploy.mjs uses cPanel's own API over port 2083
+#  instead — ordinary HTTPS, one connection, nothing for a firewall to have shut.
+#
 #  SETTING THE UPLOAD UP — ONCE
-#  1. In cPanel → FTP Accounts, add an account whose directory is public_html.
-#     A dedicated account, not the main cPanel login: it can be changed or
-#     revoked on its own, and it cannot reach the rest of the hosting.
+#  1. In cPanel → Security → Manage API Tokens, create a token. Name it for
+#     whoever uses it — github-news-deploy — so it is obvious later what breaks
+#     if it is revoked. Copy it with the button; a token copied by hand and
+#     short by one character fails with a bare "Access denied" and no clue.
+#     Give it no expiry: a token that quietly expires would strand the news
+#     exactly the way the FTP step did.
 #  2. In GitHub → Settings → Secrets and variables → Actions → Secrets, add
-#       FTP_SERVER     ftp.brightsparksjunior.ac.ug  (or the host's server name)
-#       FTP_USERNAME   the account from step 1, in full — user@domain
-#       FTP_PASSWORD   its password
-#  3. If that account opens straight into public_html rather than the home
-#     folder, add a repository *variable* FTP_SERVER_DIR set to  ./
-#  4. Run the workflow by hand with "dry run" ticked and read the log before
+#       CPANEL_HOST       brightsparksjunior.ac.ug
+#       CPANEL_USER       the cPanel account name — the bare name, NOT the
+#                         user@domain form an FTP account uses
+#       CPANEL_API_TOKEN  the token from step 1
+#  3. Run the workflow by hand with "dry run" ticked and read the log before
 #     letting it write anything.
 #  Without those secrets the build still runs and still commits; it just says
 #  in the log that nothing was uploaded.
+#
+#  A cPanel token has the run of the whole account — cPanel has no way to narrow
+#  one to a single folder. It is worth revoking and reissuing if it is ever
+#  exposed; nothing in this repository changes when you do.
 #
 #  It can also be run by hand: Actions → Build news pages → Run workflow.
 #  Tick "dry run" there to see what the upload would change, and change nothing.
@@ -47,7 +63,7 @@ on:
         type: boolean
         default: false
       verbose:
-        description: 'Log every FTP command and reply (for when the upload misbehaves)'
+        description: 'Log every request and reply (for when the upload misbehaves)'
         type: boolean
         default: false
   push:
@@ -77,7 +93,7 @@ jobs:
     # the server details have not been set yet: a secret cannot be tested in an
     # "if:" directly, but an environment variable can.
     env:
-      FTP_SERVER: ${{ secrets.FTP_SERVER }}
+      CPANEL_HOST: ${{ secrets.CPANEL_HOST }}
 
     steps:
       - uses: actions/checkout@v4
@@ -147,72 +163,26 @@ jobs:
       - name: Stage the files that belong on the server
         run: node package-upload.mjs --stage _deploy
 
-      #  Only what this step has put there before is ever touched. The upload
-      #  keeps its own record of that on the server, so the WordPress blog
-      #  under /wp, the pictures, and every page the news build does not write
-      #  are invisible to it and cannot be overwritten or deleted. A story
-      #  withdrawn in the dashboard loses its page here, which is the point.
-      - name: Upload to cPanel over FTPS
-        if: env.FTP_SERVER != ''
-        uses: SamKirkland/FTP-Deploy-Action@v4.4.0
-        with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-
-          # FTPS either way, so the password never crosses the wire in the
-          # clear. Which of the two kinds depends on the port the host gives:
-          # 21 is the ordinary FTP port, where the connection starts in plain
-          # text and is upgraded to TLS before anyone logs in ("explicit", the
-          # cPanel default); 990 is encrypted from the first byte ("implicit",
-          # which this action calls ftps-legacy). Set FTP_FTPS_PORT only if the
-          # host asks for something other than 21.
-          #
-          # Shared hosting normally presents a certificate issued for the
-          # server's own hostname rather than for brightsparksjunior.ac.ug,
-          # which "loose" accepts; the connection is encrypted either way. If
-          # the host turns out to offer SFTP, that is the better protocol —
-          # but this action does not speak it.
-          protocol: ${{ secrets.FTP_FTPS_PORT == '990' && 'ftps-legacy' || 'ftps' }}
-          port: ${{ secrets.FTP_FTPS_PORT || 21 }}
-          security: loose
-
-          # Per operation, not for the upload as a whole. Two minutes is far
-          # longer than moving a page of HTML can honestly take; it is set
-          # generously only so a slow moment is never mistaken for a failure.
-          #
-          # It is not a cure for a connection that cannot be made. This was
-          # briefly raised to five minutes against the idea that the host was
-          # merely slow, and all that bought was the same failure taking five
-          # minutes to arrive: the host does not allow the passive data ports
-          # FTPS needs, so the server names a port and nothing ever answers on
-          # it. Only the host can open those. If uploads start timing out
-          # again, run this workflow with "verbose" ticked — a stall right
-          # after EPSV or PASV means the passive ports have closed again, and
-          # no setting here will help.
-          timeout: 120000
-
-          local-dir: ./_deploy/
-          # Where the FTP account lands. Most cPanel accounts open in the home
-          # folder, so the site is one level down; an account created for
-          # public_html itself wants "./" instead. Set the FTP_SERVER_DIR
-          # repository variable to override — trailing slash required.
-          server-dir: ${{ vars.FTP_SERVER_DIR || 'public_html/' }}
-
-          # The record of what this deploy has uploaded. Blocked from the web
-          # in .htaccess — it lists every file and does not belong to visitors.
-          state-name: .bsjs-news-deploy.json
-
-          dry-run: ${{ inputs.dry_run == true }}
-
-          # Verbose prints the whole conversation with the server, which is the
-          # only way to see which command it stops answering. The password is
-          # not among it — the client logs that one as "PASS ###".
-          log-level: ${{ inputs.verbose == true && 'verbose' || 'standard' }}
+      #  cpanel-deploy.mjs keeps its own record of what it has uploaded, on the
+      #  server, and touches only the difference. The WordPress blog under /wp,
+      #  the photographs and every page the news build does not write are not in
+      #  that record, so they are invisible to it and cannot be overwritten or
+      #  deleted. A story withdrawn in the dashboard loses its page here, which
+      #  is the point.
+      - name: Upload to cPanel over HTTPS
+        if: env.CPANEL_HOST != ''
+        env:
+          CPANEL_HOST: ${{ secrets.CPANEL_HOST }}
+          CPANEL_USER: ${{ secrets.CPANEL_USER }}
+          CPANEL_API_TOKEN: ${{ secrets.CPANEL_API_TOKEN }}
+        run: |
+          node cpanel-deploy.mjs \
+            ${{ inputs.dry_run == true && '--dry-run' || '' }} \
+            ${{ inputs.verbose == true && '--verbose' || '' }}
 
       - name: Say so if the server details are missing
-        if: env.FTP_SERVER == ''
+        if: env.CPANEL_HOST == ''
         run: |
-          echo "::warning::No FTP_SERVER secret, so nothing was uploaded. The pages" \
-               "are committed but not live. Add FTP_SERVER, FTP_USERNAME and" \
-               "FTP_PASSWORD under Settings → Secrets and variables → Actions."
+          echo "::warning::No CPANEL_HOST secret, so nothing was uploaded. The pages" \
+               "are committed but not live. Add CPANEL_HOST, CPANEL_USER and" \
+               "CPANEL_API_TOKEN under Settings → Secrets and variables → Actions."

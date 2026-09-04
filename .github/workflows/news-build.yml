@@ -66,6 +66,15 @@ on:
     # load, so this is the interval asked for and not the interval promised —
     # a quarter of an hour is the usual wait, not the guaranteed one.
     - cron: '*/15 * * * *'
+
+  # The Website Manager asks for a build the moment somebody publishes, edits,
+  # hides or deletes a story, so the page is usually up within a minute and the
+  # schedule above is only the safety net for when that call does not arrive.
+  # Sent by admin/server.js, which holds the token; the dashboard itself runs in
+  # a browser and can never be trusted with one.
+  repository_dispatch:
+    types: [publish]
+
   workflow_dispatch:
     inputs:
       dry_run:

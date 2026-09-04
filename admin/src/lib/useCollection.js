@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { supabase } from './supabase.js';
+import { requestRebuild } from './rebuild.js';
 import { useToast } from '../components/Toast.jsx';
 
 /**
@@ -43,6 +44,23 @@ export function useCollection(table, order, label) {
     load();
   }, [load]);
 
+  /* What to tell the editor about the public website, which is not the same
+     answer for every kind of content.
+
+     The gallery, the calendar and the resources are read out of the database by
+     the pages themselves, so a change really is live the moment it is saved.
+     News is not: a story becomes a page at brightsparksjunior.ac.ug only when
+     the site is rebuilt and uploaded. Asking for that rebuild here is what
+     turns a quarter of an hour's wait into a minute — and when the asking
+     fails, the message says so rather than claiming something untrue. */
+  const websiteNote = useCallback(async () => {
+    if (table !== 'articles') return 'it is live on the website now.';
+    const when = await requestRebuild();
+    return when === 'timer'
+      ? 'the website will pick it up within 15 minutes.'
+      : 'the website page is being built now — give it about a minute.';
+  }, [table]);
+
   /** Creates when `id` is absent, updates when present. */
   const save = useCallback(
     async (values, id) => {
@@ -55,11 +73,11 @@ export function useCollection(table, order, label) {
         toast.error(`Could not save. ${friendly(err)}`);
         return false;
       }
-      toast.success(id ? `${cap(label)} updated — it is live on the website now.` : `${cap(label)} added — it is live on the website now.`);
+      toast.success(`${cap(label)} ${id ? 'updated' : 'added'} — ${await websiteNote()}`);
       await load();
       return true;
     },
-    [table, label, load, toast]
+    [table, label, load, toast, websiteNote]
   );
 
   const remove = useCallback(
@@ -69,11 +87,12 @@ export function useCollection(table, order, label) {
         toast.error(`Could not delete. ${friendly(err)}`);
         return false;
       }
-      toast.success(`${cap(label)} deleted.`);
+      /* A deleted story has to lose its page too, which the rebuild does. */
+      toast.success(`${cap(label)} deleted — ${await websiteNote()}`);
       await load();
       return true;
     },
-    [table, label, load, toast]
+    [table, label, load, toast, websiteNote]
   );
 
   /** Show/hide on the public site without deleting anything. */
@@ -93,9 +112,10 @@ export function useCollection(table, order, label) {
         toast.error(`Could not change visibility. ${friendly(err)}`);
         return;
       }
-      toast.success(next ? 'Now showing on the website.' : 'Now hidden from the website.');
+      const note = await websiteNote();
+      toast.success(next ? `Now showing — ${note}` : `Now hidden — ${note}`);
     },
-    [table, toast]
+    [table, toast, websiteNote]
   );
 
   /**

@@ -47,6 +47,106 @@ app.get('/config.js', (_req, res) => {
 
 app.get('/healthz', (_req, res) => res.json({ ok: true }));
 
+// ── Asking GitHub to rebuild the news pages, straight away ───────────────────
+//  The public site is static: a story saved here becomes a page only when the
+//  Build news pages workflow runs. That workflow is on a timer, so without this
+//  a story waits up to a quarter of an hour. The dashboard calls this endpoint
+//  the moment anything about an article changes, and the wait becomes a minute.
+//
+//  WHY THIS LIVES ON THE SERVER AND NOT IN THE DASHBOARD
+//  Triggering a workflow needs a GitHub token, and the dashboard is a React app
+//  running in somebody's browser: every value it is built with can be read by
+//  anyone who opens it. A token put there would be a token given away — one
+//  that can push code and start workflows. So the token stays here, in Railway's
+//  environment, and the browser only ever gets to ask.
+//
+//  Set these in Railway → your service → Variables:
+//    GITHUB_TOKEN   a fine-grained token for this repository alone, with
+//                   Contents: read-only and Actions: read and write. Nothing
+//                   else — it never needs to read the database or the code.
+//    GITHUB_REPO    SHULE-MAX/BrightSparks
+//  Without them the dashboard still saves normally; the story just waits for
+//  the timer, and the log below says so.
+const GITHUB_TOKEN = process.env.GITHUB_TOKEN || '';
+const GITHUB_REPO = process.env.GITHUB_REPO || '';
+
+/* Saving an article can easily mean several writes in a row — a save, then a
+   visibility toggle, then a correction. Each one asking for its own build would
+   queue builds that all produce the same pages, because the workflow refuses to
+   run two at once. So a request inside the cooling-off period does not start a
+   second build; it arranges one for when the period ends, and any further
+   requests fold into that same one. */
+const COOLDOWN_MS = 20000;
+let lastDispatch = 0;
+let trailing = null;
+
+async function tellGitHub() {
+  lastDispatch = Date.now();
+
+  const res = await fetch(`https://api.github.com/repos/${GITHUB_REPO}/dispatches`, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${GITHUB_TOKEN}`,
+      Accept: 'application/vnd.github+json',
+      'X-GitHub-Api-Version': '2022-11-28',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ event_type: 'publish' }),
+    signal: AbortSignal.timeout(15000),
+  });
+
+  // 204 is the success here — GitHub returns no body for a dispatch.
+  if (res.status !== 204) {
+    const detail = await res.text().catch(() => '');
+    throw new Error(`GitHub answered ${res.status} ${detail.slice(0, 200)}`);
+  }
+}
+
+app.post('/api/rebuild', async (req, res) => {
+  if (!GITHUB_TOKEN || !GITHUB_REPO) {
+    console.warn('  A rebuild was asked for, but GITHUB_TOKEN or GITHUB_REPO is not set.');
+    return res.status(503).json({ ok: false, reason: 'not-configured' });
+  }
+
+  /* Anyone can reach this address, so being signed in to the dashboard has to
+     be proved rather than assumed. Supabase is asked to identify the bearer of
+     the token; an answer of anything but a user means no. */
+  const header = req.get('authorization') || '';
+  const jwt = header.startsWith('Bearer ') ? header.slice(7) : '';
+  if (!jwt) return res.status(401).json({ ok: false, reason: 'signed-out' });
+
+  try {
+    const who = await fetch(`${process.env.SUPABASE_URL}/auth/v1/user`, {
+      headers: { apikey: process.env.SUPABASE_ANON_KEY, Authorization: `Bearer ${jwt}` },
+      signal: AbortSignal.timeout(10000),
+    });
+    if (!who.ok) return res.status(401).json({ ok: false, reason: 'signed-out' });
+  } catch {
+    return res.status(503).json({ ok: false, reason: 'auth-unreachable' });
+  }
+
+  const since = Date.now() - lastDispatch;
+
+  if (since >= COOLDOWN_MS) {
+    try {
+      await tellGitHub();
+      return res.json({ ok: true, when: 'now' });
+    } catch (error) {
+      console.error(`  Could not ask GitHub to rebuild: ${error.message}`);
+      return res.status(502).json({ ok: false, reason: 'github-refused' });
+    }
+  }
+
+  const wait = COOLDOWN_MS - since;
+  if (!trailing) {
+    trailing = setTimeout(() => {
+      trailing = null;
+      tellGitHub().catch((error) => console.error(`  Delayed rebuild failed: ${error.message}`));
+    }, wait);
+  }
+  return res.json({ ok: true, when: 'shortly', inMs: wait });
+});
+
 // Hashed asset filenames can be cached hard; index.html never should be.
 //
 // sw.js is the other file that must never be cached. A browser holding an old

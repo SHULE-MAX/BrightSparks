@@ -218,6 +218,12 @@ async function readState() {
 async function uploadBatch(dir, entries) {
   const form = new FormData();
   form.set('dir', dir);
+  /* Without this cPanel will not replace a file that is already there, and
+     says only "Failed to upload any of the requested files with various
+     failures" — the same message whatever went wrong, and it fails the whole
+     batch rather than the one file. Replacing is the ordinary case here:
+     news.html, the sitemap and the feed are rewritten on every run. */
+  form.set('overwrite', '1');
   entries.forEach(([rel, file], i) => {
     form.set(`file-${i + 1}`, new Blob([file.body]), path.posix.basename(rel));
   });
@@ -354,6 +360,7 @@ async function main() {
 
   const form = new FormData();
   form.set('dir', REMOTE_ROOT);
+  form.set('overwrite', '1');            // it is replaced on every run
   form.set('file-1', new Blob([JSON.stringify(record, null, 2)], { type: 'application/json' }), STATE_NAME);
   const saved = await uapi('Fileman', 'upload_files', {}, form);
   if (saved.status !== 1) {

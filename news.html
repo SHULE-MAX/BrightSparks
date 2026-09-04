@@ -288,6 +288,27 @@
   .ann-body p { margin-bottom: 8px; }
   .ann-body p:last-child { margin-bottom: 0; }
   .ann-body strong { color: var(--navy); }
+  /* An announcement is written in the same editor as a full article, so it can
+     contain anything that editor produces — most usefully a table of reporting
+     dates or fees. These mirror the rules in news-article.css. */
+  .ann-body h2, .ann-body h3 { font-size: 0.98rem; color: var(--navy); margin: 14px 0 6px; }
+  .ann-body ul, .ann-body ol { margin: 0 0 10px 20px; }
+  .ann-body li { margin-bottom: 4px; }
+  .ann-body a { color: var(--navy); font-weight: 600; }
+  .ann-body a:hover { color: var(--red); }
+  .ann-body hr { border: none; border-top: 1px solid rgba(26,46,110,0.15); margin: 16px 0; }
+  .ann-body blockquote {
+    margin: 12px 0; padding: 10px 16px; border-left: 4px solid var(--gold);
+    background: var(--cream); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; font-style: italic;
+  }
+  .ann-body table { width: 100%; border-collapse: collapse; margin: 10px 0 12px; font-size: 0.84rem; background: var(--white); }
+  .ann-body th, .ann-body td { border: 1px solid rgba(26,46,110,0.12); padding: 8px 10px; text-align: left; vertical-align: top; }
+  .ann-body th { background: rgba(26,46,110,0.07); color: var(--navy); font-weight: 700; }
+  .ann-body tbody tr:nth-child(even) td { background: rgba(26,46,110,0.025); }
+  @media (max-width: 560px) {
+    .ann-body table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .ann-body th, .ann-body td { white-space: nowrap; }
+  }
   .ann-date { font-size: 0.74rem; color: var(--gold); font-weight: 700; margin-bottom: 5px; letter-spacing: 0.05em; }
   .ann-read-more { display: inline-flex; align-items: center; gap: 4px; margin-top: 10px; font-size: 0.8rem; font-weight: 700; color: var(--navy); cursor: pointer; background: none; border: none; font-family: inherit; padding: 0; transition: gap 0.2s, color 0.2s; }
   .ann-read-more:hover { gap: 8px; color: var(--red); }

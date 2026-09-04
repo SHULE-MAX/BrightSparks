@@ -116,8 +116,26 @@ body > nav {
   background: var(--white); border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
   font-style: italic; color: var(--text-muted);
 }
-.article-body table { width: 100%; border-collapse: collapse; margin-bottom: 18px; font-size: 0.9rem; }
-.article-body th, .article-body td { border: 1px solid rgba(26,46,110,0.12); padding: 8px 10px; text-align: left; }
+.article-body hr { border: none; border-top: 1px solid rgba(26,46,110,0.15); margin: 30px 0; }
+
+/* Tables come from the dashboard's editor, where the top row is always the
+   heading row. A fee table is the commonest one, so the figures are given room
+   to breathe and alternate rows are tinted — on a phone the table scrolls
+   sideways inside its own box rather than squeezing the columns to nothing. */
+.article-body table {
+  width: 100%; border-collapse: collapse; margin: 0 0 22px; font-size: 0.9rem;
+  background: var(--white); border-radius: var(--radius-sm); overflow: hidden;
+  box-shadow: 0 1px 8px rgba(26,46,110,0.06);
+}
+.article-body th, .article-body td { border: 1px solid rgba(26,46,110,0.12); padding: 10px 12px; text-align: left; vertical-align: top; }
+.article-body th { background: rgba(26,46,110,0.07); color: var(--navy); font-weight: 700; }
+.article-body tbody tr:nth-child(even) td { background: rgba(26,46,110,0.025); }
+.article-body table p { margin-bottom: 0; }
+
+@media (max-width: 560px) {
+  .article-body table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .article-body th, .article-body td { white-space: nowrap; }
+}
 
 /* ── SHARE ──────────────────────────────────────────────────────────────── */
 .article-share { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin: 36px 0 0; padding-top: 22px; border-top: 1px solid rgba(26,46,110,0.1); }

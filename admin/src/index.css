@@ -64,6 +64,33 @@ body {
 .prose-bsjs h3 {
   @apply mt-4 mb-2 font-bold text-ink;
 }
+.prose-bsjs h2 {
+  @apply text-lg;
+}
+.prose-bsjs blockquote {
+  @apply mb-3 border-l-4 border-gold bg-slate-50 py-2 pl-4 text-slate-600 italic;
+}
+.prose-bsjs hr {
+  @apply my-5 border-t border-slate-300;
+}
+
+/* Tables are written in the editor and must look here exactly as they will on
+   the website, or staff cannot tell whether a fee table has come out right.
+   The cell borders are always visible while editing — including on cells that
+   are still empty — because an invisible grid is impossible to type into. */
+.prose-bsjs table {
+  @apply mb-3 w-full border-collapse text-[0.86rem];
+}
+.prose-bsjs th,
+.prose-bsjs td {
+  @apply border border-slate-300 px-2.5 py-1.5 text-left align-top;
+}
+.prose-bsjs th {
+  @apply bg-navy/10 font-bold text-navy;
+}
+.prose-bsjs tbody tr:nth-child(even) td {
+  @apply bg-slate-50;
+}
 
 /* The contenteditable news editor needs a visible placeholder when empty. */
 [contenteditable][data-placeholder]:empty::before {

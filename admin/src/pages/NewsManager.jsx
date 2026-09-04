@@ -306,7 +306,7 @@ export default function NewsManager() {
 
             <RichText
               label={isPinned ? 'Announcement text' : 'Article'}
-              hint="Highlight words and use the buttons above to make them bold, add a link, or start a list."
+              hint="Highlight words and use the buttons to make them bold, add a link, or start a list. ▦ Table inserts a table — or paste straight from Excel and the columns are kept."
               value={editing.body}
               error={errors.body}
               onChange={(body) => setEditing({ ...editing, body })}

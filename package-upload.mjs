@@ -22,9 +22,9 @@
  *  Upload the resulting news-upload.zip into public_html and choose Extract.
  *
  *  THE ZIP IS NOW THE FALLBACK, NOT THE USUAL ROUTE
- *  The Build news pages workflow sends these same files to the server over FTPS
- *  on every run, so nobody has to remember to upload anything. It uses this
- *  file's list rather than keeping a second copy of it:
+ *  The Build news pages workflow sends these same files to the server over
+ *  cPanel's HTTPS API on every run, so nobody has to remember to upload
+ *  anything. It uses this file's list rather than keeping a second copy of it:
  *
  *      node package-upload.mjs --stage _deploy
  *

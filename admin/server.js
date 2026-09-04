@@ -62,8 +62,14 @@ app.get('/healthz', (_req, res) => res.json({ ok: true }));
 //
 //  Set these in Railway → your service → Variables:
 //    GITHUB_TOKEN   a fine-grained token for this repository alone, with
-//                   Contents: read-only and Actions: read and write. Nothing
-//                   else — it never needs to read the database or the code.
+//                   Repository permissions → Contents: Read and write.
+//
+//                   Contents is the surprising one — starting a workflow reads
+//                   as an Actions matter, and a token given Actions: read and
+//                   write but Contents: read-only is refused with
+//                   403 "Resource not accessible by personal access token".
+//                   That is the permission this endpoint is governed by; the
+//                   REST documentation for repository dispatch does not say so.
 //    GITHUB_REPO    SHULE-MAX/BrightSparks
 //  Without them the dashboard still saves normally; the story just waits for
 //  the timer, and the log below says so.

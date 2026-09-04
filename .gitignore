@@ -11,6 +11,12 @@ convert-webp.mjs
 # server wants them. Written fresh by "package-upload.mjs --stage" every time.
 /_deploy/
 
+# The by-hand upload bundle, written by "node package-upload.mjs". It holds
+# nothing that is not already here in its ordinary form, and committing it only
+# added a rewritten copy of the site to every build. Run the script on the day
+# you need it — that is also the only way to be sure it is current.
+/news-upload.zip
+
 # Admin dashboard
 admin/dist/
 admin/.env

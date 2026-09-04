@@ -103,9 +103,17 @@ async function tellGitHub() {
 }
 
 app.post('/api/rebuild', async (req, res) => {
-  if (!GITHUB_TOKEN || !GITHUB_REPO) {
-    console.warn('  A rebuild was asked for, but GITHUB_TOKEN or GITHUB_REPO is not set.');
-    return res.status(503).json({ ok: false, reason: 'not-configured' });
+  const absent = [
+    !GITHUB_TOKEN && 'GITHUB_TOKEN',
+    !GITHUB_REPO && 'GITHUB_REPO',
+  ].filter(Boolean);
+
+  if (absent.length) {
+    /* Naming the variable turns "it does not work" into something that can be
+       acted on. Only the names are ever reported — never a value, and a token
+       is a value. */
+    console.warn(`  A rebuild was asked for, but ${absent.join(' and ')} is not set on this service.`);
+    return res.status(503).json({ ok: false, reason: 'not-configured', missing: absent });
   }
 
   /* Anyone can reach this address, so being signed in to the dashboard has to
@@ -174,4 +182,23 @@ app.get('*', (_req, res) => {
 
 app.listen(port, '0.0.0.0', () => {
   console.log(`Bright Sparks admin dashboard listening on port ${port}`);
+
+  /* Said at startup so the deploy log answers the question on its own, rather
+     than someone having to guess why a story is not appearing at once. Railway
+     keeps variables per service and per environment, so one added to the wrong
+     one is invisible here and looks exactly like one never added. Printing the
+     names this process can actually see settles that; values are never shown,
+     and a token is a value. */
+  if (GITHUB_TOKEN && GITHUB_REPO) {
+    console.log(`  Instant publishing is on — builds will be asked of ${GITHUB_REPO}.`);
+  } else {
+    const seen = Object.keys(process.env).filter((k) => /GITHUB|^GH_/i.test(k));
+    console.warn(
+      `  Instant publishing is OFF: ${[!GITHUB_TOKEN && 'GITHUB_TOKEN', !GITHUB_REPO && 'GITHUB_REPO']
+        .filter(Boolean)
+        .join(' and ')} is not set on this service.`
+    );
+    console.warn(`  GitHub-ish variables this process can see: ${seen.length ? seen.join(', ') : 'none at all'}`);
+    console.warn('  Stories still save; they wait for the 15-minute build instead.');
+  }
 });

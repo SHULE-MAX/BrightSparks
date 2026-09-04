@@ -82,7 +82,12 @@ const GITHUB_REPO = process.env.GITHUB_REPO || '';
    run two at once. So a request inside the cooling-off period does not start a
    second build; it arranges one for when the period ends, and any further
    requests fold into that same one. */
-const COOLDOWN_MS = 20000;
+/* Longer than a build takes, on purpose. Toggling a story off and on again is
+   two saves seconds apart, and at twenty seconds that asked for two builds: the
+   second queued behind the first, logged into cPanel again straight after it,
+   and was handed a login page for its trouble. One build covers both saves —
+   it reads the database at the end, not at the moment the button was pressed. */
+const COOLDOWN_MS = 90000;
 let lastDispatch = 0;
 let trailing = null;
 

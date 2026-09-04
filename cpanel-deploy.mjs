@@ -134,9 +134,16 @@ async function request(url, init, label) {
       try { json = JSON.parse(text); } catch { /* below */ }
 
       if (!json) {
-        /* cPanel answers an unauthenticated request with its login page, so
-           HTML here means the request never reached the API at all. */
-        throw new Error(`${label}: expected JSON, got ${res.status} and ${text.length} bytes of HTML`);
+        /* cPanel answers a request it will not authenticate with its login
+           page, so HTML here means the request never reached the API. The
+           token is not usually the reason — it was accepted a moment earlier —
+           and the likeliest cause is the host briefly refusing a caller that
+           has logged in many times in quick succession. Worth waiting out
+           rather than asking again straight away. */
+        throw Object.assign(
+          new Error(`${label}: cPanel returned its login page (${text.length} bytes) instead of an answer`),
+          { refused: true }
+        );
       }
 
       chat(`${label} → HTTP ${res.status}`);
@@ -145,7 +152,9 @@ async function request(url, init, label) {
       if (error.fatal) throw error;
       last = error;
       if (attempt < 3) {
-        const wait = attempt * 3000;
+        /* A refused login needs long enough for the host to stop refusing;
+           three seconds only spends an attempt confirming it still is. */
+        const wait = error.refused ? attempt * 20000 : attempt * 3000;
         chat(`${label} failed (${scrub(error.message)}) — retrying in ${wait / 1000}s`);
         await new Promise((r) => setTimeout(r, wait));
       }
@@ -196,22 +205,44 @@ async function readLocal() {
   return files;
 }
 
+/* "There is no record on the server" and "I could not find out whether there is
+   a record on the server" are entirely different answers, and treating the
+   second as the first is how a run comes to believe the site is empty. That
+   happened: cPanel handed back its login page instead of an answer, this read
+   swallowed it, and the run went on to announce a first publish and try to
+   re-upload all 24 files. Nothing was lost — an empty record deletes nothing —
+   but it would have rewritten the whole site over a moment's refused request,
+   and a genuine record of what is up there is the one thing the deploy cannot
+   do its job without. So only a plain "that file is not there" means no record;
+   anything else stops the run. */
 async function readState() {
+  let res;
   try {
-    const res = await uapi('Fileman', 'get_file_content', { dir: REMOTE_ROOT, file: STATE_NAME });
-    if (res.status !== 1) return null;
-
-    const parsed = JSON.parse(res.data?.content ?? res.data ?? '{}');
-    return new Map(Object.entries(parsed.files ?? {}));
+    res = await uapi('Fileman', 'get_file_content', { dir: REMOTE_ROOT, file: STATE_NAME });
   } catch (error) {
-    if (error.fatal) throw error;
-    /* No record is the honest answer for a first run. It is also what a
-       deleted record looks like, and the two are the same thing here: with
-       nothing to compare against, everything is uploaded and nothing is
-       deleted, which is safe. */
-    chat(`no readable ${STATE_NAME} on the server (${scrub(error.message)})`);
-    return null;
+    throw new Error(
+      `Could not read ${STATE_NAME} from the server, so there is no way to tell what is already ` +
+      `there. Stopping rather than assuming the site is empty. ${scrub(error.message)}`
+    );
   }
+
+  if (res.status === 1) {
+    try {
+      const parsed = JSON.parse(res.data?.content ?? res.data ?? '{}');
+      return new Map(Object.entries(parsed.files ?? {}));
+    } catch {
+      /* A record that cannot be read is worth no more than none, and unlike a
+         refused request this cannot fix itself — so start again from scratch,
+         which re-uploads everything once and writes a good record. */
+      console.warn(`  ${STATE_NAME} on the server is not readable JSON. Treating this as a first publish.`);
+      return null;
+    }
+  }
+
+  const why = scrub(JSON.stringify(res.errors ?? ''));
+  if (/not exist|no such file|cannot be found|failed to open/i.test(why)) return null;
+
+  throw new Error(`Could not read ${STATE_NAME}: ${why}`);
 }
 
 // ── Doing it ───────────────────────────────────────────────────────────────

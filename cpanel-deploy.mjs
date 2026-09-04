@@ -100,6 +100,13 @@ const AUTH = { Authorization: `cpanel ${USER}:${TOKEN}` };
 
 /* The token must never reach a log — least of all a public Actions log. */
 const scrub = (s) => String(s).split(TOKEN).join('«token»');
+
+/* Nor should the account name, which is half of what is needed to log in.
+   GitHub masks a secret only where it appears verbatim, and the bare name
+   taken out of user@domain no longer matches the secret it came from — so it
+   would print in the clear unless it is masked here. Enough is left to tell
+   at a glance whether the right account was used. */
+const masked = USER.length <= 4 ? '****' : `${USER.slice(0, 2)}${'*'.repeat(USER.length - 4)}${USER.slice(-2)}`;
 const say = (m) => console.log(`  ${m}`);
 const chat = (m) => { if (VERBOSE) console.log(`      · ${m}`); };
 
@@ -243,7 +250,7 @@ async function main() {
     process.exit(1);
   }
 
-  console.log(`\n  ${DRY_RUN ? 'Dry run — nothing will be changed' : 'Deploying'} to ${HOST} as ${USER}`);
+  console.log(`\n  ${DRY_RUN ? 'Dry run — nothing will be changed' : 'Deploying'} to ${HOST} as ${masked}`);
   console.log(`  Target: ${REMOTE_ROOT}/\n`);
 
   const local = await readLocal();

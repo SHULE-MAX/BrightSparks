@@ -10,7 +10,7 @@
     <description>News, announcements and events from Bright Sparks Junior School in Seguku, Kampala.</description>
     <language>en-UG</language>
     <copyright>Copyright 2026 Bright Sparks Junior School</copyright>
-    <lastBuildDate>Mon, 21 Sep 2026 05:22:00 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 22 Sep 2026 03:16:15 GMT</lastBuildDate>
     <image>
       <url>https://brightsparksjunior.ac.ug/logo.png</url>
       <title>Bright Sparks Junior School</title>
@@ -20,6 +20,26 @@
     <!-- WebSub: subscribers are told the moment this feed changes,
          instead of waiting to be crawled again. -->
     <atom:link rel="hub" href="https://pubsubhubbub.appspot.com/"/>
+    <item>
+      <title>Pyjama Day!</title>
+      <link>https://brightsparksjunior.ac.ug/news/pyjama-day/</link>
+      <guid isPermaLink="true">https://brightsparksjunior.ac.ug/news/pyjama-day/</guid>
+      <pubDate>Tue, 22 Sep 2026 06:00:00 GMT</pubDate>
+      <category>Events</category>
+      <dc:creator>Bright Sparks Junior School</dc:creator>
+      <description>Dress up, be comfy, have fun!</description>
+      <content:encoded><![CDATA[<p><img src="https://cbfywxwatrtcfhamksfl.supabase.co/storage/v1/object/public/news-images/1790046952482-1000646129.jpg" alt="Pyjama Day!"></p>Our Kindergarten learners are celebrating Pyjama Day, fun way to learn,bond and build confidence in a relaxed environment.&nbsp;]]></content:encoded>
+    </item>
+    <item>
+      <title>Beginning of term three Exams.</title>
+      <link>https://brightsparksjunior.ac.ug/news/beginning-of-term-three-exams/</link>
+      <guid isPermaLink="true">https://brightsparksjunior.ac.ug/news/beginning-of-term-three-exams/</guid>
+      <pubDate>Tue, 22 Sep 2026 06:00:00 GMT</pubDate>
+      <category>Academics</category>
+      <dc:creator>Bright Sparks Junior School</dc:creator>
+      <description>Courage in Exams,Pride in Results.</description>
+      <content:encoded><![CDATA[<p><img src="https://cbfywxwatrtcfhamksfl.supabase.co/storage/v1/object/public/news-images/1790046607829-1000646131.jpg" alt="Beginning of term three Exams."></p>Integrity and focus in Exams.<div>We wish all our learners success in their beginning of term three exams.</div>]]></content:encoded>
+    </item>
     <item>
       <title>BRIGHT SPARKS JUNIOR SCHOOL PREPARES FOR TERM III REOPENING AFTER A SUCCESSFUL TERM II</title>
       <link>https://brightsparksjunior.ac.ug/news/bright-sparks-junior-school-prepares-for-term-iii-reopening-after-a-successful-term-ii/</link>

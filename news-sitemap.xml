@@ -13,15 +13,4 @@
       <news:title>Pyjama Day!</news:title>
     </news:news>
   </url>
-  <url>
-    <loc>https://brightsparksjunior.ac.ug/news/beginning-of-term-three-exams/</loc>
-    <news:news>
-      <news:publication>
-        <news:name>Bright Sparks Junior School</news:name>
-        <news:language>en</news:language>
-      </news:publication>
-      <news:publication_date>2026-09-22T09:00:00+03:00</news:publication_date>
-      <news:title>Beginning of term three Exams.</news:title>
-    </news:news>
-  </url>
 </urlset>

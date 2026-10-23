@@ -10,7 +10,7 @@
     <description>News, announcements and events from Bright Sparks Junior School in Seguku, Kampala.</description>
     <language>en-UG</language>
     <copyright>Copyright 2026 Bright Sparks Junior School</copyright>
-    <lastBuildDate>Thu, 22 Oct 2026 01:57:43 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 23 Oct 2026 06:29:49 GMT</lastBuildDate>
     <image>
       <url>https://brightsparksjunior.ac.ug/logo.png</url>
       <title>Bright Sparks Junior School</title>
@@ -20,6 +20,16 @@
     <!-- WebSub: subscribers are told the moment this feed changes,
          instead of waiting to be crawled again. -->
     <atom:link rel="hub" href="https://pubsubhubbub.appspot.com/"/>
+    <item>
+      <title>Dua, Dedication prayers and Academic Day</title>
+      <link>https://brightsparksjunior.ac.ug/news/dua-dedication-prayers-and-academic-day/</link>
+      <guid isPermaLink="true">https://brightsparksjunior.ac.ug/news/dua-dedication-prayers-and-academic-day/</guid>
+      <pubDate>Sat, 24 Oct 2026 06:00:00 GMT</pubDate>
+      <category>Academics</category>
+      <dc:creator>Bright Sparks Junior School</dc:creator>
+      <description>Bright Sparks Junior School invites you to its Dedication, Dua and Academic Day.</description>
+      <content:encoded><![CDATA[<p><img src="https://cbfywxwatrtcfhamksfl.supabase.co/storage/v1/object/public/news-images/1792736934239-1000662023.jpg" alt="Dua, Dedication prayers and Academic Day"></p>May the Almighty accept our&nbsp; Duas and Prayers.]]></content:encoded>
+    </item>
     <item>
       <title>Pyjama Day!</title>
       <link>https://brightsparksjunior.ac.ug/news/pyjama-day/</link>

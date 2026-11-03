@@ -10,7 +10,7 @@
     <description>News, announcements and events from Bright Sparks Junior School in Seguku, Kampala.</description>
     <language>en-UG</language>
     <copyright>Copyright 2026 Bright Sparks Junior School</copyright>
-    <lastBuildDate>Sun, 01 Nov 2026 06:43:15 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 03 Nov 2026 17:16:04 GMT</lastBuildDate>
     <image>
       <url>https://brightsparksjunior.ac.ug/logo.png</url>
       <title>Bright Sparks Junior School</title>
@@ -21,14 +21,14 @@
          instead of waiting to be crawled again. -->
     <atom:link rel="hub" href="https://pubsubhubbub.appspot.com/"/>
     <item>
-      <title>Dua, Dedication prayers and Academic Day</title>
-      <link>https://brightsparksjunior.ac.ug/news/dua-dedication-prayers-and-academic-day/</link>
-      <guid isPermaLink="true">https://brightsparksjunior.ac.ug/news/dua-dedication-prayers-and-academic-day/</guid>
-      <pubDate>Sat, 24 Oct 2026 06:00:00 GMT</pubDate>
+      <title>PLE</title>
+      <link>https://brightsparksjunior.ac.ug/news/ple/</link>
+      <guid isPermaLink="true">https://brightsparksjunior.ac.ug/news/ple/</guid>
+      <pubDate>Tue, 03 Nov 2026 06:00:00 GMT</pubDate>
       <category>Academics</category>
       <dc:creator>Bright Sparks Junior School</dc:creator>
-      <description>Bright Sparks Junior School invites you to its Dedication, Dua and Academic Day.</description>
-      <content:encoded><![CDATA[<p><img src="https://cbfywxwatrtcfhamksfl.supabase.co/storage/v1/object/public/news-images/1792736934239-1000662023.jpg" alt="Dua, Dedication prayers and Academic Day"></p>May the Almighty accept our&nbsp; Duas and Prayers.]]></content:encoded>
+      <description>May you excel with flying colors</description>
+      <content:encoded><![CDATA[<p><img src="https://cbfywxwatrtcfhamksfl.supabase.co/storage/v1/object/public/news-images/1793725954979-1000667785.jpg" alt="PLE"></p>We thank you our dear Parents for your continuous prayers and support towards the success of our candidates' exams.]]></content:encoded>
     </item>
     <item>
       <title>Bright Sparks Junior School wishes SUCCESS to our P7 candidates 2026</title>
@@ -41,14 +41,14 @@
       <content:encoded><![CDATA[<p><img src="https://cbfywxwatrtcfhamksfl.supabase.co/storage/v1/object/public/news-images/1792737748909-1000662684.jpg" alt="Bright Sparks Junior School wishes SUCCESS to our P7 candidates 2026"></p>The School management prays that the candidates excel with flying colours in the upcoming Primary Leaving Examinations (PLE) and make the school proud.]]></content:encoded>
     </item>
     <item>
-      <title>Pyjama Day!</title>
-      <link>https://brightsparksjunior.ac.ug/news/pyjama-day/</link>
-      <guid isPermaLink="true">https://brightsparksjunior.ac.ug/news/pyjama-day/</guid>
-      <pubDate>Tue, 22 Sep 2026 06:00:00 GMT</pubDate>
-      <category>Events</category>
+      <title>Dua, Dedication prayers and Academic Day</title>
+      <link>https://brightsparksjunior.ac.ug/news/dua-dedication-prayers-and-academic-day/</link>
+      <guid isPermaLink="true">https://brightsparksjunior.ac.ug/news/dua-dedication-prayers-and-academic-day/</guid>
+      <pubDate>Sat, 24 Oct 2026 06:00:00 GMT</pubDate>
+      <category>Academics</category>
       <dc:creator>Bright Sparks Junior School</dc:creator>
-      <description>Dress up, be comfy, have fun!</description>
-      <content:encoded><![CDATA[<p><img src="https://cbfywxwatrtcfhamksfl.supabase.co/storage/v1/object/public/news-images/1790046952482-1000646129.jpg" alt="Pyjama Day!"></p>Our Kindergarten learners are celebrating Pyjama Day, fun way to learn,bond and build confidence in a relaxed environment.&nbsp;]]></content:encoded>
+      <description>Bright Sparks Junior School invites you to its Dedication, Dua and Academic Day.</description>
+      <content:encoded><![CDATA[<p><img src="https://cbfywxwatrtcfhamksfl.supabase.co/storage/v1/object/public/news-images/1792736934239-1000662023.jpg" alt="Dua, Dedication prayers and Academic Day"></p>May the Almighty accept our&nbsp; Duas and Prayers.]]></content:encoded>
     </item>
     <item>
       <title>Beginning of term three Exams.</title>
@@ -59,6 +59,16 @@
       <dc:creator>Bright Sparks Junior School</dc:creator>
       <description>Courage in Exams,Pride in Results.</description>
       <content:encoded><![CDATA[<p><img src="https://cbfywxwatrtcfhamksfl.supabase.co/storage/v1/object/public/news-images/1790046607829-1000646131.jpg" alt="Beginning of term three Exams."></p>Integrity and focus in Exams.<div>We wish all our learners success in their beginning of term three exams.</div>]]></content:encoded>
+    </item>
+    <item>
+      <title>Pyjama Day!</title>
+      <link>https://brightsparksjunior.ac.ug/news/pyjama-day/</link>
+      <guid isPermaLink="true">https://brightsparksjunior.ac.ug/news/pyjama-day/</guid>
+      <pubDate>Tue, 22 Sep 2026 06:00:00 GMT</pubDate>
+      <category>Events</category>
+      <dc:creator>Bright Sparks Junior School</dc:creator>
+      <description>Dress up, be comfy, have fun!</description>
+      <content:encoded><![CDATA[<p><img src="https://cbfywxwatrtcfhamksfl.supabase.co/storage/v1/object/public/news-images/1790046952482-1000646129.jpg" alt="Pyjama Day!"></p>Our Kindergarten learners are celebrating Pyjama Day, fun way to learn,bond and build confidence in a relaxed environment.&nbsp;]]></content:encoded>
     </item>
     <item>
       <title>BRIGHT SPARKS JUNIOR SCHOOL PREPARES FOR TERM III REOPENING AFTER A SUCCESSFUL TERM II</title>
